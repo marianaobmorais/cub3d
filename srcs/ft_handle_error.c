@@ -4,5 +4,8 @@ void	ft_handle_error(const char *error_msg)
 {
 	//TODO insert brief
 	printf("Error\n"); //stdout or stderr ?
-	printf("%s\n", error_msg);
+	if (error_msg)
+		printf("%s\n", error_msg);
+	else
+		perror("");
 }
