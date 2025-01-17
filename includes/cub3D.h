@@ -13,9 +13,14 @@
 # include <fcntl.h>
 # include <errno.h>
 # include <string.h>
+# include <stdbool.h>
 
-/* ft_handle_error */
+/* ft_handle_error.c */
 
 void	ft_handle_error(const char *error_msg);
+
+/* ft_loadmap.c */
+
+int		ft_loadmap(char *const filepath);
 
 # endif //CUB3D_H

@@ -12,6 +12,7 @@ MLIBX_DIR = ./minilibx-linux
 
 SRCS = $(SRCS_DIR)/main.c \
 	$(SRCS_DIR)/ft_handle_error.c \
+	$(SRCS_DIR)/ft_loadmap.c \
 
 #B_SRCS = $(BONUS_DIR)/main_bonus.c \
 

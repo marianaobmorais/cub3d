@@ -10,8 +10,8 @@ int	main(int argc, char **argv)
 		ft_handle_error(strerror(EINVAL));
 		exit(2);
 	}
-	//ft_loadmap(argv);
-	//printf("%s");
+	ft_loadmap(argv[1]);
 	printf("Starting cub3D...\n");
+	//printf("%s");
 	return (0);
 }
