@@ -128,3 +128,37 @@ void	ft_free_vector(char **vector)
 		free(vector);
 	}
 }
+
+void	ft_add_rgb(char *line, t_cub *cub)
+{
+	char	**tmp;
+	int		nbr;
+	int		i;
+	int		z;
+
+	i = 0;
+	tmp = ft_split(line + 1, ',');
+	if (tmp[3])
+	{
+		free(line);
+		ft_free_vector(tmp);
+		ft_handle_error("Color: too many arguments", cub);
+	}
+	while (tmp[i])
+	{
+		ft_strip(tmp[i]);
+		z = 0;
+		while (tmp[i][z])
+		{
+			if (!ft_isdigit(tmp[i][z]))
+				ft_handle_error("Color: no numeric", cub);
+			z++;
+		}
+		nbr = ft_atoi(tmp[i]);
+		if (nbr < 0 || nbr > 255)
+			ft_handle_error("Color: without range RGB", cub);
+		if (i == 0)
+			cub->map->
+		i++;
+	}
+}
