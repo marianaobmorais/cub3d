@@ -11,6 +11,8 @@ MLIBX = ./minilibx-linux/libmlx.a
 MLIBX_DIR = ./minilibx-linux
 
 SRCS = $(SRCS_DIR)/main.c \
+		$(SRCS_DIR)/ft_init.c \
+		$(SRCS_DIR)/hook_utils.c \
 
 #B_SRCS = $(BONUS_DIR)/main_bonus.c \
 
