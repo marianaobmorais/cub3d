@@ -4,6 +4,7 @@ static void	ft_map_parser(char *line, t_cub *cub, int i)
 {
 	//TODO insert brief
 	ft_strip(line); //talvez para o mapa tenha que preservar 
+	// funcao para validar linha vazia e nao modificar line
 	if (*line == '\0')
 		return ;
 	else if (ft_strnstr(line, "NO", ft_strlen(line)))
@@ -21,8 +22,9 @@ static void	ft_map_parser(char *line, t_cub *cub, int i)
 	else
 	{
 		if (i == 0)
-			ft_handle_error("map invalid order", cub);
-		//if (ft_validate_texture and color)
+			ft_handle_error("Map: invalid order", cub);
+		if (!ft_validate_before(cub))
+			ft_handle_error("Map: missing arguments", cub);
 		ft_add_map(line, cub);
 	}
 }
@@ -46,7 +48,7 @@ static void	ft_init_map(int fd, t_cub *cub)
 	cub->map->ceiling_rgb = NULL;
 	line = get_next_line(fd);
 	if (!line)
-		ft_handle_error("Map: empty", cub); //TODO close fd
+		ft_handle_error("Map: empty", cub);
 	while (line)
 	{
 		ft_map_parser(line, cub, i);

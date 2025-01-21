@@ -129,36 +129,63 @@ void	ft_free_vector(char **vector)
 	}
 }
 
-void	ft_add_rgb(char *line, t_cub *cub)
+int	ft_isnumeric(char *nbr)
+{
+	int	i;
+
+	i = 0;
+	while (nbr[i])
+	{
+		if (!ft_isdigit(nbr[i]))
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+void	ft_add_rgb(char *line, t_cub *cub, unsigned char *rgb)
 {
 	char	**tmp;
 	int		nbr;
 	int		i;
-	int		z;
 
 	i = 0;
 	tmp = ft_split(line + 1, ',');
-	if (tmp[3])
-	{
-		free(line);
-		ft_free_vector(tmp);
-		ft_handle_error("Color: too many arguments", cub);
-	}
 	while (tmp[i])
 	{
+		if (i > 2)
+			return (free(line), ft_free_vector(tmp), \
+				ft_handle_error("Color: too many arguments", cub));
 		ft_strip(tmp[i]);
-		z = 0;
-		while (tmp[i][z])
-		{
-			if (!ft_isdigit(tmp[i][z]))
-				ft_handle_error("Color: no numeric", cub);
-			z++;
-		}
+		if (!ft_isnumeric(tmp[i]))
+			return (free(line), ft_free_vector(tmp), \
+				ft_handle_error("Color: no numeric", cub));
 		nbr = ft_atoi(tmp[i]);
 		if (nbr < 0 || nbr > 255)
-			ft_handle_error("Color: without range RGB", cub);
-		if (i == 0)
-			cub->map->
+			return (free(line), ft_free_vector(tmp), \
+				ft_handle_error("Color: without range RGB", cub));
+		rgb[i] = nbr;
 		i++;
 	}
+	if (i < 3)
+		return (free(line), ft_free_vector(tmp), \
+			ft_handle_error("Color: missing arguments", cub));
+	ft_free_vector(tmp);
+}
+
+bool	ft_validate_before(t_cub *cub)
+{
+	if (!cub->map->north_texture)
+		return (false);
+	if (!cub->map->south_texture)
+		return (false);
+	if (!cub->map->west_texture)
+		return (false);
+	if (!cub->map->east_texture)
+		return (false);
+	if (!cub->map->ceiling_rgb)
+		return (false);
+	if (!cub->map->floor_rgb)
+		return (false);
+	return (true);
 }

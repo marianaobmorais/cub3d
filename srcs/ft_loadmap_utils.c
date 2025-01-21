@@ -36,25 +36,30 @@ void	ft_add_color(char *line, t_cub *cub, char *identifier, \
 	t_directions direction)
 {
 	//TODO add brief
-	char	**tmp;
 
 	if (ft_strncmp(identifier, line, 1) == 0 && !ft_isalpha(line[1]))
 	{
-		tmp = ft_split(line + 1, ',');
 		if (direction == FLOOR && !cub->map->floor_rgb)
 		{
-			printf("FLOOR [%s, %s, %s]\n", tmp[0], tmp[1], tmp[2]); //debug
-			ft_free_vector(tmp);
+			cub->map->floor_rgb = malloc(sizeof(unsigned char) * 3);
+			if (!cub->map->floor_rgb)
+				ft_handle_error("malloc floor rgb", cub);
+			ft_add_rgb(line, cub, cub->map->floor_rgb);
+			// printf("%s [%d, %d, %d]\n", identifier, cub->map->floor_rgb[0],
+			// 	cub->map->floor_rgb[1], cub->map->floor_rgb[2]); //debug
 		}
 		else if (direction == CEILING && !cub->map->ceiling_rgb)
 		{
-			printf("CEILING [%s, %s, %s]\n", tmp[0], tmp[1], tmp[2]); //debug
-			ft_free_vector(tmp);
+			cub->map->ceiling_rgb = malloc(sizeof(unsigned char) * 3);
+			if (!cub->map->ceiling_rgb)
+				ft_handle_error("malloc ceiling rgb", cub);
+			ft_add_rgb(line, cub, cub->map->ceiling_rgb);
+			// printf("%s [%d, %d, %d]\n", identifier, cub->map->ceiling_rgb[0],
+			// 	cub->map->ceiling_rgb[1], cub->map->ceiling_rgb[2]); //debug
 		}
 		else
 		{
 			free(line);
-			ft_free_vector(tmp);
 			ft_handle_error("Color: duplicate", cub);
 		}
 	}
