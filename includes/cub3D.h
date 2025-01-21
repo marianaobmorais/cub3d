@@ -77,5 +77,6 @@ int		ft_isspace(int c);
 void	ft_free_vector(char **vector);
 void	ft_add_rgb(char *line, t_cub *cub, unsigned char *rgb);
 bool	ft_validate_before(t_cub *cub);
+int		ft_isempty(char *line);
 
 # endif //CUB3D_H

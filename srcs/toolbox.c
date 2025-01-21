@@ -189,3 +189,13 @@ bool	ft_validate_before(t_cub *cub)
 		return (false);
 	return (true);
 }
+
+int	ft_isempty(char *line)
+{
+	char	*tmp;
+
+	tmp = ft_strip(line);
+	if (*line == '\0')
+		return (free(tmp), 1);
+	return (free(tmp), 0);
+}
