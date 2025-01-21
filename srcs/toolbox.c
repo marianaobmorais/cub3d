@@ -194,7 +194,7 @@ int	ft_isempty(char *line)
 {
 	char	*tmp;
 
-	tmp = ft_strip(line);
+	tmp = ft_strip(ft_strdup(line));
 	if (*line == '\0')
 		return (free(tmp), 1);
 	return (free(tmp), 0);

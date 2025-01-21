@@ -3,9 +3,7 @@
 static void	ft_map_parser(char *line, t_cub *cub, int i)
 {
 	//TODO insert brief
-	//ft_strip(line); //talvez para o mapa tenha que preservar 
-	// funcao para validar linha vazia e nao modificar line
-	if (*line == '\0')
+	if (!ft_isempty(line))
 		return ;
 	else if (ft_strnstr(line, "NO", ft_strlen(line)))
 		ft_add_texture(line, cub, "NO", NORTH);
