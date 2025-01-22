@@ -48,7 +48,7 @@ void	ft_add_color(char *line, t_cub *cub, char *identifier, \
 		{
 			cub->map->floor_rgb = malloc(sizeof(unsigned char) * 3);
 			if (!cub->map->floor_rgb) // free(new_line);
-				ft_handle_error("malloc floor rgb", cub);
+				ft_handle_error("Malloc: floor_rgb", cub);
 			ft_add_rgb(new_line, cub, cub->map->floor_rgb);
 			// printf("%s [%d, %d, %d]\n", identifier, cub->map->floor_rgb[0],
 			// 	cub->map->floor_rgb[1], cub->map->floor_rgb[2]); //debug
@@ -57,7 +57,7 @@ void	ft_add_color(char *line, t_cub *cub, char *identifier, \
 		{
 			cub->map->ceiling_rgb = malloc(sizeof(unsigned char) * 3);
 			if (!cub->map->ceiling_rgb) //free(new_line);
-				ft_handle_error("malloc ceiling rgb", cub);
+				ft_handle_error("Malloc: ceiling_rgb", cub);
 			ft_add_rgb(new_line, cub, cub->map->ceiling_rgb);
 			// printf("%s [%d, %d, %d]\n", identifier, cub->map->ceiling_rgb[0],
 			// 	cub->map->ceiling_rgb[1], cub->map->ceiling_rgb[2]); //debug

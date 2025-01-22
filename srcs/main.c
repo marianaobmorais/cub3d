@@ -6,7 +6,7 @@ int	main(int argc, char **argv)
 
 	cub = (t_cub *) malloc(sizeof(t_cub));
 	if (!cub)
-		ft_handle_error("malloc cub", cub);
+		ft_handle_error("Malloc: t_cub", cub);
 	if (argc != 2)
 		ft_handle_error(strerror(EINVAL), cub);
 	ft_loadmap(argv[1], cub);

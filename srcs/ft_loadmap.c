@@ -36,7 +36,7 @@ static void	ft_init_map(int fd, t_cub *cub)
 	i = 0;
 	cub->map = (t_map *) malloc(sizeof(t_map));
 	if (!cub->map)
-		ft_handle_error("malloc map", cub);
+		ft_handle_error("Malloc: t_map", cub);
 	cub->map->map = NULL;
 	cub->map->north_texture = NULL;
 	cub->map->south_texture = NULL;

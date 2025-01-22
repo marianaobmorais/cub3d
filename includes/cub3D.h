@@ -15,11 +15,9 @@
 # include <string.h>
 # include <stdbool.h>
 
-# define MSG_TEXTURE_EXT
-# define MSG_TEXTURE_FILE
-# define MSG_TEXTURE_ARG
-# define MSG_TEXTURE_DUP
-# define MSG_MAP_EXT
+# define MSG_MAP "Map: Something is wrong 😕"
+# define MSG_TEXTURE "Texture: Something is wrong 😕"
+# define MSG_COLOR "Color: Something is wrong 😕"
 
 typedef struct s_map
 {
