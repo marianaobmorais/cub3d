@@ -72,9 +72,20 @@ void	ft_add_color(char *line, t_cub *cub, char *identifier, \
 	free(new_line);
 }
 
-void	ft_add_map(char *line, t_cub *cub)
+char	*ft_buffer(char *buffer, char *line, int start, t_cub *cub)
 {
 	//TODO add brief
-	(void)cub;
-	printf("line->%s\n", line); //debug
+	char	*tmp;
+
+	if (ft_isempty(line) == 1 && start == 0)
+	{
+		free(buffer);
+		ft_handle_error("Map: error new line", cub);
+	}
+	if (ft_isempty(line) == 1)
+		return (NULL);
+	tmp = ft_strjoin(buffer, line);
+	free(buffer);
+	return (tmp);
+	//printf("line->%s\n", line); //debug
 }

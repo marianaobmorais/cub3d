@@ -194,8 +194,27 @@ int	ft_isempty(char *line)
 {
 	char	*tmp;
 
+	if (!line)
+		return (1);
 	tmp = ft_strip(ft_strdup(line));
-	if (*line == '\0')
+	if (!tmp)
+		return (1);
+	if (tmp[0] == '\0')
 		return (free(tmp), 1);
 	return (free(tmp), 0);
+}
+
+void	ft_print_map(t_map *map)
+{
+	int	i;
+
+	i = 0;
+	if (map->matrix)
+	{
+		while (map->matrix[i])
+		{
+			printf("[%d] %s\n", i, map->matrix[i]);
+			i++;
+		}
+	}
 }

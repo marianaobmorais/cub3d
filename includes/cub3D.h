@@ -21,7 +21,7 @@
 
 typedef struct s_map
 {
-	char			**map;
+	char			**matrix;
 	char			*north_texture;
 	char			*south_texture;
 	char			*west_texture;
@@ -64,7 +64,7 @@ void	ft_add_texture(char *line, t_cub *cub, char *identifier, \
 	t_directions direction);
 void	ft_add_color(char *line, t_cub *cub, char *identifier, \
 	t_directions direction);
-void	ft_add_map(char *line, t_cub *cub);
+char	*ft_buffer(char *buffer, char *line, int start, t_cub *cub);
 
 /* toolbox.c */
 
@@ -76,5 +76,6 @@ void	ft_free_vector(char **vector);
 void	ft_add_rgb(char *line, t_cub *cub, unsigned char *rgb);
 bool	ft_validate_before(t_cub *cub);
 int		ft_isempty(char *line);
+void	ft_print_map(t_map *map);
 
 # endif //CUB3D_H

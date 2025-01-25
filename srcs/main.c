@@ -11,6 +11,7 @@ int	main(int argc, char **argv)
 		ft_handle_error(strerror(EINVAL), cub);
 	ft_loadmap(argv[1], cub);
 	printf("Starting cub3D...\n");
+	ft_print_map(cub->map);
 	ft_clean_cub(cub);
 	return (0);
 }
