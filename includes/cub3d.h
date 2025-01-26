@@ -64,13 +64,18 @@ void	ft_loadmap(char *const filepath, t_cub *cub);
 
 void	ft_map_parser(int fd, t_cub *cub);
 
+/* ft_map_parser_utils.c */
+
+char	*ft_buffer(char *buffer, char *line, int start, t_cub *cub);
+void	ft_add_texture(char *line, t_cub *cub, char *identifier, \
+	t_directions direction);
+
 /* parser_utils.c */
 
 bool	ft_access(char *filepath);
 bool	ft_is_ext(char *filename, char *ext);
 char	*ft_strip(char *str);
 int		ft_isspace(int c);
-int		ft_isempty(char *line);
 int		ft_isnumeric(char *nbr);
 void	ft_print_map(t_map *map); //debug
 
@@ -80,6 +85,8 @@ void	ft_matrix_parser(t_cub *cub, char **matrix);
 
 /* ft_matrix_parser_utils.c */
 
+int		ft_isempty(char *line);
 bool	ft_valid_wall(char *line);
+
 
 # endif //CUB3D_H
