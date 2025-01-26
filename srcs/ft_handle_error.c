@@ -1,4 +1,30 @@
-#include "../includes/cub3D.h"
+#include "../includes/cub3d.h"
+
+/**
+ * @brief Frees all strings in a vector (array of strings) and the vector
+ *        itself.
+ *
+ * This function iterates through the array of strings (vector), freeing each
+ * string individually. After all strings are freed, the function frees the
+ * vector pointer itself to prevent memory leaks.
+ *
+ * @param vector A pointer to the array of strings to be freed.
+ */
+void	ft_free_vector(char **vector)
+{
+	int	i;
+
+	i = 0;
+	if (vector)
+	{
+		while (vector[i])
+		{
+			free(vector[i]);
+			i++;
+		}
+		free(vector);
+	}
+}
 
 void	ft_clean_map(t_map *map)
 {
@@ -13,6 +39,10 @@ void	ft_clean_map(t_map *map)
 		free(map->west_texture);
 	if (map->east_texture)
 		free(map->east_texture);
+	if (map->ceiling_rgb)
+		free(map->ceiling_rgb);
+	if (map->floor_rgb)
+		free(map->floor_rgb);
 }
 
 void	ft_clean_cub(t_cub *cub)

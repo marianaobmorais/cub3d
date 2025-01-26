@@ -1,4 +1,4 @@
-#include "../includes/cub3D.h"
+#include "../../includes/cub3d.h"
 
 /**
  * @brief Checks if a file is accessible for reading.
@@ -103,32 +103,6 @@ char	*ft_strip(char *str)
 	return (str);
 }
 
-/**
- * @brief Frees all strings in a vector (array of strings) and the vector
- *        itself.
- *
- * This function iterates through the array of strings (vector), freeing each
- * string individually. After all strings are freed, the function frees the
- * vector pointer itself to prevent memory leaks.
- *
- * @param vector A pointer to the array of strings to be freed.
- */
-void	ft_free_vector(char **vector)
-{
-	int	i;
-
-	i = 0;
-	if (vector)
-	{
-		while (vector[i])
-		{
-			free(vector[i]);
-			i++;
-		}
-		free(vector);
-	}
-}
-
 int	ft_isnumeric(char *nbr)
 {
 	int	i;
@@ -141,53 +115,6 @@ int	ft_isnumeric(char *nbr)
 		i++;
 	}
 	return (1);
-}
-
-void	ft_add_rgb(char *line, t_cub *cub, unsigned char *rgb)
-{
-	char	**tmp;
-	int		nbr;
-	int		i;
-
-	i = 0;
-	tmp = ft_split(line + 1, ',');
-	while (tmp[i])
-	{
-		if (i > 2)
-			return (free(line), ft_free_vector(tmp), \
-				ft_handle_error("Color: too many arguments", cub));
-		ft_strip(tmp[i]);
-		if (!ft_isnumeric(tmp[i]))
-			return (free(line), ft_free_vector(tmp), \
-				ft_handle_error("Color: no numeric", cub));
-		nbr = ft_atoi(tmp[i]);
-		if (nbr < 0 || nbr > 255)
-			return (free(line), ft_free_vector(tmp), \
-				ft_handle_error("Color: without range RGB", cub));
-		rgb[i] = nbr;
-		i++;
-	}
-	if (i < 3)
-		return (free(line), ft_free_vector(tmp), \
-			ft_handle_error("Color: missing arguments", cub));
-	ft_free_vector(tmp);
-}
-
-bool	ft_validate_before(t_cub *cub)
-{
-	if (!cub->map->north_texture)
-		return (false);
-	if (!cub->map->south_texture)
-		return (false);
-	if (!cub->map->west_texture)
-		return (false);
-	if (!cub->map->east_texture)
-		return (false);
-	if (!cub->map->ceiling_rgb)
-		return (false);
-	if (!cub->map->floor_rgb)
-		return (false);
-	return (true);
 }
 
 int	ft_isempty(char *line)
@@ -209,6 +136,8 @@ void	ft_print_map(t_map *map)
 	int	i;
 
 	i = 0;
+	printf("Player x=%d y=%d direction=%d\n", map->player_pos_x, \
+		map->player_pos_y, map->direction );
 	if (map->matrix)
 	{
 		while (map->matrix[i])
