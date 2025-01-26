@@ -135,7 +135,7 @@ void	ft_print_map(t_map *map)
 
 	i = 0;
 	printf("Player x=%d y=%d direction=%d\n", map->player_pos_x, \
-		map->player_pos_y, map->direction );
+		map->player_pos_y, map->direction);
 	if (map->matrix)
 	{
 		while (map->matrix[i])

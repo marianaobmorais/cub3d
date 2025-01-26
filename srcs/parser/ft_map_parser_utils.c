@@ -58,13 +58,14 @@ void	ft_add_texture(char *line, t_cub *cub, char *identifier, \
 	tmp = ft_split(new_line, ' ');
 	free(new_line);
 	if (tmp[2])
-		return (ft_free_vector(tmp), free(line), ft_handle_error(MSG_TEXTURE, cub));
+		return (ft_free_vector(tmp), free(line), \
+			ft_handle_error(MSG_TEXTURE, cub));
 	if (ft_strncmp(identifier, tmp[0], ft_strlen(tmp[0])) == 0)
 	{
 		filepath = ft_strip(ft_strdup(tmp[1]));
 		ft_free_vector(tmp);
 		if (!ft_is_ext(filepath, ".xpm"))
-			return (free(filepath), ft_handle_error(MSG_TEXTURE, cub)); //extension
+			return (free(filepath), ft_handle_error(MSG_TEXTURE, cub)); //ext
 		if (!ft_access(filepath))
 			return (free(filepath), ft_handle_error(MSG_TEXTURE, cub)); // file
 		if (!ft_set_texture(cub, filepath, direction))
