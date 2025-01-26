@@ -26,9 +26,18 @@ void	ft_free_vector(char **vector)
 	}
 }
 
+/**
+ * @brief Cleans up and frees memory allocated for the map structure.
+ * 
+ * Frees all dynamically allocated fields within the map structure (t_map), 
+ * including the matrix, textures, and RGB values for the floor and ceiling. 
+ * This function ensures proper deallocation to prevent memory leaks.
+ * 
+ * @param map A pointer to the map structure (t_map) to be cleaned up. 
+ *            The structure itself is not freed.
+ */
 void	ft_clean_map(t_map *map)
 {
-	//TODO add brief
 	if (map->matrix)
 		ft_free_vector(map->matrix);
 	if (map->north_texture)
@@ -45,9 +54,19 @@ void	ft_clean_map(t_map *map)
 		free(map->floor_rgb);
 }
 
+/**
+ * @brief Cleans up and frees memory allocated for the game structure.
+ * 
+ * Releases all resources associated with the game structure (t_cub), including 
+ * closing the file descriptor, freeing the map structure and its contents, and 
+ * deallocating other dynamically allocated fields. Ensures proper cleanup to 
+ * prevent memory leaks.
+ * 
+ * @param cub A pointer to the game structure (t_cub) to be cleaned up. 
+ *            The structure itself is also freed.
+ */
 void	ft_clean_cub(t_cub *cub)
 {
-	//TODO add brief
 	if (cub)
 	{
 		if (cub->fd != -1)
@@ -63,16 +82,27 @@ void	ft_clean_cub(t_cub *cub)
 	free(cub);
 }
 
+/**
+ * @brief Handles errors, logs a message, cleans resources, and exits the
+ *        program.
+ * 
+ * Logs the provided error message or a system error message if no specific 
+ * message is given. Cleans up all allocated resources within the game 
+ * structure (t_cub) and terminates the program. The exit code and output 
+ * destination for the error message should be specified during implementation.
+ * 
+ * @param error_msg The custom error message to display, or NULL to display 
+ *                  a system error message.
+ * @param cub A pointer to the game structure (t_cub) to clean up before 
+ *            program termination.
+ */
 void	ft_handle_error(const char *error_msg, t_cub *cub)
 {
-	//TODO insert brief
-	(void)cub;
-
 	printf("Error\n"); //TODO stdout or stderr ?
 	if (error_msg)
 		printf("%s\n", error_msg);
 	else
 		perror("");
 	ft_clean_cub(cub);
-	exit (0); //TODO exit code
+	exit (0);
 }

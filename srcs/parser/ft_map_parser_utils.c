@@ -1,8 +1,22 @@
 #include "../../includes/cub3d.h"
 
+/**
+ * @brief Sets the texture for a specific direction in the game map.
+ * 
+ * Assigns the given texture file path to the appropriate direction in the 
+ * map's texture fields (north, south, west, or east). If the texture for the 
+ * given direction has already been set, the function does not overwrite it.
+ * 
+ * @param cub A pointer to the game structure (t_cub) containing the map 
+ *            and its texture data.
+ * @param filepath The path to the texture file to be assigned.
+ * @param direction The direction for which to set the texture (NORTH, SOUTH, 
+ *                  WEST, or EAST).
+ * @return true if the texture was successfully set, false if the direction 
+ *         already has a texture assigned or if the direction is invalid.
+ */
 static bool	ft_set_texture(t_cub *cub, char *filepath, t_directions direction)
 {
-	//TODO insert brief
 	if (direction == NORTH && !cub->map->north_texture)
 		cub->map->north_texture = filepath;
 	else if (direction == SOUTH && !cub->map->south_texture)
@@ -16,10 +30,26 @@ static bool	ft_set_texture(t_cub *cub, char *filepath, t_directions direction)
 	return (true);
 }
 
+/**
+ * @brief Processes and adds a texture to the game map based on the input line.
+ * 
+ * Parses the provided line to extract the texture file path for a specific 
+ * direction (north, south, west, or east). It ensures that the file path has 
+ * a valid extension (.xpm), the file exists, and the texture for the given 
+ * direction is not already set. If any condition is violated, an error is 
+ * triggered and handled appropriately.
+ * 
+ * @param line The input line containing the texture definition.
+ * @param cub A pointer to the game structure (t_cub) where the texture will 
+ *            be stored.
+ * @param identifier The identifier used to check if the line corresponds to 
+ *                   the correct texture type (e.g., "NO", "SO").
+ * @param direction The direction for which to assign the texture (NORTH, 
+ *                  SOUTH, WEST, or EAST).
+ */
 void	ft_add_texture(char *line, t_cub *cub, char *identifier, \
 	t_directions direction)
 {
-	//TODO add brief
 	char	*new_line;
 	char	**tmp;
 	char	*filepath;
@@ -42,9 +72,24 @@ void	ft_add_texture(char *line, t_cub *cub, char *identifier, \
 	}
 }
 
+/**
+ * @brief Appends a line to a buffer, handling empty lines and errors.
+ * 
+ * Checks if the given line is empty. If the line is empty and it's the first 
+ * line (start == 0), it frees both the line and the buffer, and triggers an 
+ * error. Otherwise, it appends the line to the existing buffer and returns 
+ * the updated buffer. If the line is empty, it returns NULL to indicate that 
+ * no appending occurred.
+ * 
+ * @param buffer The current buffer to which the line will be appended.
+ * @param line The line to append to the buffer.
+ * @param start The position indicating if it's the first line (start == 0).
+ * @param cub A pointer to the game structure (t_cub) to handle errors.
+ * @return The updated buffer with the line appended, or NULL if the line is 
+ *         empty.
+ */
 char	*ft_buffer(char *buffer, char *line, int start, t_cub *cub)
 {
-	//TODO add brief
 	char	*tmp;
 
 	if (ft_isempty(line) == 1 && start == 0)

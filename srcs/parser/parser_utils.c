@@ -103,6 +103,17 @@ char	*ft_strip(char *str)
 	return (str);
 }
 
+/**
+ * @brief Checks if a string contains only numeric characters.
+ * 
+ * Verifies whether the given string consists exclusively of digits (0-9). 
+ * The function iterates over each character in the string and checks if each 
+ * one is a valid digit. If any non-digit character is found, the function 
+ * returns false.
+ * 
+ * @param nbr The string to check, as a null-terminated char array.
+ * @return 1 if the string is entirely numeric, 0 otherwise.
+ */
 int	ft_isnumeric(char *nbr)
 {
 	int	i;
@@ -117,20 +128,7 @@ int	ft_isnumeric(char *nbr)
 	return (1);
 }
 
-int	ft_isempty(char *line)
-{
-	char	*tmp;
-
-	if (!line)
-		return (1);
-	tmp = ft_strip(ft_strdup(line));
-	if (!tmp)
-		return (1);
-	if (tmp[0] == '\0')
-		return (free(tmp), 1);
-	return (free(tmp), 0);
-}
-
+/* DEBUG */
 void	ft_print_map(t_map *map)
 {
 	int	i;

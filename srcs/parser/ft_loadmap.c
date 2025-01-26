@@ -1,8 +1,18 @@
 #include "../../includes/cub3d.h"
 
+/**
+ * @brief Initializes the map structure within the game configuration.
+ * 
+ * Allocates memory for the map structure (t_map) and sets all its fields to 
+ * default values. If memory allocation fails, the function handles the error 
+ * appropriately. This initialization ensures the map is ready for parsing and 
+ * further processing.
+ * 
+ * @param cub A pointer to the game structure (t_cub) where the map structure 
+ *            will be initialized.
+ */
 static void	ft_init_map(t_cub *cub)
 {
-	//TODO insert brief
 	cub->map = (t_map *) malloc(sizeof(t_map));
 	if (!cub->map)
 		ft_handle_error("Malloc: t_map", cub);
@@ -16,12 +26,23 @@ static void	ft_init_map(t_cub *cub)
 	cub->map->player_pos_x = -1;
 	cub->map->player_pos_y = -1;
 	cub->map->direction = -1;
-	//TODO all check inside on ft map parser
 }
 
-void ft_loadmap(char *const filepath, t_cub *cub)
+/**
+ * @brief Loads and processes a map file for a game configuration.
+ * 
+ * Reads and validates a map file specified by the given filepath, ensuring it 
+ * has the correct file extension (".cub") and is accessible. The function 
+ * initializes the map, parses its content, and processes the map matrix for 
+ * further use in the game. If any error occurs during these steps, it handles 
+ * the error appropriately.
+ * 
+ * @param filepath The path to the map file, as a null-terminated string.
+ * @param cub A pointer to the game structure (t_cub) where map data and 
+ *            configuration will be stored.
+ */
+void	ft_loadmap(char *const filepath, t_cub *cub)
 {
-	//TODO insert brief
 	cub->filepath = ft_strip(ft_strdup(filepath));
 	if (!ft_is_ext(cub->filepath, ".cub"))
 		ft_handle_error("Map: File extension", cub);

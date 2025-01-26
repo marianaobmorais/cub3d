@@ -1,5 +1,18 @@
 #include "../../includes/cub3d.h"
 
+/**
+ * @brief Parses and assigns RGB values from a color definition line.
+ * 
+ * Extracts and validates the RGB components from the given line, ensuring 
+ * they are numeric values within the valid range (0-255). The function splits 
+ * the line by commas and checks that there are exactly three valid components 
+ * before assigning them to the provided RGB array. If any error occurs, 
+ * the function triggers an error and cleans up resources.
+ * 
+ * @param line The input line containing the RGB color definition.
+ * @param cub A pointer to the game structure (t_cub) to handle errors.
+ * @param rgb A pointer to the array where the RGB components will be stored.
+ */
 static void	ft_add_rgb(char *line, t_cub *cub, unsigned char *rgb)
 {
 	char	**tmp;
@@ -12,63 +25,44 @@ static void	ft_add_rgb(char *line, t_cub *cub, unsigned char *rgb)
 	{
 		if (i > 2)
 			return (free(line), ft_free_vector(tmp), \
-				ft_handle_error("Color: too many arguments", cub));
+				ft_handle_error(MSG_COLOR, cub)); //arguments
 		ft_strip(tmp[i]);
 		if (!ft_isnumeric(tmp[i]))
 			return (free(line), ft_free_vector(tmp), \
-				ft_handle_error("Color: no numeric", cub));
+				ft_handle_error(MSG_COLOR, cub)); //numeric
 		nbr = ft_atoi(tmp[i]);
 		if (nbr < 0 || nbr > 255)
 			return (free(line), ft_free_vector(tmp), \
-				ft_handle_error("Color: without range RGB", cub));
+				ft_handle_error(MSG_COLOR, cub)); //range
 		rgb[i] = nbr;
 		i++;
 	}
-	if (i < 3)
-		return (free(line), ft_free_vector(tmp), \
-			ft_handle_error("Color: missing arguments", cub));
 	ft_free_vector(tmp);
+	if (i < 3)
+		return (free(line), ft_handle_error(MSG_COLOR, cub)); //arguments
 }
 
-static void	ft_add_texture(char *line, t_cub *cub, char *identifier, \
-	t_directions direction)
-{
-	//TODO add brief
-	char	*new_line;
-	char	**tmp;
-	char	*filepath;
-
-	new_line = ft_strip(ft_strdup(line));
-	tmp = ft_split(new_line, ' ');
-	free(new_line);
-	if (tmp[2])
-		return (ft_free_vector(tmp), free(line), ft_handle_error("Texture: too many arguments", cub));
-	if (ft_strncmp(identifier, tmp[0], ft_strlen(tmp[0])) == 0)
-	{
-		filepath = ft_strip(ft_strdup(tmp[1]));
-		ft_free_vector(tmp);
-		if (!ft_is_ext(filepath, ".xpm"))
-			return (free(filepath), ft_handle_error("Texture: File extension", cub));
-		if (!ft_access(filepath))
-			return (free(filepath), ft_handle_error("Texture: No such file/directory or permision", cub));
-		if (direction == NORTH && !cub->map->north_texture)
-			cub->map->north_texture = filepath;
-		else if (direction == SOUTH && !cub->map->south_texture)
-			cub->map->south_texture = filepath;
-		else if (direction == WEST && !cub->map->west_texture)
-			cub->map->west_texture = filepath;
-		else if (direction == EAST && !cub->map->east_texture)
-			cub->map->east_texture = filepath;
-		else
-			return (free(line), ft_handle_error("Texture: duplicate", cub));
-		printf("Texture %s\n", identifier); //debug
-	}
-}
-
+/**
+ * @brief Processes and assigns RGB color values for the floor or ceiling.
+ * 
+ * Parses the given line to extract RGB values for either the floor or ceiling 
+ * of the game map, based on the specified identifier and direction.
+ * The function ensures that the color is assigned only once for each of the
+ * floor and ceiling. 
+ * It also handles memory allocation for the RGB values and validates the input.
+ * If any errors are encountered, an error message is triggered and resources 
+ * are freed.
+ * 
+ * @param line The input line containing the color definition.
+ * @param cub A pointer to the game structure (t_cub) to handle errors.
+ * @param identifier The identifier used to check the color type
+ *        (e.g., "F" for floor, "C" for ceiling).
+ * @param direction The direction for which the color will be assigned
+ *        (FLOOR or CEILING).
+ */
 static void	ft_add_color(char *line, t_cub *cub, char *identifier, \
 	t_directions direction)
 {
-	//TODO add brief
 	char	*new_line;
 
 	new_line = ft_strip(ft_strdup(line));
@@ -77,53 +71,44 @@ static void	ft_add_color(char *line, t_cub *cub, char *identifier, \
 		if (direction == FLOOR && !cub->map->floor_rgb)
 		{
 			cub->map->floor_rgb = malloc(sizeof(unsigned char) * 3);
-			if (!cub->map->floor_rgb) // free(new_line);
-				ft_handle_error("Malloc: floor_rgb", cub);
+			if (!cub->map->floor_rgb)
+				return (free(new_line), ft_handle_error("Malloc", cub));
 			ft_add_rgb(new_line, cub, cub->map->floor_rgb);
-			// printf("%s [%d, %d, %d]\n", identifier, cub->map->floor_rgb[0],
-			// 	cub->map->floor_rgb[1], cub->map->floor_rgb[2]); //debug
 		}
 		else if (direction == CEILING && !cub->map->ceiling_rgb)
 		{
 			cub->map->ceiling_rgb = malloc(sizeof(unsigned char) * 3);
-			if (!cub->map->ceiling_rgb) //free(new_line);
-				ft_handle_error("Malloc: ceiling_rgb", cub);
+			if (!cub->map->ceiling_rgb)
+				return (free(new_line), ft_handle_error("Malloc", cub));
 			ft_add_rgb(new_line, cub, cub->map->ceiling_rgb);
-			// printf("%s [%d, %d, %d]\n", identifier, cub->map->ceiling_rgb[0],
-			// 	cub->map->ceiling_rgb[1], cub->map->ceiling_rgb[2]); //debug
 		}
 		else
-		{
-			free(new_line);
-			free(line);
-			ft_handle_error("Color: duplicate", cub);
-		}
+			return (free(new_line), free(line), \
+				ft_handle_error(MSG_COLOR, cub)); //duplicate
 	}
 	free(new_line);
 }
 
-
-static char	*ft_buffer(char *buffer, char *line, int start, t_cub *cub)
-{
-	//TODO add brief
-	char	*tmp;
-
-	if (ft_isempty(line) == 1 && start == 0)
-	{
-		free(line);
-		free(buffer);
-		ft_handle_error("Map: error new line", cub);
-	}
-	if (ft_isempty(line) == 1)
-		return (NULL);
-	tmp = ft_strjoin(buffer, line);
-	free(buffer);
-	return (tmp);
-}
-
+/**
+ * @brief Parses a line to extract and assign texture or color values.
+ * 
+ * Checks the provided line for specific identifiers (e.g., "NO", "SO", "WE", 
+ * "EA" for textures or "F", "C" for floor and ceiling colors) and calls the 
+ * appropriate functions to assign textures or colors to the game map.
+ * The function also validates the line and ensures the correct order
+ * of texture and color definitions. 
+ * If the line contains an invalid or unrecognized identifier, the function
+ * triggers an error.
+ * 
+ * @param line The input line containing the texture or color definition.
+ * @param cub A pointer to the game structure (t_cub) where the textures and 
+ *            colors will be stored.
+ * @param i The index of the line in the map configuration, used for order 
+ *          validation.
+ * @return true if the line was successfully processed, false otherwise.
+ */
 static bool	ft_get_texture_color(char *line, t_cub *cub, int i)
 {
-	//TODO insert brief
 	if (ft_isempty(line) == 1)
 		return (false);
 	else if (ft_strnstr(line, "NO", ft_strlen(line)))
@@ -147,7 +132,18 @@ static bool	ft_get_texture_color(char *line, t_cub *cub, int i)
 	return (true);
 }
 
-bool	ft_validate_before(t_cub *cub)
+/**
+ * @brief Checks if all the required map textures and colors are set.
+ * 
+ * Verifies whether all the necessary textures (north, south, west, east) 
+ * and color values (ceiling and floor) have been assigned to the map. If 
+ * any of the required values are missing, the function returns false,
+ * indicating that the map is not fully configured. Otherwise, it returns true.
+ * 
+ * @param cub A pointer to the game structure (t_cub) containing the map data.
+ * @return true if all required textures and colors are set, false otherwise.
+ */
+static bool	ft_isfilled(t_cub *cub)
 {
 	if (!cub->map->north_texture)
 		return (false);
@@ -164,6 +160,22 @@ bool	ft_validate_before(t_cub *cub)
 	return (true);
 }
 
+/**
+ * @brief Parses the map configuration file and extracts texture and color data.
+ * 
+ * Reads each line from the map file and processes it to extract texture and 
+ * color information using the `ft_get_texture_color` function. Valid lines 
+ * related to textures and colors are processed, while other lines are
+ * accumulated in a buffer for further processing. Once all lines are read, 
+ * the function verifies that all required textures and colors are set using
+ * `ft_isfilled`. 
+ * If any required data is missing, an error is triggered. Finally,
+ * the buffered map data is split into a matrix representing the map structure.
+ * 
+ * @param fd The file descriptor of the map file to parse.
+ * @param cub A pointer to the game structure (t_cub) to store the parsed map
+ *        data.
+ */
 void	ft_map_parser(int fd, t_cub *cub)
 {
 	char	*line;
@@ -171,9 +183,8 @@ void	ft_map_parser(int fd, t_cub *cub)
 	int		i;
 
 	i = 0;
-	line = get_next_line(fd); //TODO separar logica
-	if (!line)
-		ft_handle_error("Map: empty", cub);
+	buffer = NULL;
+	line = get_next_line(fd);
 	while (line)
 	{
 		if (!ft_get_texture_color(line, cub, i))
@@ -187,12 +198,7 @@ void	ft_map_parser(int fd, t_cub *cub)
 		line = get_next_line(fd);
 		i++;
 	}
-	if (!ft_validate_before(cub))
-	{
-		if (buffer)
-			free(buffer);
-		ft_handle_error("Map: missing arguments", cub);
-	}
-	cub->map->matrix = ft_split(buffer, '\n');
-	free(buffer);
+	if (!ft_isfilled(cub))
+		return (free(buffer), ft_handle_error(MSG_MAP, cub)); //arguments
+	return (cub->map->matrix = ft_split(buffer, '\n'), free(buffer));
 }
