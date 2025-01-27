@@ -2,8 +2,6 @@
 
 int	ft_close_window(t_cub *game)
 {
-	mlx_destroy_window(game->mlx, game->window);
-	mlx_destroy_display(game->mlx);
 	ft_clean_cub(game);
 	exit(0);
 }

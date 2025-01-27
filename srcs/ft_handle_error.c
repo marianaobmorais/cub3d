@@ -78,10 +78,19 @@ void	ft_clean_cub(t_cub *cub)
 			ft_clean_map(cub->map);
 			free(cub->map);
 		}
-		if (cub->mlx)
-			free(cub->mlx);
+		if (cub->img)
+		{
+			if (cub->img->img_ptr)
+				mlx_destroy_image(cub->mlx, cub->img->img_ptr);
+			free(cub->img);
+		}
 		if (cub->window)
-			free(cub->window);
+				mlx_destroy_window(cub->mlx, cub->window);
+		if (cub->mlx)
+		{
+			mlx_destroy_display(cub->mlx);
+			free(cub->mlx);
+		}
 	}
 	free(cub);
 }
