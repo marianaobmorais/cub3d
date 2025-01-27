@@ -78,6 +78,10 @@ void	ft_clean_cub(t_cub *cub)
 			ft_clean_map(cub->map);
 			free(cub->map);
 		}
+		if (cub->mlx)
+			free(cub->mlx);
+		if (cub->window)
+			free(cub->window);
 	}
 	free(cub);
 }
