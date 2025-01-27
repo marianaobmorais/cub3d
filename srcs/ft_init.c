@@ -1,8 +1,8 @@
 #include "../includes/cub3d.h"
 
-t_image	*ft_init_image(t_game *game)
+t_image	*ft_init_image(t_game *game) //init image for each element? ceiling/floor/walls
 {
-	game->img->img_ptr = mlx_new_image(game->mlx, PIXEL, PIXEL);
+	game->img->img_ptr = mlx_new_image(game->mlx, WIDHT, HEIGHT);
 	if (!game->img->img_ptr)
 		return (NULL); //error handler
 	game->img->bpp = 0;
@@ -24,15 +24,16 @@ t_game	*ft_init_game(/* t_map *map */)
 	game->mlx = mlx_init();
 	if (!game->mlx)
 		return (free(game), NULL); // error handler
-	game->window = mlx_new_window(game->mlx, PIXEL, PIXEL, "cub3d");
+	game->window = mlx_new_window(game->mlx, WIDHT, HEIGHT, "cub3d");
 	if (!game->window)
 		return (free(game), free(game->mlx), NULL); // error handler
 	//game->map = map;
 	game->img = (t_image *)malloc(sizeof(t_image));
 	if (!game->img)
 		return (free(game), free(game->mlx), free(game->window), NULL);
-	game->img = ft_init_image(game);
-	if (!game->img)
-		return (free(game), free(game->mlx), free(game->window), NULL);
+	//need to double check this
+	//game->img = ft_init_image(game);
+	//if (!game->img)
+	//	return (free(game), free(game->mlx), free(game->window), NULL);
 	return (game);
 }

@@ -19,6 +19,10 @@
 # define MSG_TEXTURE "Texture: Something is wrong 😕"
 # define MSG_COLOR "Color: Something is wrong 😕"
 
+//# define PIXEL 100 //32
+# define WIDHT 1920
+# define HEIGHT 1080
+
 typedef enum e_directions
 {
 	NORTH,
@@ -49,6 +53,24 @@ typedef struct s_cub
 	int		fd;
 	t_map	*map;
 }	t_cub;
+
+typedef struct	s_image
+{
+	void	*img_ptr;
+	char	*addr;
+	int		bpp;
+	int		line_len;
+	int		endian;
+}	t_image;
+
+typedef struct	s_game
+{
+	void	*mlx;
+	void	*window;
+	//t_map	*map;
+	t_image	*img;
+}	t_game;
+
 
 /* ft_handle_error.c */
 
@@ -88,33 +110,12 @@ void	ft_matrix_parser(t_cub *cub, char **matrix);
 int		ft_isempty(char *line);
 bool	ft_valid_wall(char *line);
 
-
-# define PIXEL 100 //32
-
-typedef struct	s_image
-{
-	void	*img_ptr;
-	char	*addr;
-	int		bpp;
-	int		line_len;
-	int		endian;
-}	t_image;
-
-typedef struct	s_game
-{
-	void	*mlx;
-	void	*window;
-	//t_map	*map;
-	t_image	*img;
-}	t_game;
-
-
-//ft_init.c
+/* ft_init.c */
 
 t_game	*ft_init_game(/* t_map *map */);
 t_image	*ft_init_image(t_game *game);
 
-//hook_utils.c
+/* hook_utils.c */
 
 int	ft_key_input(int keysym, t_game *game);
 int	ft_close_window(t_game *game);
