@@ -12,6 +12,19 @@ int	main(int argc, char **argv)
 		ft_handle_error(strerror(EINVAL), cub);
 	ft_loadmap(argv[1], cub);
 	printf("Starting cub3D...\n");
+
+	// char *map[8] =
+	// {
+	// 	"111111111111",
+	// 	"100000000001",
+	// 	"100000001001",
+	// 	"100000000001",
+	// 	"100110000001",
+	// 	"100111000001",
+	// 	"100000000001",
+	// 	"111111111111"
+	// }; //temp
+
 	game = ft_init_game(/* t_map *map */);
 	if (!game)
 		return (1); //error handler
