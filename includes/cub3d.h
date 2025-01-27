@@ -18,6 +18,7 @@
 # define MSG_MAP "Map: Something is wrong 😕"
 # define MSG_TEXTURE "Texture: Something is wrong 😕"
 # define MSG_COLOR "Color: Something is wrong 😕"
+# define PIXEL 100 //32
 
 typedef enum e_directions
 {
@@ -43,10 +44,22 @@ typedef struct s_map
 	t_directions	direction;
 }	t_map;
 
+typedef struct s_image
+{
+	void	*img_ptr;
+	char	*addr;
+	int		bpp;
+	int		line_len;
+	int		endian;
+}	t_image;
+
 typedef struct s_cub
 {
 	char	*filepath;
 	int		fd;
+	void	*mlx;
+	void	*window;
+	t_image	*img;
 	t_map	*map;
 }	t_cub;
 
@@ -89,34 +102,17 @@ int		ft_isempty(char *line);
 bool	ft_valid_wall(char *line);
 
 
-# define PIXEL 100 //32
 
-typedef struct	s_image
-{
-	void	*img_ptr;
-	char	*addr;
-	int		bpp;
-	int		line_len;
-	int		endian;
-}	t_image;
-
-typedef struct	s_game
-{
-	void	*mlx;
-	void	*window;
-	//t_map	*map;
-	t_image	*img;
-}	t_game;
 
 
 //ft_init.c
 
-t_game	*ft_init_game(/* t_map *map */);
-t_image	*ft_init_image(t_game *game);
+t_cub	*ft_init_game(void/* t_map *map */);
+t_image	*ft_init_image(t_cub *game);
 
 //hook_utils.c
 
-int	ft_key_input(int keysym, t_game *game);
-int	ft_close_window(t_game *game);
+int	ft_key_input(int keysym, t_cub *game);
+int	ft_close_window(t_cub *game);
 
 # endif //CUB3D_H
