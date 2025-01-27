@@ -11,6 +11,8 @@ MLIBX = ./minilibx-linux/libmlx.a
 MLIBX_DIR = ./minilibx-linux
 
 SRCS = $(SRCS_DIR)/main.c \
+	$(SRCS_DIR)/ft_init.c \
+	$(SRCS_DIR)/hook_utils.c \
 	$(SRCS_DIR)/ft_handle_error.c \
 	$(SRCS_DIR)/parser/ft_loadmap.c \
 	$(SRCS_DIR)/parser/ft_map_parser.c \
