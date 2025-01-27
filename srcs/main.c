@@ -2,25 +2,20 @@
 
 int	main(int argc, char **argv)
 {
-	t_cub	*cub;
-	t_game	*game;
+	t_cub	*game;
 
-	cub = (t_cub *) malloc(sizeof(t_cub));
-	if (!cub)
-		ft_handle_error("Malloc: t_cub", cub);
 	if (argc != 2)
-		ft_handle_error(strerror(EINVAL), cub);
-	ft_loadmap(argv[1], cub);
-	printf("Starting cub3D...\n");
+		ft_handle_error(strerror(EINVAL), NULL);
 	game = ft_init_game(/* t_map *map */);
 	if (!game)
-		return (1); //error handler
+		ft_handle_error("Malloc: t_cub", game);
+	ft_loadmap(argv[1], game);
 	printf("game is open\n"); //debug
 	//render
 	mlx_hook(game->window, KeyPress, KeyPressMask, ft_key_input, game);
 	mlx_hook(game->window, DestroyNotify, NoEventMask, ft_close_window, game);
 	mlx_loop(game->mlx);
-	ft_print_map(cub->map);
-	ft_clean_cub(cub);
+	ft_print_map(game->map);
+	ft_clean_cub(game);
 	return (0);
 }
