@@ -2,7 +2,7 @@
 
 t_image	*ft_init_image(t_cub *game)
 {
-	game->img->img_ptr = mlx_new_image(game->mlx, PIXEL, PIXEL);
+	game->img->img_ptr = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 	if (!game->img->img_ptr)
 		return (NULL); //error handler
 	game->img->bpp = 0;
@@ -25,7 +25,7 @@ t_cub	*ft_init_game(void/* t_map *map */)
 	game->mlx = mlx_init();
 	if (!game->mlx)
 		ft_handle_error("mlx init", game);
-	game->window = mlx_new_window(game->mlx, PIXEL, PIXEL, "cub3d");
+	game->window = mlx_new_window(game->mlx, WIDTH, HEIGHT, "cub3d");
 	if (!game->window)
 		ft_handle_error("window init", game);
 	//game->map = map;

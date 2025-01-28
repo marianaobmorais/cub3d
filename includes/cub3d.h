@@ -19,6 +19,8 @@
 # define MSG_TEXTURE "Texture: Something is wrong 😕"
 # define MSG_COLOR "Color: Something is wrong 😕"
 # define PIXEL 100 //32
+# define WIDTH 320
+# define HEIGHT 200
 
 typedef enum e_directions
 {
@@ -101,10 +103,6 @@ void	ft_matrix_parser(t_cub *cub, char **matrix);
 int		ft_isempty(char *line);
 bool	ft_valid_wall(char *line);
 
-
-
-
-
 //ft_init.c
 
 t_cub	*ft_init_game(void/* t_map *map */);
@@ -114,5 +112,11 @@ t_image	*ft_init_image(t_cub *game);
 
 int	ft_key_input(int keysym, t_cub *game);
 int	ft_close_window(t_cub *game);
+
+/* Minimap */
+
+/* Teste */
+
+void	ft_put_string(char *str, t_cub *cub);
 
 # endif //CUB3D_H
