@@ -2,8 +2,7 @@
 
 int	ft_close_window(t_game *game)
 {
-	(void)game;
-	//free all the things;
+	ft_clean_game(game);
 	exit(0);
 }
 
