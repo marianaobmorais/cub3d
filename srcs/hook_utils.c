@@ -1,12 +1,12 @@
 #include "../includes/cub3d.h"
 
-int	ft_close_window(t_cub *game)
+int	ft_close_window(t_game *game)
 {
-	ft_clean_cub(game);
+	ft_clean_game(game);
 	exit(0);
 }
 
-int	ft_key_input(int keysym, t_cub *game)
+int	ft_key_input(int keysym, t_game *game)
 {
 	if (keysym == XK_Escape)
 		ft_close_window(game);

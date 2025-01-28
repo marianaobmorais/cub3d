@@ -2,13 +2,13 @@
 
 int	main(int argc, char **argv)
 {
-	t_cub	*game;
+	t_game	*game;
 
 	if (argc != 2)
 		ft_handle_error(strerror(EINVAL), NULL);
 	game = ft_init_game(/* t_map *map */);
 	if (!game)
-		ft_handle_error("Malloc: t_cub", game);
+		ft_handle_error("Malloc: t_game", game);
 	ft_loadmap(argv[1], game);
 	printf("game is open\n"); //debug
 	//render
@@ -16,6 +16,6 @@ int	main(int argc, char **argv)
 	mlx_hook(game->window, DestroyNotify, NoEventMask, ft_close_window, game);
 	mlx_loop(game->mlx);
 	ft_print_map(game->map);
-	ft_clean_cub(game);
+	ft_clean_game(game);
 	return (0);
 }
