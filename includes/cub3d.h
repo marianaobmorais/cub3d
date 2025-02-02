@@ -20,8 +20,8 @@
 # define MSG_COLOR "Color: Something is wrong 😕"
 
 //# define PIXEL 100 //32
-# define WIDHT 1920
-# define HEIGHT 1080
+# define WIDTH 960
+# define HEIGHT 600
 
 typedef enum e_directions
 {
@@ -47,13 +47,6 @@ typedef struct s_map
 	t_directions	direction;
 }	t_map;
 
-typedef struct s_cub
-{
-	char	*filepath;
-	int		fd;
-	t_map	*map;
-}	t_cub;
-
 typedef struct	s_image
 {
 	void	*img_ptr;
@@ -63,14 +56,16 @@ typedef struct	s_image
 	int		endian;
 }	t_image;
 
-typedef struct	s_game
+typedef struct s_cub
 {
 	void	*mlx;
 	void	*window;
-	//t_map	*map;
-	t_image	*img;
-}	t_game;
-
+	t_image	*ceiling;
+	t_image	*floor;
+	t_map	*map;
+	char	*filepath;
+	int		fd;
+}	t_cub;
 
 /* ft_handle_error.c */
 
@@ -112,12 +107,12 @@ bool	ft_valid_wall(char *line);
 
 /* ft_init.c */
 
-t_game	*ft_init_game(/* t_map *map */);
-t_image	*ft_init_image(t_game *game);
+t_cub	*ft_init_game(t_cub *cub);
+t_image	*ft_init_horizontal(t_cub *cub, t_image *img, int color);
 
 /* hook_utils.c */
 
-int	ft_key_input(int keysym, t_game *game);
-int	ft_close_window(t_game *game);
+int	ft_key_input(int keysym, t_cub *game);
+int	ft_close_window(t_cub *game);
 
 # endif //CUB3D_H
