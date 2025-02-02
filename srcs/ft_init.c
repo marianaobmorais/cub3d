@@ -27,7 +27,7 @@ t_image	*ft_init_horizontal(t_cub *cub, t_image *img, int color)
 		x = 0;
 		while (x < WIDTH)
 		{
-			my_pixel_put(img, x, y, color);
+			ft_put_pixel(img, x, y, color);
 			x++;
 		}
 		y++;
