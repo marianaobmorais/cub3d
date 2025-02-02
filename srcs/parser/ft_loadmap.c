@@ -43,15 +43,16 @@ static void	ft_init_map(t_game *game)
  */
 void	ft_loadmap(char *const filepath, t_game *game)
 {
-	game->filepath = ft_strip(ft_strdup(filepath));
-	if (!ft_is_ext(game->filepath, ".cub"))
-		ft_handle_error("Map: File extension", game);
-	game->fd = open(game->filepath, O_RDONLY);
-	if (game->fd == -1)
-		ft_handle_error(NULL, game);
-	ft_init_map(game);
-	ft_map_parser(game->fd, game);
-	ft_matrix_parser(game, game->map->matrix);
-	close(game->fd);
-	game->fd = -1;
+	cub->filepath = ft_strip(ft_strdup(filepath));
+	if (!ft_is_ext(cub->filepath, ".cub"))
+		ft_handle_error("Map: File extension", cub);
+	cub->fd = -1;
+	cub->fd = open(cub->filepath, O_RDONLY);
+	if (cub->fd == -1)
+		ft_handle_error(NULL, cub);
+	ft_init_map(cub);
+	ft_map_parser(cub->fd, cub);
+	ft_matrix_parser(cub, cub->map->matrix);
+	close(cub->fd);
+	cub->fd = -1;
 }
