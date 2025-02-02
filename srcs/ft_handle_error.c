@@ -67,6 +67,7 @@ void	ft_clean_map(t_map *map)
  */
 void	ft_clean_cub(t_cub *cub)
 {
+	//update brief
 	if (cub)
 	{
 		if (cub->fd != -1)
@@ -77,6 +78,25 @@ void	ft_clean_cub(t_cub *cub)
 		{
 			ft_clean_map(cub->map);
 			free(cub->map);
+		}
+		if (cub->ceiling)
+		{
+			if (cub->ceiling->img_ptr)
+				mlx_destroy_image(cub->mlx, cub->ceiling->img_ptr);
+			free(cub->ceiling);
+		}
+		if (cub->floor)
+		{
+			if (cub->floor->img_ptr)
+				mlx_destroy_image(cub->mlx, cub->floor->img_ptr);
+			free(cub->floor);
+		}
+		if (cub->window)
+			mlx_destroy_window(cub->mlx, cub->window);
+		if (cub->mlx)
+		{
+			mlx_destroy_display(cub->mlx);
+			free(cub->mlx);
 		}
 	}
 	free(cub);
@@ -98,11 +118,12 @@ void	ft_clean_cub(t_cub *cub)
  */
 void	ft_handle_error(const char *error_msg, t_cub *cub)
 {
-	printf("Error\n"); //TODO stdout or stderr ?
+	//update brief
+	printf("Error\n"); //TODO stderr
 	if (error_msg)
-		printf("%s\n", error_msg);
+		printf("%s\n", error_msg); //TODO stderr
 	else
 		perror("");
 	ft_clean_cub(cub);
-	exit (0);
+	exit (1); // shouldn't exit with 0
 }
