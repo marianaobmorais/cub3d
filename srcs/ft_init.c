@@ -10,6 +10,9 @@ void	ft_put_pixel(t_image *img, int x, int y, int color)
 
 t_image	*ft_init_horizontal(t_cub *cub, t_image *img, int color)
 {
+	img = (t_image *)malloc(sizeof(t_image));
+	if (!img)
+		return (ft_handle_error("malloc: img", cub), NULL);
 	img->img_ptr = mlx_new_image(cub->mlx, WIDTH, HEIGHT / 2);
 	if (!img->img_ptr)
 		return (ft_handle_error("malloc: img->img_ptr", cub), NULL);
@@ -43,16 +46,10 @@ t_cub	*ft_init_game(t_cub *cub)
 	cub->window = mlx_new_window(cub->mlx, WIDTH, HEIGHT, "cub3d");
 	if (!cub->window)
 		return (ft_handle_error("malloc: cub->window", cub), NULL);
-	cub->ceiling = (t_image *)malloc(sizeof(t_image));
+	cub->ceiling = ft_init_horizontal(cub, cub->ceiling, 0xff); //cub->map->ceiling_rgb;
 	if (!cub->ceiling)
 		return (ft_handle_error("malloc: cub->ceiling", cub), NULL);
-	cub->floor = (t_image *)malloc(sizeof(t_image));
-	if (!cub->floor)
-		return (ft_handle_error("malloc: cub->floor", cub), NULL);
-	cub->ceiling = ft_init_horizontal(cub, cub->ceiling, 0xff);
-	if (!cub->ceiling)
-		return (ft_handle_error("malloc: cub->ceiling", cub), NULL);
-	cub->floor = ft_init_horizontal(cub, cub->floor, 0xff00);
+	cub->floor = ft_init_horizontal(cub, cub->floor, 0xff00); //cub->map->floor_rgb;
 	if (!cub->floor)
 		return (ft_handle_error("malloc: cub->floor", cub), NULL);
 	mlx_put_image_to_window(cub->mlx, cub->window, cub->ceiling->img_ptr, 0, 0);
