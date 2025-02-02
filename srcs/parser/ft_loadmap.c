@@ -8,40 +8,40 @@
  * appropriately. This initialization ensures the map is ready for parsing and 
  * further processing.
  * 
- * @param cub A pointer to the game structure (t_cub) where the map structure 
+ * @param game A pointer to the game structure (t_game) where the map structure 
  *            will be initialized.
  */
-static void	ft_init_map(t_cub *cub)
+static void	ft_init_map(t_game *game)
 {
-	cub->map = (t_map *) malloc(sizeof(t_map));
-	if (!cub->map)
-		ft_handle_error("Malloc: t_map", cub);
-	cub->map->matrix = NULL;
-	cub->map->north_texture = NULL;
-	cub->map->south_texture = NULL;
-	cub->map->west_texture = NULL;
-	cub->map->east_texture = NULL;
-	cub->map->floor_rgb = NULL;
-	cub->map->ceiling_rgb = NULL;
-	cub->map->player_pos_x = -1;
-	cub->map->player_pos_y = -1;
-	cub->map->direction = -1;
+	game->map = (t_map *) malloc(sizeof(t_map));
+	if (!game->map)
+		ft_handle_error("Malloc: t_map", game);
+	game->map->matrix = NULL;
+	game->map->north_texture = NULL;
+	game->map->south_texture = NULL;
+	game->map->west_texture = NULL;
+	game->map->east_texture = NULL;
+	game->map->floor_rgb = NULL;
+	game->map->ceiling_rgb = NULL;
+	game->map->player_pos_x = -1;
+	game->map->player_pos_y = -1;
+	game->map->direction = -1;
 }
 
 /**
  * @brief Loads and processes a map file for a game configuration.
  * 
  * Reads and validates a map file specified by the given filepath, ensuring it 
- * has the correct file extension (".cub") and is accessible. The function 
+ * has the correct file extension (".game") and is accessible. The function 
  * initializes the map, parses its content, and processes the map matrix for 
  * further use in the game. If any error occurs during these steps, it handles 
  * the error appropriately.
  * 
  * @param filepath The path to the map file, as a null-terminated string.
- * @param cub A pointer to the game structure (t_cub) where map data and 
+ * @param game A pointer to the game structure (t_game) where map data and 
  *            configuration will be stored.
  */
-void	ft_loadmap(char *const filepath, t_cub *cub)
+void	ft_loadmap(char *const filepath, t_game *game)
 {
 	cub->filepath = ft_strip(ft_strdup(filepath));
 	if (!ft_is_ext(cub->filepath, ".cub"))

@@ -30,26 +30,26 @@ static bool	ft_valid_char(char c)
  * is successfully assigned, it updates the player's position and direction.
  * 
  * @param c The character representing the player ('S', 'N', 'E', 'W').
- * @param cub A pointer to the game structure (t_cub) containing the map data.
+ * @param game A pointer to the game structure (t_game) containing the map data.
  * @param x The x-coordinate of the player's position.
  * @param y The y-coordinate of the player's position.
  * @return true if the player's position and direction are successfully set, 
  *         false if the player has already been set.
  */
-static bool	ft_set_player(char c, t_cub *cub, int x, int y)
+static bool	ft_set_player(char c, t_game *game, int x, int y)
 {
-	if (cub->map->player_pos_x == -1)
+	if (game->map->player_pos_x == -1)
 	{
-		cub->map->player_pos_x = x;
-		cub->map->player_pos_y = y;
+		game->map->player_pos_x = x;
+		game->map->player_pos_y = y;
 		if (c == 'S')
-			cub->map->direction = SOUTH;
+			game->map->direction = SOUTH;
 		if (c == 'N')
-			cub->map->direction = NORTH;
+			game->map->direction = NORTH;
 		if (c == 'E')
-			cub->map->direction = EAST;
+			game->map->direction = EAST;
 		if (c == 'W')
-			cub->map->direction = WEST;
+			game->map->direction = WEST;
 	}
 	else
 		return (false);
@@ -68,10 +68,10 @@ static bool	ft_set_player(char c, t_cub *cub, int x, int y)
  * 
  * @param line The map line to check.
  * @param x The x-coordinate of the line's position.
- * @param cub A pointer to the game structure (t_cub) to store the player's data.
+ * @param game A pointer to the game structure (t_game) to store the player's data.
  * @return true if the line is valid and the player is set, false otherwise.
  */
-static bool	ft_check_line(char *line, int x, t_cub *cub)
+static bool	ft_check_line(char *line, int x, t_game *game)
 {
 	int	y;
 
@@ -85,7 +85,7 @@ static bool	ft_check_line(char *line, int x, t_cub *cub)
 		if (line[y] == 'S' || line[y] == 'N' || line[y] == 'E'
 			|| line[y] == 'W')
 		{
-			if (!ft_set_player(line[y], cub, x, y))
+			if (!ft_set_player(line[y], game, x, y))
 				return (false);
 		}
 		y++;
@@ -104,10 +104,10 @@ static bool	ft_check_line(char *line, int x, t_cub *cub)
  * an error using `ft_handle_error`. The function ensures that the map structure 
  * adheres to the expected format.
  * 
- * @param cub A pointer to the game structure (t_cub) containing the map data.
+ * @param game A pointer to the game structure (t_game) containing the map data.
  * @param matrix A 2D array representing the map's matrix.
  */
-void	ft_matrix_parser(t_cub *cub, char **matrix)
+void	ft_matrix_parser(t_game *game, char **matrix)
 {
 	int		x;
 	char	*line;
@@ -116,14 +116,14 @@ void	ft_matrix_parser(t_cub *cub, char **matrix)
 	while (matrix[x])
 	{
 		line = ft_strip(ft_strdup(matrix[x]));
-		if (!ft_check_line(line, x, cub) || !ft_valid_wall(line))
+		if (!ft_check_line(line, x, game) || !ft_valid_wall(line))
 		{
 			free(line);
-			ft_handle_error(MSG_MAP, cub);
+			ft_handle_error(MSG_MAP, game);
 		}
 		free(line);
 		x++;
 	}
-	if (cub->map->player_pos_x == -1)
-		ft_handle_error(MSG_MAP, cub);
+	if (game->map->player_pos_x == -1)
+		ft_handle_error(MSG_MAP, game);
 }

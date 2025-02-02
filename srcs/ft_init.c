@@ -38,6 +38,7 @@ t_image	*ft_init_horizontal(t_cub *cub, t_image *img, int color)
 	return (img);
 }
 
+
 t_cub	*ft_init_game(t_cub *cub)
 {
 	cub->mlx = mlx_init();

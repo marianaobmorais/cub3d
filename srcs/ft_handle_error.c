@@ -57,15 +57,15 @@ void	ft_clean_map(t_map *map)
 /**
  * @brief Cleans up and frees memory allocated for the game structure.
  * 
- * Releases all resources associated with the game structure (t_cub), including 
+ * Releases all resources associated with the game structure (t_game), including 
  * closing the file descriptor, freeing the map structure and its contents, and 
  * deallocating other dynamically allocated fields. Ensures proper cleanup to 
  * prevent memory leaks.
  * 
- * @param cub A pointer to the game structure (t_cub) to be cleaned up. 
+ * @param game A pointer to the game structure (t_game) to be cleaned up. 
  *            The structure itself is also freed.
  */
-void	ft_clean_cub(t_cub *cub)
+void	ft_clean_game(t_game *game)
 {
 	//update brief
 	if (cub)
@@ -99,7 +99,7 @@ void	ft_clean_cub(t_cub *cub)
 			free(cub->mlx);
 		}
 	}
-	free(cub);
+	free(game);
 }
 
 /**
@@ -108,15 +108,15 @@ void	ft_clean_cub(t_cub *cub)
  * 
  * Logs the provided error message or a system error message if no specific 
  * message is given. Cleans up all allocated resources within the game 
- * structure (t_cub) and terminates the program. The exit code and output 
+ * structure (t_game) and terminates the program. The exit code and output 
  * destination for the error message should be specified during implementation.
  * 
  * @param error_msg The custom error message to display, or NULL to display 
  *                  a system error message.
- * @param cub A pointer to the game structure (t_cub) to clean up before 
+ * @param game A pointer to the game structure (t_game) to clean up before 
  *            program termination.
  */
-void	ft_handle_error(const char *error_msg, t_cub *cub)
+void	ft_handle_error(const char *error_msg, t_game *game)
 {
 	//update brief
 	printf("Error\n"); //TODO stderr
