@@ -72,22 +72,22 @@ typedef struct s_cub
 
 /* ft_handle_error.c */
 
-void	ft_handle_error(const char *error_msg, t_game *game);
-void	ft_clean_game(t_game *game);
+void	ft_handle_error(const char *error_msg, t_cub *game);
+void	ft_clean_game(t_cub *game);
 void	ft_free_vector(char **vector);
 
 /* ft_loadmap.c */
 
-void	ft_loadmap(char *const filepath, t_game *game);
+void	ft_loadmap(char *const filepath, t_cub *game);
 
 /* ft_map_parser.c */
 
-void	ft_map_parser(int fd, t_game *game);
+void	ft_map_parser(int fd, t_cub *game);
 
 /* ft_map_parser_utils.c */
 
-char	*ft_buffer(char *buffer, char *line, int start, t_game *game);
-void	ft_add_texture(char *line, t_game *game, char *identifier, \
+char	*ft_buffer(char *buffer, char *line, int start, t_cub *game);
+void	ft_add_texture(char *line, t_cub *game, char *identifier, \
 	t_directions direction);
 
 /* parser_utils.c */
@@ -101,7 +101,7 @@ void	ft_print_map(t_map *map); //debug
 
 /* ft_matrix_parser.c */
 
-void	ft_matrix_parser(t_game *game, char **matrix);
+void	ft_matrix_parser(t_cub *game, char **matrix);
 
 /* ft_matrix_parser_utils.c */
 

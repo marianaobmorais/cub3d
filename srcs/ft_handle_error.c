@@ -65,7 +65,7 @@ void	ft_clean_map(t_map *map)
  * @param game A pointer to the game structure (t_game) to be cleaned up. 
  *            The structure itself is also freed.
  */
-void	ft_clean_game(t_game *game)
+void	ft_clean_game(t_cub *cub)
 {
 	//update brief
 	if (cub)
@@ -99,7 +99,7 @@ void	ft_clean_game(t_game *game)
 			free(cub->mlx);
 		}
 	}
-	free(game);
+	free(cub);
 }
 
 /**
@@ -116,7 +116,7 @@ void	ft_clean_game(t_game *game)
  * @param game A pointer to the game structure (t_game) to clean up before 
  *            program termination.
  */
-void	ft_handle_error(const char *error_msg, t_game *game)
+void	ft_handle_error(const char *error_msg, t_cub *cub)
 {
 	//update brief
 	printf("Error\n"); //TODO stderr
@@ -124,6 +124,6 @@ void	ft_handle_error(const char *error_msg, t_game *game)
 		printf("%s\n", error_msg); //TODO stderr
 	else
 		perror("");
-	ft_clean_cub(cub);
+	ft_clean_game(cub);
 	exit (1); // shouldn't exit with 0
 }

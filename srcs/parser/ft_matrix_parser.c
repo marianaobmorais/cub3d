@@ -36,20 +36,21 @@ static bool	ft_valid_char(char c)
  * @return true if the player's position and direction are successfully set, 
  *         false if the player has already been set.
  */
-static bool	ft_set_player(char c, t_game *game, int x, int y)
+static bool	ft_set_player(char c, t_cub *cub, int x, int y)
 {
-	if (game->map->player_pos_x == -1)
+	//update brief
+	if (cub->map->player_pos_x == -1)
 	{
-		game->map->player_pos_x = x;
-		game->map->player_pos_y = y;
+		cub->map->player_pos_x = x;
+		cub->map->player_pos_y = y;
 		if (c == 'S')
-			game->map->direction = SOUTH;
+			cub->map->direction = SOUTH;
 		if (c == 'N')
-			game->map->direction = NORTH;
+			cub->map->direction = NORTH;
 		if (c == 'E')
-			game->map->direction = EAST;
+			cub->map->direction = EAST;
 		if (c == 'W')
-			game->map->direction = WEST;
+			cub->map->direction = WEST;
 	}
 	else
 		return (false);
@@ -71,8 +72,9 @@ static bool	ft_set_player(char c, t_game *game, int x, int y)
  * @param game A pointer to the game structure (t_game) to store the player's data.
  * @return true if the line is valid and the player is set, false otherwise.
  */
-static bool	ft_check_line(char *line, int x, t_game *game)
+static bool	ft_check_line(char *line, int x, t_cub *cub)
 {
+	//update brief
 	int	y;
 
 	y = 0;
@@ -85,7 +87,7 @@ static bool	ft_check_line(char *line, int x, t_game *game)
 		if (line[y] == 'S' || line[y] == 'N' || line[y] == 'E'
 			|| line[y] == 'W')
 		{
-			if (!ft_set_player(line[y], game, x, y))
+			if (!ft_set_player(line[y], cub, x, y))
 				return (false);
 		}
 		y++;
@@ -107,8 +109,9 @@ static bool	ft_check_line(char *line, int x, t_game *game)
  * @param game A pointer to the game structure (t_game) containing the map data.
  * @param matrix A 2D array representing the map's matrix.
  */
-void	ft_matrix_parser(t_game *game, char **matrix)
+void	ft_matrix_parser(t_cub *cub, char **matrix)
 {
+	//update brief
 	int		x;
 	char	*line;
 
@@ -116,14 +119,14 @@ void	ft_matrix_parser(t_game *game, char **matrix)
 	while (matrix[x])
 	{
 		line = ft_strip(ft_strdup(matrix[x]));
-		if (!ft_check_line(line, x, game) || !ft_valid_wall(line))
+		if (!ft_check_line(line, x, cub) || !ft_valid_wall(line))
 		{
 			free(line);
-			ft_handle_error(MSG_MAP, game);
+			ft_handle_error(MSG_MAP, cub);
 		}
 		free(line);
 		x++;
 	}
-	if (game->map->player_pos_x == -1)
-		ft_handle_error(MSG_MAP, game);
+	if (cub->map->player_pos_x == -1)
+		ft_handle_error(MSG_MAP, cub);
 }
