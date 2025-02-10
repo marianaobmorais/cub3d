@@ -67,29 +67,36 @@ void	ft_clean_map(t_map *map)
  */
 void	ft_clean_game(t_game *game)
 {
-	if (game)
+	//update brief
+	if (cub)
 	{
-		if (game->fd != -1)
-			close(game->fd);
-		if (game->filepath)
-			free(game->filepath);
-		if (game->map)
+		if (cub->fd != -1)
+			close(cub->fd);
+		if (cub->filepath)
+			free(cub->filepath);
+		if (cub->map)
 		{
-			ft_clean_map(game->map);
-			free(game->map);
+			ft_clean_map(cub->map);
+			free(cub->map);
 		}
-		if (game->img)
+		if (cub->ceiling)
 		{
-			if (game->img->img_ptr)
-				mlx_destroy_image(game->mlx, game->img->img_ptr);
-			free(game->img);
+			if (cub->ceiling->img_ptr)
+				mlx_destroy_image(cub->mlx, cub->ceiling->img_ptr);
+			free(cub->ceiling);
 		}
-		if (game->window)
-				mlx_destroy_window(game->mlx, game->window);
-		if (game->mlx)
+		if (cub->floor)
 		{
-			mlx_destroy_display(game->mlx);
-			free(game->mlx);
+			if (cub->floor->img_ptr)
+				mlx_destroy_image(cub->mlx, cub->floor->img_ptr);
+			free(cub->floor);
+		}
+		if (cub->window)
+			mlx_destroy_window(cub->mlx, cub->window);
+		if (cub->mlx)
+		{
+			mlx_destroy_display(cub->mlx);
+			free(cub->mlx);
 		}
 	}
 	free(game);
@@ -111,11 +118,12 @@ void	ft_clean_game(t_game *game)
  */
 void	ft_handle_error(const char *error_msg, t_game *game)
 {
-	printf("Error\n"); //TODO stdout or stderr ?
+	//update brief
+	printf("Error\n"); //TODO stderr
 	if (error_msg)
-		printf("%s\n", error_msg);
+		printf("%s\n", error_msg); //TODO stderr
 	else
 		perror("");
-	ft_clean_game(game);
-	exit (0);
+	ft_clean_cub(cub);
+	exit (1); // shouldn't exit with 0
 }
