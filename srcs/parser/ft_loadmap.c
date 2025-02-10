@@ -11,21 +11,21 @@
  * @param game A pointer to the game structure (t_game) where the map structure 
  *            will be initialized.
  */
-static void	ft_init_map(t_game *game)
+static void	ft_init_map(t_cub *cub)
 {
-	game->map = (t_map *) malloc(sizeof(t_map));
-	if (!game->map)
-		ft_handle_error("Malloc: t_map", game);
-	game->map->matrix = NULL;
-	game->map->north_texture = NULL;
-	game->map->south_texture = NULL;
-	game->map->west_texture = NULL;
-	game->map->east_texture = NULL;
-	game->map->floor_rgb = NULL;
-	game->map->ceiling_rgb = NULL;
-	game->map->player_pos_x = -1;
-	game->map->player_pos_y = -1;
-	game->map->direction = -1;
+	cub->map = (t_map *) malloc(sizeof(t_map));
+	if (!cub->map)
+		ft_handle_error("Malloc: t_map", cub);
+	cub->map->matrix = NULL;
+	cub->map->north_texture = NULL;
+	cub->map->south_texture = NULL;
+	cub->map->west_texture = NULL;
+	cub->map->east_texture = NULL;
+	cub->map->floor_rgb = NULL;
+	cub->map->ceiling_rgb = NULL;
+	cub->map->player_pos_x = -1;
+	cub->map->player_pos_y = -1;
+	cub->map->direction = -1;
 }
 
 /**
@@ -41,8 +41,9 @@ static void	ft_init_map(t_game *game)
  * @param game A pointer to the game structure (t_game) where map data and 
  *            configuration will be stored.
  */
-void	ft_loadmap(char *const filepath, t_game *game)
+void	ft_loadmap(char *const filepath, t_cub *cub)
 {
+	//update brief
 	cub->filepath = ft_strip(ft_strdup(filepath));
 	if (!ft_is_ext(cub->filepath, ".cub"))
 		ft_handle_error("Map: File extension", cub);

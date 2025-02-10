@@ -20,6 +20,6 @@ int	main(int argc, char **argv)
 	mlx_hook(cub->window, KeyPress, KeyPressMask, ft_key_input, cub);
 	mlx_hook(cub->window, DestroyNotify, NoEventMask, ft_close_window, cub);
 	mlx_loop(cub->mlx);
-	ft_clean_cub(cub);
+	ft_clean_game(cub);
 	return (0);
 }

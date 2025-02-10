@@ -2,7 +2,7 @@
 
 int	ft_close_window(t_cub *cub)
 {
-	ft_clean_cub(cub);
+	ft_clean_game(cub);
 	exit(0);
 }
 
