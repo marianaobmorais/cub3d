@@ -23,7 +23,8 @@ void ft_minimap_init(t_cub *cub)
 	// 	ft_put_pixel(img, 0, i, 0xf00edd);
 	// 	i++;
 	// }
-	mlx_put_image_to_window(cub->mlx, cub->window, img->img_ptr, 0, 0); //dar free depois
+	mlx_put_image_to_window(cub->mlx, cub->window, img->img_ptr, 0, 0);
+	//dar free depois
 }
 
 int	main(int argc, char **argv)
