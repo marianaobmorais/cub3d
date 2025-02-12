@@ -18,9 +18,9 @@
 # define MSG_MAP "Map: Something is wrong 😕"
 # define MSG_TEXTURE "Texture: Something is wrong 😕"
 # define MSG_COLOR "Color: Something is wrong 😕"
-# define PIXEL 100 //32
-
 //# define PIXEL 100 //32
+
+# define PIXEL 1
 # define WIDTH 960
 # define HEIGHT 600
 
@@ -112,6 +112,7 @@ bool	ft_valid_wall(char *line);
 
 t_cub	*ft_init_game(t_cub *cub);
 t_image	*ft_init_horizontal(t_cub *cub, t_image *img, int color);
+void	ft_put_pixel(t_image *img, int x, int y, int color);
 
 /* hook_utils.c */
 
