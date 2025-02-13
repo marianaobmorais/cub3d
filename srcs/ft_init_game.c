@@ -12,7 +12,7 @@ void	ft_colorize(t_image *img, int y, int color)
 	}
 }
 
-void	ft_color_bg(t_image *img, int ceiling_color, int floor_color)
+void	ft_render_bg(t_image *img, int ceiling_color, int floor_color)
 {
 	int	y;
 
@@ -28,11 +28,13 @@ void	ft_color_bg(t_image *img, int ceiling_color, int floor_color)
 	}
 }
 
-void	ft_init_image(t_cub *cub)
+void	ft_render_walls(t_image *img, t_map *map)
 {
-	cub->image = (t_image *)malloc(sizeof(t_image));
-	if (!cub->image)
-		ft_handle_error("malloc: cub->image", cub);
+
+}
+
+void	ft_put_image(t_cub *cub)
+{
 	cub->image->img_ptr = mlx_new_image(cub->mlx, WIDTH, HEIGHT);
 	if (!cub->image->img_ptr)
 		ft_handle_error("malloc: cub->image->img_ptr", cub);
@@ -42,18 +44,13 @@ void	ft_init_image(t_cub *cub)
 	cub->image->addr = mlx_get_data_addr(cub->image->img_ptr, &cub->image->bpp, &cub->image->line_len, &cub->image->endian);
 	if (!cub->image->addr)
 		ft_handle_error("malloc: cub->image->addr", cub);
-	ft_color_bg(cub->image, 0xff00, 0xff); //substitur dois ultimos argumentos por: cub->map->ceiling_rgb, cub->map->floor_rgb
+	ft_render_bg(cub->image, 0xff00, 0xff); //substitur dois ultimos argumentos por: cub->map->ceiling_rgb, cub->map->floor_rgb
+	ft_render_walls(cub->image, cub->map);
 	mlx_put_image_to_window(cub->mlx, cub->window, cub->image->img_ptr, 0, 0);
 }
 
-void ft_init_minimap(t_cub *cub)
+void ft_put_minimap(t_cub *cub)
 {
-	int		i;
-
-	i = 0;
-	cub->minimap = (t_image *)malloc(sizeof(t_image));
-	if (!cub->minimap)
-		ft_handle_error("malloc: cub->minimap", cub);
 	cub->minimap->img_ptr = mlx_new_image(cub->mlx, WIDTH / 7, HEIGHT / 7);
 	if (!cub->minimap->img_ptr)
 		ft_handle_error("malloc: img->img_ptr", cub);
@@ -63,6 +60,7 @@ void ft_init_minimap(t_cub *cub)
 	cub->minimap->addr = mlx_get_data_addr(cub->minimap->img_ptr, &cub->minimap->bpp, &cub->minimap->line_len, &cub->minimap->endian);
 	if (!cub->minimap->addr)
 		ft_handle_error("malloc: img->addr", cub);
+	//ft_render_minimap();
 	mlx_put_image_to_window(cub->mlx, cub->window, cub->minimap->img_ptr, 0, 0);
 }
 
@@ -75,7 +73,13 @@ t_cub	*ft_init_game(t_cub *cub)
 	cub->window = mlx_new_window(cub->mlx, WIDTH, HEIGHT, "cub3d");
 	if (!cub->window)
 		return (ft_handle_error("malloc: cub->window", cub), NULL);
-	ft_init_image(cub);
-	ft_init_minimap(cub);
+	cub->image = (t_image *)malloc(sizeof(t_image));
+	if (!cub->image)
+		ft_handle_error("malloc: cub->image", cub);
+	cub->minimap = (t_image *)malloc(sizeof(t_image));
+	if (!cub->minimap)
+		ft_handle_error("malloc: cub->minimap", cub);
+	ft_put_image(cub);
+	ft_put_minimap(cub);
 	return (cub);
 }
