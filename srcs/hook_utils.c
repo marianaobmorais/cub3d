@@ -10,13 +10,13 @@ int	ft_key_input(int keysym, t_cub *cub)
 {
 	if (keysym == XK_Escape)
 		ft_close_window(cub);
-/* 	if (keysym == XK_A || keysym == XK_a)
+	if (keysym == XK_A || keysym == XK_a)
 		; //left
 	if (keysym == XK_D || keysym == XK_d)
 		; //right
 	if (keysym == XK_W || keysym == XK_w)
 		; //up
 	if (keysym == XK_S || keysym == XK_s)
-		; //down */
+		; //down
 	return (0);
 }

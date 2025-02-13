@@ -15,12 +15,22 @@
 # include <string.h>
 # include <stdbool.h>
 
+/* messages */
+
 # define MSG_MAP "Map: Something is wrong 😕"
 # define MSG_TEXTURE "Texture: Something is wrong 😕"
 # define MSG_COLOR "Color: Something is wrong 😕"
-# define PIXEL 100 //32
-
 //# define PIXEL 100 //32
+
+/* colors in hex*/
+
+# define GRAY 0x818d94
+# define HOT_PINK 0xff00e6
+# define YELLOW 0xfff200
+
+/* measurements */
+
+# define PIXEL 1
 # define WIDTH 960
 # define HEIGHT 600
 
@@ -63,8 +73,8 @@ typedef struct s_cub
 {
 	void	*mlx;
 	void	*window;
-	t_image	*ceiling;
-	t_image	*floor;
+	t_image	*image;
+	t_image	*minimap;
 	t_map	*map;
 	char	*filepath;
 	int		fd;
@@ -73,6 +83,9 @@ typedef struct s_cub
 /* ft_handle_error.c */
 
 void	ft_handle_error(const char *error_msg, t_cub *game);
+
+/* ft_clean_game.c */
+
 void	ft_clean_game(t_cub *game);
 void	ft_free_vector(char **vector);
 
@@ -108,10 +121,13 @@ void	ft_matrix_parser(t_cub *game, char **matrix);
 int		ft_isempty(char *line);
 bool	ft_valid_wall(char *line);
 
-/* ft_init.c */
+/* ft_init_game.c */
 
 t_cub	*ft_init_game(t_cub *cub);
-t_image	*ft_init_horizontal(t_cub *cub, t_image *img, int color);
+
+/* ft_put_pixel.c */
+
+void	ft_put_pixel(t_image *img, int x, int y, int color);
 
 /* hook_utils.c */
 
