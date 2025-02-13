@@ -15,6 +15,7 @@ SRCS = $(SRCS_DIR)/main.c \
 	$(SRCS_DIR)/hook_utils.c \
 	$(SRCS_DIR)/ft_handle_error.c \
 	$(SRCS_DIR)/ft_put_pixel.c \
+	$(SRCS_DIR)/ft_clean_game.c \
 	$(SRCS_DIR)/parser/ft_loadmap.c \
 	$(SRCS_DIR)/parser/ft_map_parser.c \
 	$(SRCS_DIR)/parser/ft_map_parser_utils.c \

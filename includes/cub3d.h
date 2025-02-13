@@ -15,10 +15,20 @@
 # include <string.h>
 # include <stdbool.h>
 
+/* messages */
+
 # define MSG_MAP "Map: Something is wrong 😕"
 # define MSG_TEXTURE "Texture: Something is wrong 😕"
 # define MSG_COLOR "Color: Something is wrong 😕"
 //# define PIXEL 100 //32
+
+/* colors in hex*/
+
+# define GRAY 0x818d94
+# define HOT_PINK 0xff00e6
+# define YELLOW 0xfff200
+
+/* measurements */
 
 # define PIXEL 1
 # define WIDTH 960
@@ -73,6 +83,9 @@ typedef struct s_cub
 /* ft_handle_error.c */
 
 void	ft_handle_error(const char *error_msg, t_cub *game);
+
+/* ft_clean_game.c */
+
 void	ft_clean_game(t_cub *game);
 void	ft_free_vector(char **vector);
 
