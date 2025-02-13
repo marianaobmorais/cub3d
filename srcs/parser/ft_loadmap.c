@@ -54,6 +54,8 @@ void	ft_loadmap(char *const filepath, t_cub *cub)
 	ft_init_map(cub);
 	ft_map_parser(cub->fd, cub);
 	ft_matrix_parser(cub, cub->map->matrix);
+	cub->map->ceiling_hex = ft_arraytohex(cub->map->ceiling_rgb);
+	cub->map->floor_hex = ft_arraytohex(cub->map->floor_rgb);
 	close(cub->fd);
 	cub->fd = -1;
 }
