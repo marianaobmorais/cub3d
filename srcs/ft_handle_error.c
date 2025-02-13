@@ -79,17 +79,17 @@ void	ft_clean_game(t_cub *cub)
 			ft_clean_map(cub->map);
 			free(cub->map);
 		}
-		if (cub->ceiling)
+		if (cub->image)
 		{
-			if (cub->ceiling->img_ptr)
-				mlx_destroy_image(cub->mlx, cub->ceiling->img_ptr);
-			free(cub->ceiling);
+			if (cub->image->img_ptr)
+				mlx_destroy_image(cub->mlx, cub->image->img_ptr);
+			free(cub->image);
 		}
-		if (cub->floor)
+		if (cub->minimap)
 		{
-			if (cub->floor->img_ptr)
-				mlx_destroy_image(cub->mlx, cub->floor->img_ptr);
-			free(cub->floor);
+			if (cub->minimap->img_ptr)
+				mlx_destroy_image(cub->mlx, cub->minimap->img_ptr);
+			free(cub->minimap);
 		}
 		if (cub->window)
 			mlx_destroy_window(cub->mlx, cub->window);
