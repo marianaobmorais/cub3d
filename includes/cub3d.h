@@ -63,8 +63,8 @@ typedef struct s_cub
 {
 	void	*mlx;
 	void	*window;
-	t_image	*ceiling;
-	t_image	*floor;
+	t_image	*image;
+	t_image	*minimap;
 	t_map	*map;
 	char	*filepath;
 	int		fd;
@@ -111,7 +111,9 @@ bool	ft_valid_wall(char *line);
 /* ft_init_game.c */
 
 t_cub	*ft_init_game(t_cub *cub);
-t_image	*ft_init_horizontal(t_cub *cub, t_image *img, int color);
+
+/* ft_put_pixel.c */
+
 void	ft_put_pixel(t_image *img, int x, int y, int color);
 
 /* hook_utils.c */
