@@ -1,41 +1,69 @@
 #include "../includes/cub3d.h"
 
-void	ft_put_pixel(t_image *img, int x, int y, int color)
+void	ft_colorize(t_image *img, int y, int color)
 {
-	int	offset;
+	int	x;
 
-	offset = (y * img->line_len) + (x * (img->bpp / 8));
-	*((unsigned int *)(offset + img->addr)) = color;
+	x = 0;
+	while (x < WIDTH)
+	{
+		ft_put_pixel(img, x, y, color);
+		x++;
+	}
 }
 
-t_image	*ft_init_horizontal(t_cub *cub, t_image *img, int color)
+void	ft_color_bg(t_image *img, int ceiling_color, int floor_color)
 {
-	img = (t_image *)malloc(sizeof(t_image));
-	if (!img)
-		return (ft_handle_error("malloc: img", cub), NULL);
-	img->img_ptr = mlx_new_image(cub->mlx, WIDTH, HEIGHT / 2);
-	if (!img->img_ptr)
-		return (ft_handle_error("malloc: img->img_ptr", cub), NULL);
-	img->bpp = 0;
-	img->line_len = 0;
-	img->endian = 0;
-	img->addr = mlx_get_data_addr(img->img_ptr, &img->bpp, &img->line_len, &img->endian);
-	if (!img->addr)
-		return (ft_handle_error("malloc: img->addr", cub), NULL);
 	int	y;
-	int	x;
+
 	y = 0;
-	while (y < HEIGHT / 2)
+	while (y < HEIGHT)
 	{
-		x = 0;
-		while (x < WIDTH)
-		{
-			ft_put_pixel(img, x, y, color);
-			x++;
-		}
+		if (y <= HEIGHT / 2)
+			ft_colorize(img, y, ceiling_color);
+		else
+			ft_colorize(img, y, floor_color);
+
 		y++;
 	}
-	return (img);
+}
+
+void	ft_init_image(t_cub *cub)
+{
+	cub->image = (t_image *)malloc(sizeof(t_image));
+	if (!cub->image)
+		ft_handle_error("malloc: cub->image", cub);
+	cub->image->img_ptr = mlx_new_image(cub->mlx, WIDTH, HEIGHT);
+	if (!cub->image->img_ptr)
+		ft_handle_error("malloc: cub->image->img_ptr", cub);
+	cub->image->bpp = 0;
+	cub->image->line_len = 0;
+	cub->image->endian = 0;
+	cub->image->addr = mlx_get_data_addr(cub->image->img_ptr, &cub->image->bpp, &cub->image->line_len, &cub->image->endian);
+	if (!cub->image->addr)
+		ft_handle_error("malloc: cub->image->addr", cub);
+	ft_color_bg(cub->image, 0xff00, 0xff); //substitur dois ultimos argumentos por: cub->map->ceiling_rgb, cub->map->floor_rgb
+	mlx_put_image_to_window(cub->mlx, cub->window, cub->image->img_ptr, 0, 0);
+}
+
+void ft_init_minimap(t_cub *cub)
+{
+	int		i;
+
+	i = 0;
+	cub->minimap = (t_image *)malloc(sizeof(t_image));
+	if (!cub->minimap)
+		ft_handle_error("malloc: cub->minimap", cub);
+	cub->minimap->img_ptr = mlx_new_image(cub->mlx, WIDTH / 7, HEIGHT / 7);
+	if (!cub->minimap->img_ptr)
+		ft_handle_error("malloc: img->img_ptr", cub);
+	cub->minimap->bpp = 0;
+	cub->minimap->line_len = 0;
+	cub->minimap->endian = 0;
+	cub->minimap->addr = mlx_get_data_addr(cub->minimap->img_ptr, &cub->minimap->bpp, &cub->minimap->line_len, &cub->minimap->endian);
+	if (!cub->minimap->addr)
+		ft_handle_error("malloc: img->addr", cub);
+	mlx_put_image_to_window(cub->mlx, cub->window, cub->minimap->img_ptr, 0, 0);
 }
 
 
@@ -47,13 +75,7 @@ t_cub	*ft_init_game(t_cub *cub)
 	cub->window = mlx_new_window(cub->mlx, WIDTH, HEIGHT, "cub3d");
 	if (!cub->window)
 		return (ft_handle_error("malloc: cub->window", cub), NULL);
-	cub->ceiling = ft_init_horizontal(cub, cub->ceiling, 0xff); //cub->map->ceiling_rgb;
-	if (!cub->ceiling)
-		return (ft_handle_error("malloc: cub->ceiling", cub), NULL);
-	cub->floor = ft_init_horizontal(cub, cub->floor, 0xff00); //cub->map->floor_rgb;
-	if (!cub->floor)
-		return (ft_handle_error("malloc: cub->floor", cub), NULL);
-	mlx_put_image_to_window(cub->mlx, cub->window, cub->ceiling->img_ptr, 0, 0);
-	mlx_put_image_to_window(cub->mlx, cub->window, cub->floor->img_ptr, 0, HEIGHT / 2);
+	ft_init_image(cub);
+	ft_init_minimap(cub);
 	return (cub);
 }
