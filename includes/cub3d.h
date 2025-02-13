@@ -53,6 +53,8 @@ typedef struct s_map
 	char			*east_texture;
 	unsigned char	*floor_rgb;
 	unsigned char	*ceiling_rgb;
+	int				floor_hex;
+	int				ceiling_hex;
 	int				player_pos_x;
 	int				player_pos_y;
 	t_directions	direction;
@@ -110,6 +112,7 @@ bool	ft_is_ext(char *filename, char *ext);
 char	*ft_strip(char *str);
 int		ft_isspace(int c);
 int		ft_isnumeric(char *nbr);
+int		ft_arraytohex(unsigned char *rgb);
 void	ft_print_map(t_map *map); //debug
 
 /* ft_matrix_parser.c */
