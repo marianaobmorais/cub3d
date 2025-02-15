@@ -128,6 +128,12 @@ int	ft_isnumeric(char *nbr)
 	return (1);
 }
 
+int	ft_arraytohex(unsigned char *rgb)
+{
+	//brief
+	return (rgb[0] << 16 | rgb[1] << 8 | rgb[2]);
+}
+
 /* DEBUG */
 void	ft_print_map(t_map *map)
 {

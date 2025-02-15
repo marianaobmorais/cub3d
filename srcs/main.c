@@ -16,6 +16,8 @@ int	main(int argc, char **argv)
 	if (!cub)
 		return (1); //error handler
 	ft_print_map(cub->map); //debug
+	// printf("rgb[%d, %d, %d] to hex -> %#x\n", cub->map->ceiling_rgb[0], cub->map->ceiling_rgb[1], cub->map->ceiling_rgb[2],
+	// 	ft_arraytohex(cub->map->ceiling_rgb)); //debug
 	mlx_hook(cub->window, KeyPress, KeyPressMask, ft_key_input, cub);
 	mlx_hook(cub->window, DestroyNotify, NoEventMask, ft_close_window, cub);
 	mlx_loop(cub->mlx);
