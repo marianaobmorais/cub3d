@@ -20,6 +20,7 @@ void	ft_player_motion(int y, int x, t_cub *cub)
 	cub->map->matrix[old_y][old_x] = '0';
 	cub->map->matrix[y][x] = 'S';
 	ft_print_map(cub->map); //debug
+	ft_put_minimap(cub); //debug
 }
 
 int	ft_key_input(int keysym, t_cub *cub)
