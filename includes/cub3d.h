@@ -33,6 +33,8 @@
 # define PIXEL 1
 # define WIDTH 960
 # define HEIGHT 600
+# define MINI_WIDTH 95
+# define MINI_HEIGHT 75
 
 typedef enum e_directions
 {
@@ -124,6 +126,7 @@ bool	ft_valid_wall(char *line);
 /* ft_init_game.c */
 
 t_cub	*ft_init_game(t_cub *cub);
+void ft_put_minimap(t_cub *cub);
 
 /* ft_put_pixel.c */
 
@@ -133,5 +136,11 @@ void	ft_put_pixel(t_image *img, int x, int y, int color);
 
 int	ft_key_input(int keysym, t_cub *game);
 int	ft_close_window(t_cub *game);
+
+/* Minimap */
+
+/* t_render_minimap.c */
+
+void	ft_render_minimap(t_cub *cub);
 
 # endif //CUB3D_H
