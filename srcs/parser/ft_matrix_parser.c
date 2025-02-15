@@ -72,25 +72,25 @@ static bool	ft_set_player(char c, t_cub *cub, int x, int y)
  * @param game A pointer to the game structure (t_game) to store the player's data.
  * @return true if the line is valid and the player is set, false otherwise.
  */
-static bool	ft_check_line(char *line, int x, t_cub *cub)
+static bool	ft_check_line(char *line, int y, t_cub *cub)
 {
 	//update brief
-	int	y;
+	int	x;
 
-	y = 0;
-	while (line[y])
+	x = 0;
+	while (line[x])
 	{
-		if (!ft_valid_char(line[y]))
+		if (!ft_valid_char(line[x]))
 		{
 			return (false);
 		}
-		if (line[y] == 'S' || line[y] == 'N' || line[y] == 'E'
-			|| line[y] == 'W')
+		if (line[x] == 'S' || line[x] == 'N' || line[x] == 'E'
+			|| line[x] == 'W')
 		{
-			if (!ft_set_player(line[y], cub, x, y))
+			if (!ft_set_player(line[x], cub, x, y))
 				return (false);
 		}
-		y++;
+		x++;
 	}
 	return (true);
 }
@@ -112,21 +112,21 @@ static bool	ft_check_line(char *line, int x, t_cub *cub)
 void	ft_matrix_parser(t_cub *cub, char **matrix)
 {
 	//update brief
-	int		x;
+	int		y;
 	char	*line;
 
-	x = 0;
-	while (matrix[x])
+	y = 0;
+	while (matrix[y])
 	{
-		line = ft_strip(ft_strdup(matrix[x]));
-		if (!ft_check_line(line, x, cub) || !ft_valid_wall(line))
+		line = ft_strip(ft_strdup(matrix[y]));
+		if (!ft_check_line(line, y, cub) || !ft_valid_wall(line))
 		{
 			free(line);
 			ft_handle_error(MSG_MAP, cub);
 		}
 		free(line);
-		x++;
+		y++;
 	}
-	if (cub->map->player_pos_x == -1)
+	if (cub->map->player_pos_y == -1)
 		ft_handle_error(MSG_MAP, cub);
 }
