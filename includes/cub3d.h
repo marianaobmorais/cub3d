@@ -126,7 +126,6 @@ bool	ft_valid_wall(char *line);
 /* ft_init_game.c */
 
 t_cub	*ft_init_game(t_cub *cub);
-void ft_put_minimap(t_cub *cub);
 
 /* ft_put_pixel.c */
 
@@ -141,6 +140,6 @@ int	ft_close_window(t_cub *game);
 
 /* t_render_minimap.c */
 
-void	ft_render_minimap(t_cub *cub);
+void	ft_put_minimap(t_cub *cub);
 
 # endif //CUB3D_H
