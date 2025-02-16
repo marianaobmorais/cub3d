@@ -57,6 +57,10 @@ typedef struct s_map
 	unsigned char	*ceiling_rgb;
 	int				player_pos_x;
 	int				player_pos_y;
+	int				start_x;
+	int				start_y;
+	int				end_x;
+	int				end_y;
 	t_directions	direction;
 }	t_map;
 
@@ -133,13 +137,19 @@ void	ft_put_pixel(t_image *img, int x, int y, int color);
 
 /* hook_utils.c */
 
-int	ft_key_input(int keysym, t_cub *game);
-int	ft_close_window(t_cub *game);
+int		ft_key_input(int keysym, t_cub *game);
+int		ft_close_window(t_cub *game);
 
 /* Minimap */
 
-/* t_render_minimap.c */
+/* ft_render_minimap.c */
 
 void	ft_put_minimap(t_cub *cub);
+
+/* minimap_utils.c */
+
+void	ft_put_square(t_image *img, int x, int y, int color);
+void	ft_set_limit_x(t_cub *cub, int map_width);
+void	ft_set_limit_y(t_cub *cub, int map_height);
 
 # endif //CUB3D_H

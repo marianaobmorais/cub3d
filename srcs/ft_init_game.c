@@ -58,7 +58,7 @@ void	ft_put_image(t_cub *cub)
 	cub->image->addr = mlx_get_data_addr(cub->image->img_ptr, &cub->image->bpp, &cub->image->line_len, &cub->image->endian);
 	if (!cub->image->addr)
 		ft_handle_error("malloc: cub->image->addr", cub);
-	ft_render_bg(cub->image, HOT_PINK, GRAY); //substitur dois ultimos argumentos por: cub->map->ceiling_rgb, cub->map->floor_rgb
+	ft_render_bg(cub->image, 0xB0CFDD, GRAY); //substitur dois ultimos argumentos por: cub->map->ceiling_rgb, cub->map->floor_rgb
 	ft_render_walls(cub->image, cub->map);
 	mlx_put_image_to_window(cub->mlx, cub->window, cub->image->img_ptr, 0, 0);
 }
