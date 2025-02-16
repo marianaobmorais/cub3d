@@ -32,7 +32,7 @@ void	ft_render_walls(t_image *img, t_map *map)
 	(void)img;
 	(void)map;
 	//int	factor; //aka multiplier
-	int	x;
+	int	x; //number of the pixel used
 
 	x = 0;
 	while (x < WIDTH)
@@ -58,7 +58,7 @@ void	ft_put_image(t_cub *cub)
 	cub->image->addr = mlx_get_data_addr(cub->image->img_ptr, &cub->image->bpp, &cub->image->line_len, &cub->image->endian);
 	if (!cub->image->addr)
 		ft_handle_error("malloc: cub->image->addr", cub);
-	ft_render_bg(cub->image, cub->map->ceiling_hex, cub->map->floor_hex); //substitur dois ultimos argumentos por: cub->map->ceiling_rgb, cub->map->floor_rgb
+	ft_render_bg(cub->image, cub->map->ceiling_hex, cub->map->floor_hex);
 	ft_render_walls(cub->image, cub->map);
 	mlx_put_image_to_window(cub->mlx, cub->window, cub->image->img_ptr, 0, 0);
 }
