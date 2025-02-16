@@ -34,8 +34,6 @@
 # define PIXEL 1
 # define WIDTH 960
 # define HEIGHT 600
-# define MINI_WIDTH 95 //bonus
-# define MINI_HEIGHT 75 //bonus
 
 typedef struct s_minimap	t_minimap; //bonus
 
