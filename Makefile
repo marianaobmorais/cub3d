@@ -22,6 +22,7 @@ SRCS = $(SRCS_DIR)/main.c \
 	$(SRCS_DIR)/parser/ft_matrix_parser.c \
 	$(SRCS_DIR)/parser/ft_matrix_parser_utils.c \
 	$(SRCS_DIR)/parser/parser_utils.c \
+	$(SRCS_DIR)/raycasting/ft_dda.c \
 
 #B_SRCS = $(BONUS_DIR)/main_bonus.c \
 
