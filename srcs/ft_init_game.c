@@ -75,11 +75,8 @@ t_cub	*ft_init_game(t_cub *cub)
 	if (!cub->image)
 		ft_handle_error("malloc: cub->image", cub);
 	cub->image->img_ptr = NULL;
-	cub->minimap = (t_image *)malloc(sizeof(t_image));
-	if (!cub->minimap)
-		ft_handle_error("malloc: cub->minimap", cub);
-	cub->minimap->img_ptr = NULL;
+	ft_init_minimap(cub); //bonus
 	ft_put_image(cub);
-	ft_put_minimap(cub);
+	ft_put_minimap(cub); //bonus
 	return (cub);
 }

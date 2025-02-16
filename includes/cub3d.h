@@ -3,6 +3,7 @@
 
 # include "../libft/libft.h"
 # include "../minilibx-linux/mlx.h"
+# include "minimap.h"
 # include <X11/keysym.h>
 # include <X11/X.h>
 # include <stdio.h>
@@ -33,8 +34,10 @@
 # define PIXEL 1
 # define WIDTH 960
 # define HEIGHT 600
-# define MINI_WIDTH 95
-# define MINI_HEIGHT 75
+# define MINI_WIDTH 95 //bonus
+# define MINI_HEIGHT 75 //bonus
+
+typedef struct s_minimap	t_minimap; //bonus
 
 typedef enum e_directions
 {
@@ -57,10 +60,6 @@ typedef struct s_map
 	unsigned char	*ceiling_rgb;
 	int				player_pos_x;
 	int				player_pos_y;
-	int				start_x;
-	int				start_y;
-	int				end_x;
-	int				end_y;
 	t_directions	direction;
 }	t_map;
 
@@ -77,13 +76,13 @@ typedef struct	s_image
 
 typedef struct s_cub
 {
-	void	*mlx;
-	void	*window;
-	t_image	*image;
-	t_image	*minimap;
-	t_map	*map;
-	char	*filepath;
-	int		fd;
+	void		*mlx;
+	void		*window;
+	t_image		*image;
+	t_minimap	*mini;
+	t_map		*map;
+	char		*filepath;
+	int			fd;
 }	t_cub;
 
 /* ft_handle_error.c */
@@ -139,17 +138,5 @@ void	ft_put_pixel(t_image *img, int x, int y, int color);
 
 int		ft_key_input(int keysym, t_cub *game);
 int		ft_close_window(t_cub *game);
-
-/* Minimap */
-
-/* ft_render_minimap.c */
-
-void	ft_put_minimap(t_cub *cub);
-
-/* minimap_utils.c */
-
-void	ft_put_square(t_image *img, int x, int y, int color);
-void	ft_set_limit_x(t_cub *cub, int map_width);
-void	ft_set_limit_y(t_cub *cub, int map_height);
 
 # endif //CUB3D_H

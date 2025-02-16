@@ -1,4 +1,4 @@
-#include "../../includes/cub3d.h"
+#include "../../includes/minimap.h"
 
 // char	**ft_matrixdup(char **matrix, t_cub *cub)
 // {
@@ -47,38 +47,38 @@ void	ft_put_square(t_image *img, int x, int y, int color)
 	}
 }
 
-void	ft_set_limit_x(t_cub *cub, int map_width)
+void	ft_set_limit_x(t_cub *cub, int matrix_width)
 {
-	cub->map->start_x = cub->map->player_pos_x - 9;
-	cub->map->end_x = cub->map->player_pos_x + 9;
-	if (cub->map->start_x < 0)
+	cub->mini->start_x = cub->map->player_pos_x - 9;
+	cub->mini->end_x = cub->map->player_pos_x + 9;
+	if (cub->mini->start_x < 0)
 	{
-		cub->map->end_x -= cub->map->start_x;
-		cub->map->start_x = 0;
+		cub->mini->end_x -= cub->mini->start_x;
+		cub->mini->start_x = 0;
 	}
-	if (cub->map->end_x >= map_width)
+	if (cub->mini->end_x >= matrix_width)
 	{
-		cub->map->start_x -= (cub->map->end_x - map_width + 1);
-		if (cub->map->start_x < 0)
-			cub->map->start_x = 0;
-		cub->map->end_x = map_width - 1;
+		cub->mini->start_x -= (cub->mini->end_x - matrix_width + 1);
+		if (cub->mini->start_x < 0)
+			cub->mini->start_x = 0;
+		cub->mini->end_x = matrix_width - 1;
 	}
 }
 
-void	ft_set_limit_y(t_cub *cub, int map_height)
+void	ft_set_limit_y(t_cub *cub, int matrix_height)
 {
-	cub->map->start_y = cub->map->player_pos_y - 7;
-	cub->map->end_y = cub->map->player_pos_y + 7;
-	if (cub->map->start_y < 0)
+	cub->mini->start_y = cub->map->player_pos_y - 7;
+	cub->mini->end_y = cub->map->player_pos_y + 7;
+	if (cub->mini->start_y < 0)
 	{
-		cub->map->end_y -= cub->map->start_y;
-		cub->map->start_y = 0;
+		cub->mini->end_y -= cub->mini->start_y;
+		cub->mini->start_y = 0;
 	}
-	if (cub->map->end_y >= map_height)
+	if (cub->mini->end_y >= matrix_height)
 	{
-		cub->map->start_y -= (cub->map->end_y - map_height + 1);
-		if (cub->map->start_y < 0)
-			cub->map->start_y = 0;
-		cub->map->end_y = map_height - 1;
+		cub->mini->start_y -= (cub->mini->end_y - matrix_height + 1);
+		if (cub->mini->start_y < 0)
+			cub->mini->start_y = 0;
+		cub->mini->end_y = matrix_height - 1;
 	}
 }
