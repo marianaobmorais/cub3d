@@ -23,8 +23,8 @@ static void	ft_init_map(t_cub *cub)
 	cub->map->east_texture = NULL;
 	cub->map->floor_rgb = NULL;
 	cub->map->ceiling_rgb = NULL;
-	cub->map->player_pos_x = -1;
-	cub->map->player_pos_y = -1;
+	cub->map->player_squ_x = -1;
+	cub->map->player_squ_y = -1;
 	cub->map->direction = -1;
 }
 
