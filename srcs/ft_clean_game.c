@@ -91,6 +91,8 @@ void	ft_clean_game(t_cub *cub)
 				mlx_destroy_image(cub->mlx, cub->minimap->img_ptr);
 			free(cub->minimap);
 		}
+		if (cub->raycast)
+			free(cub->raycast);
 		if (cub->window)
 			mlx_destroy_window(cub->mlx, cub->window);
 		if (cub->mlx)

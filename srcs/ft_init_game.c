@@ -83,6 +83,10 @@ void ft_put_minimap(t_cub *cub)
 
 t_cub	*ft_init_game(t_cub *cub)
 {
+	cub->image = NULL;
+	cub->minimap = NULL;
+	cub->raycast = NULL;
+	cub->window = NULL;
 	cub->mlx = mlx_init();
 	if (!cub->mlx)
 		return (ft_handle_error("malloc: cub->mlx", cub), NULL);
@@ -97,6 +101,10 @@ t_cub	*ft_init_game(t_cub *cub)
 	if (!cub->minimap)
 		ft_handle_error("malloc: cub->minimap", cub);
 	cub->minimap->img_ptr = NULL;
+	cub->raycast = (t_raycast *)malloc(sizeof(t_raycast));
+	if (!cub->raycast)
+		ft_handle_error("malloc: cub->raycast", cub);
+	ft_init_raycast(cub);
 	ft_put_image(cub);
 	ft_put_minimap(cub);
 	return (cub);

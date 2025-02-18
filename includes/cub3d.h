@@ -44,6 +44,12 @@ typedef enum e_directions
 	CEILING
 }	t_directions;
 
+typedef struct s_raycast
+{
+	double	player_pos_x;
+	double	player_pos_y;
+}	t_raycast;
+
 typedef struct s_map
 {
 	char			**matrix;
@@ -55,8 +61,8 @@ typedef struct s_map
 	unsigned char	*ceiling_rgb;
 	int				floor_hex;
 	int				ceiling_hex;
-	int				player_pos_x;
-	int				player_pos_y;
+	int				player_squ_x;
+	int				player_squ_y;
 	t_directions	direction;
 }	t_map;
 
@@ -70,16 +76,16 @@ typedef struct	s_image
 	int		endian;
 }	t_image;
 
-
 typedef struct s_cub
 {
-	void	*mlx;
-	void	*window;
-	t_image	*image;
-	t_image	*minimap;
-	t_map	*map;
-	char	*filepath;
-	int		fd;
+	void		*mlx;
+	void		*window;
+	t_image		*image;
+	t_image		*minimap;
+	t_map		*map;
+	t_raycast	*raycast;
+	char		*filepath;
+	int			fd;
 }	t_cub;
 
 /* ft_handle_error.c */
@@ -136,5 +142,9 @@ void	ft_put_pixel(t_image *img, int x, int y, int color);
 
 int	ft_key_input(int keysym, t_cub *game);
 int	ft_close_window(t_cub *game);
+
+/* ft_init_raycast.c */
+
+void	ft_init_raycast(t_cub *cub);
 
 # endif //CUB3D_H
