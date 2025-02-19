@@ -87,12 +87,12 @@ void	ft_init_game(t_cub *cub)
 	cub->image = NULL;
 	cub->minimap = NULL;
 	cub->raycast = NULL;
-	ft_init_raycast(cub);
 }
 
 t_cub	*ft_run_game(t_cub *cub)
 {
 	ft_init_game(cub);
+	ft_init_raycast(cub);
 	cub->mlx = mlx_init();
 	if (!cub->mlx)
 		return (ft_handle_error("malloc: cub->mlx", cub), NULL);

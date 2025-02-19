@@ -44,10 +44,16 @@ typedef enum e_directions
 	CEILING
 }	t_directions;
 
+typedef struct s_point
+{
+	double	x;
+	double	y;
+}	t_point;
+
 typedef struct s_raycast
 {
-	double	player_pos_x;
-	double	player_pos_y;
+	t_point	player_pos;
+	t_point	player_dir;
 }	t_raycast;
 
 typedef struct s_map
