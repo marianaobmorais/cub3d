@@ -130,9 +130,9 @@ void	ft_matrix_parser(t_cub *game, char **matrix);
 int		ft_isempty(char *line);
 bool	ft_valid_wall(char *line);
 
-/* ft_init_game.c */
+/* ft_run_game.c */
 
-t_cub	*ft_init_game(t_cub *cub);
+t_cub	*ft_run_game(t_cub *cub);
 
 /* ft_put_pixel.c */
 

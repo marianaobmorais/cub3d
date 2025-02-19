@@ -13,7 +13,7 @@ int	main(int argc, char **argv)
 	//ft_memset(cub, 0, sizeof(cub)); //not sure if it's needed
 	ft_loadmap(argv[1], cub);
 	ft_print_map(cub->map); //debug
-	cub = ft_init_game(cub);
+	cub = ft_run_game(cub);
 	if (!cub)
 		return (1); //error handler
 	// printf("rgb[%d, %d, %d] to hex -> %#x\n", cub->map->ceiling_rgb[0], cub->map->ceiling_rgb[1], cub->map->ceiling_rgb[2],
