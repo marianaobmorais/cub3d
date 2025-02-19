@@ -27,24 +27,6 @@ void	ft_render_bg(t_image *img, int ceiling_color, int floor_color)
 	}
 }
 
-void	ft_render_walls(t_image *img, t_map *map)
-{
-	(void)img;
-	(void)map;
-	//int	factor; //aka multiplier
-	int	x; //number of the pixel used
-
-	x = 0;
-	while (x < WIDTH)
-	{
-		//factor = 2 * (x / WIDTH) - 1;
-
-		ft_put_pixel(img, x, (HEIGHT / 2) - 5, YELLOW);
-		x++;
-	}
-
-}
-
 void	ft_put_image(t_cub *cub)
 {
 	if (cub->image->img_ptr)

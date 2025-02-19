@@ -153,4 +153,8 @@ int	ft_close_window(t_cub *game);
 
 void	ft_init_raycast(t_cub *cub);
 
+/* ft_render_walls.c */
+
+void	ft_render_walls(t_image *img, t_map *map)
+
 # endif //CUB3D_H
