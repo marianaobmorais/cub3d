@@ -54,6 +54,12 @@ typedef struct s_raycast
 {
 	t_point	player_pos;
 	t_point	player_dir;
+	t_point	camera_plane;
+	t_point	ray_dir;
+	t_point	delta_dir;
+	double	camera_curr_x;
+	double	frame_time;
+	double	last_frame_time;
 }	t_raycast;
 
 typedef struct s_map
@@ -151,10 +157,14 @@ int	ft_close_window(t_cub *game);
 
 /* ft_init_raycast.c */
 
-void	ft_init_raycast(t_cub *cub);
+void	ft_init_raycast(t_map *map, t_raycast *raycast);
 
 /* ft_render_walls.c */
 
-void	ft_render_walls(t_image *img, t_map *map)
+void	ft_render_walls(t_raycast *raycast, t_map *map);
+
+/* ft_dda.c */
+
+void	ft_dda(t_raycast *raycast)
 
 # endif //CUB3D_H

@@ -1,27 +1,31 @@
 #include "../../includes/cub3d.h"
 
-void	ft_init_raycast(t_cub *cub)
+void	ft_init_raycast(t_map *map, t_raycast *raycast)
 {
-	cub->raycast->player_pos.x = (double)cub->map->player_squ_x + 0.5;
-	cub->raycast->player_pos.y = (double)cub->map->player_squ_y + 0.5;
-	if (cub->map->direction == NORTH)
+	raycast->player_pos.x = (double)map->player_squ_x + 0.5;
+	raycast->player_pos.y = (double)map->player_squ_y + 0.5;
+	if (map->direction == NORTH)
 	{
-		cub->raycast->player_dir.x = 0;
-		cub->raycast->player_dir.y = -1;
+		raycast->player_dir.x = 0;
+		raycast->player_dir.y = -1;
 	}
-	if (cub->map->direction == SOUTH)
+	if (map->direction == SOUTH)
 	{
-		cub->raycast->player_dir.x = 0;
-		cub->raycast->player_dir.y = 1;
+		raycast->player_dir.x = 0;
+		raycast->player_dir.y = 1;
 	}
-	if (cub->map->direction == EAST)
+	if (map->direction == EAST)
 	{
-		cub->raycast->player_dir.x = 1;
-		cub->raycast->player_dir.y = 0;
+		raycast->player_dir.x = 1;
+		raycast->player_dir.y = 0;
 	}
-	if (cub->map->direction == WEST)
+	if (map->direction == WEST)
 	{
-		cub->raycast->player_dir.x = -1;
-		cub->raycast->player_dir.y = 0;
+		raycast->player_dir.x = -1;
+		raycast->player_dir.y = 0;
+		raycast->camera_plane.x = 0;
+		raycast->camera_plane.y = 0.66;
 	}
+	raycast->frame_time = 0;
+	raycast->last_frame_time = 0;
 }
