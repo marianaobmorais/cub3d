@@ -41,7 +41,7 @@ static void	ft_init_map(t_cub *cub)
  * @param game A pointer to the game structure (t_game) where map data and 
  *            configuration will be stored.
  */
-void	ft_loadmap(char *const filepath, t_cub *cub)
+void	ft_load_map(char *const filepath, t_cub *cub)
 {
 	//update brief
 	cub->filepath = ft_strip(ft_strdup(filepath));

@@ -113,7 +113,7 @@ bool	ft_valid_wall(char *line)
  * @return 1 if the string is NULL, empty, or consists only of whitespace, 
  *         0 otherwise.
  */
-int	ft_isempty(char *line)
+int	ft_is_empty(char *line)
 {
 	char	*tmp;
 

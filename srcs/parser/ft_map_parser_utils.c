@@ -96,13 +96,13 @@ char	*ft_buffer(char *buffer, char *line, int start, t_cub *cub)
 	//update brief
 	char	*tmp;
 
-	if (ft_isempty(line) == 1 && start == 0)
+	if (ft_is_empty(line) == 1 && start == 0)
 	{
 		free(line);
 		free(buffer);
 		ft_handle_error("Map: error new line", cub);
 	}
-	if (ft_isempty(line) == 1)
+	if (ft_is_empty(line) == 1)
 		return (NULL);
 	tmp = ft_strjoin(buffer, line);
 	free(buffer);

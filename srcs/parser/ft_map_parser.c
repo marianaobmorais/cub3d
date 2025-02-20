@@ -112,7 +112,7 @@ static void	ft_add_color(char *line, t_cub *cub, char *identifier, \
 static bool	ft_get_texture_color(char *line, t_cub *cub, int i)
 {
 	//update brief
-	if (ft_isempty(line) == 1)
+	if (ft_is_empty(line) == 1)
 		return (false);
 	else if (ft_strnstr(line, "NO", ft_strlen(line)))
 		ft_add_texture(line, cub, "NO", NORTH);

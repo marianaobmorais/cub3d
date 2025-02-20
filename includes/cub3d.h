@@ -105,7 +105,7 @@ void	ft_free_vector(char **vector);
 
 /* ft_loadmap.c */
 
-void	ft_loadmap(char *const filepath, t_cub *game);
+void	ft_load_map(char *const filepath, t_cub *game);
 
 /* ft_map_parser.c */
 
@@ -133,7 +133,7 @@ void	ft_matrix_parser(t_cub *game, char **matrix);
 
 /* ft_matrix_parser_utils.c */
 
-int		ft_isempty(char *line);
+int		ft_is_empty(char *line);
 bool	ft_valid_wall(char *line);
 
 /* ft_run_game.c */
