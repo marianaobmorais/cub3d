@@ -1,6 +1,6 @@
 #include "../includes/cub3d.h"
 
-void	ft_colorize(t_image *img, int y, int color)
+void	ft_colorize_bg(t_image *img, int y, int color)
 {
 	int	x;
 
@@ -20,9 +20,9 @@ void	ft_render_bg(t_image *img, int ceiling_color, int floor_color)
 	while (y < HEIGHT)
 	{
 		if (y <= HEIGHT / 2)
-			ft_colorize(img, y, ceiling_color);
+			ft_colorize_bg(img, y, ceiling_color);
 		else
-			ft_colorize(img, y, floor_color);
+			ft_colorize_bg(img, y, floor_color);
 		y++;
 	}
 }
