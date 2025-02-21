@@ -44,22 +44,32 @@ typedef enum e_directions
 	CEILING
 }	t_directions;
 
-typedef struct s_point
+typedef struct s_dpoint
 {
 	double	x;
 	double	y;
-}	t_point;
+}	t_dpoint;
+
+typedef struct s_ipoint
+{
+	int	x;
+	int	y;
+}	t_ipoint;
 
 typedef struct s_raycast
 {
-	t_point	player_pos;
-	t_point	player_dir;
-	t_point	camera_plane;
-	t_point	ray_dir;
-	t_point	delta_dir;
-	double	camera_curr_x;
-	double	frame_time;
-	double	last_frame_time;
+	t_dpoint	player_pos;
+	t_dpoint	player_dir;
+	t_dpoint	camera_plane;
+	t_dpoint	ray_dir;
+	t_dpoint	delta_dist;
+	t_ipoint	player_squ;
+	t_ipoint	step;
+	double		camera_curr_x;
+	double		frame_time;
+	double		last_frame_time;
+	double		dist_to_x;
+	double		dist_to_y;
 }	t_raycast;
 
 typedef struct s_map
@@ -161,10 +171,10 @@ void	ft_init_raycast(t_map *map, t_raycast *raycast);
 
 /* ft_render_walls.c */
 
-void	ft_render_walls(t_raycast *raycast, t_map *map);
+void	ft_render_walls(t_raycast *raycast);
 
 /* ft_dda.c */
 
-void	ft_dda(t_raycast *raycast)
+bool	ft_dda(t_raycast *raycast)
 
 # endif //CUB3D_H
