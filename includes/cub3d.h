@@ -118,6 +118,11 @@ typedef struct s_cub
 	int			fd;
 }	t_cub;
 
+
+/* ft_init_structs.c */
+
+t_cub	*ft_init_structs(t_cub *cub);
+
 /* ft_handle_error.c */
 
 void	ft_handle_error(const char *error_msg, t_cub *game);
