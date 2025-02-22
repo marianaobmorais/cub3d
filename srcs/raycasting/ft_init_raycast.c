@@ -16,34 +16,37 @@
 // 	double		dist_to_y;
 // }	t_raycast;
 
-void	ft_init_raycast(t_map *map, t_raycast *raycast)
+void	ft_init_raycast(t_cub *cub)
 {
-	raycast->player_squ.x = map->player_squ_x;
-	raycast->player_squ.y = map->player_squ_y;
-	raycast->player_pos.x = (double)map->player_squ_x + 0.5;
-	raycast->player_pos.y = (double)map->player_squ_y + 0.5;
-	if (map->direction == NORTH)
+	cub->raycast = (t_raycast *)malloc(sizeof(t_raycast));
+	if (!cub->raycast)
+		ft_handle_error("malloc: cub->raycast", cub);
+	cub->raycast->player_squ.x = cub->map->player_squ_x;
+	cub->raycast->player_squ.y = cub->map->player_squ_y;
+	cub->raycast->player_pos.x = (double)cub->map->player_squ_x + 0.5;
+	cub->raycast->player_pos.y = (double)cub->map->player_squ_y + 0.5;
+	if (cub->map->direction == NORTH)
 	{
-		raycast->player_dir.x = 0;
-		raycast->player_dir.y = -1;
+		cub->raycast->player_dir.x = 0;
+		cub->raycast->player_dir.y = -1;
 	}
-	if (map->direction == SOUTH)
+	if (cub->map->direction == SOUTH)
 	{
-		raycast->player_dir.x = 0;
-		raycast->player_dir.y = 1;
+		cub->raycast->player_dir.x = 0;
+		cub->raycast->player_dir.y = 1;
 	}
-	if (map->direction == EAST)
+	if (cub->map->direction == EAST)
 	{
-		raycast->player_dir.x = 1;
-		raycast->player_dir.y = 0;
+		cub->raycast->player_dir.x = 1;
+		cub->raycast->player_dir.y = 0;
 	}
-	if (map->direction == WEST)
+	if (cub->map->direction == WEST)
 	{
-		raycast->player_dir.x = -1;
-		raycast->player_dir.y = 0;
-		raycast->camera_plane.x = 0;
-		raycast->camera_plane.y = 0.66;
+		cub->raycast->player_dir.x = -1;
+		cub->raycast->player_dir.y = 0;
+		cub->raycast->camera_plane.x = 0; //not sure about this
+		cub->raycast->camera_plane.y = 0.66; //not sure about this
 	}
-	raycast->frame_time = 0;
-	raycast->last_frame_time = 0;
+	cub->raycast->frame_time = 0;
+	cub->raycast->last_frame_time = 0;
 }

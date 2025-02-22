@@ -175,7 +175,7 @@ int	ft_close_window(t_cub *game);
 
 /* ft_init_raycast.c */
 
-void	ft_init_raycast(t_map *map, t_raycast *raycast);
+void	ft_init_raycast(t_cub*cub);
 
 /* ft_render_walls.c */
 
