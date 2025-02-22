@@ -1,15 +1,16 @@
 #include "../../includes/cub3d.h"
 
+//camera_curr_x is the x-coordinate on the camera plane that the current x-coordinate of the screen represents,
+//done this way so that the right side of the screen will get coordinate 1, the center of the screen gets coordinate 0, and the left side of the screen gets coordinate -1
+//the direction of the ray can be calculated as was explained earlier: as the sum of the direction vector, and a part of the plane vector.
+//This has to be done both for the x and y coordinate of the vector (since adding two vectors is adding their x-coordinates, and adding their y-coordinates).
+//delta_dist stores how far the ray has to travel in world space to cross one grid line in the X or Y direction.
+//dist_to_x and dist_to_t store the distance from the player's position to the next grid line in both X and Y directions.
 void	ft_get_ray_info(t_raycast *ray, int x)
 {
-	//camera_curr_x is the x-coordinate on the camera plane that the current x-coordinate of the screen represents,
-	//done this way so that the right side of the screen will get coordinate 1, the center of the screen gets coordinate 0, and the left side of the screen gets coordinate -1
 	ray.camera_curr_x = 2 * (double)(x / WIDTH) - 1; //or (x / (double)WIDTH)?
-	//the direction of the ray can be calculated as was explained earlier: as the sum of the direction vector, and a part of the plane vector.
-	//This has to be done both for the x and y coordinate of the vector (since adding two vectors is adding their x-coordinates, and adding their y-coordinates).
 	ray->ray_dir.x = ray->player_dir.x + ray->camera_plane.x * ray->camera_curr_x;
 	ray->ray_dir.y = ray->player_dir.y + ray->camera_plane.y * ray->camera_curr_x;
-	//store how far the ray has to travel in world space to cross one grid line in the X or Y direction.
 	if (ray->ray_dir.x == 0)
 		ray->delta_dist.x = INT_MAX;
 	else
@@ -18,37 +19,65 @@ void	ft_get_ray_info(t_raycast *ray, int x)
 		ray->delta_dist.y = INT_MAX;
 	else
 		ray->delta_dist.y = fabs(1 / ray->ray_dir.y);
-	
-	//stepX and stepY determine which direction the ray moves in each axis.
-	//If rayDirX > 0, the ray moves right (stepX = +1), otherwise, it moves left (stepX = -1).
-	//If rayDirY > 0, the ray moves down (stepY = +1), otherwise, it moves up (stepY = -1).
-	//These store the distance from the player's position to the next grid line in both X and Y directions.
 	if (ray->ray_dir.x < 0)
-	{
-		ray->step.x = -1;
 		ray->dist_to_x = (ray->player_pos.x - (double)ray->player_squ.x) * ray->delta_dist.x;
-	}
 	else
-	{
-		ray->step = 1;
 		ray->dist_to_x = ((double)ray->player_squ.x + 1.0 - ray->player_pos.x) * ray->delta_dist.x;
-	}
 	if (ray->ray_dir.y < 0)
-	{
-		ray->step.y = -1;
 		ray->dist_to_y = (ray->player_pos.y - (double)ray->player_squ.y) * ray->delta_dist.y;
-	}
 	else
-	{
-		ray->step.y = 1;
 		ray->dist_to_y = ((double)ray->player_squ.y + 1.0 - ray->player_pos.y) * ray->delta_dist.y;
-	}
-	//This will hold the final distance from the player to the wall along the ray. Used for rendering the correct height of the wall in perspective projection.
-	// double	perp_wall_dist;
-
 }
 
-void	ft_render_walls(t_raycast *raycast)
+//stepX and stepY determine which direction the ray moves in each axis.
+//If rayDirX > 0, the ray moves right (stepX = +1), otherwise, it moves left (stepX = -1).
+//If rayDirY > 0, the ray moves down (stepY = +1), otherwise, it moves up (stepY = -1).
+void	ft_define_steps(t_raycast *ray)
+{
+	if (ray->ray_dir.x < 0)
+		ray->step.x = -1;
+	else
+		ray->step.x = 1;
+	if (ray->ray_dir.y < 0)
+		ray->step.y = -1;
+	else
+		ray->step.y = 1;
+}
+
+void	ft_get_wall_height(t_raycast *ray)
+{
+	//get point in camera plane closest to the hitpoint of the ray
+	if (ray->hit_side == EAST || ray->hit_side == WEST)
+		ray->perp_wall_dist = ray->dist_to_x - ray->delta_dist.x;
+	else
+		ray->perp_wall_dist = ray->dist_to_y - ray->delta_dist.y;
+	//calculate the height of the line that has to be drawn on screen: this 
+	//is the inverse of perpWallDist, and then multiplied by h, the height in 
+	//pixels of the screen, to bring it to pixel coordinates. You can of course
+	//also multiply it with another value, for example 2*h, if you want to walls
+	//to be higher or lower. The value of h will make the walls look like cubes with 
+	ray->wall_height = (int)(HEIGHT / ray->perp_wall_dist);
+	ray->wall_start = -ray->wall_height / 2 + HEIGHT / 2;
+	if (ray->wall_start < 0)
+		ray->wall_start = 0;
+	ray->wall_end = ray->wall_height / 2 + HEIGHT / 2;
+	if (ray->wall_end >= HEIGHT)
+		ray->wall_end = HEIGHT - 1; //why - 1?
+}
+
+void	ft_paint_ray(t_raycast *ray, int x, int color)
+{
+	int	h;
+
+	h = ray->wall_start;
+	while (h <= ray->wall_end)
+	{
+		ft_put_pixel(cub->image, x, h, color);
+		h++;
+	}
+}
+
+void	ft_render_walls(t_raycast *ray, t_map *map)
 {
 	//number of the pixel used
 	int		x;
@@ -58,11 +87,19 @@ void	ft_render_walls(t_raycast *raycast)
 	hit_wall = false;
 	while (x <= WIDTH)
 	{
-		ft_get_ray(raycast, x);
+		ft_get_ray_info(ray, x);
+		ft_define_steps(ray);
 		while (!hit_wall)
-			hit_wall = ft_dda(raycast);
-
-		//ft_put_pixel(cub->image, x, (HEIGHT / 2) - 5, YELLOW);
+			ft_dda(ray, map, &hit_wall);
+		ft_get_wall_height(ray);
+		if (ray->hit_side == NORTH)
+			ft_paint_ray(ray, x, YELLOW); //substituir ultimo parametro por: map->north_texture;
+		if (ray->hit_side == SOUTH)
+			ft_paint_ray(ray, x, PINK); //map->south_texture;
+		if (ray->hit_side == EAST)
+			ft_paint_ray(ray, x, GREEN); //map->east_texture;
+		if (ray->hit_side == WEST)
+			ft_paint_ray(ray, x, BLUE); //map->west_texture;
 		x++;
 	}
 
