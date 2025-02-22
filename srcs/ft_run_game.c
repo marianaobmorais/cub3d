@@ -41,7 +41,7 @@ void	ft_put_image(t_cub *cub)
 	if (!cub->image->addr)
 		ft_handle_error("malloc: cub->image->addr", cub);
 	ft_render_bg(cub->image, cub->map->ceiling_hex, cub->map->floor_hex);
-	ft_render_walls(cub->raycast);
+	ft_render_walls(cub->raycast, cub->map);
 	mlx_put_image_to_window(cub->mlx, cub->window, cub->image->img_ptr, 0, 0);
 }
 
