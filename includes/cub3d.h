@@ -5,15 +5,16 @@
 # include "../minilibx-linux/mlx.h"
 # include <X11/keysym.h>
 # include <X11/X.h>
-# include <stdio.h>
+# include <stdio.h> //do we use this?
 # include <stdlib.h>
-# include <unistd.h>
-# include <sys/time.h>
+//# include <unistd.h> //duplicated from libft
+# include <sys/time.h> //do we use this?
 # include <math.h>
 # include <fcntl.h>
 # include <errno.h>
 # include <string.h>
 # include <stdbool.h>
+# include <limits.h>
 
 /* messages */
 
@@ -161,7 +162,7 @@ bool	ft_valid_wall(char *line);
 
 /* ft_run_game.c */
 
-t_cub	*ft_run_game(t_cub *cub);
+void	ft_run_game(t_cub *cub);
 
 /* ft_put_pixel.c */
 
@@ -178,10 +179,10 @@ void	ft_init_raycast(t_map *map, t_raycast *raycast);
 
 /* ft_render_walls.c */
 
-void	ft_render_walls(t_raycast *raycast, t_map *map);
+void	ft_render_walls(t_cub *cub);
 
 /* ft_dda.c */
 
-void	ft_dda(t_raycast *raycast)
+void	ft_dda(t_raycast *ray, t_map *map, bool *hit_wall);
 
 # endif //CUB3D_H

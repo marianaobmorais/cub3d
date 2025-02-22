@@ -41,7 +41,7 @@ void	ft_put_image(t_cub *cub)
 	if (!cub->image->addr)
 		ft_handle_error("malloc: cub->image->addr", cub);
 	ft_render_bg(cub->image, cub->map->ceiling_hex, cub->map->floor_hex);
-	ft_render_walls(cub->raycast, cub->map);
+	ft_render_walls(cub);
 	mlx_put_image_to_window(cub->mlx, cub->window, cub->image->img_ptr, 0, 0);
 }
 
@@ -71,16 +71,16 @@ void	ft_init_game(t_cub *cub)
 	cub->raycast = NULL;
 }
 
-t_cub	*ft_run_game(t_cub *cub)
+void	ft_run_game(t_cub *cub)
 {
 	ft_init_game(cub);
 	ft_init_raycast(cub->map, cub->raycast);
 	cub->mlx = mlx_init();
 	if (!cub->mlx)
-		return (ft_handle_error("malloc: cub->mlx", cub), NULL);
+		ft_handle_error("malloc: cub->mlx", cub);
 	cub->window = mlx_new_window(cub->mlx, WIDTH, HEIGHT, "cub3d");
 	if (!cub->window)
-		return (ft_handle_error("malloc: cub->window", cub), NULL);
+		ft_handle_error("malloc: cub->window", cub);
 	cub->image = (t_image *)malloc(sizeof(t_image));
 	if (!cub->image)
 		ft_handle_error("malloc: cub->image", cub);
@@ -94,5 +94,4 @@ t_cub	*ft_run_game(t_cub *cub)
 		ft_handle_error("malloc: cub->raycast", cub);
 	ft_put_image(cub);
 	ft_put_minimap(cub);
-	return (cub);
 }

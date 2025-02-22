@@ -8,7 +8,7 @@
 //dist_to_x and dist_to_t store the distance from the player's position to the next grid line in both X and Y directions.
 void	ft_get_ray_info(t_raycast *ray, int x)
 {
-	ray.camera_curr_x = 2 * (double)(x / WIDTH) - 1; //or (x / (double)WIDTH)?
+	ray->camera_curr_x = 2 * (double)(x / WIDTH) - 1; //or (x / (double)WIDTH)?
 	ray->ray_dir.x = ray->player_dir.x + ray->camera_plane.x * ray->camera_curr_x;
 	ray->ray_dir.y = ray->player_dir.y + ray->camera_plane.y * ray->camera_curr_x;
 	if (ray->ray_dir.x == 0)
@@ -65,19 +65,19 @@ void	ft_get_wall_height(t_raycast *ray)
 		ray->wall_end = HEIGHT - 1; //why - 1?
 }
 
-void	ft_paint_ray(t_raycast *ray, int x, int color)
+void	ft_paint_ray(t_cub *cub, int x, int color)
 {
 	int	h;
 
-	h = ray->wall_start;
-	while (h <= ray->wall_end)
+	h = cub->raycast->wall_start;
+	while (h <= cub->raycast->wall_end)
 	{
 		ft_put_pixel(cub->image, x, h, color);
 		h++;
 	}
 }
 
-void	ft_render_walls(t_raycast *ray, t_map *map)
+void	ft_render_walls(t_cub *cub)
 {
 	//number of the pixel used
 	int		x;
@@ -87,19 +87,19 @@ void	ft_render_walls(t_raycast *ray, t_map *map)
 	hit_wall = false;
 	while (x <= WIDTH)
 	{
-		ft_get_ray_info(ray, x);
-		ft_define_steps(ray);
+		ft_get_ray_info(cub->raycast, x);
+		ft_define_steps(cub->raycast);
 		while (!hit_wall)
-			ft_dda(ray, map, &hit_wall);
-		ft_get_wall_height(ray);
-		if (ray->hit_side == NORTH)
-			ft_paint_ray(ray, x, YELLOW); //substituir ultimo parametro por: map->north_texture;
-		if (ray->hit_side == SOUTH)
-			ft_paint_ray(ray, x, PINK); //map->south_texture;
-		if (ray->hit_side == EAST)
-			ft_paint_ray(ray, x, GREEN); //map->east_texture;
-		if (ray->hit_side == WEST)
-			ft_paint_ray(ray, x, BLUE); //map->west_texture;
+			ft_dda(cub->raycast, cub->map, &hit_wall);
+		ft_get_wall_height(cub->raycast);
+		if (cub->raycast->hit_side == NORTH)
+			ft_paint_ray(cub, x, YELLOW); //substituir ultimo parametro por: map->north_texture;
+		if (cub->raycast->hit_side == SOUTH)
+			ft_paint_ray(cub, x, PINK); //map->south_texture;
+		if (cub->raycast->hit_side == EAST)
+			ft_paint_ray(cub, x, GREEN); //map->east_texture;
+		if (cub->raycast->hit_side == WEST)
+			ft_paint_ray(cub, x, BLUE); //map->west_texture;
 		x++;
 	}
 
