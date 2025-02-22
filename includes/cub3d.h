@@ -25,8 +25,10 @@
 /* colors in hex*/
 
 # define GRAY 0x818d94
-# define HOT_PINK 0xff00e6
+# define PINK 0xff00e6
 # define YELLOW 0xfff200
+# define BLUE 0x030bfc
+# define GREEN 0x009c00
 
 /* measurements */
 
@@ -58,18 +60,23 @@ typedef struct s_ipoint
 
 typedef struct s_raycast
 {
-	t_dpoint	player_pos;
-	t_dpoint	player_dir;
-	t_dpoint	camera_plane;
-	t_dpoint	ray_dir;
-	t_dpoint	delta_dist;
-	t_ipoint	player_squ;
-	t_ipoint	step;
-	double		camera_curr_x;
-	double		frame_time;
-	double		last_frame_time;
-	double		dist_to_x;
-	double		dist_to_y;
+	t_dpoint		player_pos;
+	t_dpoint		player_dir;
+	t_dpoint		camera_plane;
+	t_dpoint		ray_dir;
+	t_dpoint		delta_dist;
+	t_ipoint		player_squ;
+	t_ipoint		step;
+	double			camera_curr_x;
+	double			frame_time;
+	double			last_frame_time;
+	double			dist_to_x;
+	double			dist_to_y;
+	double			perp_wall_dist;
+	t_directions	hit_side;
+	int				wall_height;
+	int				wall_start;
+	int				wall_end;
 }	t_raycast;
 
 typedef struct s_map
@@ -171,10 +178,10 @@ void	ft_init_raycast(t_map *map, t_raycast *raycast);
 
 /* ft_render_walls.c */
 
-void	ft_render_walls(t_raycast *raycast);
+void	ft_render_walls(t_raycast *raycast, t_map *map);
 
 /* ft_dda.c */
 
-bool	ft_dda(t_raycast *raycast)
+void	ft_dda(t_raycast *raycast)
 
 # endif //CUB3D_H
