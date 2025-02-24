@@ -85,7 +85,7 @@ void	ft_put_minimap(t_cub *cub)
 		&cub->mini->img_minimap->endian);
 	if (!cub->mini->img_minimap->addr)
 		ft_handle_error("malloc: img->addr", cub);
-	mlx_put_image_to_window(cub->mlx, cub->window, cub->mini->img_texture, 5, 5);
+	ft_background(cub);
 	ft_render_minimap(cub);
 	mlx_put_image_to_window(cub->mlx, cub->window, \
 		cub->mini->img_minimap->img_ptr, 22, 25);

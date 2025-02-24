@@ -11,6 +11,7 @@ int	main(int argc, char **argv)
 	if (!cub)
 		ft_handle_error("malloc: cub", cub);
 	//ft_memset(cub, 0, sizeof(cub)); //not sure if it's needed
+	//initialize cub before
 	ft_loadmap(argv[1], cub);
 	cub = ft_init_game(cub);
 	if (!cub)

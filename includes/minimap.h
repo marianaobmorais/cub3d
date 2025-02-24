@@ -36,4 +36,7 @@ void	ft_set_limit_y(t_cub *cub, int map_height);
 
 void	ft_init_minimap(t_cub *cub);
 
+
+void	ft_background(t_cub *cub);
+
 # endif //MINIMAP_H

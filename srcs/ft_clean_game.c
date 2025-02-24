@@ -89,6 +89,8 @@ void	ft_clean_game(t_cub *cub)
 		{
 			if (cub->mini->img_minimap->img_ptr)
 				mlx_destroy_image(cub->mlx, cub->mini->img_minimap->img_ptr);
+			if (cub->mini->img_texture)
+				mlx_destroy_image(cub->mlx, cub->mini->img_texture);
 			free(cub->mini->img_minimap);
 			free(cub->mini);
 		}
