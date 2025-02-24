@@ -5,8 +5,8 @@
 
 /* measurements */
 
-# define MINI_WIDTH 90
-# define MINI_HEIGHT 75
+# define MINI_WIDTH 80
+# define MINI_HEIGHT 47
 
 typedef struct s_cub	t_cub;
 typedef struct s_image	t_image;

@@ -40,7 +40,7 @@ void	ft_colorize_minimap(t_cub *cub, int map_width, int map_height)
 				else if (cub->map->matrix[y][x] == '0')
 				{
 					//printf("y[%d] -- x[%d]\n", y, x); //debug
-					ft_put_square(cub->mini->img_minimap, x - cub->mini->start_x, y - cub->mini->start_y, 0xE4CEAB);
+					ft_put_square(cub->mini->img_minimap, x - cub->mini->start_x, y - cub->mini->start_y, 0xEBE7DC);
 				}
 				// else
 				// 	ft_put_square(cub->minimap, x - cub->map->start_x, y - cub->map->start_y, HOT_PINK);
@@ -62,7 +62,7 @@ void	ft_render_minimap(t_cub *cub)
 	while (cub->map->matrix[height])
 		height++;
 	width = (int) ft_strlen(cub->map->matrix[cub->map->player_pos_y]);
-	ft_bg_minimap(cub, MINI_HEIGHT, MINI_WIDTH, 0xE4CEAB);
+	ft_bg_minimap(cub, MINI_HEIGHT, MINI_WIDTH, 0xEBE7DC);
 	ft_set_limit_x(cub, width);
 	ft_set_limit_y(cub, height);
 	ft_colorize_minimap(cub, width, height);
@@ -88,6 +88,6 @@ void	ft_put_minimap(t_cub *cub)
 	ft_background(cub);
 	ft_render_minimap(cub);
 	mlx_put_image_to_window(cub->mlx, cub->window, \
-		cub->mini->img_minimap->img_ptr, 22, 25);
+		cub->mini->img_minimap->img_ptr, 26, 44);
 }
 

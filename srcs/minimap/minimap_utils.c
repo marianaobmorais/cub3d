@@ -49,8 +49,8 @@ void	ft_put_square(t_image *img, int x, int y, int color)
 
 void	ft_set_limit_x(t_cub *cub, int matrix_width)
 {
-	cub->mini->start_x = cub->map->player_pos_x - 8;
-	cub->mini->end_x = cub->map->player_pos_x + 9;
+	cub->mini->start_x = cub->map->player_pos_x - 1;
+	cub->mini->end_x = cub->map->player_pos_x + 8;
 	if (cub->mini->start_x < 0)
 	{
 		cub->mini->end_x -= cub->mini->start_x;

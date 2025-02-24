@@ -25,21 +25,21 @@ void	ft_background(t_cub *cub)
 	t_image texture;
 
 	int w = 120;
-	int h = 107;
+	int h = 125;
 
-	img.img_ptr = mlx_new_image(cub->mlx, 120, 107);
+	img.img_ptr = mlx_new_image(cub->mlx, 120, 125);
 	img.bpp = 0;
 	img.endian = 0;
 	img.line_len = 0;
 	img.addr = mlx_get_data_addr(img.img_ptr, &img.bpp, &img.line_len, &img.endian);
 
-	texture.img_ptr = mlx_xpm_file_to_image(cub->mlx, "assets/textures/249336.xpm", &w, &h);
+	texture.img_ptr = mlx_xpm_file_to_image(cub->mlx, "assets/textures/casio_w.xpm", &w, &h);
 	texture.bpp = 0;
 	texture.endian = 0;
 	texture.line_len = 0;
 	texture.addr = mlx_get_data_addr(texture.img_ptr, &texture.bpp, &texture.line_len, &texture.endian);
 
-	while (y < 107)
+	while (y < 125)
 	{
 		x = 0;
 		while (x < 120)
