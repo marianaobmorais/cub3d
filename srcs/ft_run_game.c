@@ -64,7 +64,6 @@ void ft_put_minimap(t_cub *cub)
 
 void	ft_run_game(t_cub *cub)
 {
-	ft_init_raycast(cub);
 	cub->mlx = mlx_init();
 	if (!cub->mlx)
 		ft_handle_error("malloc: cub->mlx", cub);
