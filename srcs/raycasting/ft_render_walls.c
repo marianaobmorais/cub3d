@@ -1,6 +1,6 @@
 #include "../../includes/cub3d.h"
 
-//camera_curr_x is the x-coordinate on the camera plane that the current x-coordinate of the screen represents,
+//factor is the x-coordinate on the camera plane that the current x-coordinate of the screen represents,
 //done this way so that the right side of the screen will get coordinate 1, the center of the screen gets coordinate 0, and the left side of the screen gets coordinate -1
 //the direction of the ray can be calculated as was explained earlier: as the sum of the direction vector, and a part of the plane vector.
 //This has to be done both for the x and y coordinate of the vector (since adding two vectors is adding their x-coordinates, and adding their y-coordinates).
@@ -8,9 +8,9 @@
 //dist_to_x and dist_to_t store the distance from the player's position to the next grid line in both X and Y directions.
 void	ft_get_ray_info(t_raycast *ray, int x)
 {
-	ray->camera_curr_x = 2 * ((double)x / WIDTH) - 1; //or (x / (double)WIDTH)?
-	ray->ray_dir.x = ray->player_dir.x + ray->camera_plane.x * ray->camera_curr_x;
-	ray->ray_dir.y = ray->player_dir.y + ray->camera_plane.y * ray->camera_curr_x;
+	ray->factor = 2 * ((double)x / WIDTH) - 1;
+	ray->ray_dir.x = ray->player_dir.x + (ray->camera_plane.x * ray->factor);
+	ray->ray_dir.y = ray->player_dir.y + (ray->camera_plane.y * ray->factor);
 	if (ray->ray_dir.x == 0)
 		ray->delta_dist.x = INT_MAX;
 	else
@@ -86,7 +86,7 @@ void	ft_render_walls(t_cub *cub)
 	bool	hit_wall;
 
 	x = 0;
-	while (x <= WIDTH)
+	while (x < WIDTH)
 	{
 		printf("ray %d\n", x);
 		ft_get_ray_info(cub->raycast, x);

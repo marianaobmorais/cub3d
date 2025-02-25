@@ -29,23 +29,29 @@ void	ft_init_raycast(t_cub *cub)
 	{
 		cub->raycast->player_dir.x = 0;
 		cub->raycast->player_dir.y = -1;
+		cub->raycast->camera_plane.x = 0.66;
+		cub->raycast->camera_plane.y = 0;
 	}
 	if (cub->map->direction == SOUTH)
 	{
 		cub->raycast->player_dir.x = 0;
 		cub->raycast->player_dir.y = 1;
+		cub->raycast->camera_plane.x = -0.66;
+		cub->raycast->camera_plane.y = 0;
 	}
 	if (cub->map->direction == EAST)
 	{
 		cub->raycast->player_dir.x = 1;
 		cub->raycast->player_dir.y = 0;
+		cub->raycast->camera_plane.x = 0;
+		cub->raycast->camera_plane.y = 0.66;
 	}
 	if (cub->map->direction == WEST)
 	{
 		cub->raycast->player_dir.x = -1;
 		cub->raycast->player_dir.y = 0;
-		cub->raycast->camera_plane.x = 0; //not sure about this
-		cub->raycast->camera_plane.y = 0.66; //not sure about this
+		cub->raycast->camera_plane.x = 0;
+		cub->raycast->camera_plane.y = -0.66;
 	}
 	cub->raycast->frame_time = 0;
 	cub->raycast->last_frame_time = 0;

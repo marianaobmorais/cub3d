@@ -68,7 +68,7 @@ typedef struct s_raycast
 	t_dpoint		delta_dist;
 	t_ipoint		player_squ;
 	t_ipoint		step;
-	double			camera_curr_x;
+	double			factor;
 	double			frame_time;
 	double			last_frame_time;
 	double			dist_to_x;
