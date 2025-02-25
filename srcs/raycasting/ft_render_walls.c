@@ -8,7 +8,7 @@
 //dist_to_x and dist_to_t store the distance from the player's position to the next grid line in both X and Y directions.
 void	ft_get_ray_info(t_raycast *ray, int x)
 {
-	ray->camera_curr_x = 2 * (double)(x / WIDTH) - 1; //or (x / (double)WIDTH)?
+	ray->camera_curr_x = 2 * ((double)x / WIDTH) - 1; //or (x / (double)WIDTH)?
 	ray->ray_dir.x = ray->player_dir.x + ray->camera_plane.x * ray->camera_curr_x;
 	ray->ray_dir.y = ray->player_dir.y + ray->camera_plane.y * ray->camera_curr_x;
 	if (ray->ray_dir.x == 0)
@@ -62,7 +62,7 @@ void	ft_get_wall_height(t_raycast *ray)
 		ray->wall_start = 0;
 	ray->wall_end = ray->wall_height / 2 + HEIGHT / 2;
 	if (ray->wall_end >= HEIGHT)
-		ray->wall_end = HEIGHT - 1; //why - 1?
+		ray->wall_end = HEIGHT - 1;
 }
 
 void	ft_paint_ray(t_cub *cub, int x, int color)
@@ -70,6 +70,9 @@ void	ft_paint_ray(t_cub *cub, int x, int color)
 	int	h;
 
 	h = cub->raycast->wall_start;
+	printf("wall start %d\n", cub->raycast->wall_start); //debug
+	printf("wall end %d\n", cub->raycast->wall_end); //debug
+	printf("wall height %d\n", cub->raycast->wall_height); //debug
 	while (h <= cub->raycast->wall_end)
 	{
 		ft_put_pixel(cub->image, x, h, color);
@@ -79,16 +82,16 @@ void	ft_paint_ray(t_cub *cub, int x, int color)
 
 void	ft_render_walls(t_cub *cub)
 {
-	//number of the pixel used
-	int		x;
+	int		x; //number of the pixel used
 	bool	hit_wall;
 
 	x = 0;
-	hit_wall = false;
 	while (x <= WIDTH)
 	{
+		printf("ray %d\n", x);
 		ft_get_ray_info(cub->raycast, x);
 		ft_define_steps(cub->raycast);
+		hit_wall = false;
 		while (!hit_wall)
 			ft_dda(cub->raycast, cub->map, &hit_wall);
 		ft_get_wall_height(cub->raycast);
@@ -102,5 +105,4 @@ void	ft_render_walls(t_cub *cub)
 			ft_paint_ray(cub, x, BLUE); //map->west_texture;
 		x++;
 	}
-
 }
