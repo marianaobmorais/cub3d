@@ -19,6 +19,9 @@ void	ft_dda(t_raycast *ray, t_map *map, bool *hit_wall)
 			ray->hit_side = WEST; //update hit_side //double check this
 		else
 			ray->hit_side = EAST; //update hit_side //double check this
+		//get point in camera plane closest to the hitpoint of the ray
+		ray->perp_wall_dist = ray->dist_to_x - ray->delta_dist.x;
+
 	}
 	else
 	{
@@ -28,6 +31,8 @@ void	ft_dda(t_raycast *ray, t_map *map, bool *hit_wall)
 			ray->hit_side = NORTH; //update hit_side //double check this
 		else
 			ray->hit_side = SOUTH; //update hit_side //double check this
+		//get point in camera plane closest to the hitpoint of the ray
+		ray->perp_wall_dist = ray->dist_to_y - ray->delta_dist.y;
 	}
 	//check if the ray hit a wall
 	if (ray->player_squ.x < 0 || ray->player_squ.y < 0 ||

@@ -8,7 +8,7 @@
 //dist_to_x and dist_to_t store the distance from the player's position to the next grid line in both X and Y directions.
 void	ft_get_ray_info(t_raycast *ray, int x)
 {
-	ray->factor = 2 * ((double)x / WIDTH) - 1;// or x / (double)WIDTH?
+	ray->factor = 2 * (x / (double)WIDTH) - 1; // or x / (double)WIDTH?
 	ray->ray_dir.x = ray->player_dir.x + (ray->camera_plane.x * ray->factor);
 	ray->ray_dir.y = ray->player_dir.y + (ray->camera_plane.y * ray->factor);
 	if (ray->ray_dir.x == 0)
@@ -48,10 +48,11 @@ void	ft_define_steps(t_raycast *ray)
 void	ft_get_wall_height(t_raycast *ray)
 {
 	//get point in camera plane closest to the hitpoint of the ray
-	if (ray->hit_side == EAST || ray->hit_side == WEST)
-		ray->perp_wall_dist = ray->dist_to_x - ray->delta_dist.x;
-	else
-		ray->perp_wall_dist = ray->dist_to_y - ray->delta_dist.y;
+	// if (ray->hit_side == EAST || ray->hit_side == WEST)
+	// 	ray->perp_wall_dist = ray->dist_to_x - ray->delta_dist.x;
+	// else
+	// 	ray->perp_wall_dist = ray->dist_to_y - ray->delta_dist.y;
+	
 	// if (ray->hit_side == EAST || ray->hit_side == WEST)
 	// 	ray->perp_wall_dist = (ray->player_squ.x - ray->player_pos.x + (1 - ray->step.x) / 2) / ray->ray_dir.x;
 	// else
@@ -95,7 +96,7 @@ void	ft_render_walls(t_cub *cub)
 	x = 0;
 	while (x < WIDTH)
 	{
-		printf("ray %d\n", x);
+		printf("ray %d\n", x); //debug
 		ft_get_ray_info(cub->raycast, x);
 		ft_define_steps(cub->raycast);
 		hit_wall = false;
