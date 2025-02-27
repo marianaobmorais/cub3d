@@ -2,34 +2,34 @@
 
 static void	ft_init_north(t_raycast *raycast)
 {
-	raycast->player_dir.x = 0;
-	raycast->player_dir.y = -1;
-	raycast->camera_plane.x = 0.66;
-	raycast->camera_plane.y = 0;
+	raycast->player_dir.y = 0;
+	raycast->player_dir.x = -1;
+	raycast->camera_plane.y = 0.66;
+	raycast->camera_plane.x = 0;
 }
 
 static void	ft_init_south(t_raycast *raycast)
 {
-	raycast->player_dir.x = 0;
-	raycast->player_dir.y = 1;
-	raycast->camera_plane.x = -0.66;
-	raycast->camera_plane.y = 0;
+	raycast->player_dir.y = 0;
+	raycast->player_dir.x = 1;
+	raycast->camera_plane.y = -0.66;
+	raycast->camera_plane.x = 0;
 }
 
 static void	ft_init_east(t_raycast *raycast)
 {
-	raycast->player_dir.x = 1;
-	raycast->player_dir.y = 0;
-	raycast->camera_plane.x = 0;
-	raycast->camera_plane.y = 0.66;
+	raycast->player_dir.y = 1;
+	raycast->player_dir.x = 0;
+	raycast->camera_plane.y = 0;
+	raycast->camera_plane.x = 0.66;
 }
 
 static void	ft_init_west(t_raycast *raycast)
 {
-	raycast->player_dir.x = -1;
-	raycast->player_dir.y = 0;
-	raycast->camera_plane.x = 0;
-	raycast->camera_plane.y = -0.66;
+	raycast->player_dir.y = -1;
+	raycast->player_dir.x = 0;
+	raycast->camera_plane.y = 0;
+	raycast->camera_plane.x = -0.66;
 }
 
 void	ft_init_raycast(t_cub *cub)

@@ -43,21 +43,17 @@ void	ft_define_steps(t_raycast *ray)
 		ray->step.y = -1;
 	else
 		ray->step.y = 1;
+	ray->hit_squ.x = ray->player_squ.x;
+	ray->hit_squ.y = ray->player_squ.y;
 }
 
 void	ft_get_wall_height(t_raycast *ray)
 {
 	//get point in camera plane closest to the hitpoint of the ray
-	// if (ray->hit_side == EAST || ray->hit_side == WEST)
-	// 	ray->perp_wall_dist = ray->dist_to_x - ray->delta_dist.x;
-	// else
-	// 	ray->perp_wall_dist = ray->dist_to_y - ray->delta_dist.y;
-	
-	// if (ray->hit_side == EAST || ray->hit_side == WEST)
-	// 	ray->perp_wall_dist = (ray->player_squ.x - ray->player_pos.x + (1 - ray->step.x) / 2) / ray->ray_dir.x;
-	// else
-	// 	ray->perp_wall_dist = (ray->player_squ.y - ray->player_pos.y + (1 - ray->step.y) / 2) / ray->ray_dir.y;
-
+	if (ray->hit_side == EAST || ray->hit_side == WEST)
+		ray->perp_wall_dist = ray->dist_to_x - ray->delta_dist.x;
+	else
+		ray->perp_wall_dist = ray->dist_to_y - ray->delta_dist.y;
 	//calculate the height of the line that has to be drawn on screen: this 
 	//is the inverse of perpWallDist, and then multiplied by h, the height in 
 	//pixels of the screen, to bring it to pixel coordinates. You can of course
@@ -70,7 +66,6 @@ void	ft_get_wall_height(t_raycast *ray)
 	ray->wall_end = (ray->wall_height / 2) + (HEIGHT / 2);
 	if (ray->wall_end >= HEIGHT)
 		ray->wall_end = HEIGHT - 1;
-	printf("Ray %d: perp_wall_dist = %f, wall_height = %d\n", x, ray->perp_wall_dist, ray->wall_height); //debug
 }
 
 void	ft_paint_ray(t_cub *cub, int x, int color)
@@ -96,7 +91,6 @@ void	ft_render_walls(t_cub *cub)
 	x = 0;
 	while (x < WIDTH)
 	{
-		printf("ray %d\n", x); //debug
 		ft_get_ray_info(cub->raycast, x);
 		ft_define_steps(cub->raycast);
 		hit_wall = false;
