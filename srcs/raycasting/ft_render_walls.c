@@ -50,7 +50,7 @@ void	ft_define_steps(t_raycast *ray)
 void	ft_get_wall_height(t_raycast *ray)
 {
 	//get point in camera plane closest to the hitpoint of the ray
-	if (ray->hit_side == EAST || ray->hit_side == WEST)
+	if (ray->hit_side == NORTH || ray->hit_side == SOUTH)
 		ray->perp_wall_dist = ray->dist_to_x - ray->delta_dist.x;
 	else
 		ray->perp_wall_dist = ray->dist_to_y - ray->delta_dist.y;
