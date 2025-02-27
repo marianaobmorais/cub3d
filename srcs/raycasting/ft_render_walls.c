@@ -43,8 +43,8 @@ void	ft_define_steps(t_raycast *ray)
 		ray->step.y = -1;
 	else
 		ray->step.y = 1;
-	ray->hit_squ.x = ray->player_squ.x;
-	ray->hit_squ.y = ray->player_squ.y;
+	ray->step_squ.x = ray->player_squ.x;
+	ray->step_squ.y = ray->player_squ.y;
 }
 
 void	ft_get_wall_height(t_raycast *ray)
