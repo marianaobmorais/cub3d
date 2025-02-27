@@ -12,6 +12,6 @@ t_cub	*ft_init_structs(t_cub *cub)
 	cub->image = NULL;
 	cub->minimap = NULL;
 	cub->raycast = NULL;
-	ft_init_raycast(cub);
+	//ft_init_raycast(cub);
 	return (cub);
 }
