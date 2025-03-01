@@ -39,17 +39,23 @@ void	ft_put_square(t_image *img, int x, int y, int color)
 		j = 0;
 		while (j < size)
 		{
-			offset = ((y + i) * img->line_len) + ((x  + j) * (img->bpp / 8));
-			*((unsigned int *)(offset + img->addr)) = color;
+			if (i == 0 || i == size - 1 || j == 0 || j == size - 1 ||
+				(i == 1 && (j == 1 || j == size - 2)) ||
+				(i == size - 2 && (j == 1 || j == size - 2)))
+			{
+				offset = ((y + i) * img->line_len) + ((x  + j) * (img->bpp / 8));
+				*((unsigned int *)(offset + img->addr)) = color;
+			}
 			j++;
 		}
 		i++;
 	}
 }
 
+
 void	ft_set_limit_x(t_cub *cub, int matrix_width)
 {
-	cub->mini->start_x = cub->map->player_pos_x - 1;
+	cub->mini->start_x = cub->map->player_pos_x - 8;
 	cub->mini->end_x = cub->map->player_pos_x + 8;
 	if (cub->mini->start_x < 0)
 	{
@@ -67,8 +73,8 @@ void	ft_set_limit_x(t_cub *cub, int matrix_width)
 
 void	ft_set_limit_y(t_cub *cub, int matrix_height)
 {
-	cub->mini->start_y = cub->map->player_pos_y - 7;
-	cub->mini->end_y = cub->map->player_pos_y + 7;
+	cub->mini->start_y = cub->map->player_pos_y - 5;
+	cub->mini->end_y = cub->map->player_pos_y + 5;
 	if (cub->mini->start_y < 0)
 	{
 		cub->mini->end_y -= cub->mini->start_y;

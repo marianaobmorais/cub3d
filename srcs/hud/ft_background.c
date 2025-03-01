@@ -48,7 +48,8 @@ void	ft_background(t_cub *cub)
 			if (color == 0xFFFFFF)
 			{
 				//printf("[%d] %x\n", x, ft_get_pixel_color(cub, 0, y)); //debug
-				ft_put_pixel(&img, x, y, 0xB0CFDD);
+				//ft_put_pixel(&img, x, y, 0xB0CFDD);
+				ft_put_pixel(&img, x, y, ft_get_pixel_color(cub, x, y, cub->image)); //test
 			}
 			else
 				ft_put_pixel(&img, x, y, color);
@@ -56,5 +57,5 @@ void	ft_background(t_cub *cub)
 		}
 		y++;
 	}
-	mlx_put_image_to_window(cub->mlx, cub->window, img.img_ptr, 5, 5);
+	mlx_put_image_to_window(cub->mlx, cub->window, img.img_ptr, 0, 0);
 }
