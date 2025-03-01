@@ -49,6 +49,7 @@ void	ft_init_raycast(t_cub *cub)
 		ft_init_east(cub->raycast);
 	if (cub->map->direction == WEST)
 		ft_init_west(cub->raycast);
-	cub->raycast->frame_time = 0;
-	cub->raycast->last_frame_time = 0;
+	//cub->raycast->frame_time = 0;
+	//cub->raycast->last_frame_time = 0;
+	cub->raycast->move_speed = 0.3;
 }

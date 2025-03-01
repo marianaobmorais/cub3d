@@ -13,7 +13,7 @@ void	ft_dda(t_raycast *ray, t_map *map, bool *hit_wall)
 {
 	if (ray->dist_to_x < ray->dist_to_y)
 	{
-		ray->dist_to_x += ray->delta_dist.x;
+		ray->dist_to_x += ray->delta_dist_x;
 		ray->step_squ.x += ray->step.x;
 		if (ray->ray_dir.x < 0)
 			ray->hit_side = NORTH; //update hit_side //double check this
@@ -22,7 +22,7 @@ void	ft_dda(t_raycast *ray, t_map *map, bool *hit_wall)
 	}
 	else
 	{
-		ray->dist_to_y += ray->delta_dist.y;
+		ray->dist_to_y += ray->delta_dist_y;
 		ray->step_squ.y += ray->step.y;
 		if (ray->ray_dir.y < 0)
 			ray->hit_side = EAST; //update hit_side //double check this
@@ -33,5 +33,4 @@ void	ft_dda(t_raycast *ray, t_map *map, bool *hit_wall)
 	if (map->matrix[ray->step_squ.x][ray->step_squ.y] 
 		&& map->matrix[ray->step_squ.x][ray->step_squ.y] == '1') //found a wall
 		*hit_wall = true;
-	//printf("Ray %d: perp_wall_dist = %f, wall_height = %d\n", x, cub->raycast->perp_wall_dist, cub->raycast->wall_height); //debug
 }

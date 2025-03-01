@@ -8,26 +8,26 @@
 //dist_to_x and dist_to_t store the distance from the player's position to the next grid line in both X and Y directions.
 void	ft_get_ray_info(t_raycast *ray, int x)
 {
-	ray->factor = 2 * (x / (double)WIDTH) - 1; // or x / (double)WIDTH?
+	ray->factor = 2 * ((double)x / WIDTH) - 1; // or x / (double)WIDTH?
 	ray->ray_dir.x = ray->player_dir.x + (ray->camera_plane.x * ray->factor);
 	ray->ray_dir.y = ray->player_dir.y + (ray->camera_plane.y * ray->factor);
 	if (ray->ray_dir.x == 0)
-		ray->delta_dist.x = INT_MAX;
+		ray->delta_dist_x = INT_MAX;
 	else
-		ray->delta_dist.x = fabs(1 / ray->ray_dir.x);
+		ray->delta_dist_x = fabs(1 / ray->ray_dir.x);
 	if (ray->ray_dir.y == 0)
-		ray->delta_dist.y = INT_MAX;
+		ray->delta_dist_y = INT_MAX;
 	else
-		ray->delta_dist.y = fabs(1 / ray->ray_dir.y);
+		ray->delta_dist_y = fabs(1 / ray->ray_dir.y);
 
 	if (ray->ray_dir.x < 0)
-		ray->dist_to_x = (ray->player_pos.x - (double)ray->player_squ.x) * ray->delta_dist.x;
+		ray->dist_to_x = (ray->player_pos.x - (double)ray->player_squ.x) * ray->delta_dist_x;
 	else
-		ray->dist_to_x = ((double)ray->player_squ.x + 1.0 - ray->player_pos.x) * ray->delta_dist.x;
+		ray->dist_to_x = ((double)ray->player_squ.x + 1.0 - ray->player_pos.x) * ray->delta_dist_x;
 	if (ray->ray_dir.y < 0)
-		ray->dist_to_y = (ray->player_pos.y - (double)ray->player_squ.y) * ray->delta_dist.y;
+		ray->dist_to_y = (ray->player_pos.y - (double)ray->player_squ.y) * ray->delta_dist_y;
 	else
-		ray->dist_to_y = ((double)ray->player_squ.y + 1.0 - ray->player_pos.y) * ray->delta_dist.y;
+		ray->dist_to_y = ((double)ray->player_squ.y + 1.0 - ray->player_pos.y) * ray->delta_dist_y;
 }
 
 //stepX and stepY determine which direction the ray moves in each axis.
@@ -35,6 +35,8 @@ void	ft_get_ray_info(t_raycast *ray, int x)
 //If rayDirY > 0, the ray moves down (stepY = +1), otherwise, it moves up (stepY = -1).
 void	ft_define_steps(t_raycast *ray)
 {
+	ray->step_squ.x = ray->player_squ.x;
+	ray->step_squ.y = ray->player_squ.y;
 	if (ray->ray_dir.x < 0)
 		ray->step.x = -1;
 	else
@@ -43,17 +45,15 @@ void	ft_define_steps(t_raycast *ray)
 		ray->step.y = -1;
 	else
 		ray->step.y = 1;
-	ray->step_squ.x = ray->player_squ.x;
-	ray->step_squ.y = ray->player_squ.y;
 }
 
 void	ft_get_wall_height(t_raycast *ray)
 {
 	//get point in camera plane closest to the hitpoint of the ray
 	if (ray->hit_side == NORTH || ray->hit_side == SOUTH)
-		ray->perp_wall_dist = ray->dist_to_x - ray->delta_dist.x;
+		ray->perp_wall_dist = ray->dist_to_x - ray->delta_dist_x;
 	else
-		ray->perp_wall_dist = ray->dist_to_y - ray->delta_dist.y;
+		ray->perp_wall_dist = ray->dist_to_y - ray->delta_dist_y;
 	//calculate the height of the line that has to be drawn on screen: this 
 	//is the inverse of perpWallDist, and then multiplied by h, the height in 
 	//pixels of the screen, to bring it to pixel coordinates. You can of course
@@ -73,9 +73,6 @@ void	ft_paint_ray(t_cub *cub, int x, int color)
 	int	h;
 
 	h = cub->raycast->wall_start;
-	// printf("wall start %d\n", cub->raycast->wall_start); //debug
-	// printf("wall end %d\n", cub->raycast->wall_end); //debug
-	// printf("wall height %d\n", cub->raycast->wall_height); //debug
 	while (h <= cub->raycast->wall_end)
 	{
 		ft_put_pixel(cub->image, x, h, color);
@@ -85,7 +82,7 @@ void	ft_paint_ray(t_cub *cub, int x, int color)
 
 void	ft_render_walls(t_cub *cub)
 {
-	int		x; //number of the pixel used
+	int		x;
 	bool	hit_wall;
 
 	x = 0;
