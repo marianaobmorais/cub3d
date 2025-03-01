@@ -65,16 +65,18 @@ typedef struct s_raycast
 	t_dpoint		player_dir;
 	t_dpoint		camera_plane;
 	t_dpoint		ray_dir;
-	t_dpoint		delta_dist;
 	t_ipoint		player_squ;
 	t_ipoint		step;
 	t_ipoint		step_squ;
 	double			factor;
-	double			frame_time;
-	double			last_frame_time;
+	//double			frame_time;
+	//double			last_frame_time;
+	double			delta_dist_x;
+	double			delta_dist_y;
 	double			dist_to_x;
 	double			dist_to_y;
 	double			perp_wall_dist;
+	double			move_speed;
 	t_directions	hit_side;
 	int				wall_height;
 	int				wall_start;
@@ -169,6 +171,8 @@ bool	ft_valid_wall(char *line);
 /* ft_run_game.c */
 
 void	ft_run_game(t_cub *cub);
+void	ft_put_image(t_cub *cub);
+void	ft_put_minimap(t_cub *cub);
 
 /* ft_put_pixel.c */
 
