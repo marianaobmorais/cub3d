@@ -17,12 +17,20 @@ int	ft_key_input(int keysym, t_cub *cub)
 	{
 		//left
 		printf("pressed a\n");
+		//tmp_x += cub->raycast->player_dir.x * cub->raycast->move_speed;
+		tmp_y -= cub->raycast->player_dir.y * cub->raycast->move_speed;
 	}
 	if (keysym == XK_D || keysym == XK_d)
-		; //right
+	{
+		//right
+		printf("pressed d\n");
+		//tmp_x += cub->raycast->player_dir.x * cub->raycast->move_speed;
+		tmp_y += cub->raycast->player_dir.y * cub->raycast->move_speed;
+	}
 	if (keysym == XK_W || keysym == XK_w)
 	{
-		printf("pressed w\n");//debug //up
+		//up
+		printf("pressed w\n");//debug
 		tmp_x += cub->raycast->player_dir.x * cub->raycast->move_speed;
 		tmp_y += cub->raycast->player_dir.y * cub->raycast->move_speed;
 		if (cub->map->matrix[(int)tmp_x][(int)tmp_y] == '0')
@@ -36,7 +44,8 @@ int	ft_key_input(int keysym, t_cub *cub)
 	}
 	if (keysym == XK_S || keysym == XK_s)
 	{
-		printf("pressed s\n");//debug //down
+		//down
+		printf("pressed s\n");//debug
 		tmp_x -= cub->raycast->player_dir.x * cub->raycast->move_speed;
 		tmp_y -= cub->raycast->player_dir.y * cub->raycast->move_speed;
 		if (cub->map->matrix[(int)tmp_x][(int)tmp_y] == '0')
