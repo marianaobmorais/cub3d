@@ -17,15 +17,27 @@ int	ft_key_input(int keysym, t_cub *cub)
 	{
 		//left
 		printf("pressed a\n");
-		//tmp_x += cub->raycast->player_dir.x * cub->raycast->move_speed;
-		tmp_y -= cub->raycast->player_dir.y * cub->raycast->move_speed;
+		tmp_x -= cub->raycast->camera_plane.x * cub->raycast->move_speed;
+		tmp_y -= cub->raycast->camera_plane.y * cub->raycast->move_speed;
+		if (cub->map->matrix[(int)tmp_x][(int)tmp_y] == '0')
+		{
+			cub->raycast->player_pos.x -= cub->raycast->camera_plane.x * cub->raycast->move_speed;
+			cub->raycast->player_pos.y -= cub->raycast->camera_plane.y * cub->raycast->move_speed;
+		}
+		printf("x = %lf, y = %lf\n", cub->raycast->player_pos.x, cub->raycast->player_pos.y); //debug
 	}
 	if (keysym == XK_D || keysym == XK_d)
 	{
 		//right
 		printf("pressed d\n");
-		//tmp_x += cub->raycast->player_dir.x * cub->raycast->move_speed;
-		tmp_y += cub->raycast->player_dir.y * cub->raycast->move_speed;
+		tmp_x += cub->raycast->camera_plane.x * cub->raycast->move_speed;
+		tmp_y += cub->raycast->camera_plane.y * cub->raycast->move_speed;
+		if (cub->map->matrix[(int)tmp_x][(int)tmp_y] == '0') //sometimes it show beyond the wall
+		{
+			cub->raycast->player_pos.x += cub->raycast->camera_plane.x * cub->raycast->move_speed;
+			cub->raycast->player_pos.y += cub->raycast->camera_plane.y * cub->raycast->move_speed;
+		}
+		printf("x = %lf, y = %lf\n", cub->raycast->player_pos.x, cub->raycast->player_pos.y); //debug
 	}
 	if (keysym == XK_W || keysym == XK_w)
 	{
@@ -39,8 +51,6 @@ int	ft_key_input(int keysym, t_cub *cub)
 			cub->raycast->player_pos.y += cub->raycast->player_dir.y * cub->raycast->move_speed;
 		}
 		printf("x = %lf, y = %lf\n", cub->raycast->player_pos.x, cub->raycast->player_pos.y); //debug
-		ft_put_image(cub);
-		ft_put_minimap(cub);
 	}
 	if (keysym == XK_S || keysym == XK_s)
 	{
@@ -54,6 +64,10 @@ int	ft_key_input(int keysym, t_cub *cub)
 			cub->raycast->player_pos.y -= cub->raycast->player_dir.y * cub->raycast->move_speed;
 		}
 		printf("x = %lf, y = %lf\n", cub->raycast->player_pos.x, cub->raycast->player_pos.y); //debug
+	}
+	printf("print image\n");
+	if (keysym == XK_A || keysym == XK_a || keysym == XK_D || keysym == XK_d || keysym == XK_W || keysym == XK_w || keysym == XK_S || keysym == XK_s)
+	{
 		ft_put_image(cub);
 		ft_put_minimap(cub);
 	}
