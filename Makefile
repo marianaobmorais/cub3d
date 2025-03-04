@@ -1,5 +1,5 @@
-NAME = cub3d
-#B_NAME = cub3d_bonus
+NAME = cub3D
+#B_NAME = cub3D_bonus
 
 SRCS_DIR = ./srcs
 #BONUS_DIR = ./bonus
