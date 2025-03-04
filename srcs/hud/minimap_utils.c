@@ -1,4 +1,4 @@
-#include "../../includes/minimap.h"
+#include "../../includes/hud.h"
 
 // char	**ft_matrixdup(char **matrix, t_cub *cub)
 // {
@@ -51,7 +51,6 @@ void	ft_put_square(t_image *img, int x, int y, int color)
 		i++;
 	}
 }
-
 
 void	ft_set_limit_x(t_cub *cub, int matrix_width)
 {

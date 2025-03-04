@@ -1,4 +1,4 @@
-#include "../../includes/minimap.h"
+#include "../../includes/hud.h"
 
 int	ft_get_pixel_color(t_cub *cub, int x, int y, t_image *texture)
 {

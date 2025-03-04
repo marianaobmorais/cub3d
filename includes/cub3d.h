@@ -3,13 +3,14 @@
 
 # include "../libft/libft.h"
 # include "../minilibx-linux/mlx.h"
-# include "minimap.h"
+# include "hud.h"
 # include <X11/keysym.h>
 # include <X11/X.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <sys/time.h>
+# include <sys/wait.h> //bonus
 # include <math.h>
 # include <fcntl.h>
 # include <errno.h>
@@ -81,6 +82,7 @@ typedef struct s_cub
 	t_map		*map;
 	char		*filepath;
 	int			fd;
+	bool		started;
 }	t_cub;
 
 /* ft_handle_error.c */
