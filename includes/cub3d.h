@@ -86,9 +86,8 @@ typedef struct s_cub
 	int				fd;
 	bool			started; //screen
 	bool			leaving; //screen
-	bool			exit; //screen
-	t_title_screen	*t_screen; //screen
-	t_title_screen	*e_screen; //screen
+	t_screen	*start_screen; //screen
+	t_screen	*end_screen; //screen
 }	t_cub;
 
 /* ft_handle_error.c */

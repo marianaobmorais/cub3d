@@ -26,7 +26,7 @@ SRCS = $(SRCS_DIR)/main.c \
 	$(SRCS_DIR)/hud/ft_init_minimap.c \
 	$(SRCS_DIR)/hud/ft_background.c \
 	$(SRCS_DIR)/hud/minimap_utils.c \
-	$(SRCS_DIR)/hud/ft_put_title_screen.c
+	$(SRCS_DIR)/hud/screens.c
 
 #B_SRCS = $(BONUS_DIR)/main_bonus.c \
 

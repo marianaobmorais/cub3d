@@ -79,8 +79,8 @@ t_cub	*ft_init_game(t_cub *cub)
 	if (!cub->image)
 		ft_handle_error("malloc: cub->image", cub);
 	cub->image->img_ptr = NULL;
-	cub->t_screen = malloc(sizeof(t_title_screen));
-	cub->e_screen = malloc(sizeof(t_title_screen));
-	ft_init_title_screen(cub);
+	cub->start_screen = malloc(sizeof(t_screen));
+	cub->end_screen = malloc(sizeof(t_screen));
+	ft_init_screen(cub);
 	return (cub);
 }
