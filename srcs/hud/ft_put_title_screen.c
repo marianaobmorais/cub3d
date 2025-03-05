@@ -11,10 +11,10 @@ void	ft_init_title_screen(t_cub *cub)
 	cub->t_screen->paths = malloc(sizeof(char *) * 4);
 	if (!cub->t_screen->paths)
 		ft_handle_error("malloc: cub->t_screen->paths", cub);
-	cub->t_screen->paths[0] = "assets/textures/initial_frame_01.xpm";
-	cub->t_screen->paths[1] = "assets/textures/initial_frame_02.xpm";
-	cub->t_screen->paths[2] = "assets/textures/initial_frame_03.xpm";
-	cub->t_screen->paths[3] = "assets/textures/initial_frame_04.xpm";
+	cub->t_screen->paths[0] = "assets/textures/start_screen0.xpm";
+	cub->t_screen->paths[1] = "assets/textures/start_screen1.xpm";
+	cub->t_screen->paths[2] = "assets/textures/start_screen2.xpm";
+	cub->t_screen->paths[3] = "assets/textures/start_screen3.xpm";
 	cub->e_screen->screen = NULL;
 	cub->e_screen->width = WIDTH;
 	cub->e_screen->height = HEIGHT;
