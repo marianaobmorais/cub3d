@@ -1,26 +1,4 @@
-#include "../../includes/hud.h"
-
-// char	**ft_matrixdup(char **matrix, t_cub *cub)
-// {
-// 	int		i;
-// 	char	**dup;
-
-// 	i = 0;
-// 	dup = NULL;
-// 	while (matrix[i])
-// 		i++;
-// 	dup = (char **) malloc(i * sizeof(char *));
-// 	if (!dup)
-// 		ft_handle_error("malloc: matrixdup", cub);
-// 	i = 0;
-// 	while (matrix[i])
-// 	{
-// 		dup[i] = ft_strdup(matrix[i]);
-// 		i++;
-// 	}
-// 	dup[i] = NULL;
-// 	return (dup);
-// }
+#include "../../includes/cub3d.h"
 
 void	ft_put_square(t_image *img, int x, int y, int color)
 {
