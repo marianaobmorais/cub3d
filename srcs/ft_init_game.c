@@ -47,13 +47,13 @@ void	ft_render_walls(t_image *img, t_map *map)
 
 void	ft_put_image(t_cub *cub)
 {
-	int w = WIDTH;
-	int h = HEIGHT;
+	//int w = WIDTH;
+	//int h = HEIGHT;
 	
 	if (cub->image->img_ptr)
 		mlx_destroy_image(cub->mlx, cub->image->img_ptr);
-	//cub->image->img_ptr = mlx_new_image(cub->mlx, WIDTH, HEIGHT);
-	cub->image->img_ptr = mlx_xpm_file_to_image(cub->mlx, "assets/textures/screen.xpm", &w, &h);
+	cub->image->img_ptr = mlx_new_image(cub->mlx, WIDTH, HEIGHT);
+	//cub->image->img_ptr = mlx_xpm_file_to_image(cub->mlx, "assets/textures/screen.xpm", &w, &h);
 	if (!cub->image->img_ptr)
 		ft_handle_error("malloc: cub->image->img_ptr", cub);
 	cub->image->bpp = 0;
@@ -62,8 +62,8 @@ void	ft_put_image(t_cub *cub)
 	cub->image->addr = mlx_get_data_addr(cub->image->img_ptr, &cub->image->bpp, &cub->image->line_len, &cub->image->endian);
 	if (!cub->image->addr)
 		ft_handle_error("malloc: cub->image->addr", cub);
-	//ft_render_bg(cub->image, 0xB0CFDD, GRAY); //substitur dois ultimos argumentos por: cub->map->ceiling_rgb, cub->map->floor_rgb
-	//ft_render_walls(cub->image, cub->map);
+	ft_render_bg(cub->image, 0xB0CFDD, GRAY); //substitur dois ultimos argumentos por: cub->map->ceiling_rgb, cub->map->floor_rgb
+	ft_render_walls(cub->image, cub->map);
 	mlx_put_image_to_window(cub->mlx, cub->window, cub->image->img_ptr, 0, 0);
 }
 
@@ -79,8 +79,8 @@ t_cub	*ft_init_game(t_cub *cub)
 	if (!cub->image)
 		ft_handle_error("malloc: cub->image", cub);
 	cub->image->img_ptr = NULL;
-	ft_init_minimap(cub); //bonus
-	ft_put_image(cub);
-	ft_put_minimap(cub); //bonus
+	cub->t_screen = malloc(sizeof(t_title_screen));
+	cub->e_screen = malloc(sizeof(t_title_screen));
+	ft_init_title_screen(cub);
 	return (cub);
 }
