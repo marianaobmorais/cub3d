@@ -1,4 +1,4 @@
-#include "../../includes/hud.h"
+#include "../../includes/cub3d.h"
 
 void	ft_init_minimap(t_cub *cub)
 {

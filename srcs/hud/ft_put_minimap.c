@@ -1,4 +1,4 @@
-#include "../../includes/hud.h"
+#include "../../includes/cub3d.h"
 
 void	ft_bg_minimap(t_cub *cub, int height, int width, int color)
 {

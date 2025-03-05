@@ -1,4 +1,4 @@
-#include "../../includes/hud.h"
+#include "../../includes/cub3d.h"
 
 int	ft_get_pixel_color(t_cub *cub, int x, int y, t_image *texture)
 {

@@ -22,6 +22,14 @@ typedef struct s_minimap
 	void	*img_texture;
 }	t_minimap;
 
+typedef struct s_title_screen
+{
+	void	*screen;
+	char	**paths;
+	int		width;
+	int		height;
+}	t_title_screen;
+
 /* ft_put_minimap.c */
 
 void	ft_put_minimap(t_cub *cub);
@@ -39,6 +47,8 @@ void	ft_init_minimap(t_cub *cub);
 
 void	ft_background(t_cub *cub);
 
-void	ft_put_title_screen(t_cub *cub);
+int		ft_put_title_screen(t_cub *cub);
+void	ft_init_title_screen(t_cub *cub);
+int		ft_put_end_screen(t_cub *cub, int dir);
 
 # endif //MINIMAP_H
