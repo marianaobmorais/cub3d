@@ -5,15 +5,16 @@
 # include "../minilibx-linux/mlx.h"
 # include <X11/keysym.h>
 # include <X11/X.h>
-# include <stdio.h>
+# include <stdio.h> //do we use this?
 # include <stdlib.h>
-# include <unistd.h>
-# include <sys/time.h>
+//# include <unistd.h> //duplicated from libft
+# include <sys/time.h> //do we use this?
 # include <math.h>
 # include <fcntl.h>
 # include <errno.h>
 # include <string.h>
 # include <stdbool.h>
+# include <limits.h>
 
 /* messages */
 
@@ -25,8 +26,10 @@
 /* colors in hex*/
 
 # define GRAY 0x818d94
-# define HOT_PINK 0xff00e6
+# define PINK 0xff00e6
 # define YELLOW 0xfff200
+# define BLUE 0x030bfc
+# define GREEN 0x009c00
 
 /* measurements */
 
@@ -44,6 +47,42 @@ typedef enum e_directions
 	CEILING
 }	t_directions;
 
+typedef struct s_dpoint
+{
+	double	x;
+	double	y;
+}	t_dpoint;
+
+typedef struct s_ipoint
+{
+	int	x;
+	int	y;
+}	t_ipoint;
+
+typedef struct s_raycast
+{
+	t_dpoint		player_pos;
+	t_dpoint		player_dir;
+	t_dpoint		camera_plane;
+	t_dpoint		ray_dir;
+	t_ipoint		player_squ;
+	t_ipoint		step;
+	t_ipoint		step_squ;
+	double			factor;
+	//double			frame_time;
+	//double			last_frame_time;
+	double			delta_dist_x;
+	double			delta_dist_y;
+	double			dist_to_x;
+	double			dist_to_y;
+	double			perp_wall_dist;
+	double			move_speed;
+	t_directions	hit_side;
+	int				wall_height;
+	int				wall_start;
+	int				wall_end;
+}	t_raycast;
+
 typedef struct s_map
 {
 	char			**matrix;
@@ -55,8 +94,8 @@ typedef struct s_map
 	unsigned char	*ceiling_rgb;
 	int				floor_hex;
 	int				ceiling_hex;
-	int				player_pos_x;
-	int				player_pos_y;
+	int				player_squ_x;
+	int				player_squ_y;
 	t_directions	direction;
 }	t_map;
 
@@ -70,17 +109,22 @@ typedef struct	s_image
 	int		endian;
 }	t_image;
 
-
 typedef struct s_cub
 {
-	void	*mlx;
-	void	*window;
-	t_image	*image;
-	t_image	*minimap;
-	t_map	*map;
-	char	*filepath;
-	int		fd;
+	void		*mlx;
+	void		*window;
+	t_image		*image;
+	t_image		*minimap;
+	t_map		*map;
+	t_raycast	*raycast;
+	char		*filepath;
+	int			fd;
 }	t_cub;
+
+
+/* ft_init_structs.c */
+
+t_cub	*ft_init_structs(t_cub *cub);
 
 /* ft_handle_error.c */
 
@@ -93,7 +137,7 @@ void	ft_free_vector(char **vector);
 
 /* ft_loadmap.c */
 
-void	ft_loadmap(char *const filepath, t_cub *game);
+void	ft_load_map(char *const filepath, t_cub *game);
 
 /* ft_map_parser.c */
 
@@ -121,12 +165,14 @@ void	ft_matrix_parser(t_cub *game, char **matrix);
 
 /* ft_matrix_parser_utils.c */
 
-int		ft_isempty(char *line);
+int		ft_is_empty(char *line);
 bool	ft_valid_wall(char *line);
 
-/* ft_init_game.c */
+/* ft_run_game.c */
 
-t_cub	*ft_init_game(t_cub *cub);
+void	ft_run_game(t_cub *cub);
+void	ft_put_image(t_cub *cub);
+void	ft_put_minimap(t_cub *cub);
 
 /* ft_put_pixel.c */
 
@@ -136,5 +182,17 @@ void	ft_put_pixel(t_image *img, int x, int y, int color);
 
 int	ft_key_input(int keysym, t_cub *game);
 int	ft_close_window(t_cub *game);
+
+/* ft_init_raycast.c */
+
+void	ft_init_raycast(t_cub*cub);
+
+/* ft_render_walls.c */
+
+void	ft_render_walls(t_cub *cub);
+
+/* ft_dda.c */
+
+void	ft_dda(t_raycast *ray, t_map *map, bool *hit_wall);
 
 # endif //CUB3D_H
