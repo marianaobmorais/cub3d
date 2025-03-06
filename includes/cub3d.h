@@ -33,6 +33,7 @@
 # define YELLOW 0xfff200
 # define BLUE 0x030bfc
 # define GREEN 0x009c00
+# define RED 0xff1100
 
 /* measurements */
 
@@ -133,7 +134,7 @@ typedef struct s_cub
 
 /* ft_init_structs.c */
 
-t_cub	*ft_init_structs(t_cub *cub);
+t_cub	*ft_init_structs(t_cub *cub, char *argv);
 
 /* ft_handle_error.c */
 

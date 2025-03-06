@@ -49,8 +49,8 @@ void	ft_colorize_minimap(t_cub *cub, int map_width, int map_height)
 		}
 		y++;
 	}
-	ft_put_square(cub->mini->img_minimap, cub->map->player_pos_x - cub->mini->start_x, \
-		cub->map->player_pos_y - cub->mini->start_y, HOT_PINK);
+	ft_put_square(cub->mini->img_minimap, cub->map->player_squ_x - cub->mini->start_x, \
+		cub->map->player_squ_y - cub->mini->start_y, RED);
 }
 
 void	ft_render_minimap(t_cub *cub)
@@ -61,7 +61,7 @@ void	ft_render_minimap(t_cub *cub)
 	height = 0;
 	while (cub->map->matrix[height])
 		height++;
-	width = (int) ft_strlen(cub->map->matrix[cub->map->player_pos_y]);
+	width = (int) ft_strlen(cub->map->matrix[cub->map->player_squ_y]);
 	ft_bg_minimap(cub, MINI_HEIGHT, MINI_WIDTH, 0xB1B1B3);
 	ft_set_limit_x(cub, width);
 	ft_set_limit_y(cub, height);
