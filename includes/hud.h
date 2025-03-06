@@ -47,6 +47,8 @@ void	ft_init_minimap(t_cub *cub);
 
 void	ft_background(t_cub *cub);
 
+/* screens.c */
+
 void	ft_init_screen(t_cub *cub);
 int		ft_put_start_screen(t_cub *cub);
 int		ft_put_end_screen(t_cub *cub, int dir);

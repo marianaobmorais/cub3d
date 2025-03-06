@@ -59,7 +59,7 @@ int	ft_put_start_screen(t_cub *cub)
 			&cub->start_screen->height);
 		mlx_put_image_to_window(cub->mlx, cub->window, cub->start_screen->img, \
 			0, 0);
-		usleep(200000);
+		usleep(200000); //change, use time pass *loop hook*
 		if (cub->start_screen->img)
 			mlx_destroy_image(cub->mlx, cub->start_screen->img);
 		i++;

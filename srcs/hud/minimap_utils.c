@@ -21,7 +21,7 @@ void	ft_put_square(t_image *img, int x, int y, int color)
 				(i == 1 && (j == 1 || j == size - 2)) ||
 				(i == size - 2 && (j == 1 || j == size - 2)))
 			{
-				offset = ((y + i) * img->line_len) + ((x  + j) * (img->bpp / 8));
+				offset = ((y + i) * img->line_len) + ((x + j) * (img->bpp / 8));
 				*((unsigned int *)(offset + img->addr)) = color;
 			}
 			j++;

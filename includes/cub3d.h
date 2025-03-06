@@ -18,7 +18,6 @@
 # include <sys/wait.h> //bonus
 # include <time.h> //bonus
 
-
 /* messages */
 
 # define MSG_MAP "Map: Something is wrong 😕"
