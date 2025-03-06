@@ -3,6 +3,7 @@
 
 # include "../libft/libft.h"
 # include "../minilibx-linux/mlx.h"
+# include "hud.h"
 # include <X11/keysym.h>
 # include <X11/X.h>
 # include <stdio.h> //do we use this?
@@ -14,6 +15,8 @@
 # include <errno.h>
 # include <string.h>
 # include <stdbool.h>
+# include <sys/wait.h> //bonus
+# include <time.h> //bonus
 # include <limits.h>
 
 /* messages */
@@ -36,6 +39,8 @@
 # define PIXEL 1
 # define WIDTH 960
 # define HEIGHT 600
+
+typedef struct s_minimap	t_minimap; //bonus
 
 typedef enum e_directions
 {
@@ -111,14 +116,18 @@ typedef struct	s_image
 
 typedef struct s_cub
 {
-	void		*mlx;
-	void		*window;
-	t_image		*image;
-	t_image		*minimap;
-	t_map		*map;
+	void			*mlx;
+	void			*window;
+	t_image			*image;
+	t_minimap		*mini;
+	t_map			*map;
+	char			*filepath;
+	int				fd;
+	bool			started; //screen
+	bool			leaving; //screen
+	t_screen	*start_screen; //screen
+	t_screen	*end_screen; //screen
 	t_raycast	*raycast;
-	char		*filepath;
-	int			fd;
 }	t_cub;
 
 
@@ -180,8 +189,10 @@ void	ft_put_pixel(t_image *img, int x, int y, int color);
 
 /* hook_utils.c */
 
-int	ft_key_input(int keysym, t_cub *game);
-int	ft_close_window(t_cub *game);
+int		ft_key_input(int keysym, t_cub *game);
+int		ft_close_window(t_cub *game);
+
+void	ft_put_image(t_cub *cub);
 
 /* ft_init_raycast.c */
 

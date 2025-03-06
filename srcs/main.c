@@ -12,6 +12,7 @@ int	main(int argc, char **argv)
 	ft_load_map(argv[1], cub);
 	ft_print_map(cub->map); //debug
 	ft_run_game(cub);
+	mlx_loop_hook(cub->mlx, ft_put_start_screen, cub);
 	mlx_hook(cub->window, KeyPress, KeyPressMask, ft_key_input, cub);
 	mlx_hook(cub->window, DestroyNotify, NoEventMask, ft_close_window, cub);
 	mlx_loop(cub->mlx);
