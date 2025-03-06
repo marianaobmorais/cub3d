@@ -23,8 +23,8 @@ static void	ft_init_map(t_cub *cub)
 	cub->map->east_texture = NULL;
 	cub->map->floor_rgb = NULL;
 	cub->map->ceiling_rgb = NULL;
-	cub->map->player_pos_x = -1;
-	cub->map->player_pos_y = -1;
+	cub->map->player_squ_x = -1;
+	cub->map->player_squ_y = -1;
 	cub->map->direction = -1;
 }
 
@@ -41,7 +41,7 @@ static void	ft_init_map(t_cub *cub)
  * @param game A pointer to the game structure (t_game) where map data and 
  *            configuration will be stored.
  */
-void	ft_loadmap(char *const filepath, t_cub *cub)
+void	ft_load_map(char *const filepath, t_cub *cub)
 {
 	//update brief
 	cub->filepath = ft_strip(ft_strdup(filepath));
@@ -54,6 +54,8 @@ void	ft_loadmap(char *const filepath, t_cub *cub)
 	ft_init_map(cub);
 	ft_map_parser(cub->fd, cub);
 	ft_matrix_parser(cub, cub->map->matrix);
+	cub->map->ceiling_hex = ft_arraytohex(cub->map->ceiling_rgb);
+	cub->map->floor_hex = ft_arraytohex(cub->map->floor_rgb);
 	close(cub->fd);
 	cub->fd = -1;
 }

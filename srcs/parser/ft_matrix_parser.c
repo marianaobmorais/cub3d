@@ -39,10 +39,10 @@ static bool	ft_valid_char(char c)
 static bool	ft_set_player(char c, t_cub *cub, int x, int y)
 {
 	//update brief
-	if (cub->map->player_pos_x == -1)
+	if (cub->map->player_squ_x == -1)
 	{
-		cub->map->player_pos_x = x;
-		cub->map->player_pos_y = y;
+		cub->map->player_squ_x = x;
+		cub->map->player_squ_y = y;
 		if (c == 'S')
 			cub->map->direction = SOUTH;
 		if (c == 'N')
@@ -127,6 +127,6 @@ void	ft_matrix_parser(t_cub *cub, char **matrix)
 		free(line);
 		y++;
 	}
-	if (cub->map->player_pos_y == -1)
+	if (cub->map->player_squ_x == -1)
 		ft_handle_error(MSG_MAP, cub);
 }

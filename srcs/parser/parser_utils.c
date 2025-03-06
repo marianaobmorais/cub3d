@@ -128,14 +128,23 @@ int	ft_isnumeric(char *nbr)
 	return (1);
 }
 
+int	ft_arraytohex(unsigned char *rgb)
+{
+	//brief
+	return (rgb[0] << 16 | rgb[1] << 8 | rgb[2]);
+}
+
 /* DEBUG */
 void	ft_print_map(t_map *map)
 {
 	int	i;
 
 	i = 0;
-	printf("Player x=%d y=%d direction=%d\n", map->player_pos_x, \
-		map->player_pos_y, map->direction);
+	printf("Player x=%d y=%d, ", map->player_squ_x, map->player_squ_y);
+	printf("direction: %s\n\n",
+			(map->direction == NORTH) ? "N" :
+			(map->direction == SOUTH) ? "S" :
+			(map->direction == WEST) ? "W" : "E");
 	if (map->matrix)
 	{
 		while (map->matrix[i])
@@ -144,4 +153,5 @@ void	ft_print_map(t_map *map)
 			i++;
 		}
 	}
+	write(1, "\n", 1);
 }

@@ -47,13 +47,9 @@ void	ft_render_walls(t_image *img, t_map *map)
 
 void	ft_put_image(t_cub *cub)
 {
-	//int w = WIDTH;
-	//int h = HEIGHT;
-	
 	if (cub->image->img_ptr)
 		mlx_destroy_image(cub->mlx, cub->image->img_ptr);
 	cub->image->img_ptr = mlx_new_image(cub->mlx, WIDTH, HEIGHT);
-	//cub->image->img_ptr = mlx_xpm_file_to_image(cub->mlx, "assets/textures/screen.xpm", &w, &h);
 	if (!cub->image->img_ptr)
 		ft_handle_error("malloc: cub->image->img_ptr", cub);
 	cub->image->bpp = 0;
@@ -62,10 +58,28 @@ void	ft_put_image(t_cub *cub)
 	cub->image->addr = mlx_get_data_addr(cub->image->img_ptr, &cub->image->bpp, &cub->image->line_len, &cub->image->endian);
 	if (!cub->image->addr)
 		ft_handle_error("malloc: cub->image->addr", cub);
-	ft_render_bg(cub->image, 0xB0CFDD, GRAY); //substitur dois ultimos argumentos por: cub->map->ceiling_rgb, cub->map->floor_rgb
+	ft_render_bg(cub->image, HOT_PINK, GRAY); //substitur dois ultimos argumentos por: cub->map->ceiling_rgb, cub->map->floor_rgb
 	ft_render_walls(cub->image, cub->map);
 	mlx_put_image_to_window(cub->mlx, cub->window, cub->image->img_ptr, 0, 0);
 }
+
+void ft_put_minimap(t_cub *cub)
+{
+	if (cub->minimap->img_ptr)
+		mlx_destroy_image(cub->mlx, cub->minimap->img_ptr);
+	cub->minimap->img_ptr = mlx_new_image(cub->mlx, WIDTH / 7, HEIGHT / 7);
+	if (!cub->minimap->img_ptr)
+		ft_handle_error("malloc: img->img_ptr", cub);
+	cub->minimap->bpp = 0;
+	cub->minimap->line_len = 0;
+	cub->minimap->endian = 0;
+	cub->minimap->addr = mlx_get_data_addr(cub->minimap->img_ptr, &cub->minimap->bpp, &cub->minimap->line_len, &cub->minimap->endian);
+	if (!cub->minimap->addr)
+		ft_handle_error("malloc: img->addr", cub);
+	//ft_render_minimap();
+	mlx_put_image_to_window(cub->mlx, cub->window, cub->minimap->img_ptr, 0, 0);
+}
+
 
 t_cub	*ft_init_game(t_cub *cub)
 {
@@ -79,8 +93,11 @@ t_cub	*ft_init_game(t_cub *cub)
 	if (!cub->image)
 		ft_handle_error("malloc: cub->image", cub);
 	cub->image->img_ptr = NULL;
-	cub->start_screen = malloc(sizeof(t_screen));
-	cub->end_screen = malloc(sizeof(t_screen));
-	ft_init_screen(cub);
+	cub->minimap = (t_image *)malloc(sizeof(t_image));
+	if (!cub->minimap)
+		ft_handle_error("malloc: cub->minimap", cub);
+	cub->minimap->img_ptr = NULL;
+	ft_put_image(cub);
+	ft_put_minimap(cub);
 	return (cub);
 }
