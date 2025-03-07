@@ -34,6 +34,8 @@ void	ft_put_image(t_cub *cub)
 	cub->image->img_ptr = mlx_new_image(cub->mlx, WIDTH, HEIGHT);
 	if (!cub->image->img_ptr)
 		ft_handle_error("malloc: cub->image->img_ptr", cub);
+	cub->image->width = WIDTH;
+	cub->image->height = HEIGHT;
 	cub->image->bpp = 0;
 	cub->image->line_len = 0;
 	cub->image->endian = 0;

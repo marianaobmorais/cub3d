@@ -2,6 +2,12 @@
 
 void	ft_init_screen(t_cub *cub)
 {
+	cub->start_screen = malloc(sizeof(t_screen));
+	if (!cub->start_screen)
+		ft_handle_error("malloc: cub->start_screen", cub);
+	cub->end_screen = malloc(sizeof(t_screen));
+	if (!cub->end_screen)
+		ft_handle_error("malloc: cub->end_screen", cub);
 	cub->started = false;
 	cub->leaving = false;
 	cub->start_screen->img = NULL;

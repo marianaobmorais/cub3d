@@ -8,9 +8,8 @@ int	ft_close_window(t_cub *cub)
 
 void	ft_handle_img(t_cub *cub)
 {
-	ft_init_minimap(cub); //bonus
 	ft_put_image(cub);
-	ft_put_minimap(cub); //bonus
+	ft_put_hud(cub);
 }
 
 void	ft_player_motion(int y, int x, t_cub *cub)
