@@ -6,9 +6,8 @@ int	ft_close_window(t_cub *cub)
 	exit(0);
 }
 
-void ft_handle_img(t_cub *cub)
+void	ft_handle_img(t_cub *cub)
 {
-	//change
 	ft_init_minimap(cub); //bonus
 	ft_put_image(cub);
 	ft_put_minimap(cub); //bonus
@@ -27,9 +26,6 @@ void	ft_player_motion(int y, int x, t_cub *cub)
 	cub->map->player_squ_y = y;
 	cub->map->matrix[old_y][old_x] = '0';
 	cub->map->matrix[y][x] = 'S';
-	// ft_print_map(cub->map); //debug
-	// ft_put_minimap(cub); //debug
-	ft_handle_img(cub);
 }
 
 void	ft_manage_movements(int keysym, t_cub *cub)
@@ -124,7 +120,7 @@ void	ft_manage_exit(int keysym, t_cub *cub)
 	if (keysym == XK_Return && dir == 0)
 	{
 		cub->leaving = false;
-		ft_handle_img(cub); //change
+		ft_handle_img(cub);
 	}
 }
 
@@ -133,8 +129,7 @@ int	ft_key_input(int keysym, t_cub *cub)
 	if (cub->started == false && keysym == XK_Return)
 	{
 		cub->started = true;
-		printf("press enter\n"); //debug
-		ft_handle_img(cub); //change
+		ft_handle_img(cub);
 	}
 	if (cub->started == false && keysym == XK_Escape)
 		ft_close_window(cub);
@@ -143,7 +138,7 @@ int	ft_key_input(int keysym, t_cub *cub)
 		if (cub->leaving == true)
 		{
 			cub->leaving = false;
-			ft_handle_img(cub); //change
+			ft_handle_img(cub);
 			return (0);
 		}
 		cub->leaving = true;
