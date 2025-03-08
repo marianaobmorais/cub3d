@@ -11,6 +11,10 @@ t_cub	*ft_init_structs(t_cub *cub, char *argv)
 	cub->window = NULL;
 	cub->image = NULL;
 	cub->raycast = NULL;
+	cub->map = NULL;
+	cub->hud = NULL;
+	cub->start_screen = NULL;
+	cub->end_screen = NULL;
 	ft_load_map(argv, cub);
 	ft_init_raycast(cub);
 	cub->mlx = mlx_init();
