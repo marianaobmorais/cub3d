@@ -26,7 +26,7 @@ void	ft_paint_source_on_hud(t_cub *cub, t_image *source, int pos_x, int pos_y)
 		while (x < source->width)
 		{
 			source_color = ft_get_pixel_color(x, y, source);
-			if (source_color == 0xFFFFFF) //color to ignore
+			if (source_color == IGNORE || source_color == 0x23FF00) //color to ignore
 			{
 				default_color = ft_get_pixel_color(x + pos_x, y + pos_y, cub->image);
 				ft_put_pixel(cub->hud->img, x + pos_x, y + pos_y, default_color);
@@ -58,9 +58,9 @@ void	ft_put_hud(t_cub *cub)
 
 	ft_paint_source_on_hud(cub, cub->image, 0, 0); //paint main image
 	ft_paint_source_on_hud(cub, cub->hud->watch, 0, 0); //paint watch image for minimap
+	ft_paint_source_on_hud(cub, cub->hud->viewmodel, 390, 420); //paint viewmodel image
+	ft_paint_source_on_hud(cub, cub->hud->breads, 820, 0); //paint viewmodel image
 	ft_paint_minimap_on_hud(cub); //minimap
-	//bag with bread
-	//hand holding bread
 	//action bread another img
 	mlx_put_image_to_window(cub->mlx, cub->window, cub->hud->img->img_ptr, 0, 0);
 }

@@ -1,5 +1,23 @@
 #include "../../includes/cub3d.h"
 
+void	ft_init_viewmodel(t_cub *cub)
+{
+	cub->hud->viewmodel = (t_image *) malloc(sizeof(t_image));
+	if (!cub->hud->viewmodel)
+		ft_handle_error("malloc: cub->hud->viewmodel", cub);
+	cub->hud->viewmodel->height = 125;
+	cub->hud->viewmodel->width = 120;
+	cub->hud->viewmodel->img_ptr = mlx_xpm_file_to_image(cub->mlx, \
+		"assets/textures/viewmodel.xpm", &cub->hud->viewmodel->width, \
+		&cub->hud->viewmodel->height);
+	cub->hud->viewmodel->bpp = 0;
+	cub->hud->viewmodel->endian = 0;
+	cub->hud->viewmodel->line_len = 0;
+	cub->hud->viewmodel->addr = mlx_get_data_addr(cub->hud->viewmodel->img_ptr, \
+		&cub->hud->viewmodel->bpp, &cub->hud->viewmodel->line_len, \
+		&cub->hud->viewmodel->endian);
+}
+
 void	ft_init_watch(t_cub *cub)
 {
 	cub->hud->watch = (t_image *) malloc(sizeof(t_image));
@@ -28,4 +46,5 @@ void	ft_init_hud(t_cub *cub)
 		ft_handle_error("malloc: cub->hud->img", cub);
 	cub->hud->img->img_ptr = NULL;
 	ft_init_watch(cub);
+	ft_init_viewmodel(cub);
 }
