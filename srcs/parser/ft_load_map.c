@@ -44,10 +44,10 @@ static void	ft_init_map(t_cub *cub)
 void	ft_load_map(char *const filepath, t_cub *cub)
 {
 	//update brief
+	cub->fd = -1;
 	cub->filepath = ft_strip(ft_strdup(filepath));
 	if (!ft_is_ext(cub->filepath, ".cub"))
 		ft_handle_error("Map: File extension", cub);
-	cub->fd = -1;
 	cub->fd = open(cub->filepath, O_RDONLY);
 	if (cub->fd == -1)
 		ft_handle_error(NULL, cub);
