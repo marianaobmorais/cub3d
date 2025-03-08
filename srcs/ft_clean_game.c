@@ -85,14 +85,33 @@ void	ft_clean_game(t_cub *cub)
 				mlx_destroy_image(cub->mlx, cub->image->img_ptr);
 			free(cub->image);
 		}
-		if (cub->mini)
+		if (cub->hud)
 		{
-			if (cub->mini->img_minimap->img_ptr)
-				mlx_destroy_image(cub->mlx, cub->mini->img_minimap->img_ptr);
-			if (cub->mini->img_texture)
-				mlx_destroy_image(cub->mlx, cub->mini->img_texture);
-			free(cub->mini->img_minimap);
-			free(cub->mini);
+			if (cub->hud->img->img_ptr)
+				mlx_destroy_image(cub->mlx, cub->hud->img->img_ptr);
+			free(cub->hud->img);
+			if (cub->hud->watch->img_ptr)
+				mlx_destroy_image(cub->mlx, cub->hud->watch->img_ptr);
+			free(cub->hud->watch);
+			if (cub->hud->viewmodel->img_ptr)
+				mlx_destroy_image(cub->mlx, cub->hud->viewmodel->img_ptr);
+			free(cub->hud->viewmodel);
+			if (cub->hud->breads->img_ptr)
+				mlx_destroy_image(cub->mlx, cub->hud->breads->img_ptr);
+			free(cub->hud->breads);
+			free(cub->hud);
+		}
+		if (cub->start_screen)
+		{
+			free(cub->start_screen->paths);
+			free(cub->start_screen);
+		}
+		if (cub->end_screen)
+		{
+			free(cub->end_screen->paths);
+			if (cub->end_screen->img)
+				mlx_destroy_image(cub->mlx, cub->end_screen->img);
+			free(cub->end_screen);
 		}
 		if (cub->raycast)
 			free(cub->raycast);

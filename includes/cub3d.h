@@ -29,11 +29,14 @@
 /* colors in hex*/
 
 # define GRAY 0x818d94
+# define GRAY_2 0xB1B1B3
 # define PINK 0xff00e6
 # define YELLOW 0xfff200
 # define BLUE 0x030bfc
 # define GREEN 0x009c00
 # define RED 0xff1100
+# define BLACK 0x000000
+# define IGNORE 0x23FF01
 
 /* measurements */
 
@@ -113,19 +116,21 @@ typedef struct	s_image
 	int		bpp;
 	int		line_len;
 	int		endian;
+	int		width; //new
+	int		height; //new
 }	t_image;
 
 typedef struct s_cub
 {
-	void			*mlx;
-	void			*window;
-	t_image			*image;
-	t_minimap		*mini;
-	t_map			*map;
-	char			*filepath;
-	int				fd;
-	bool			started; //screen
-	bool			leaving; //screen
+	void		*mlx;
+	void		*window;
+	t_image		*image;
+	t_hud		*hud;
+	t_map		*map;
+	char		*filepath;
+	int			fd;
+	bool		started; //screen
+	bool		leaving; //screen
 	t_screen	*start_screen; //screen
 	t_screen	*end_screen; //screen
 	t_raycast	*raycast;
@@ -182,7 +187,6 @@ bool	ft_valid_wall(char *line);
 
 void	ft_run_game(t_cub *cub);
 void	ft_put_image(t_cub *cub);
-void	ft_put_minimap(t_cub *cub);
 
 /* ft_put_pixel.c */
 
