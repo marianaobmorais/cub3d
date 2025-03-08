@@ -89,6 +89,10 @@ void	ft_clean_game(t_cub *cub)
 		{
 			if (cub->hud->img->img_ptr)
 				mlx_destroy_image(cub->mlx, cub->hud->img->img_ptr);
+			free(cub->hud->img);
+			if (cub->hud->watch->img_ptr)
+				mlx_destroy_image(cub->mlx, cub->hud->watch->img_ptr);
+			free(cub->hud->watch);
 			free(cub->hud);
 		}
 		if (cub->start_screen)
