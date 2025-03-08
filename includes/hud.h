@@ -24,6 +24,7 @@ typedef struct s_hud
 	t_image		*img;
 	t_image		*watch;
 	t_image		*viewmodel;
+	t_image		*breads;
 	int		start_x;
 	int		start_y;
 	int		end_x;
