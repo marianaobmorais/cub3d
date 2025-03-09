@@ -27,7 +27,7 @@ static void	ft_add_rgb(char *line, t_cub *cub, unsigned char *rgb)
 		if (i > 2)
 			return (free(line), ft_free_vector(tmp), \
 				ft_handle_error(MSG_COLOR, cub)); //arguments
-		ft_strip(tmp[i]);
+		ft_strip(tmp[i], 0);
 		if (!ft_isnumeric(tmp[i]))
 			return (free(line), ft_free_vector(tmp), \
 				ft_handle_error(MSG_COLOR, cub)); //numeric
@@ -67,7 +67,7 @@ static void	ft_add_color(char *line, t_cub *cub, char *identifier, \
 	//update brief
 	char	*new_line;
 
-	new_line = ft_strip(ft_strdup(line));
+	new_line = ft_strip(ft_strdup(line), 0);
 	if (ft_strncmp(identifier, new_line, 1) == 0 && !ft_isalpha(new_line[1]))
 	{
 		if (direction == FLOOR && !cub->map->floor_rgb)
@@ -129,7 +129,11 @@ static bool	ft_get_texture_color(char *line, t_cub *cub, int i)
 	else
 	{
 		if (i == 0)
+		{
+			free(line);
+			line = NULL;
 			ft_handle_error("Map: invalid order", cub);
+		}
 		return (false);
 	}
 	return (true);
@@ -200,10 +204,13 @@ void	ft_map_parser(int fd, t_cub *cub)
 				buffer = ft_buffer(buffer, line, 0, cub);
 		}
 		free(line);
+		line = NULL;
 		line = get_next_line(fd);
 		i++;
 	}
 	if (!ft_isfilled(cub))
 		return (free(buffer), ft_handle_error(MSG_MAP, cub)); //arguments
-	return (cub->map->matrix = ft_split(buffer, '\n'), free(buffer));
+	cub->map->matrix_tmp = ft_split(buffer, '\n');
+	ft_fill_matrix(cub);
+	free(buffer);
 }

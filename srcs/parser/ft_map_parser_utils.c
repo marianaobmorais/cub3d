@@ -56,7 +56,7 @@ void	ft_add_texture(char *line, t_cub *cub, char *identifier, \
 	char	**tmp;
 	char	*filepath;
 
-	new_line = ft_strip(ft_strdup(line));
+	new_line = ft_strip(ft_strdup(line), 0);
 	tmp = ft_split(new_line, ' ');
 	free(new_line);
 	if (tmp[2])
@@ -64,7 +64,7 @@ void	ft_add_texture(char *line, t_cub *cub, char *identifier, \
 			ft_handle_error(MSG_TEXTURE, cub));
 	if (ft_strncmp(identifier, tmp[0], ft_strlen(tmp[0])) == 0)
 	{
-		filepath = ft_strip(ft_strdup(tmp[1]));
+		filepath = ft_strip(ft_strdup(tmp[1]), 0);
 		ft_free_vector(tmp);
 		if (!ft_is_ext(filepath, ".xpm"))
 			return (free(filepath), ft_handle_error(MSG_TEXTURE, cub)); //ext
@@ -99,7 +99,9 @@ char	*ft_buffer(char *buffer, char *line, int start, t_cub *cub)
 	if (ft_is_empty(line) == 1 && start == 0)
 	{
 		free(line);
+		line = NULL;
 		free(buffer);
+		buffer = NULL;
 		ft_handle_error("Map: error new line", cub);
 	}
 	if (ft_is_empty(line) == 1)

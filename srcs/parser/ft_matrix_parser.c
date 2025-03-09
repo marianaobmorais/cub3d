@@ -113,18 +113,25 @@ void	ft_matrix_parser(t_cub *cub, char **matrix)
 {
 	//update brief
 	int		y;
+	bool	first_or_last;
 	char	*line;
+	char	*previous_line;
 
 	y = 0;
+	previous_line = NULL;
 	while (matrix[y])
 	{
-		line = ft_strip(ft_strdup(matrix[y]));
-		if (!ft_check_line(line, y, cub) || !ft_valid_wall(line))
-		{
-			free(line);
+		first_or_last = false;
+		if (y == 0 || y + 1 == cub->map->height)
+			first_or_last = true;
+		line = matrix[y];
+		printf("%s\n", line);
+		if (y > 0)
+			previous_line = matrix[y - 1];
+		if (!ft_check_line(line, y, cub))
 			ft_handle_error(MSG_MAP, cub);
-		}
-		free(line);
+		if (!ft_valid_wall(line, previous_line, first_or_last))
+			ft_handle_error(MSG_MAP, cub);
 		y++;
 	}
 	if (cub->map->player_squ_x == -1)
