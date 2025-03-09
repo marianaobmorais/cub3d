@@ -114,7 +114,7 @@ typedef struct s_cub
 	void		*mlx;
 	void		*window;
 	t_image		*image;
-	t_image		*minimap;
+	//t_image		*minimap;
 	t_map		*map;
 	t_raycast	*raycast;
 	char		*filepath;
@@ -124,7 +124,7 @@ typedef struct s_cub
 
 /* ft_init_structs.c */
 
-t_cub	*ft_init_structs(t_cub *cub);
+t_cub	*ft_init_structs(t_cub *cub, char *argv);
 
 /* ft_handle_error.c */
 
@@ -170,9 +170,9 @@ bool	ft_valid_wall(char *line);
 
 /* ft_run_game.c */
 
-void	ft_run_game(t_cub *cub);
+//void	ft_run_game(t_cub *cub);
 void	ft_put_image(t_cub *cub);
-void	ft_put_minimap(t_cub *cub);
+//void	ft_put_minimap(t_cub *cub);
 
 /* ft_put_pixel.c */
 
