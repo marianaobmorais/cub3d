@@ -55,20 +55,25 @@ int	ft_put_end_screen(t_cub *cub, int dir)
 
 int	ft_put_start_screen(t_cub *cub)
 {
-	int	i;
+	clock_t		now;
+	double		elapsed;
 
-	i = 0;
-	while (!cub->started && i < 4)
+	now = clock();
+	elapsed = (double) (now - cub->last_time) / CLOCKS_PER_SEC;
+	if (!cub->started && elapsed >= 0.2)
 	{
+		if (cub->current_screen == 4)
+			cub->current_screen = 0;
+		if (cub->start_screen->img)
+			mlx_destroy_image(cub->mlx, cub->start_screen->img);
 		cub->start_screen->img = mlx_xpm_file_to_image(cub->mlx, \
-			cub->start_screen->paths[i], &cub->start_screen->width, \
+			cub->start_screen->paths[cub->current_screen], \
+			&cub->start_screen->width, \
 			&cub->start_screen->height);
 		mlx_put_image_to_window(cub->mlx, cub->window, cub->start_screen->img, \
 			0, 0);
-		usleep(200000); //change, use time pass *loop hook*
-		if (cub->start_screen->img)
-			mlx_destroy_image(cub->mlx, cub->start_screen->img);
-		i++;
+		cub->last_time = now;
+		cub->current_screen++;
 	}
 	return (0);
 }

@@ -144,6 +144,8 @@ typedef struct s_cub
 	bool		leaving; //screen
 	t_screen	*start_screen; //screen
 	t_screen	*end_screen; //screen
+	clock_t		last_time; //screen
+	int			current_screen; //screen
 	t_raycast	*raycast;
 }	t_cub;
 

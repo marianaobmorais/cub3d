@@ -13,8 +13,10 @@ t_cub	*ft_init_structs(t_cub *cub, char *argv)
 	cub->raycast = NULL;
 	cub->map = NULL;
 	cub->hud = NULL;
-	cub->start_screen = NULL;
-	cub->end_screen = NULL;
+	cub->start_screen = NULL; //screen
+	cub->end_screen = NULL; //screen
+	cub->last_time = clock(); //screen
+	cub->current_screen = 0; //screen
 	ft_load_map(argv, cub);
 	ft_init_raycast(cub);
 	cub->mlx = mlx_init();
@@ -27,7 +29,7 @@ t_cub	*ft_init_structs(t_cub *cub, char *argv)
 	if (!cub->image)
 		ft_handle_error("malloc: cub->image", cub);
 	cub->image->img_ptr = NULL;
-	ft_init_screen(cub);
+	ft_init_screen(cub); //screen
 	ft_init_hud(cub);
 	return (cub);
 }
