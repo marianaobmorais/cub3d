@@ -24,6 +24,7 @@
 # define MSG_MAP "Map: Something is wrong 😕"
 # define MSG_TEXTURE "Texture: Something is wrong 😕"
 # define MSG_COLOR "Color: Something is wrong 😕"
+# define MSG_DUP_COLOR "Color: Something is wrong 😕: Duplicate"
 //# define PIXEL 100 //32
 
 /* colors in hex*/
@@ -55,6 +56,13 @@ typedef enum e_directions
 	FLOOR,
 	CEILING
 }	t_directions;
+
+typedef enum e_parser_status
+{
+	ERROR,
+	BUFFER,
+	NO_BUFFER
+}	t_parser_status;
 
 typedef struct s_dpoint
 {
@@ -164,7 +172,7 @@ void	ft_map_parser(int fd, t_cub *game);
 /* ft_map_parser_utils.c */
 
 char	*ft_buffer(char *buffer, char *line, int start, t_cub *game);
-void	ft_add_texture(char *line, t_cub *game, char *identifier, \
+t_parser_status	ft_add_texture(char *line, t_cub *game, char *identifier, \
 	t_directions direction);
 
 /* parser_utils.c */

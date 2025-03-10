@@ -50,10 +50,10 @@ static bool	is_valid_space(char *line, char *previous_line, int y)
 	//update brief
 	if (previous_line)
 	{
-		if (previous_line[y] && (previous_line[y] == ' '
-			|| previous_line[y] == '1'))
+		if (previous_line[y] && (previous_line[y] != ' '
+			&& previous_line[y] != '1'))
 		{
-			return (true);
+			return (false);
 		}
 	}
 	if ((y > 0 && (line[y - 1] == ' ' || line[y - 1] == '1'))
