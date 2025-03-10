@@ -29,10 +29,14 @@ void	ft_paint_source_on_hud(t_cub *cub, t_image *source, int pos_x, int pos_y)
 			if (source_color == IGNORE || source_color == 0x23FF00) //color to ignore
 			{
 				default_color = ft_get_pixel_color(x + pos_x, y + pos_y, cub->image);
-				ft_put_pixel(cub->hud->img, x + pos_x, y + pos_y, default_color);
+				//ft_put_pixel(cub->hud->img, x + pos_x, y + pos_y, default_color);
+				ft_put_pixel(cub->image, x + pos_x, y + pos_y, default_color);
 			}
 			else
-				ft_put_pixel(cub->hud->img, x + pos_x, y + pos_y, source_color);
+			{
+				//ft_put_pixel(cub->hud->img, x + pos_x, y + pos_y, source_color);
+				ft_put_pixel(cub->image, x + pos_x, y + pos_y, source_color);
+			}
 			x++;
 		}
 		y++;
@@ -41,20 +45,20 @@ void	ft_paint_source_on_hud(t_cub *cub, t_image *source, int pos_x, int pos_y)
 
 void	ft_put_hud(t_cub *cub)
 {
-	if (cub->hud->img->img_ptr)
-		mlx_destroy_image(cub->mlx, cub->hud->img->img_ptr);
+	// if (cub->hud->img->img_ptr)
+	// 	mlx_destroy_image(cub->mlx, cub->hud->img->img_ptr);
 
-	cub->hud->img->img_ptr = mlx_new_image(cub->mlx, WIDTH, HEIGHT);
-	if (!cub->hud->img->img_ptr)
-		ft_handle_error("malloc: hud->img_ptr", cub);
+	// cub->hud->img->img_ptr = mlx_new_image(cub->mlx, WIDTH, HEIGHT);
+	// if (!cub->hud->img->img_ptr)
+	// 	ft_handle_error("malloc: hud->img_ptr", cub);
 
-	cub->hud->img->bpp = 0;
-	cub->hud->img->line_len = 0;
-	cub->hud->img->endian = 0;
-	cub->hud->img->addr = mlx_get_data_addr(cub->hud->img->img_ptr, \
-		&cub->hud->img->bpp, &cub->hud->img->line_len, &cub->hud->img->endian);
-	if (!cub->hud->img->addr)
-		ft_handle_error("malloc: img->addr", cub);	
+	// cub->hud->img->bpp = 0;
+	// cub->hud->img->line_len = 0;
+	// cub->hud->img->endian = 0;
+	// cub->hud->img->addr = mlx_get_data_addr(cub->hud->img->img_ptr, 
+	// 	&cub->hud->img->bpp, &cub->hud->img->line_len, &cub->hud->img->endian);
+	// if (!cub->hud->img->addr)
+	// 	ft_handle_error("malloc: img->addr", cub);
 
 	ft_paint_source_on_hud(cub, cub->image, 0, 0); //paint main image
 	ft_paint_source_on_hud(cub, cub->hud->watch, 0, 0); //paint watch image for minimap
@@ -62,5 +66,5 @@ void	ft_put_hud(t_cub *cub)
 	ft_paint_source_on_hud(cub, cub->hud->breads, 820, 0); //paint viewmodel image
 	ft_paint_minimap_on_hud(cub); //minimap
 	//action bread another img
-	mlx_put_image_to_window(cub->mlx, cub->window, cub->hud->img->img_ptr, 0, 0);
+	//mlx_put_image_to_window(cub->mlx, cub->window, cub->hud->img->img_ptr, 0, 0);
 }

@@ -10,6 +10,7 @@ void	ft_handle_img(t_cub *cub)
 {
 	ft_put_image(cub);
 	ft_put_hud(cub);
+	mlx_put_image_to_window(cub->mlx, cub->window, cub->image->img_ptr, 0, 0);
 }
 
 void	ft_player_motion(int y, int x, t_cub *cub)
@@ -29,14 +30,14 @@ void	ft_player_motion(int y, int x, t_cub *cub)
 
 void	ft_manage_movements(int keysym, t_cub *cub)
 {
-	if (cub->started == true && (keysym == XK_A || keysym == XK_a))
-		ft_player_motion(cub->map->player_squ_y, cub->map->player_squ_x -1, cub); //left
-	if (cub->started == true && (keysym == XK_D || keysym == XK_d))
-		ft_player_motion(cub->map->player_squ_y, cub->map->player_squ_x +1, cub); //right
-	if (cub->started == true && (keysym == XK_W || keysym == XK_w))
-		ft_player_motion(cub->map->player_squ_y -1, cub->map->player_squ_x, cub); //up
-	if (cub->started == true && (keysym == XK_S || keysym == XK_s))
-		ft_player_motion(cub->map->player_squ_y +1, cub->map->player_squ_x, cub); //down
+	// if (cub->started == true && (keysym == XK_A || keysym == XK_a))
+	// 	ft_player_motion(cub->map->player_squ_y, cub->map->player_squ_x -1, cub); //left
+	// if (cub->started == true && (keysym == XK_D || keysym == XK_d))
+	// 	ft_player_motion(cub->map->player_squ_y, cub->map->player_squ_x +1, cub); //right
+	// if (cub->started == true && (keysym == XK_W || keysym == XK_w))
+	// 	ft_player_motion(cub->map->player_squ_y -1, cub->map->player_squ_x, cub); //up
+	// if (cub->started == true && (keysym == XK_S || keysym == XK_s))
+	// 	ft_player_motion(cub->map->player_squ_y +1, cub->map->player_squ_x, cub); //down
 
 	int	tmp_x = cub->raycast->player_pos.x;
 	int	tmp_y = cub->raycast->player_pos.y;

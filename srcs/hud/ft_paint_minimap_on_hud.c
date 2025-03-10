@@ -11,7 +11,8 @@ void	ft_bg_minimap(t_cub *cub, int height, int width, int color)
 		x = 0;
 		while (x < width)
 		{
-			ft_put_pixel(cub->hud->img, x + 17, y + 39, color);
+			//ft_put_pixel(cub->hud->img, x + 17, y + 39, color);
+			ft_put_pixel(cub->image, x + 17, y + 39, color);
 			x++;
 		}
 		y++;
@@ -34,18 +35,22 @@ void	ft_colorize_minimap(t_cub *cub, int map_width, int map_height)
 			if (y >= 0 && x >= 0 && cub->map->matrix[y][x] != '\0')
 			{
 				if (cub->map->matrix[y][x] == '1')
-					ft_put_square(cub->hud->img, (x - cub->hud->start_x) + pos_x, \
-						(y - cub->hud->start_y) + pos_y, BLACK);
+				{
+					//ft_put_square(cub->hud->img, (x - cub->hud->start_x) + pos_x, (y - cub->hud->start_y) + pos_y, BLACK);
+					ft_put_square(cub->image, (x - cub->hud->start_x) + pos_x, (y - cub->hud->start_y) + pos_y, BLACK);
+				}
 				else if (cub->map->matrix[y][x] == '0')
-					ft_put_square(cub->hud->img, (x - cub->hud->start_x) + pos_x, \
-						(y - cub->hud->start_y) + pos_y, GRAY_2);
+				{
+					//ft_put_square(cub->hud->img, (x - cub->hud->start_x) + pos_x, (y - cub->hud->start_y) + pos_y, GRAY_2);
+					ft_put_square(cub->image, (x - cub->hud->start_x) + pos_x, (y - cub->hud->start_y) + pos_y, GRAY_2);
+				}
 			}
 			x++;
 		}
 		y++;
 	}
-	ft_put_square(cub->hud->img, (cub->map->player_squ_x - cub->hud->start_x) + pos_x, \
-		(cub->map->player_squ_y - cub->hud->start_y) + pos_y, RED);
+	//ft_put_square(cub->hud->img, (cub->map->player_squ_x - cub->hud->start_x) + pos_x, (cub->map->player_squ_y - cub->hud->start_y) + pos_y, RED);
+	ft_put_square(cub->image, (cub->map->player_squ_x - cub->hud->start_x) + pos_x, (cub->map->player_squ_y - cub->hud->start_y) + pos_y, RED);
 }
 
 void	ft_paint_minimap_on_hud(t_cub *cub)
