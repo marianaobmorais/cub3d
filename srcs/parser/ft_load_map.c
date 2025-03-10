@@ -17,6 +17,7 @@ static void	ft_init_map(t_cub *cub)
 	if (!cub->map)
 		ft_handle_error("Malloc: t_map", cub);
 	cub->map->matrix = NULL;
+	cub->map->matrix_tmp = NULL;
 	cub->map->north_texture = NULL;
 	cub->map->south_texture = NULL;
 	cub->map->west_texture = NULL;
@@ -45,7 +46,7 @@ void	ft_load_map(char *const filepath, t_cub *cub)
 {
 	//update brief
 	cub->fd = -1;
-	cub->filepath = ft_strip(ft_strdup(filepath));
+	cub->filepath = ft_strip(ft_strdup(filepath), 0);
 	if (!ft_is_ext(cub->filepath, ".cub"))
 		ft_handle_error("Map: File extension", cub);
 	cub->fd = open(cub->filepath, O_RDONLY);

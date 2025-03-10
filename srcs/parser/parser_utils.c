@@ -55,12 +55,23 @@ bool	ft_is_ext(char *filename, char *ext)
  * @param c The character to check, represented as an int.
  * @return 1 if the character is a whitespace character, or 0 otherwise.
  */
-int	ft_isspace(int c)
+int	ft_isspace(int c, int mode)
 {
-	if ((c == 32) || (c > 8 && c < 14))
-		return (1);
+	//update brief
+	if (mode == 0)
+	{
+		if ((c == 32) || (c > 8 && c < 14))
+			return (1);
+		else
+			return (0);
+	}
 	else
-		return (0);
+	{
+		if (c > 8 && c < 14)
+			return (1);
+		else
+			return (0);
+	}
 }
 
 /**
@@ -74,8 +85,9 @@ int	ft_isspace(int c)
  *            If the string is NULL or empty, it is returned unchanged.
  * @return A pointer to the modified string.
  */
-char	*ft_strip(char *str)
+char	*ft_strip(char *str, int mode)
 {
+	//update brief
 	int		start;
 	int		end;
 	int		i;
@@ -83,12 +95,12 @@ char	*ft_strip(char *str)
 	if (!str || *str == '\0')
 		return (str);
 	end = ft_strlen(str) - 1;
-	while (end >= 0 && ft_isspace(str[end]))
+	while (end >= 0 && ft_isspace(str[end], mode))
 		str[end--] = '\0';
 	if (end < 0)
 		return (str);
 	start = 0;
-	while (ft_isspace(str[start]))
+	while (ft_isspace(str[start], mode))
 		start++;
 	if (start > 0)
 	{
@@ -149,9 +161,9 @@ void	ft_print_map(t_map *map)
 	{
 		while (map->matrix[i])
 		{
-			printf("[%d] %s\n", i, map->matrix[i]);
+			printf("[%d] |%s|\n", i, map->matrix[i]);
 			i++;
 		}
 	}
-	write(1, "\n", 1);
+	printf("\n");
 }

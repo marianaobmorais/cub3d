@@ -40,6 +40,8 @@ void	ft_clean_map(t_map *map)
 {
 	if (map->matrix)
 		ft_free_vector(map->matrix);
+	if (map->matrix_tmp)
+		ft_free_vector(map->matrix_tmp);
 	if (map->north_texture)
 		free(map->north_texture);
 	if (map->south_texture)
