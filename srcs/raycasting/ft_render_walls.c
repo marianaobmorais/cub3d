@@ -12,11 +12,11 @@ void	ft_get_ray_info(t_raycast *ray, int x)
 	ray->ray_dir.x = ray->player_dir.x + (ray->camera_plane.x * ray->factor);
 	ray->ray_dir.y = ray->player_dir.y + (ray->camera_plane.y * ray->factor);
 	if (ray->ray_dir.x == 0)
-		ray->delta_dist_x = INT_MAX;
+		ray->delta_dist_x = INT_MAX; //need to study this more
 	else
 		ray->delta_dist_x = fabs(1 / ray->ray_dir.x);
 	if (ray->ray_dir.y == 0)
-		ray->delta_dist_y = INT_MAX;
+		ray->delta_dist_y = INT_MAX; //need to study this more
 	else
 		ray->delta_dist_y = fabs(1 / ray->ray_dir.y);
 
@@ -102,6 +102,19 @@ void	ft_render_walls(t_cub *cub)
 			ft_paint_ray(cub, x, GREEN); //map->east_texture;
 		if (cub->raycast->hit_side == WEST)
 			ft_paint_ray(cub, x, BLUE); //map->west_texture;
+		// if (cub->raycast->ray_dir.y == 0 && cub->raycast->ray_dir.x > 0)
+		// {
+		// 	printf("dist to wall: %lf\n", cub->raycast->perp_wall_dist);//debug
+		// 	printf("ray_dist x: %lf, ray_dist y: %lf\n", cub->raycast->dist_to_x, cub->raycast->dist_to_y);//debug
+		// }
+		if (x < WIDTH)
+		{
+			printf("ray: %d\n ", x);
+			printf("delta_dist_y: %lf, ", cub->raycast->delta_dist_y);
+			printf("ray_dist_to_x: %lf, ", cub->raycast->dist_to_x);
+			printf("ray_dist_to_y: %lf\n", cub->raycast->dist_to_y);
+			//printf("ray: %d, wall height: %d\n", x, cub->raycast->wall_height); //debug
+		}
 		x++;
 	}
 }
