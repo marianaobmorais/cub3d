@@ -36,6 +36,24 @@ void	ft_init_viewmodel(t_cub *cub)
 		&cub->hud->viewmodel->endian);
 }
 
+void	ft_init_breadcrumbs(t_cub *cub)
+{
+	cub->hud->breadcrumbs = (t_image *) malloc(sizeof(t_image));
+	if (!cub->hud->breadcrumbs)
+		ft_handle_error("malloc: cub->hud->breadcrumbs", cub);
+	cub->hud->breadcrumbs->height = 100;
+	cub->hud->breadcrumbs->width = 100;
+	cub->hud->breadcrumbs->img_ptr = mlx_xpm_file_to_image(cub->mlx, \
+		"assets/textures/breadcrumbs.xpm", &cub->hud->breadcrumbs->width, \
+		&cub->hud->breadcrumbs->height);
+	cub->hud->breadcrumbs->bpp = 0;
+	cub->hud->breadcrumbs->endian = 0;
+	cub->hud->breadcrumbs->line_len = 0;
+	cub->hud->breadcrumbs->addr = mlx_get_data_addr(cub->hud->breadcrumbs->img_ptr, \
+		&cub->hud->breadcrumbs->bpp, &cub->hud->breadcrumbs->line_len, \
+		&cub->hud->breadcrumbs->endian);
+}
+
 void	ft_init_watch(t_cub *cub)
 {
 	cub->hud->watch = (t_image *) malloc(sizeof(t_image));
@@ -66,4 +84,5 @@ void	ft_init_hud(t_cub *cub)
 	ft_init_watch(cub);
 	ft_init_viewmodel(cub);
 	ft_init_breads(cub);
+	ft_init_breadcrumbs(cub);
 }

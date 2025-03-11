@@ -25,6 +25,7 @@ typedef struct s_hud
 	t_image		*watch;
 	t_image		*viewmodel;
 	t_image		*breads;
+	t_image		*breadcrumbs;
 	int		start_x;
 	int		start_y;
 	int		end_x;
@@ -44,6 +45,8 @@ void	ft_set_limit_y(t_cub *cub, int map_height);
 void	ft_init_hud(t_cub *cub);
 void	ft_put_hud(t_cub *cub);
 int		ft_get_pixel_color(int x, int y, t_image *source); //organizar
+void	ft_paint_source_on_hud(t_cub *cub, t_image *source, int pos_x, int pos_y);
+void	ft_paint_action_on_hud(t_cub *cub, t_image *source, int pos_x, int pos_y);
 
 /* screens.c */
 

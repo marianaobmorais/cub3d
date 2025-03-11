@@ -94,6 +94,12 @@ void	ft_manage_movements(int keysym, t_cub *cub)
 		}
 		printf("x = %lf, y = %lf\n", cub->raycast->player_pos.x, cub->raycast->player_pos.y); //debug
 	}
+	if (keysym == XK_space)
+	{
+		printf("press space\n"); //debug
+		ft_paint_action_on_hud(cub, cub->hud->breadcrumbs, 0, 0); //paint breadcrumbs image
+		ft_handle_img(cub);
+	}
 	if (keysym == XK_A || keysym == XK_a || keysym == XK_D || keysym == XK_d || keysym == XK_W || keysym == XK_w || keysym == XK_S || keysym == XK_s)
 	{
 		printf("print image\n");

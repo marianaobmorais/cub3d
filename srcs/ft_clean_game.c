@@ -101,6 +101,9 @@ void	ft_clean_game(t_cub *cub)
 			if (cub->hud->breads->img_ptr)
 				mlx_destroy_image(cub->mlx, cub->hud->breads->img_ptr);
 			free(cub->hud->breads);
+			if (cub->hud->breadcrumbs->img_ptr)
+					mlx_destroy_image(cub->mlx, cub->hud->breadcrumbs->img_ptr);
+			free(cub->hud->breadcrumbs);
 			free(cub->hud);
 		}
 		if (cub->start_screen)
