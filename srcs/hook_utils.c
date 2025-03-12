@@ -40,6 +40,8 @@ int	ft_key_input(int keysym, t_cub *cub)
 		{
 			cub->raycast->player_pos.x = tmp_x;
 			cub->raycast->player_pos.y = tmp_y;
+			cub->raycast->player_squ.x = floor(tmp_x);
+			cub->raycast->player_squ.y =  floor(tmp_y);
 		}
 		//printf("player_pos_x = %lf, player_pos_y = %lf\n", cub->raycast->player_pos.x, cub->raycast->player_pos.y); //debug
 	}
@@ -55,6 +57,8 @@ int	ft_key_input(int keysym, t_cub *cub)
 		{
 			cub->raycast->player_pos.x = tmp_x;
 			cub->raycast->player_pos.y = tmp_y;
+			cub->raycast->player_squ.x = floor(tmp_x);
+			cub->raycast->player_squ.y =  floor(tmp_y);
 		}
 		//printf("player_pos_x = %lf, player_pos_y = %lf\n", cub->raycast->player_pos.x, cub->raycast->player_pos.y); //debug
 	}
@@ -70,6 +74,8 @@ int	ft_key_input(int keysym, t_cub *cub)
 		{
 			cub->raycast->player_pos.x = tmp_x;
 			cub->raycast->player_pos.y = tmp_y;
+			cub->raycast->player_squ.x = floor(tmp_x);
+			cub->raycast->player_squ.y =  floor(tmp_y);
 		}
 		//printf("player_pos_x = %lf, player_pos_y = %lf\n", cub->raycast->player_pos.x, cub->raycast->player_pos.y); //debug
 	}
@@ -85,6 +91,8 @@ int	ft_key_input(int keysym, t_cub *cub)
 		{
 			cub->raycast->player_pos.x = tmp_x;
 			cub->raycast->player_pos.y = tmp_y;
+			cub->raycast->player_squ.x = floor(tmp_x);
+			cub->raycast->player_squ.y =  floor(tmp_y);
 		}
 		//printf("player_pos_x = %lf, player_pos_y = %lf\n", cub->raycast->player_pos.x, cub->raycast->player_pos.y); //debug
 	}
