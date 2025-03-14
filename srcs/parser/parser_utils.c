@@ -146,6 +146,14 @@ int	ft_arraytohex(unsigned char *rgb)
 	return (rgb[0] << 16 | rgb[1] << 8 | rgb[2]);
 }
 
+void	ft_hextoarray(int hex, unsigned char *rgb)
+{
+	//brief
+	rgb[0] = (hex >> 16) & 0xFF;
+	rgb[1] = (hex >> 8) & 0xFF;
+	rgb[2] = hex & 0xFF;
+}
+
 /* DEBUG */
 void	ft_print_map(t_map *map)
 {

@@ -13,6 +13,19 @@ void	ft_handle_img(t_cub *cub)
 	mlx_put_image_to_window(cub->mlx, cub->window, cub->image->img_ptr, 0, 0);
 }
 
+void	test(t_cub *cub, double angle)
+{
+	double	old_dir_x;
+	double	old_plane_x;
+
+	old_dir_x = cub->raycast->player_dir.x;
+	cub->raycast->player_dir.x = cub->raycast->player_dir.x * cos(angle) - cub->raycast->player_dir.y * sin(angle);
+	cub->raycast->player_dir.y = old_dir_x * sin(angle) + cub->raycast->player_dir.y * cos(angle);
+	old_plane_x = cub->raycast->camera_plane.x; 
+	cub->raycast->camera_plane.x = cub->raycast->camera_plane.x * cos(angle) - cub->raycast->camera_plane.y * sin(angle);
+	cub->raycast->camera_plane.y = old_plane_x * sin(angle) + cub->raycast->camera_plane.y * cos(angle);
+}
+
 void	ft_player_motion(int y, int x, t_cub *cub)
 {
 	int	old_x;
@@ -39,72 +52,101 @@ void	ft_manage_movements(int keysym, t_cub *cub)
 	// if (cub->started == true && (keysym == XK_S || keysym == XK_s))
 	// 	ft_player_motion(cub->map->player_squ_y +1, cub->map->player_squ_x, cub); //down
 
-	int	tmp_x = cub->raycast->player_pos.x;
-	int	tmp_y = cub->raycast->player_pos.y;
+	double	tmp_x;
+	double	tmp_y;
+
+	tmp_x = cub->raycast->player_pos.x;
+	tmp_y = cub->raycast->player_pos.y;
 
 	if (keysym == XK_A || keysym == XK_a)
 	{
 		//left
-		printf("pressed a\n");
+		//printf("pressed a\n"); //debug
 		tmp_x -= cub->raycast->camera_plane.x * cub->raycast->move_speed;
 		tmp_y -= cub->raycast->camera_plane.y * cub->raycast->move_speed;
-		if (cub->map->matrix[(int)tmp_x][(int)tmp_y] == '0')
+		//printf("tmp_x = %lf, tmp_y = %lf\n", tmp_x, tmp_y); //debug
+		//printf("cub->map->matrix[(int)tmp_x][(int)tmp_y] = %c\n", cub->map->matrix[(int)tmp_x][(int)tmp_y]); //debug
+		if (cub->map->matrix[(int)tmp_x][(int)tmp_y] != '1')
 		{
-			cub->raycast->player_pos.x -= cub->raycast->camera_plane.x * cub->raycast->move_speed;
-			cub->raycast->player_pos.y -= cub->raycast->camera_plane.y * cub->raycast->move_speed;
+			cub->raycast->player_pos.x = tmp_x;
+			cub->raycast->player_pos.y = tmp_y;
+			cub->raycast->player_squ.x = floor(tmp_x);
+			cub->raycast->player_squ.y =  floor(tmp_y);
 		}
-		printf("x = %lf, y = %lf\n", cub->raycast->player_pos.x, cub->raycast->player_pos.y); //debug
+		//printf("player_pos_x = %lf, player_pos_y = %lf\n", cub->raycast->player_pos.x, cub->raycast->player_pos.y); //debug
 	}
 	if (keysym == XK_D || keysym == XK_d)
 	{
 		//right
-		printf("pressed d\n");
+		//printf("pressed d\n");//debug
 		tmp_x += cub->raycast->camera_plane.x * cub->raycast->move_speed;
 		tmp_y += cub->raycast->camera_plane.y * cub->raycast->move_speed;
-		if (cub->map->matrix[(int)tmp_x][(int)tmp_y] == '0') //sometimes it show beyond the wall
+		//printf("tmp_x = %lf, tmp_y = %lf\n", tmp_x, tmp_y); //debug
+		//printf("cub->map->matrix[(int)tmp_x][(int)tmp_y] = %c\n", cub->map->matrix[(int)tmp_x][(int)tmp_y]); //debug
+		if (cub->map->matrix[(int)tmp_x][(int)tmp_y] != '1') //sometimes it show beyond the wall
 		{
-			cub->raycast->player_pos.x += cub->raycast->camera_plane.x * cub->raycast->move_speed;
-			cub->raycast->player_pos.y += cub->raycast->camera_plane.y * cub->raycast->move_speed;
+			cub->raycast->player_pos.x = tmp_x;
+			cub->raycast->player_pos.y = tmp_y;
+			cub->raycast->player_squ.x = floor(tmp_x);
+			cub->raycast->player_squ.y =  floor(tmp_y);
 		}
-		printf("x = %lf, y = %lf\n", cub->raycast->player_pos.x, cub->raycast->player_pos.y); //debug
+		//printf("player_pos_x = %lf, player_pos_y = %lf\n", cub->raycast->player_pos.x, cub->raycast->player_pos.y); //debug
 	}
 	if (keysym == XK_W || keysym == XK_w)
 	{
 		//up
-		printf("pressed w\n");//debug
+		//printf("pressed w\n");//debug
 		tmp_x += cub->raycast->player_dir.x * cub->raycast->move_speed;
 		tmp_y += cub->raycast->player_dir.y * cub->raycast->move_speed;
-		if (cub->map->matrix[(int)tmp_x][(int)tmp_y] == '0')
+		//printf("tmp_x = %lf, tmp_y = %lf\n", tmp_x, tmp_y); //debug
+		//printf("cub->map->matrix[(int)tmp_x][(int)tmp_y] = %c\n", cub->map->matrix[(int)tmp_x][(int)tmp_y]); //debug
+		if (cub->map->matrix[(int)tmp_x][(int)tmp_y] != '1')
 		{
-			cub->raycast->player_pos.x += cub->raycast->player_dir.x * cub->raycast->move_speed;
-			cub->raycast->player_pos.y += cub->raycast->player_dir.y * cub->raycast->move_speed;
+			cub->raycast->player_pos.x = tmp_x;
+			cub->raycast->player_pos.y = tmp_y;
+			cub->raycast->player_squ.x = floor(tmp_x);
+			cub->raycast->player_squ.y =  floor(tmp_y);
 		}
-		printf("x = %lf, y = %lf\n", cub->raycast->player_pos.x, cub->raycast->player_pos.y); //debug
+		//printf("player_pos_x = %lf, player_pos_y = %lf\n", cub->raycast->player_pos.x, cub->raycast->player_pos.y); //debug
 	}
 	if (keysym == XK_S || keysym == XK_s)
 	{
 		//down
-		printf("pressed s\n");//debug
+		//printf("pressed s\n");//debug
 		tmp_x -= cub->raycast->player_dir.x * cub->raycast->move_speed;
 		tmp_y -= cub->raycast->player_dir.y * cub->raycast->move_speed;
-		if (cub->map->matrix[(int)tmp_x][(int)tmp_y] == '0')
+		//printf("tmp_x = %lf, tmp_y = %lf\n", tmp_x, tmp_y); //debug
+		//printf("cub->map->matrix[(int)tmp_x][(int)tmp_y] = %c\n", cub->map->matrix[(int)tmp_x][(int)tmp_y]); //debug
+		if (cub->map->matrix[(int)tmp_x][(int)tmp_y] != '1')
 		{
-			cub->raycast->player_pos.x -= cub->raycast->player_dir.x * cub->raycast->move_speed;
-			cub->raycast->player_pos.y -= cub->raycast->player_dir.y * cub->raycast->move_speed;
+			cub->raycast->player_pos.x = tmp_x;
+			cub->raycast->player_pos.y = tmp_y;
+			cub->raycast->player_squ.x = floor(tmp_x);
+			cub->raycast->player_squ.y =  floor(tmp_y);
 		}
-		printf("x = %lf, y = %lf\n", cub->raycast->player_pos.x, cub->raycast->player_pos.y); //debug
+		//printf("player_pos_x = %lf, player_pos_y = %lf\n", cub->raycast->player_pos.x, cub->raycast->player_pos.y); //debug
 	}
+	if (keysym == XK_Left)
+	{
+		test(cub, 0.1);
+	}
+	if (keysym == XK_Right)
+	{
+		test(cub, -0.1);
+	}
+
 	if (keysym == XK_space)
 	{
-		printf("press space\n"); //debug
+		//printf("press space\n"); //debug
 		ft_paint_action_on_hud(cub, cub->hud->breadcrumbs, 0, 0); //paint breadcrumbs image
 		ft_handle_img(cub);
 	}
-	if (keysym == XK_A || keysym == XK_a || keysym == XK_D || keysym == XK_d || keysym == XK_W || keysym == XK_w || keysym == XK_S || keysym == XK_s)
+	if (keysym == XK_Left || keysym == XK_Right || keysym == XK_A || keysym == XK_a || keysym == XK_D || keysym == XK_d || keysym == XK_W || keysym == XK_w || keysym == XK_S || keysym == XK_s)
 	{
-		printf("print image\n");
+		//printf("print image\n");
 		ft_handle_img(cub);
 	}
+	//printf("player_pos_x = %lf, player_pos_y = %lf\n", cub->raycast->player_pos.x, cub->raycast->player_pos.y); //debug
 }
 
 void	ft_manage_exit(int keysym, t_cub *cub)

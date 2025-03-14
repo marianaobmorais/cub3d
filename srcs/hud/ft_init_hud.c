@@ -72,6 +72,24 @@ void	ft_init_watch(t_cub *cub)
 		&cub->hud->watch->endian);
 }
 
+void	ft_init_door(t_cub *cub)
+{
+	cub->hud->door = (t_image *) malloc(sizeof(t_image));
+	if (!cub->hud->door)
+		ft_handle_error("malloc: cub->hud->door", cub);
+	cub->hud->door->height = 248;
+	cub->hud->door->width = 248;
+	cub->hud->door->img_ptr = mlx_xpm_file_to_image(cub->mlx, \
+		"assets/textures/door.xpm", &cub->hud->door->width, \
+		&cub->hud->door->height);
+	cub->hud->door->bpp = 0;
+	cub->hud->door->endian = 0;
+	cub->hud->door->line_len = 0;
+	cub->hud->door->addr = mlx_get_data_addr(cub->hud->door->img_ptr, \
+		&cub->hud->door->bpp, &cub->hud->door->line_len, \
+		&cub->hud->door->endian);
+}
+
 void	ft_init_hud(t_cub *cub)
 {
 	cub->hud = (t_hud *) malloc(sizeof(t_hud));
@@ -85,4 +103,5 @@ void	ft_init_hud(t_cub *cub)
 	ft_init_viewmodel(cub);
 	ft_init_breads(cub);
 	ft_init_breadcrumbs(cub);
+	ft_init_door(cub);
 }

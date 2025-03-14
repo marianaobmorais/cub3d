@@ -88,6 +88,63 @@ void	ft_paint_action_on_hud(t_cub *cub, t_image *source, int pos_x, int pos_y)
 	mlx_put_image_to_window(cub->mlx, cub->window, cub->hud->img->img_ptr, pos_x, pos_y);
 }
 
+// void	ft_door(t_cub *cub, int height, int width)
+// {
+// 	//test
+// 	int	y;
+// 	int	x;
+// 	int color;
+// 	int blend;
+
+// 	y = 0;
+// 	while (y < height)
+// 	{
+// 		x = 0;
+// 		while (x < width)
+// 		{
+// 			//ft_put_pixel(cub->hud->img, x + 17, y + 39, color);
+// 			color = ft_get_pixel_color(x + 200, y + 200, cub->image);
+// 			blend = ft_blendcolors(color, 0xADD8E6, 0.5);
+// 			ft_put_pixel(cub->image, x + 200, y + 200, blend);
+// 			x++;
+// 		}
+// 		y++;
+// 	}
+// }
+
+void	ft_door(t_cub *cub, t_image *source, int pos_x, int pos_y)
+{
+	//test
+	int	source_color;
+	int	blend;
+	int default_color;
+	int	y;
+	int	x;
+
+	y = 0;
+	while (y < source->height)
+	{
+		x = 0;
+		while (x < source->width)
+		{
+			source_color = ft_get_pixel_color(x, y, source);
+			if (source_color == 0x00FFF0) //color to ignore
+			{
+				//printf("blend");
+				default_color = ft_get_pixel_color(x + pos_x, y + pos_y, cub->image);
+				blend = ft_blendcolors(default_color, 0x00FFF0, 0.5);
+				ft_put_pixel(cub->image, x + pos_x, y + pos_y, blend);
+			}
+			else
+			{	
+				ft_put_pixel(cub->image, x + pos_x, y + pos_y, source_color);
+			}
+			x++;
+		}
+		y++;
+	}
+}
+
 void	ft_put_hud(t_cub *cub)
 {
 	// if (cub->hud->img->img_ptr)
@@ -105,11 +162,12 @@ void	ft_put_hud(t_cub *cub)
 	// if (!cub->hud->img->addr)
 	// 	ft_handle_error("malloc: img->addr", cub);
 
-	ft_paint_source_on_hud(cub, cub->image, 0, 0); //paint main image
+	//ft_paint_source_on_hud(cub, cub->image, 0, 0); //paint main image
 	ft_paint_source_on_hud(cub, cub->hud->watch, 0, 0); //paint watch image for minimap
 	ft_paint_source_on_hud(cub, cub->hud->viewmodel, 390, 420); //paint viewmodel image
 	ft_paint_source_on_hud(cub, cub->hud->breads, 820, 0); //paint viewmodel image
 	ft_paint_minimap_on_hud(cub); //minimap
+	ft_door(cub, cub->hud->door, 420, 300);
 	//action bread another img
 	//mlx_put_image_to_window(cub->mlx, cub->window, cub->hud->img->img_ptr, 0, 0);
 }

@@ -26,6 +26,7 @@ typedef struct s_hud
 	t_image		*viewmodel;
 	t_image		*breads;
 	t_image		*breadcrumbs;
+	t_image		*door;
 	int		start_x;
 	int		start_y;
 	int		end_x;
@@ -41,6 +42,7 @@ void	ft_paint_minimap_on_hud(t_cub *cub);
 void	ft_put_square(t_image *img, int x, int y, int color);
 void	ft_set_limit_x(t_cub *cub, int map_width);
 void	ft_set_limit_y(t_cub *cub, int map_height);
+void	ft_put_player(t_image *img, int x, int y, int color);
 
 void	ft_init_hud(t_cub *cub);
 void	ft_put_hud(t_cub *cub);
@@ -53,5 +55,7 @@ void	ft_paint_action_on_hud(t_cub *cub, t_image *source, int pos_x, int pos_y);
 void	ft_init_screen(t_cub *cub);
 int		ft_put_start_screen(t_cub *cub);
 int		ft_put_end_screen(t_cub *cub, int dir);
+
+int		ft_blendcolors(int color1, int color2, float alpha);
 
 # endif //HUD_H

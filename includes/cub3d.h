@@ -185,6 +185,7 @@ char	*ft_strip(char *str, int mode);
 int		ft_isspace(int c, int mode);
 int		ft_isnumeric(char *nbr);
 int		ft_arraytohex(unsigned char *rgb);
+void	ft_hextoarray(int hex, unsigned char *rgb);
 void	ft_print_map(t_map *map); //debug
 
 void	ft_fill_matrix(t_cub *cub);
