@@ -59,10 +59,10 @@ void	ft_init_watch(t_cub *cub)
 	cub->hud->watch = (t_image *) malloc(sizeof(t_image));
 	if (!cub->hud->watch)
 		ft_handle_error("malloc: cub->hud->watch", cub);
-	cub->hud->watch->height = 125;
-	cub->hud->watch->width = 120;
+	cub->hud->watch->height = 134;
+	cub->hud->watch->width = 128;
 	cub->hud->watch->img_ptr = mlx_xpm_file_to_image(cub->mlx, \
-		"assets/textures/casio_w.xpm", &cub->hud->watch->width, \
+		"assets/textures/casio.xpm", &cub->hud->watch->width, \
 		&cub->hud->watch->height);
 	cub->hud->watch->bpp = 0;
 	cub->hud->watch->endian = 0;

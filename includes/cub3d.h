@@ -37,7 +37,7 @@
 # define GREEN 0x009c00
 # define RED 0xff1100
 # define BLACK 0x000000
-# define IGNORE 0x23FF01
+# define IGNORE 0x00FFFF
 
 /* measurements */
 

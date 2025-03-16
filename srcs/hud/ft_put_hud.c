@@ -72,7 +72,7 @@ void	ft_paint_action_on_hud(t_cub *cub, t_image *source, int pos_x, int pos_y)
 		while (x < source->width)
 		{
 			source_color = ft_get_pixel_color(x, y, source);
-			if (source_color == IGNORE || source_color == 0x23FF00) //color to ignore
+			if (source_color == IGNORE) //color to ignore
 			{
 				default_color = ft_get_pixel_color(x + pos_x, y + pos_y, cub->image);
 				ft_put_pixel(cub->hud->img, x, y, default_color);
@@ -128,7 +128,7 @@ void	ft_door(t_cub *cub, t_image *source, int pos_x, int pos_y)
 		while (x < source->width)
 		{
 			source_color = ft_get_pixel_color(x, y, source);
-			if (source_color == 0x00FFF0) //color to ignore
+			if (source_color == 0x00FFFF) //color to ignore
 			{
 				//printf("blend");
 				default_color = ft_get_pixel_color(x + pos_x, y + pos_y, cub->image);
