@@ -36,6 +36,7 @@
 # define PIXEL 1
 # define WIDTH 960
 # define HEIGHT 600
+# define MOVE_SPEED 0.1
 
 typedef enum e_directions
 {
