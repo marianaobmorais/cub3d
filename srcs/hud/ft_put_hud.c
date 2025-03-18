@@ -130,15 +130,12 @@ void	ft_door(t_cub *cub, t_image *source, int pos_x, int pos_y)
 			source_color = ft_get_pixel_color(x, y, source);
 			if (source_color == 0x00FFFF) //color to ignore
 			{
-				//printf("blend");
 				default_color = ft_get_pixel_color(x + pos_x, y + pos_y, cub->image);
 				blend = ft_blendcolors(default_color, 0x00FFF0, 0.5);
 				ft_put_pixel(cub->image, x + pos_x, y + pos_y, blend);
 			}
 			else
-			{	
 				ft_put_pixel(cub->image, x + pos_x, y + pos_y, source_color);
-			}
 			x++;
 		}
 		y++;
@@ -167,7 +164,7 @@ void	ft_put_hud(t_cub *cub)
 	ft_paint_source_on_hud(cub, cub->hud->viewmodel, 390, 420); //paint viewmodel image
 	ft_paint_source_on_hud(cub, cub->hud->breads, 820, 0); //paint viewmodel image
 	ft_paint_minimap_on_hud(cub); //minimap
-	ft_door(cub, cub->hud->door, 420, 300);
+	//ft_door(cub, cub->hud->door, 420, 300);
 	//action bread another img
 	//mlx_put_image_to_window(cub->mlx, cub->window, cub->hud->img->img_ptr, 0, 0);
 }

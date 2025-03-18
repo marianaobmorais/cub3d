@@ -8,7 +8,7 @@ void	ft_init_breads(t_cub *cub)
 	cub->hud->breads->height = 125;
 	cub->hud->breads->width = 120;
 	cub->hud->breads->img_ptr = mlx_xpm_file_to_image(cub->mlx, \
-		"assets/textures/breads.xpm", &cub->hud->breads->width, \
+		"assets/hud/breads.xpm", &cub->hud->breads->width, \
 		&cub->hud->breads->height);
 	cub->hud->breads->bpp = 0;
 	cub->hud->breads->endian = 0;
@@ -26,7 +26,7 @@ void	ft_init_viewmodel(t_cub *cub)
 	cub->hud->viewmodel->height = 125;
 	cub->hud->viewmodel->width = 120;
 	cub->hud->viewmodel->img_ptr = mlx_xpm_file_to_image(cub->mlx, \
-		"assets/textures/viewmodel.xpm", &cub->hud->viewmodel->width, \
+		"assets/hud/viewmodel.xpm", &cub->hud->viewmodel->width, \
 		&cub->hud->viewmodel->height);
 	cub->hud->viewmodel->bpp = 0;
 	cub->hud->viewmodel->endian = 0;
@@ -41,10 +41,10 @@ void	ft_init_breadcrumbs(t_cub *cub)
 	cub->hud->breadcrumbs = (t_image *) malloc(sizeof(t_image));
 	if (!cub->hud->breadcrumbs)
 		ft_handle_error("malloc: cub->hud->breadcrumbs", cub);
-	cub->hud->breadcrumbs->height = 100;
-	cub->hud->breadcrumbs->width = 100;
+	cub->hud->breadcrumbs->height = 248;
+	cub->hud->breadcrumbs->width = 248;
 	cub->hud->breadcrumbs->img_ptr = mlx_xpm_file_to_image(cub->mlx, \
-		"assets/textures/breadcrumbs.xpm", &cub->hud->breadcrumbs->width, \
+		"assets/hud/breadcrumbs.xpm", &cub->hud->breadcrumbs->width, \
 		&cub->hud->breadcrumbs->height);
 	cub->hud->breadcrumbs->bpp = 0;
 	cub->hud->breadcrumbs->endian = 0;
@@ -62,7 +62,7 @@ void	ft_init_watch(t_cub *cub)
 	cub->hud->watch->height = 134;
 	cub->hud->watch->width = 128;
 	cub->hud->watch->img_ptr = mlx_xpm_file_to_image(cub->mlx, \
-		"assets/textures/casio.xpm", &cub->hud->watch->width, \
+		"assets/hud/casio.xpm", &cub->hud->watch->width, \
 		&cub->hud->watch->height);
 	cub->hud->watch->bpp = 0;
 	cub->hud->watch->endian = 0;

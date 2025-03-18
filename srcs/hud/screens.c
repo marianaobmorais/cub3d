@@ -16,18 +16,18 @@ void	ft_init_screen(t_cub *cub)
 	cub->start_screen->paths = malloc(sizeof(char *) * 4);
 	if (!cub->start_screen->paths)
 		ft_handle_error("malloc: cub->start_screen->paths", cub);
-	cub->start_screen->paths[0] = "assets/textures/start_screen0.xpm";
-	cub->start_screen->paths[1] = "assets/textures/start_screen1.xpm";
-	cub->start_screen->paths[2] = "assets/textures/start_screen2.xpm";
-	cub->start_screen->paths[3] = "assets/textures/start_screen3.xpm";
+	cub->start_screen->paths[0] = "assets/screens/start_screen0.xpm";
+	cub->start_screen->paths[1] = "assets/screens/start_screen1.xpm";
+	cub->start_screen->paths[2] = "assets/screens/start_screen2.xpm";
+	cub->start_screen->paths[3] = "assets/screens/start_screen3.xpm";
 	cub->end_screen->img = NULL;
 	cub->end_screen->width = WIDTH;
 	cub->end_screen->height = HEIGHT;
 	cub->end_screen->paths = malloc(sizeof(char *) * 2);
 	if (!cub->end_screen->paths)
 		ft_handle_error("malloc: cub->end_screen->paths", cub);
-	cub->end_screen->paths[0] = "assets/textures/end_screen0.xpm";
-	cub->end_screen->paths[1] = "assets/textures/end_screen1.xpm";
+	cub->end_screen->paths[0] = "assets/screens/end_screen0.xpm";
+	cub->end_screen->paths[1] = "assets/screens/end_screen1.xpm";
 }
 
 int	ft_put_end_screen(t_cub *cub, int dir)
