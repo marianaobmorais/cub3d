@@ -171,9 +171,7 @@ bool	ft_valid_wall(char *line);
 
 /* ft_run_game.c */
 
-//void	ft_run_game(t_cub *cub);
 void	ft_put_image(t_cub *cub);
-//void	ft_put_minimap(t_cub *cub);
 
 /* ft_put_pixel.c */
 
@@ -183,6 +181,14 @@ void	ft_put_pixel(t_image *img, int x, int y, int color);
 
 int	ft_key_input(int keysym, t_cub *game);
 int	ft_close_window(t_cub *game);
+
+/* move_utils.c */
+
+void	ft_move_left(t_cub *cub, double *tmp_x, double *tmp_y);
+void	ft_move_right(t_cub *cub, double *tmp_x, double *tmp_y);
+void	ft_move_up(t_cub *cub, double *tmp_x, double *tmp_y);
+void	ft_move_down(t_cub *cub, double *tmp_x, double *tmp_y);
+void	ft_update_position(t_cub *cub, double tmp_x, double tmp_y);
 
 /* ft_init_raycast.c */
 
