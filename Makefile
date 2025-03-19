@@ -26,7 +26,9 @@ SRCS = $(SRCS_DIR)/main.c \
 	$(SRCS_DIR)/parser/parser_utils.c \
 	$(SRCS_DIR)/raycasting/ft_init_raycast.c \
 	$(SRCS_DIR)/raycasting/ft_render_walls.c \
+	$(SRCS_DIR)/raycasting/ft_paint_ray.c \
 	$(SRCS_DIR)/raycasting/ft_dda.c \
+
 
 #B_SRCS = $(BONUS_DIR)/main_bonus.c \
 

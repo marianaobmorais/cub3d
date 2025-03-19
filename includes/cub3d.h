@@ -63,8 +63,12 @@ typedef struct s_ipoint
 typedef struct s_texture
 {
 	void	*img_ptr;
+	char	*addr;
 	int		width;
 	int		height;
+	int		bpp;
+	int		line_len;
+	int		endian;
 }	t_texture;
 
 typedef struct s_raycast
@@ -83,6 +87,8 @@ typedef struct s_raycast
 	double			dist_to_y;
 	double			perp_wall_dist;
 	double			move_speed;
+	double			w_pixel;
+	double			texture_pixel_pos;
 	t_directions	hit_side;
 	int				wall_height;
 	int				wall_start;
@@ -206,6 +212,10 @@ void	ft_init_raycast(t_cub*cub);
 /* ft_render_walls.c */
 
 void	ft_render_walls(t_cub *cub);
+
+/* ft_paint_ray.c */
+
+void	ft_paint_ray(t_cub *cub, int w, t_texture texture);
 
 /* ft_dda.c */
 
