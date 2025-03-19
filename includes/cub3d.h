@@ -60,6 +60,13 @@ typedef struct s_ipoint
 	int	y;
 }	t_ipoint;
 
+typedef struct s_texture
+{
+	void	*img_ptr;
+	int		width;
+	int		height;
+}	t_texture;
+
 typedef struct s_raycast
 {
 	t_dpoint		player_pos;
@@ -70,8 +77,6 @@ typedef struct s_raycast
 	t_ipoint		step;
 	t_ipoint		step_squ;
 	double			factor;
-	//double			frame_time;
-	//double			last_frame_time;
 	double			delta_dist_x;
 	double			delta_dist_y;
 	double			dist_to_x;
@@ -82,6 +87,10 @@ typedef struct s_raycast
 	int				wall_height;
 	int				wall_start;
 	int				wall_end;
+	t_texture		north_texture;
+	t_texture		south_texture;
+	t_texture		east_texture;
+	t_texture		west_texture;
 }	t_raycast;
 
 typedef struct s_map
