@@ -49,8 +49,8 @@ void	ft_manage_movements(int keysym, t_cub *cub)
 	double	tmp_x;
 	double	tmp_y;
 
-	int	tmp_x = cub->raycast->player_pos.x;
-	int	tmp_y = cub->raycast->player_pos.y;
+	tmp_x = cub->raycast->player_pos.x;
+	tmp_y = cub->raycast->player_pos.y;
 	if (cub->started == true && (keysym == XK_A || keysym == XK_a))
 	{
 		ft_player_motion(cub->map->player_squ_y, cub->map->player_squ_x -1, cub); //left
@@ -78,7 +78,6 @@ void	ft_manage_movements(int keysym, t_cub *cub)
 	if (keysym == XK_Right)
 		ft_rotate(cub, -MOVE_SPEED);
 	ft_put_image(cub);
-	return (0);
 }
 
 

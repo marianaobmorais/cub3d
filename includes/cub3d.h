@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:26:59 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/03/20 18:54:26 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/03/20 19:24:13 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@
 
 /* measurements */
 
-# define PIXEL 1
 # define WIDTH 960
 # define HEIGHT 600
 # define MOVE_SPEED 0.1

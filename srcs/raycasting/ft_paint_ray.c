@@ -1,6 +1,6 @@
 #include "../../includes/cub3d.h"
 
-unsigned int	ft_get_pixel_color(t_texture texture, int w, int h)
+static unsigned int	ft_get_pixel_color(t_texture texture, int w, int h)
 {
 	char	*color;
 	int		offset;
