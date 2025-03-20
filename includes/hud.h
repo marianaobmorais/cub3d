@@ -5,11 +5,14 @@
 
 /* measurements */
 
-# define MINI_WIDTH 85
-# define MINI_HEIGHT 50
+# define MINI_WIDTH 87
+# define MINI_HEIGHT 52
+# define MINIMAP_SCALE_X 0.090625
+# define MINIMAP_SCALE_Y 0.086666
 
 typedef struct s_cub	t_cub;
 typedef struct s_image	t_image;
+typedef struct s_dpoint	t_dpoint;
 
 typedef struct s_screen
 {
@@ -27,11 +30,13 @@ typedef struct s_hud
 	t_image		*breads;
 	t_image		*breadcrumbs;
 	t_image		*door;
+	t_dpoint	*ray_hits;
 	int		start_x;
 	int		start_y;
 	int		end_x;
 	int		end_y;
 }	t_hud;
+
 
 /* ft_paint_minimap.c */
 
@@ -57,5 +62,6 @@ int		ft_put_start_screen(t_cub *cub);
 int		ft_put_end_screen(t_cub *cub, int dir);
 
 int		ft_blendcolors(int color1, int color2, float alpha);
+void	draw_line_minimap(t_cub *cub, int x1, int y1, int x2, int y2, int color);
 
 # endif //HUD_H

@@ -99,6 +99,7 @@ void	ft_init_hud(t_cub *cub)
 	if (!cub->hud->img)
 		ft_handle_error("malloc: cub->hud->img", cub);
 	cub->hud->img->img_ptr = NULL;
+	cub->hud->ray_hits = malloc(sizeof(t_dpoint) * WIDTH);
 	ft_init_watch(cub);
 	ft_init_viewmodel(cub);
 	ft_init_breads(cub);

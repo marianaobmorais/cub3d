@@ -41,8 +41,8 @@ static bool	ft_set_player(char c, t_cub *cub, int x, int y)
 	//update brief
 	if (cub->map->player_squ_x == -1)
 	{
-		cub->map->player_squ_x = x;
-		cub->map->player_squ_y = y;
+		cub->map->player_squ_x = y; //changed
+		cub->map->player_squ_y = x; //changed
 		if (c == 'S')
 			cub->map->direction = SOUTH;
 		if (c == 'N')

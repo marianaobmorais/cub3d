@@ -4,7 +4,7 @@ void	ft_put_square(t_image *img, int x, int y, int color)
 {
 	int	offset;
 	int	i, j;
-	int	size = 5; // Mantendo 8x8 pixels para cada bloco
+	int	size = 5;
 
 	x *= size;
 	y *= size;
@@ -13,7 +13,6 @@ void	ft_put_square(t_image *img, int x, int y, int color)
 	{
 		for (j = 0; j < size; j++)
 		{
-			// Criando um padrão de tijolos (alternando pixels)
 			if ((i % 4 == 0) || (j % 4 == 0) || (i == size - 1) || (j == size - 1))
 			{
 				offset = ((y + i) * img->line_len) + ((x + j) * (img->bpp / 8));
@@ -23,39 +22,39 @@ void	ft_put_square(t_image *img, int x, int y, int color)
 	}
 }
 
-void	ft_set_limit_x(t_cub *cub, int matrix_width)
+void	ft_set_limit_x(t_cub *cub, int matrix_height)
 {
-	cub->hud->start_x = cub->raycast->player_squ.y - 8;
-	cub->hud->end_x = cub->raycast->player_squ.x + 8;
+	cub->hud->start_x = cub->raycast->player_squ.x - 4;
+	cub->hud->end_x = cub->raycast->player_squ.x + 4;
 	if (cub->hud->start_x < 0)
 	{
 		cub->hud->end_x -= cub->hud->start_x;
 		cub->hud->start_x = 0;
 	}
-	if (cub->hud->end_x >= matrix_width)
+	if (cub->hud->end_x >= matrix_height)
 	{
-		cub->hud->start_x -= (cub->hud->end_x - matrix_width + 1);
+		cub->hud->start_x -= (cub->hud->end_x - matrix_height + 1);
 		if (cub->hud->start_x < 0)
 			cub->hud->start_x = 0;
-		cub->hud->end_x = matrix_width - 1;
+		//cub->hud->end_x = matrix_height - 1;
 	}
 }
 
-void	ft_set_limit_y(t_cub *cub, int matrix_height)
+void	ft_set_limit_y(t_cub *cub, int matrix_width)
 {
-	cub->hud->start_y = cub->raycast->player_squ.x - 5;
-	cub->hud->end_y = cub->raycast->player_squ.y + 5;
+	cub->hud->start_y = cub->raycast->player_squ.y - 8;
+	cub->hud->end_y = cub->raycast->player_squ.y + 8;
 	if (cub->hud->start_y < 0)
 	{
 		cub->hud->end_y -= cub->hud->start_y;
 		cub->hud->start_y = 0;
 	}
-	if (cub->hud->end_y >= matrix_height)
+	if (cub->hud->end_y >= matrix_width)
 	{
-		cub->hud->start_y -= (cub->hud->end_y - matrix_height + 1);
+		cub->hud->start_y -= (cub->hud->end_y - matrix_width + 1);
 		if (cub->hud->start_y < 0)
 			cub->hud->start_y = 0;
-		cub->hud->end_y = matrix_height - 1;
+		//cub->hud->end_y = matrix_width - 1;
 	}
 }
 

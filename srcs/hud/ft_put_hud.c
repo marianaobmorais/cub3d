@@ -49,7 +49,7 @@ void	ft_paint_action_on_hud(t_cub *cub, t_image *source, int pos_x, int pos_y)
 	int	default_color;
 	int	y;
 	int	x;
-	pos_x = 400;
+	pos_x = 200;
 	pos_y = 400;
 	
 	if (cub->hud->img->img_ptr)
@@ -86,6 +86,7 @@ void	ft_paint_action_on_hud(t_cub *cub, t_image *source, int pos_x, int pos_y)
 		y++;
 	}
 	mlx_put_image_to_window(cub->mlx, cub->window, cub->hud->img->img_ptr, pos_x, pos_y);
+	usleep(5000);
 }
 
 // void	ft_door(t_cub *cub, int height, int width)
