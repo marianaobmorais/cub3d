@@ -8,14 +8,20 @@ int	ft_close_window(t_cub *cub)
 
 void	ft_rotate(t_cub *cub, double angle)
 {
-	cub->raycast->player_dir.y = cub->raycast->player_dir.x * sin(angle)
-		+ cub->raycast->player_dir.y * cos(angle);
+	double	old_dir_x;
+	double	old_plane_x;
+
+	old_dir_x = cub->raycast->player_dir.x;
 	cub->raycast->player_dir.x = cub->raycast->player_dir.x * cos(angle)
 		- cub->raycast->player_dir.y * sin(angle);
-	cub->raycast->camera_plane.y = cub->raycast->camera_plane.x * sin(angle)
-		+ cub->raycast->camera_plane.y * cos(angle);
+	cub->raycast->player_dir.y = old_dir_x * sin(angle)
+		+ cub->raycast->player_dir.y * cos(angle);
+
+	old_plane_x = cub->raycast->camera_plane.x;
 	cub->raycast->camera_plane.x = cub->raycast->camera_plane.x * cos(angle)
 		- cub->raycast->camera_plane.y * sin(angle);
+	cub->raycast->camera_plane.y = old_plane_x * sin(angle)
+		+ cub->raycast->camera_plane.y * cos(angle);
 }
 
 int	ft_key_input(int keysym, t_cub *cub)
