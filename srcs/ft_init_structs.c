@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:32:10 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/03/20 18:42:14 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/03/20 18:57:27 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,8 @@ t_cub	*ft_init_structs(t_cub *cub, char *argv)
 	ft_init_image(cub);
 	ft_init_raycast(cub);
 	ft_init_texture(cub);
+	ft_init_hud(cub);
+	//ft_init_screen(cub);
 	cub->window = mlx_new_window(cub->mlx, WIDTH, HEIGHT, "cub3d");
 	if (!cub->window)
 		ft_handle_error("malloc: cub->window", cub);

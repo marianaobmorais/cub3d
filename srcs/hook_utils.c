@@ -23,23 +23,54 @@ void	ft_rotate(t_cub *cub, double angle)
 		+ cub->raycast->camera_plane.y * cos(angle);
 }
 
-int	ft_key_input(int keysym, t_cub *cub)
+void	ft_handle_img(t_cub *cub)
+{
+	ft_put_image(cub);
+	ft_put_hud(cub);
+}
+
+void	ft_player_motion(int y, int x, t_cub *cub)
+{
+	int	old_x;
+	int	old_y;
+
+	old_x = cub->map->player_squ_x;
+	old_y = cub->map->player_squ_y;
+	if (cub->map->matrix[y][x] == '1')
+		return ;
+	cub->map->player_squ_x = x;
+	cub->map->player_squ_y = y;
+	cub->map->matrix[old_y][old_x] = '0';
+	cub->map->matrix[y][x] = 'S';
+}
+
+void	ft_manage_movements(int keysym, t_cub *cub)
 {
 	double	tmp_x;
 	double	tmp_y;
 
-	if (keysym == XK_Escape)
-		ft_close_window(cub);
-	tmp_x = cub->raycast->player_pos.x;
-	tmp_y = cub->raycast->player_pos.y;
-	if (keysym == XK_A || keysym == XK_a)
+	int	tmp_x = cub->raycast->player_pos.x;
+	int	tmp_y = cub->raycast->player_pos.y;
+	if (cub->started == true && (keysym == XK_A || keysym == XK_a))
+	{
+		ft_player_motion(cub->map->player_squ_y, cub->map->player_squ_x -1, cub); //left
 		ft_move_left(cub, &tmp_x, &tmp_y);
-	if (keysym == XK_D || keysym == XK_d)
+	}
+	if (cub->started == true && (keysym == XK_D || keysym == XK_d))
+	{
+		ft_player_motion(cub->map->player_squ_y, cub->map->player_squ_x +1, cub); //right
 		ft_move_right(cub, &tmp_x, &tmp_y);
-	if (keysym == XK_W || keysym == XK_w)
+	}
+	if (cub->started == true && (keysym == XK_W || keysym == XK_w))
+	{
+		ft_player_motion(cub->map->player_squ_y -1, cub->map->player_squ_x, cub); //up
 		ft_move_up(cub, &tmp_x, &tmp_y);
-	if (keysym == XK_S || keysym == XK_s)
+	}
+	if (cub->started == true && (keysym == XK_S || keysym == XK_s))
+	{
+		ft_player_motion(cub->map->player_squ_y +1, cub->map->player_squ_x, cub); //down
 		ft_move_down(cub, &tmp_x, &tmp_y);
+	}
 	if (cub->map->matrix[(int)tmp_x][(int)tmp_y] != '1')
 		ft_update_position(cub, tmp_x, tmp_y);
 	if (keysym == XK_Left)
@@ -47,5 +78,56 @@ int	ft_key_input(int keysym, t_cub *cub)
 	if (keysym == XK_Right)
 		ft_rotate(cub, -MOVE_SPEED);
 	ft_put_image(cub);
+	return (0);
+}
+
+
+void	ft_manage_exit(int keysym, t_cub *cub)
+{
+	static int	dir;
+
+	if (keysym == XK_W || keysym == XK_w || keysym == XK_Up)
+	{
+		dir = 1;
+		ft_put_end_screen(cub, dir); //up
+	}
+	if (keysym == XK_S || keysym == XK_s || keysym == XK_Down)
+	{
+		dir = 0;
+		ft_put_end_screen(cub, dir); //down
+	}
+	if (keysym == XK_Return && dir == 1)
+		ft_close_window(cub);
+	if (keysym == XK_Return && dir == 0)
+	{
+		cub->leaving = false;
+		ft_handle_img(cub);
+	}
+}
+
+int	ft_key_input(int keysym, t_cub *cub)
+{
+	if (cub->started == false && keysym == XK_Return)
+	{
+		cub->started = true;
+		ft_handle_img(cub);
+	}
+	if (cub->started == false && keysym == XK_Escape)
+		ft_close_window(cub);
+	if (cub->started == true && keysym == XK_Escape)
+	{
+		if (cub->leaving == true)
+		{
+			cub->leaving = false;
+			ft_handle_img(cub);
+			return (0);
+		}
+		cub->leaving = true;
+		ft_put_end_screen(cub, 0);
+	}
+	if (cub->started == true && cub->leaving == true)
+		ft_manage_exit(keysym, cub);
+	if (cub->started == true && cub->leaving == false)
+		ft_manage_movements(keysym, cub);
 	return (0);
 }

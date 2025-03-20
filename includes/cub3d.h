@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:26:59 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/03/20 18:27:59 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/03/20 18:54:26 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "../libft/libft.h"
 # include "../minilibx-linux/mlx.h"
+# include "hud.h"
 # include <X11/keysym.h>
 # include <X11/X.h>
 # include <stdio.h> //will we use printf?
@@ -25,6 +26,8 @@
 # include <errno.h>
 # include <string.h>
 # include <stdbool.h>
+# include <sys/wait.h> //bonus
+# include <time.h> //bonus
 # include <limits.h>
 
 /* messages */
@@ -36,10 +39,14 @@
 /* colors in hex*/
 
 # define GRAY 0x818d94
+# define GRAY_2 0xB1B1B3
 # define PINK 0xff00e6
 # define YELLOW 0xfff200
 # define BLUE 0x030bfc
 # define GREEN 0x009c00
+# define RED 0xff1100
+# define BLACK 0x000000
+# define IGNORE 0x23FF01
 
 /* measurements */
 
@@ -47,6 +54,8 @@
 # define WIDTH 960
 # define HEIGHT 600
 # define MOVE_SPEED 0.1
+
+typedef struct s_minimap	t_minimap; //bonus
 
 typedef enum e_directions
 {
@@ -132,6 +141,8 @@ typedef struct s_image
 	int		bpp;
 	int		line_len;
 	int		endian;
+	int		width; //new
+	int		height; //new
 }	t_image;
 
 typedef struct s_cub
@@ -139,10 +150,15 @@ typedef struct s_cub
 	void		*mlx;
 	void		*window;
 	t_image		*image;
+	t_hud		*hud;
 	t_map		*map;
-	t_raycast	*raycast;
 	char		*filepath;
 	int			fd;
+	bool		started; //screen
+	bool		leaving; //screen
+	t_screen	*start_screen; //screen
+	t_screen	*end_screen; //screen
+	t_raycast	*raycast;
 }	t_cub;
 
 /* ft_init_structs.c */
@@ -201,8 +217,10 @@ void	ft_put_pixel(t_image *img, int x, int y, int color);
 
 /* hook_utils.c */
 
-int		ft_key_input(int keysym, t_cub *game);
-int		ft_close_window(t_cub *game);
+int			ft_key_input(int keysym, t_cub *game);
+int			ft_close_window(t_cub *game);
+
+void	ft_put_image(t_cub *cub);
 
 /* move_utils.c */
 

@@ -30,6 +30,8 @@ void	ft_dda(t_raycast *ray, t_map *map, bool *hit_wall)
 			ray->hit_side = EAST;
 	}
 	//check if the ray hit a wall
+	printf("x = %d, y = %d\n", ray->step_squ.x, ray->step_squ.y); //debug
+	printf("matrix: %p\n", &map->matrix[ray->step_squ.x][ray->step_squ.y]);
 	if (map->matrix[ray->step_squ.x][ray->step_squ.y] 
 		&& map->matrix[ray->step_squ.x][ray->step_squ.y] == '1') //found a wall
 		*hit_wall = true;

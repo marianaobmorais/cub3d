@@ -1,7 +1,7 @@
-NO assets/textures/cat.xpm
-SO assets/textures/luna2.xpm
-WE assets/textures/luna3.xpm
-EA assets/textures/luna4.xpm
+NO assets/textures/bricks.xpm
+SO assets/textures/ice.xpm
+WE assets/textures/lava.xpm
+EA assets/textures/leaves.xpm
 
 F 101,183,65
 C 123,211,234
