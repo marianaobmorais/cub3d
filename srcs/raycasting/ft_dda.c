@@ -16,18 +16,18 @@ void	ft_dda(t_raycast *ray, t_map *map, bool *hit_wall)
 		ray->dist_to_x += ray->delta_dist_x;
 		ray->step_squ.x += ray->step.x;
 		if (ray->ray_dir.x < 0)
-			ray->hit_side = NORTH; //update hit_side //double check this
+			ray->hit_side = NORTH;
 		else
-			ray->hit_side = SOUTH; //update hit_side //double check this
+			ray->hit_side = SOUTH;
 	}
 	else
 	{
 		ray->dist_to_y += ray->delta_dist_y;
 		ray->step_squ.y += ray->step.y;
 		if (ray->ray_dir.y < 0)
-			ray->hit_side = EAST; //update hit_side //double check this
+			ray->hit_side = WEST;
 		else
-			ray->hit_side = WEST; //update hit_side //double check this
+			ray->hit_side = EAST;
 	}
 	//check if the ray hit a wall
 	printf("x = %d, y = %d\n", ray->step_squ.x, ray->step_squ.y); //debug

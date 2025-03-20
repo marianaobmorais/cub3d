@@ -37,6 +37,7 @@ void	ft_init_raycast(t_cub *cub)
 	cub->raycast = (t_raycast *)malloc(sizeof(t_raycast));
 	if (!cub->raycast)
 		ft_handle_error("malloc: cub->raycast", cub);
+	ft_memset(cub->raycast, 0, sizeof(t_raycast));
 	cub->raycast->player_squ.x = cub->map->player_squ_x;
 	cub->raycast->player_squ.y = cub->map->player_squ_y;
 	cub->raycast->player_pos.x = (double)cub->map->player_squ_x + 0.5;
@@ -49,7 +50,5 @@ void	ft_init_raycast(t_cub *cub)
 		ft_init_east(cub->raycast);
 	if (cub->map->direction == WEST)
 		ft_init_west(cub->raycast);
-	//cub->raycast->frame_time = 0;
-	//cub->raycast->last_frame_time = 0;
 	cub->raycast->move_speed = 0.3;
 }
