@@ -1,5 +1,6 @@
 #include "../../includes/cub3d.h"
 
+
 /* Now the actual DDA starts. It's a loop that increments the ray with 1 square 
 every time, until a wall is hit. Each time, either it jumps a square in the 
 x-direction (with stepX) or a square in the y-direction (with stepY), it always 
@@ -30,8 +31,6 @@ void	ft_dda(t_raycast *ray, t_map *map, bool *hit_wall)
 			ray->hit_side = EAST;
 	}
 	//check if the ray hit a wall
-	printf("x = %d, y = %d\n", ray->step_squ.x, ray->step_squ.y); //debug
-	printf("matrix: %p\n", &map->matrix[ray->step_squ.x][ray->step_squ.y]);
 	if (map->matrix[ray->step_squ.x][ray->step_squ.y] 
 		&& map->matrix[ray->step_squ.x][ray->step_squ.y] == '1') //found a wall
 		*hit_wall = true;
