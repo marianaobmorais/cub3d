@@ -16,7 +16,6 @@ void	ft_rotate(t_cub *cub, double angle)
 		- cub->raycast->player_dir.y * sin(angle);
 	cub->raycast->player_dir.y = old_dir_x * sin(angle)
 		+ cub->raycast->player_dir.y * cos(angle);
-
 	old_plane_x = cub->raycast->camera_plane.x;
 	cub->raycast->camera_plane.x = cub->raycast->camera_plane.x * cos(angle)
 		- cub->raycast->camera_plane.y * sin(angle);

@@ -1,14 +1,25 @@
-# ifndef CUB3D_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/20 18:26:59 by mariaoli          #+#    #+#             */
+/*   Updated: 2025/03/20 18:27:59 by mariaoli         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef CUB3D_H
 # define CUB3D_H
 
 # include "../libft/libft.h"
 # include "../minilibx-linux/mlx.h"
 # include <X11/keysym.h>
 # include <X11/X.h>
-# include <stdio.h> //do we use this?
+# include <stdio.h> //will we use printf?
 # include <stdlib.h>
-//# include <unistd.h> //duplicated from libft
-# include <sys/time.h> //do we use this?
+//# include <sys/time.h> //do we use this?
 # include <math.h>
 # include <fcntl.h>
 # include <errno.h>
@@ -21,7 +32,6 @@
 # define MSG_MAP "Map: Something is wrong 😕"
 # define MSG_TEXTURE "Texture: Something is wrong 😕"
 # define MSG_COLOR "Color: Something is wrong 😕"
-//# define PIXEL 100 //32
 
 /* colors in hex*/
 
@@ -115,8 +125,7 @@ typedef struct s_map
 	t_directions	direction;
 }	t_map;
 
-typedef struct	s_image
-
+typedef struct s_image
 {
 	void	*img_ptr;
 	char	*addr;
@@ -130,13 +139,11 @@ typedef struct s_cub
 	void		*mlx;
 	void		*window;
 	t_image		*image;
-	//t_image		*minimap;
 	t_map		*map;
 	t_raycast	*raycast;
 	char		*filepath;
 	int			fd;
 }	t_cub;
-
 
 /* ft_init_structs.c */
 
@@ -194,8 +201,8 @@ void	ft_put_pixel(t_image *img, int x, int y, int color);
 
 /* hook_utils.c */
 
-int	ft_key_input(int keysym, t_cub *game);
-int	ft_close_window(t_cub *game);
+int		ft_key_input(int keysym, t_cub *game);
+int		ft_close_window(t_cub *game);
 
 /* move_utils.c */
 
@@ -221,4 +228,4 @@ void	ft_paint_ray(t_cub *cub, int w, t_texture texture);
 
 void	ft_dda(t_raycast *ray, t_map *map, bool *hit_wall);
 
-# endif //CUB3D_H
+#endif //CUB3D_H
