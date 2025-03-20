@@ -85,14 +85,18 @@ void	ft_clean_game(t_cub *cub)
 				mlx_destroy_image(cub->mlx, cub->image->img_ptr);
 			free(cub->image);
 		}
-		// if (cub->minimap)
-		// {
-		// 	if (cub->minimap->img_ptr)
-		// 		mlx_destroy_image(cub->mlx, cub->minimap->img_ptr);
-		// 	free(cub->minimap);
-		// }
 		if (cub->raycast)
+		{
+			if (cub->raycast->north_texture.img_ptr)
+				mlx_destroy_image(cub->mlx, cub->raycast->north_texture.img_ptr);
+			if (cub->raycast->south_texture.img_ptr)
+				mlx_destroy_image(cub->mlx, cub->raycast->south_texture.img_ptr);
+			if (cub->raycast->east_texture.img_ptr)
+				mlx_destroy_image(cub->mlx, cub->raycast->east_texture.img_ptr);
+			if (cub->raycast->west_texture.img_ptr)
+				mlx_destroy_image(cub->mlx, cub->raycast->west_texture.img_ptr);
 			free(cub->raycast);
+		}
 		if (cub->window)
 			mlx_destroy_window(cub->mlx, cub->window);
 		if (cub->mlx)
