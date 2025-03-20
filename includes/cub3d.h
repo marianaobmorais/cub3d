@@ -87,12 +87,12 @@ typedef struct s_raycast
 	double			dist_to_y;
 	double			perp_wall_dist;
 	double			move_speed;
-	double			w_pixel;
-	double			texture_pixel_pos;
-	t_directions	hit_side;
+	double			wall_hit_value;
+	double			texture_pos;
 	int				wall_height;
 	int				wall_start;
 	int				wall_end;
+	t_directions	hit_side;
 	t_texture		north_texture;
 	t_texture		south_texture;
 	t_texture		east_texture;

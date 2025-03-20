@@ -51,16 +51,9 @@ void	ft_get_wall_height(t_raycast *ray)
 {
 	//get point in camera plane closest to the hitpoint of the ray
 	if (ray->hit_side == NORTH || ray->hit_side == SOUTH) //hit_side==0
-	{
 		ray->perp_wall_dist = ray->dist_to_x - ray->delta_dist_x;
-		ray->w_pixel = ray->player_pos.y + (ray->perp_wall_dist * ray->ray_dir.y);
-	}
 	else
-	{
 		ray->perp_wall_dist = ray->dist_to_y - ray->delta_dist_y;
-		ray->w_pixel = ray->player_pos.x + (ray->perp_wall_dist * ray->ray_dir.x);
-	}
-	ray->w_pixel -= floor(ray->w_pixel);
 
 	//calculate the height of the line that has to be drawn on screen: this 
 	//is the inverse of perpWallDist, and then multiplied by h, the height in 
@@ -74,6 +67,19 @@ void	ft_get_wall_height(t_raycast *ray)
 	ray->wall_end = (ray->wall_height / 2) + (HEIGHT / 2);
 	if (ray->wall_end >= HEIGHT)
 		ray->wall_end = HEIGHT - 1;
+}
+
+void	ft_get_wall_hit_value(t_raycast *ray)
+{
+	if (ray->hit_side == NORTH || ray->hit_side == SOUTH) //hit_side == 0 //hit a x axis (x value)
+		ray->wall_hit_value = ray->player_pos.y + ray->perp_wall_dist * ray->ray_dir.y;
+	else //hit a y axis (y value)
+		ray->wall_hit_value = ray->player_pos.x + ray->perp_wall_dist * ray->ray_dir.x;
+	//wall_hit_value (aka wallX) represents the exact value where the wall was hit, not just the integer coordinates of the wall.
+	//This is required to know which x-coordinate of the texture we have to use.
+	//This is calculated by first calculating the exact x or y coordinate in the world,
+	//and then substracting the integer value of the wall off it.
+	ray->wall_hit_value -= floor(ray->wall_hit_value);
 }
 
 void	ft_render_walls(t_cub *cub)
@@ -90,6 +96,7 @@ void	ft_render_walls(t_cub *cub)
 		while (!hit_wall)
 			ft_dda(cub->raycast, cub->map, &hit_wall);
 		ft_get_wall_height(cub->raycast);
+		ft_get_wall_hit_value(cub->raycast);
 		if (cub->raycast->hit_side == NORTH)
 			ft_paint_ray(cub, w, cub->raycast->north_texture);
 		if (cub->raycast->hit_side == SOUTH)

@@ -21,7 +21,6 @@ void	ft_init_texture(t_cub *cub)
 	if (!ray->north_texture.img_ptr || !ray->south_texture.img_ptr
 		|| !ray->east_texture.img_ptr || !ray->west_texture.img_ptr)
 		ft_handle_error("texture.img_ptr", cub); //test this later
-
 	ray->north_texture.addr = mlx_get_data_addr(ray->north_texture.img_ptr,
 		&ray->north_texture.bpp, &ray->north_texture.line_len, &ray->north_texture.endian);
 	ray->south_texture.addr = mlx_get_data_addr(ray->south_texture.img_ptr,
