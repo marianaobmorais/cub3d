@@ -1,6 +1,6 @@
 #include "../../includes/cub3d.h"
 
-int	ft_get_pixel_color(int x, int y, t_image *source)
+static int	ft_get_pixel_color(int x, int y, t_image *source)
 {
 	char	*addr;
 	char	*dst;

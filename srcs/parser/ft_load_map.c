@@ -52,7 +52,7 @@ void	ft_load_map(char *const filepath, t_cub *cub)
 	cub->fd = open(cub->filepath, O_RDONLY);
 	if (cub->fd == -1)
 		ft_handle_error(NULL, cub);
-	ft_init_map(cub);
+	ft_init_map(cub); //move this to init struct?
 	ft_map_parser(cub->fd, cub);
 	ft_matrix_parser(cub, cub->map->matrix);
 	cub->map->ceiling_hex = ft_arraytohex(cub->map->ceiling_rgb);

@@ -43,7 +43,7 @@ void	ft_set_limit_y(t_cub *cub, int map_height);
 
 void	ft_init_hud(t_cub *cub);
 void	ft_put_hud(t_cub *cub);
-int		ft_get_pixel_color(int x, int y, t_image *source); //organizar
+//int		ft_get_pixel_color(int x, int y, t_image *source); //organizar
 
 /* screens.c */
 
