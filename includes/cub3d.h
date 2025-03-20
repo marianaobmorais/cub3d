@@ -35,6 +35,9 @@
 # define MSG_MAP "Map: Something is wrong 😕"
 # define MSG_TEXTURE "Texture: Something is wrong 😕"
 # define MSG_COLOR "Color: Something is wrong 😕"
+# define MSG_DUP_COLOR "Color: Something is wrong 😕: Duplicate"
+//# define PIXEL 100 //32
+
 
 /* colors in hex*/
 
@@ -65,6 +68,13 @@ typedef enum e_directions
 	FLOOR,
 	CEILING
 }	t_directions;
+
+typedef enum e_parser_status
+{
+	ERROR,
+	BUFFER,
+	NO_BUFFER
+}	t_parser_status;
 
 typedef struct s_dpoint
 {
@@ -120,6 +130,7 @@ typedef struct s_raycast
 typedef struct s_map
 {
 	char			**matrix;
+	char			**matrix_tmp;
 	char			*north_texture;
 	char			*south_texture;
 	char			*west_texture;
@@ -130,6 +141,8 @@ typedef struct s_map
 	int				ceiling_hex;
 	int				player_squ_x;
 	int				player_squ_y;
+	int				width;
+	int				height;
 	t_directions	direction;
 }	t_map;
 
@@ -184,18 +197,20 @@ void	ft_map_parser(int fd, t_cub *game);
 /* ft_map_parser_utils.c */
 
 char	*ft_buffer(char *buffer, char *line, int start, t_cub *game);
-void	ft_add_texture(char *line, t_cub *game, char *identifier, \
+t_parser_status	ft_add_texture(char *line, t_cub *game, char *identifier, \
 	t_directions direction);
 
 /* parser_utils.c */
 
 bool	ft_access(char *filepath);
 bool	ft_is_ext(char *filename, char *ext);
-char	*ft_strip(char *str);
-int		ft_isspace(int c);
+char	*ft_strip(char *str, int mode);
+int		ft_isspace(int c, int mode);
 int		ft_isnumeric(char *nbr);
 int		ft_arraytohex(unsigned char *rgb);
 void	ft_print_map(t_map *map); //debug
+
+void	ft_fill_matrix(t_cub *cub);
 
 /* ft_matrix_parser.c */
 
@@ -204,7 +219,7 @@ void	ft_matrix_parser(t_cub *game, char **matrix);
 /* ft_matrix_parser_utils.c */
 
 int		ft_is_empty(char *line);
-bool	ft_valid_wall(char *line);
+bool	ft_valid_wall(char *line, char *previous_line, bool first_or_last);
 
 /* ft_run_game.c */
 

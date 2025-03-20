@@ -12,15 +12,25 @@
  * @param y The index of the '0' character in the line.
  * @return true if the '0' character is correctly placed, false otherwise.
  */
-static bool	is_valid_zero(char *line, int y)
+static bool	is_valid_zero(char *line, char *previous_line, int y)
 {
+	//update brief
+	if (previous_line)
+	{
+		if (!previous_line[y] || previous_line[y] == ' ')
+		{
+			return (false);
+		}
+	}
 	if ((y > 0 && (line[y - 1] == '0' || line[y - 1] == '1'
 				|| line[y - 1] == 'S' || line[y - 1] == 'E'
 				|| line[y - 1] == 'W' || line[y - 1] == 'N'))
 		&& (line[y + 1] == '0' || line[y + 1] == '1'
 			|| line[y + 1] == 'S' || line[y + 1] == 'E'
 			|| line[y + 1] == 'W' || line[y + 1] == 'N'))
+	{
 		return (true);
+	}
 	return (false);
 }
 
@@ -35,11 +45,26 @@ static bool	is_valid_zero(char *line, int y)
  * @param y The index of the space character in the line.
  * @return true if the space character is correctly placed, false otherwise.
  */
-static bool	is_valid_space(char *line, int y)
+static bool	is_valid_space(char *line, char *previous_line, int y)
 {
+	//update brief
+	if (previous_line)
+	{
+		if (previous_line[y] && (previous_line[y] != ' '
+			&& previous_line[y] != '1'))
+		{
+			return (false);
+		}
+	}
 	if ((y > 0 && (line[y - 1] == ' ' || line[y - 1] == '1'))
-		&& (line[y + 1] == ' ' || line[y + 1] == '1'))
+		&& (line[y + 1] == ' ' || line[y + 1] == '1' || line[y + 1] == '\0'))
+	{
 		return (true);
+	}
+	if (y == 0 && (line[y] == ' ' || line[y] == '1'))
+	{
+		return (true);
+	}
 	return (false);
 }
 
@@ -54,15 +79,29 @@ static bool	is_valid_space(char *line, int y)
  * @return true if the edges are valid (first and last characters are '1'), 
  *         false otherwise.
  */
-static bool	is_valid_line_edges(char *line)
+static bool	is_valid_line_edges(char *line, bool first_or_last)
 {
-	int	len;
+	//update brief
+	int		len;
+	char	*new_line;
 
+	new_line = ft_strip(ft_strdup(line), 0);
 	len = 0;
-	while (line[len])
+	while (new_line[len])
+	{
+		if (first_or_last && new_line[len] != '1' && new_line[len] != ' ')
+		{
+			free(new_line);
+			return (false);
+		}
 		len++;
-	if (len == 0 || line[0] != '1' || line[len - 1] != '1')
+	}
+	if (len == 0 || new_line[0] != '1' || new_line[len - 1] != '1')
+	{
+		free(new_line);
 		return (false);
+	}
+	free(new_line);
 	return (true);
 }
 
@@ -77,24 +116,35 @@ static bool	is_valid_line_edges(char *line)
  * @param line The map wall line to validate, as a null-terminated string.
  * @return true if the line is valid, false otherwise.
  */
-bool	ft_valid_wall(char *line)
+bool	ft_valid_wall(char *line, char *previous_line, bool first_or_last)
 {
+	//update brief
 	int	y;
 
-	if (!is_valid_line_edges(line))
+	if (!is_valid_line_edges(line, first_or_last))
+	{
+		printf("is_valid_line_edges\n"); //debug
 		return (false);
+	}
 	y = 0;
 	while (line[y])
 	{
 		if (line[y] == '0')
 		{
-			if (y == 0 || line[y + 1] == '\0' || !is_valid_zero(line, y))
+			if (y == 0 || line[y + 1] == '\0'
+				|| !is_valid_zero(line, previous_line, y))
+			{
+				printf("is_valid_zero\n"); //debug
 				return (false);
+			}
 		}
 		else if (line[y] == ' ')
 		{
-			if (y == 0 || line[y + 1] == '\0' || !is_valid_space(line, y))
+			if (!is_valid_space(line, previous_line, y))
+			{
+				printf("is_valid_space\n"); //debug
 				return (false);
+			}
 		}
 		y++;
 	}
@@ -119,7 +169,7 @@ int	ft_is_empty(char *line)
 
 	if (!line)
 		return (1);
-	tmp = ft_strip(ft_strdup(line));
+	tmp = ft_strip(ft_strdup(line), 0);
 	if (!tmp)
 		return (1);
 	if (tmp[0] == '\0')
