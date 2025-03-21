@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 20:02:43 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/03/21 20:08:35 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/03/21 20:55:23 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
  * @param ray A pointer to the raycasting structure.
  * @param w The current screen column.
  */
-void	ft_get_ray_info(t_raycast *ray, int w)
+static void	ft_get_ray_info(t_raycast *ray, int w)
 {
 	ray->factor = 2 * ((double)w / WIDTH) - 1;
 	ray->ray_dir.x = ray->player_dir.x + (ray->camera_plane.x * ray->factor);
@@ -57,7 +57,7 @@ void	ft_get_ray_info(t_raycast *ray, int w)
  *
  * @param ray A pointer to the raycasting structure.
  */
-void	ft_define_steps(t_raycast *ray)
+static void	ft_define_steps(t_raycast *ray)
 {
 	ray->step_squ.x = ray->player_squ.x;
 	ray->step_squ.y = ray->player_squ.y;
@@ -82,7 +82,7 @@ void	ft_define_steps(t_raycast *ray)
  *
  * @param ray A pointer to the raycasting structure.
  */
-void	ft_get_wall_height(t_raycast *ray)
+static void	ft_get_wall_height(t_raycast *ray)
 {
 	if (ray->hit_side == NORTH || ray->hit_side == SOUTH)
 		ray->perp_wall_dist = ray->dist_to_x - ray->delta_dist_x;
@@ -104,7 +104,7 @@ void	ft_get_wall_height(t_raycast *ray)
  *
  * @param ray A pointer to the raycasting structure.
  */
-void	ft_get_wall_hit_value(t_raycast *ray)
+static void	ft_get_wall_hit_value(t_raycast *ray)
 {
 	if (ray->hit_side == NORTH || ray->hit_side == SOUTH)
 		ray->wall_hit_value = ray->player_pos.y + ray->perp_wall_dist

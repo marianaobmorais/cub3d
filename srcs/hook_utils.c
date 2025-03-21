@@ -25,7 +25,7 @@ int	ft_close_window(t_cub *cub)
  * @param angle The rotation angle in radians (positive for left, negative for
  *        right).
  */
-void	ft_rotate(t_cub *cub, double angle)
+static void	ft_rotate(t_cub *cub, double angle)
 {
 	double	old_dir_x;
 	double	old_plane_x;
@@ -54,7 +54,7 @@ void	ft_rotate(t_cub *cub, double angle)
  * @param keysym The keycode representing the pressed key.
  * @param cub Pointer to the main game structure.
  */
-void	ft_manage_movements(int keysym, t_cub *cub)
+static void	ft_manage_movements(int keysym, t_cub *cub)
 {
 	double	tmp_x;
 	double	tmp_y;
@@ -79,7 +79,7 @@ void	ft_manage_movements(int keysym, t_cub *cub)
 		ft_handle_img(cub);
 }
 
-void	ft_manage_exit(int keysym, t_cub *cub)
+static void	ft_manage_exit(int keysym, t_cub *cub)
 {
 	//add brief
 	static int	dir;

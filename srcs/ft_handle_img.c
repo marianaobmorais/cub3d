@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 18:36:57 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/03/21 19:55:31 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/03/21 20:50:42 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
  * @param y The y-coordinate of the row to paint.
  * @param color The color value to fill the row with.
  */
-void	ft_paint_bg(t_image *img, int y, int color)
+static void	ft_paint_bg(t_image *img, int y, int color)
 {
 	int	x;
 
@@ -44,7 +44,7 @@ void	ft_paint_bg(t_image *img, int y, int color)
  * @param ceiling_color The color value for the ceiling.
  * @param floor_color The color value for the floor.
  */
-void	ft_render_bg(t_image *img, int ceiling_color, int floor_color)
+static void	ft_render_bg(t_image *img, int ceiling_color, int floor_color)
 {
 	int	y;
 

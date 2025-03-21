@@ -36,7 +36,7 @@ void	ft_free_vector(char **vector)
  * @param map A pointer to the map structure (t_map) to be cleaned up. 
  *            The structure itself is not freed.
  */
-void	ft_clean_map(t_map *map)
+static void	ft_clean_map(t_map *map)
 {
 	if (map->matrix)
 		ft_free_vector(map->matrix);
