@@ -55,7 +55,7 @@ void	ft_put_player(t_image *img, int x, int y, int color);
 
 /* ft_put_hud.c */
 
-int		ft_get_pixel_color(int x, int y, t_image *source);
+int		ft_get_pixel_color_other(int x, int y, t_image *source);
 void	ft_paint_source_on_hud(t_cub *cub, t_image *source, int pos_x, int pos_y);
 void	ft_put_hud(t_cub *cub);
 

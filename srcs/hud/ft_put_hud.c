@@ -13,7 +13,7 @@
  * 
  * @return The color of the pixel at the given coordinates.
  */
-int	ft_get_pixel_color(int x, int y, t_image *source)
+int	ft_get_pixel_color_other(int x, int y, t_image *source)
 {
 	char	*addr;
 	char	*dst;
@@ -50,10 +50,10 @@ void	ft_paint_source_on_hud(t_cub *cub, t_image *source, int pos_x, int pos_y)
 		x = 0;
 		while (x < source->width)
 		{
-			source_color = ft_get_pixel_color(x, y, source);
+			source_color = ft_get_pixel_color_other(x, y, source);
 			if (source_color == IGNORE)
 			{
-				default_color = ft_get_pixel_color(x + pos_x, y + pos_y, \
+				default_color = ft_get_pixel_color_other(x + pos_x, y + pos_y, \
 					cub->image);
 				ft_put_pixel(cub->image, x + pos_x, y + pos_y, default_color);
 			}
