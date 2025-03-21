@@ -32,6 +32,7 @@ SRCS = $(SRCS_DIR)/main.c \
 	$(SRCS_DIR)/hud/ft_paint_minimap_utils.c \
 	$(SRCS_DIR)/hud/ft_put_hud.c \
 	$(SRCS_DIR)/hud/screens.c \
+	$(SRCS_DIR)/hud/stuffs.c \
 
 #B_SRCS = $(BONUS_DIR)/main_bonus.c \
 

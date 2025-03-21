@@ -23,26 +23,26 @@ static bool	ft_valid_char(char c)
 /**
  * @brief Sets the player's position and direction on the map.
  * 
- * This function assigns the player's position (x, y) and direction based on 
- * the character representing the player ('S', 'N', 'E', 'W'). It ensures that 
- * the player is assigned only once on the map. If a player has already been 
- * assigned, the function returns false, indicating an error. If the player 
- * is successfully assigned, it updates the player's position and direction.
+ * This function sets the player's position on the map by storing the
+ * coordinates in the `player_squ_x` and `player_squ_y` variables. It also
+ * determines the player's facing direction based on the character passed 
+ * ('N', 'S', 'E', 'W'). The function ensures that the player is only 
+ * placed once on the map.
  * 
- * @param c The character representing the player ('S', 'N', 'E', 'W').
- * @param game A pointer to the game structure (t_game) containing the map data.
- * @param x The x-coordinate of the player's position.
- * @param y The y-coordinate of the player's position.
- * @return true if the player's position and direction are successfully set, 
- *         false if the player has already been set.
+ * @param c The character representing the player's direction ('N', 'S', 
+ *          'E', or 'W').
+ * @param cub The main structure holding map data.
+ * @param x The x-coordinate (row) of the player on the map.
+ * @param y The y-coordinate (column) of the player on the map.
+ * @return true if the player's position and direction were successfully 
+ *         set, false if the player was already placed on the map.
  */
 static bool	ft_set_player(char c, t_cub *cub, int x, int y)
 {
-	//update brief
 	if (cub->map->player_squ_x == -1)
 	{
-		cub->map->player_squ_x = y; //changed
-		cub->map->player_squ_y = x; //changed
+		cub->map->player_squ_x = y;
+		cub->map->player_squ_y = x;
 		if (c == 'S')
 			cub->map->direction = SOUTH;
 		if (c == 'N')
@@ -58,23 +58,21 @@ static bool	ft_set_player(char c, t_cub *cub, int x, int y)
 }
 
 /**
- * @brief Checks a line of the map for validity and assigns player position.
+ * @brief Checks if a line in the map is valid and sets the player's position.
  * 
- * Validates each character in the given line, ensuring that it is one of the 
- * acceptable characters for the map ('1', '0', ' ', 'S', 'N', 'E', 'W'). If any 
- * invalid character is found, the function returns false. If the line contains 
- * a player character ('S', 'N', 'E', 'W'), it calls `ft_set_player` to assign 
- * the player's position and direction. The function returns true if the line 
- * is valid and the player is properly set.
+ * This function iterates over each character in a map line and validates it 
+ * by ensuring that each character is a valid map character. If a player 
+ * character ('S', 'N', 'E', 'W') is found, the player's position is set 
+ * using the `ft_set_player` function. If any invalid characters or 
+ * multiple player characters are found, the function returns false.
  * 
- * @param line The map line to check.
- * @param x The x-coordinate of the line's position.
- * @param game A pointer to the game structure (t_game) to store the player's data.
- * @return true if the line is valid and the player is set, false otherwise.
+ * @param line The map line to check, as a null-terminated string.
+ * @param y The y-coordinate (row) of the current line on the map.
+ * @param cub The main structure holding the map data.
+ * @return true if the line is valid, false otherwise.
  */
 static bool	ft_check_line(char *line, int y, t_cub *cub)
 {
-	//update brief
 	int	x;
 
 	x = 0;
@@ -96,22 +94,44 @@ static bool	ft_check_line(char *line, int y, t_cub *cub)
 }
 
 /**
- * @brief Parses the map matrix and validates each line.
+ * @brief Checks if a string contains only numeric characters.
  * 
- * Iterates through each line in the map matrix, stripping extra spaces and 
- * checking for valid characters using `ft_check_line`. The function also 
- * validates that the walls of the map are correctly defined using 
- * `ft_valid_wall`. 
- * If any line is invalid or if the player's position is not set, it triggers 
- * an error using `ft_handle_error`. The function ensures that the map structure 
- * adheres to the expected format.
+ * Verifies whether the given string consists exclusively of digits (0-9). 
+ * The function iterates over each character in the string and checks if each 
+ * one is a valid digit. If any non-digit character is found, the function 
+ * returns false.
  * 
- * @param game A pointer to the game structure (t_game) containing the map data.
- * @param matrix A 2D array representing the map's matrix.
+ * @param nbr The string to check, as a null-terminated char array.
+ * @return 1 if the string is entirely numeric, 0 otherwise.
+ */
+int	ft_isnumeric(char *nbr)
+{
+	int	i;
+
+	i = 0;
+	while (nbr[i])
+	{
+		if (!ft_isdigit(nbr[i]))
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+/**
+ * @brief Parses the map matrix and validates the map's structure.
+ * 
+ * This function iterates through each line of the map matrix, checking if 
+ * the characters in each line are valid using `ft_check_line`. It also 
+ * validates the wall structure and player position using `ft_valid_wall` 
+ * and `ft_set_player`. If any issues are found, an error message is raised.
+ * 
+ * @param cub The main structure holding the map data.
+ * @param matrix The map matrix to be parsed, represented as an array of strings.
+ * @return void
  */
 void	ft_matrix_parser(t_cub *cub, char **matrix)
 {
-	//update brief
 	int		y;
 	bool	first_or_last;
 	char	*line;
@@ -125,7 +145,6 @@ void	ft_matrix_parser(t_cub *cub, char **matrix)
 		if (y == 0 || y + 1 == cub->map->height)
 			first_or_last = true;
 		line = matrix[y];
-		printf("%s\n", line);
 		if (y > 0)
 			previous_line = matrix[y - 1];
 		if (!ft_check_line(line, y, cub))

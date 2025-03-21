@@ -38,30 +38,41 @@ typedef struct s_hud
 }	t_hud;
 
 
-/* ft_paint_minimap.c */
+/* ft_init_hud.c */
+
+void	ft_init_hud(t_cub *cub);
+
+/* ft_paint_minimap_on_hud.c */
 
 void	ft_paint_minimap_on_hud(t_cub *cub);
 
-/* minimap_utils.c */
+/* ft_paint_minimap_utils.c */
 
 void	ft_put_square(t_image *img, int x, int y, int color);
 void	ft_set_limit_x(t_cub *cub, int map_width);
 void	ft_set_limit_y(t_cub *cub, int map_height);
 void	ft_put_player(t_image *img, int x, int y, int color);
 
-void	ft_init_hud(t_cub *cub);
-void	ft_put_hud(t_cub *cub);
-int		ft_get_pixel_color(int x, int y, t_image *source); //organizar
+/* ft_put_hud.c */
+
+int		ft_get_pixel_color(int x, int y, t_image *source);
 void	ft_paint_source_on_hud(t_cub *cub, t_image *source, int pos_x, int pos_y);
-void	ft_paint_action_on_hud(t_cub *cub, t_image *source, int pos_x, int pos_y);
+void	ft_put_hud(t_cub *cub);
 
 /* screens.c */
 
-void	ft_init_screen(t_cub *cub);
+void	ft_init_start_screen(t_cub *cub);
+void	ft_init_end_screen(t_cub *cub);
 int		ft_put_start_screen(t_cub *cub);
 int		ft_put_end_screen(t_cub *cub, int dir);
 
+/* stuffs */
+
 int		ft_blendcolors(int color1, int color2, float alpha);
 void	draw_line_minimap(t_cub *cub, int x1, int y1, int x2, int y2, int color);
+void	ft_paint_action_on_hud(t_cub *cub, t_image *source, int pos_x, int pos_y);
+void	ft_render_fov_minimap(t_cub *cub);
+void	ft_paint_action_on_hud(t_cub *cub, t_image *source, int pos_x, int pos_y);
+void	ft_hextoarray(int hex, unsigned char *rgb);
 
 # endif //HUD_H

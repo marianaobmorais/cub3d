@@ -156,46 +156,49 @@ t_cub	*ft_init_structs(t_cub *cub, char *argv);
 
 /* ft_handle_error.c */
 
-void	ft_handle_error(const char *error_msg, t_cub *game);
+void	ft_handle_error(const char *error_msg, t_cub *cub);
 
 /* ft_clean_game.c */
 
-void	ft_clean_game(t_cub *game);
+void	ft_clean_game(t_cub *cub);
 void	ft_free_vector(char **vector);
+
+/* PARSER */
 
 /* ft_loadmap.c */
 
-void	ft_load_map(char *const filepath, t_cub *game);
+void	ft_load_map(char *const filepath, t_cub *cub);
 
 /* ft_map_parser.c */
 
-void	ft_map_parser(int fd, t_cub *game);
+void	ft_map_parser(int fd, t_cub *cub, int i);
 
 /* ft_map_parser_utils.c */
 
-char	*ft_buffer(char *buffer, char *line, int start, t_cub *game);
+char	*ft_buffer(char *buffer, char *line, int start, t_cub *cub);
 t_parser_status	ft_add_texture(char *line, t_cub *game, char *identifier, \
 	t_directions direction);
-
+	
 /* parser_utils.c */
 
 bool	ft_access(char *filepath);
 bool	ft_is_ext(char *filename, char *ext);
-char	*ft_strip(char *str, int mode);
 int		ft_isspace(int c, int mode);
-int		ft_isnumeric(char *nbr);
-int		ft_arraytohex(unsigned char *rgb);
-void	ft_hextoarray(int hex, unsigned char *rgb);
+char	*ft_strip(char *str, int mode);
 void	ft_print_map(t_map *map); //debug
+
+/* ft_fill_matrix.c */
 
 void	ft_fill_matrix(t_cub *cub);
 
 /* ft_matrix_parser.c */
 
-void	ft_matrix_parser(t_cub *game, char **matrix);
+int		ft_isnumeric(char *nbr);
+void	ft_matrix_parser(t_cub *cub, char **matrix);
 
 /* ft_matrix_parser_utils.c */
 
+int		ft_arraytohex(unsigned char *rgb);
 int		ft_is_empty(char *line);
 bool	ft_valid_wall(char *line, char *previous_line, bool first_or_last);
 
@@ -210,8 +213,8 @@ void	ft_put_pixel(t_image *img, int x, int y, int color);
 
 /* hook_utils.c */
 
-int		ft_key_input(int keysym, t_cub *game);
-int		ft_close_window(t_cub *game);
+int		ft_key_input(int keysym, t_cub *cub);
+int		ft_close_window(t_cub *cub);
 
 void	ft_put_image(t_cub *cub);
 
