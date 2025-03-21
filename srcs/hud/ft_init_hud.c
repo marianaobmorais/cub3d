@@ -23,7 +23,7 @@ void	ft_init_breads(t_cub *cub)
 	cub->hud->breads->addr = mlx_get_data_addr(cub->hud->breads->img_ptr, \
 		&cub->hud->breads->bpp, &cub->hud->breads->line_len, \
 		&cub->hud->breads->endian);
-	//protect img_ptr and addr
+	//to add: protect img_ptr and addr
 }
 
 /**
