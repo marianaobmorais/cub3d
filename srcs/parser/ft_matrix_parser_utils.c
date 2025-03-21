@@ -1,20 +1,23 @@
 #include "../../includes/cub3d.h"
 
 /**
- * @brief Validates the placement of a '0' character in a map wall line.
- * 
- * Ensures that a '0' character is surrounded by valid wall characters ('1') 
- * or valid player or enemy characters ('S', 'E', 'W', 'N'). This function 
- * checks the immediate neighbors of the '0' to verify its correct placement 
- * within the map structure.
- * 
- * @param line The map wall line to check, as a null-terminated string.
- * @param y The index of the '0' character in the line.
- * @return true if the '0' character is correctly placed, false otherwise.
+ * @brief Checks if the current position (y) in a line represents a valid
+ *        '0' based on surrounding characters.
+ *
+ * This function validates whether the current '0' (empty space) is properly
+ * surrounded by walls ('1') or characters representing the player or enemies
+ * ('S', 'E', 'W', 'N') in the grid map. It ensures that the '0' is not at
+ * the start or end of a line, and that its neighbors are valid positions.
+ *
+ * @param line The current line in the map.
+ * @param previous_line The previous line in the map (for checking vertical
+ *                      validity).
+ * @param y The current position (index) in the line.
+ *
+ * @return `true` if the '0' is valid, `false` otherwise.
  */
 static bool	is_valid_zero(char *line, char *previous_line, int y)
 {
-	//update brief
 	if (previous_line)
 	{
 		if (!previous_line[y] || previous_line[y] == ' ')
@@ -35,23 +38,26 @@ static bool	is_valid_zero(char *line, char *previous_line, int y)
 }
 
 /**
- * @brief Validates the placement of a space character in a map wall line.
- * 
- * Ensures that a space (' ') character is correctly placed between walls ('1')
- * or other spaces. The function checks the immediate neighbors of the space 
- * to ensure it is surrounded by valid characters.
- * 
- * @param line The map wall line to check, as a null-terminated string.
- * @param y The index of the space character in the line.
- * @return true if the space character is correctly placed, false otherwise.
+ * @brief Validates if the current space at position (y) in a line is valid 
+ *        based on surrounding characters.
+ *
+ * This function checks if the current empty space (' ') is surrounded by walls 
+ * ('1') or other empty spaces. It ensures that the space is properly placed 
+ * within the grid, either at the beginning or surrounded by walls. It also 
+ * checks vertical consistency using the previous line.
+ *
+ * @param line The current line in the map.
+ * @param previous_line The previous line in the map (for vertical checks).
+ * @param y The current position (index) in the line.
+ *
+ * @return `true` if the space is valid, `false` otherwise.
  */
 static bool	is_valid_space(char *line, char *previous_line, int y)
 {
-	//update brief
 	if (previous_line)
 	{
 		if (previous_line[y] && (previous_line[y] != ' '
-			&& previous_line[y] != '1'))
+				&& previous_line[y] != '1'))
 		{
 			return (false);
 		}
@@ -69,19 +75,20 @@ static bool	is_valid_space(char *line, char *previous_line, int y)
 }
 
 /**
- * @brief Validates the edges of a map wall line.
- * 
- * Checks whether the first and last characters of the line are walls ('1'). 
- * The function ensures that the line is non-empty and that the edges are 
- * correctly marked, as required by the map's structural rules.
- * 
- * @param line The map wall line to check, as a null-terminated string.
- * @return true if the edges are valid (first and last characters are '1'), 
- *         false otherwise.
+ * @brief Validates the edges of a line in the map for walls ('1') or spaces.
+ *
+ * This function checks if the first and last characters of a line are valid. 
+ * If the line is marked as a "first or last" line, it must contain only walls 
+ * ('1') or spaces (' '). For other lines, the function ensures that the first 
+ * and last characters are walls ('1').
+ *
+ * @param line The line to check.
+ * @param first_or_last Boolean flag indicating if the line is the first or last.
+ *
+ * @return `true` if the line edges are valid, `false` otherwise.
  */
 static bool	is_valid_line_edges(char *line, bool first_or_last)
 {
-	//update brief
 	int		len;
 	char	*new_line;
 
@@ -114,18 +121,18 @@ static bool	is_valid_line_edges(char *line, bool first_or_last)
  * validation ensures the line adheres to the expected wall format.
  * 
  * @param line The map wall line to validate, as a null-terminated string.
+ * @param previous_line The previous map line, used to validate continuity 
+ * between walls.
+ * @param first_or_last A boolean indicating if the line is the first or 
+ * last in the map, used to adjust validation rules for edge lines.
  * @return true if the line is valid, false otherwise.
  */
 bool	ft_valid_wall(char *line, char *previous_line, bool first_or_last)
 {
-	//update brief
 	int	y;
 
 	if (!is_valid_line_edges(line, first_or_last))
-	{
-		printf("is_valid_line_edges\n"); //debug
 		return (false);
-	}
 	y = 0;
 	while (line[y])
 	{
@@ -133,18 +140,12 @@ bool	ft_valid_wall(char *line, char *previous_line, bool first_or_last)
 		{
 			if (y == 0 || line[y + 1] == '\0'
 				|| !is_valid_zero(line, previous_line, y))
-			{
-				printf("is_valid_zero\n"); //debug
 				return (false);
-			}
 		}
 		else if (line[y] == ' ')
 		{
 			if (!is_valid_space(line, previous_line, y))
-			{
-				printf("is_valid_space\n"); //debug
 				return (false);
-			}
 		}
 		y++;
 	}

@@ -1,23 +1,22 @@
 #include "../../includes/cub3d.h"
 
 /**
- * @brief Sets the texture for a specific direction in the game map.
- * 
- * Assigns the given texture file path to the appropriate direction in the 
- * map's texture fields (north, south, west, or east). If the texture for the 
- * given direction has already been set, the function does not overwrite it.
- * 
- * @param cub A pointer to the game structure (t_cub) containing the map 
- *            and its texture data.
- * @param filepath The path to the texture file to be assigned.
- * @param direction The direction for which to set the texture (NORTH, SOUTH, 
- *                  WEST, or EAST).
- * @return true if the texture was successfully set, false if the direction 
- *         already has a texture assigned or if the direction is invalid.
+ * @brief Sets the texture filepath in the appropriate direction slot.
+ *
+ * This function assigns the given texture filepath to the corresponding 
+ * direction (NORTH, SOUTH, WEST, EAST) in the map structure. If the 
+ * texture for that direction has already been set, it returns `false`.
+ * Otherwise, it successfully updates the texture and returns `true`.
+ *
+ * @param cub The main structure containing the game-related data.
+ * @param filepath The texture filepath to assign.
+ * @param direction The direction (NORTH, SOUTH, WEST, EAST) to set the texture.
+ *
+ * @return `true` if the texture was successfully set, or `false` if a texture 
+ *         is already set for the given direction.
  */
 static bool	ft_set_texture(t_cub *cub, char *filepath, t_directions direction)
 {
-	//update brief
 	if (direction == NORTH && !cub->map->north_texture)
 		cub->map->north_texture = filepath;
 	else if (direction == SOUTH && !cub->map->south_texture)
@@ -32,26 +31,23 @@ static bool	ft_set_texture(t_cub *cub, char *filepath, t_directions direction)
 }
 
 /**
- * @brief Processes and adds a texture to the game map based on the input line.
- * 
- * Parses the provided line to extract the texture file path for a specific 
- * direction (north, south, west, or east). It ensures that the file path has 
- * a valid extension (.xpm), the file exists, and the texture for the given 
- * direction is not already set. If any condition is violated, an error is 
- * triggered and handled appropriately.
- * 
- * @param line The input line containing the texture definition.
- * @param game A pointer to the game structure (t_game) where the texture will 
- *            be stored.
- * @param identifier The identifier used to check if the line corresponds to 
- *                   the correct texture type (e.g., "NO", "SO").
- * @param direction The direction for which to assign the texture (NORTH, 
- *                  SOUTH, WEST, or EAST).
+ * @brief Adds a texture to the game by processing the given line.
+ *
+ * This function checks the validity of the texture line (e.g., file extension, 
+ * file accessibility) and updates the game structure with the new texture. 
+ * It handles errors such as incorrect file extensions, inaccessible files, 
+ * and duplicates by returning an appropriate error code.
+ *
+ * @param line The line to process for adding the texture.
+ * @param cub The main structure containing the game-related data.
+ * @param identifier The texture identifier to check in the line.
+ * @param direction The direction associated with the texture (e.g., NORTH, .).
+ *
+ * @return `ERROR` if an error is encountered, or `NO_BUFFER` if successful.
  */
 t_parser_status	ft_add_texture(char *line, t_cub *cub, char *identifier, \
 	t_directions direction)
 {
-	//update brief
 	char	*new_line;
 	char	**tmp;
 	char	*filepath;
@@ -76,24 +72,22 @@ t_parser_status	ft_add_texture(char *line, t_cub *cub, char *identifier, \
 }
 
 /**
- * @brief Appends a line to a buffer, handling empty lines and errors.
- * 
- * Checks if the given line is empty. If the line is empty and it's the first 
- * line (start == 0), it frees both the line and the buffer, and triggers an 
- * error. Otherwise, it appends the line to the existing buffer and returns 
- * the updated buffer. If the line is empty, it returns NULL to indicate that 
- * no appending occurred.
- * 
- * @param buffer The current buffer to which the line will be appended.
- * @param line The line to append to the buffer.
- * @param start The position indicating if it's the first line (start == 0).
- * @param game A pointer to the game structure (t_game) to handle errors.
- * @return The updated buffer with the line appended, or NULL if the line is 
- *         empty.
+ * @brief Buffers the content of a line and returns a new concatenated string.
+ *
+ * This function checks if the line is empty and handles errors accordingly. 
+ * If the line is not empty, it concatenates the `buffer` and the `line`
+ * into a new string and frees the previous `buffer`. If any error occurs
+ * while handling the line, an error message is displayed.
+ *
+ * @param buffer The existing string buffer.
+ * @param line The new line to be added to the buffer.
+ * @param start A flag indicating the start of processing.
+ * @param cub The main structure containing the game-related data.
+ *
+ * @return A new concatenated string or NULL if the line is empty.
  */
 char	*ft_buffer(char *buffer, char *line, int start, t_cub *cub)
 {
-	//update brief
 	char	*tmp;
 
 	if (ft_is_empty(line) == 1 && start == 0)
@@ -109,4 +103,21 @@ char	*ft_buffer(char *buffer, char *line, int start, t_cub *cub)
 	tmp = ft_strjoin(buffer, line);
 	free(buffer);
 	return (tmp);
+}
+
+/**
+ * @brief Converts an RGB array to a hexadecimal color code.
+ * 
+ * This function takes an array of three unsigned chars representing the 
+ * RGB (Red, Green, Blue) color values and converts it into a single 
+ * hexadecimal color code. The resulting integer combines the RGB values 
+ * in the standard format `0xRRGGBB`.
+ * 
+ * @param rgb An array of three unsigned chars, representing the RGB 
+ * components of a color (with values between 0 and 255).
+ * @return The corresponding hexadecimal color code as an integer.
+ */
+int	ft_arraytohex(unsigned char *rgb)
+{
+	return (rgb[0] << 16 | rgb[1] << 8 | rgb[2]);
 }

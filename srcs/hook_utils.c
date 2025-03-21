@@ -12,6 +12,7 @@ void	ft_rotate(t_cub *cub, double angle)
 	double	old_plane_x;
 
 	old_dir_x = cub->raycast->player_dir.x;
+
 	cub->raycast->player_dir.x = cub->raycast->player_dir.x * cos(angle)
 		- cub->raycast->player_dir.y * sin(angle);
 	cub->raycast->player_dir.y = old_dir_x * sin(angle)
@@ -53,7 +54,6 @@ void	ft_manage_movements(int keysym, t_cub *cub)
 	if (cub->started == true)
 		ft_put_image(cub);
 }
-
 
 void	ft_manage_exit(int keysym, t_cub *cub)
 {

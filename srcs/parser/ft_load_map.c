@@ -30,21 +30,22 @@ static void	ft_init_map(t_cub *cub)
 }
 
 /**
- * @brief Loads and processes a map file for a game configuration.
- * 
- * Reads and validates a map file specified by the given filepath, ensuring it 
- * has the correct file extension (".game") and is accessible. The function 
- * initializes the map, parses its content, and processes the map matrix for 
- * further use in the game. If any error occurs during these steps, it handles 
- * the error appropriately.
- * 
- * @param filepath The path to the map file, as a null-terminated string.
- * @param game A pointer to the game structure (t_game) where map data and 
- *            configuration will be stored.
+ * @brief Loads and parses the map file for the game.
+ *
+ * This function initializes the file path, checks if the file extension is
+ * correct (".cub"), and attempts to open the map file. It then initializes
+ * the map structure, parses the map data, processes the map matrix, and
+ * calculates the ceiling and floor colors in hexadecimal. Finally, it closes
+ * the file.
+ *
+ * @param filepath The path to the map file.
+ * @param cub The main structure containing the map and game-related data.
  */
 void	ft_load_map(char *const filepath, t_cub *cub)
 {
-	//update brief
+	int	i;
+
+	i = 0;
 	cub->fd = -1;
 	cub->filepath = ft_strip(ft_strdup(filepath), 0);
 	if (!ft_is_ext(cub->filepath, ".cub"))
@@ -52,8 +53,8 @@ void	ft_load_map(char *const filepath, t_cub *cub)
 	cub->fd = open(cub->filepath, O_RDONLY);
 	if (cub->fd == -1)
 		ft_handle_error(NULL, cub);
-	ft_init_map(cub); //move this to init struct?
-	ft_map_parser(cub->fd, cub);
+	ft_init_map(cub);
+	ft_map_parser(cub->fd, cub, i);
 	ft_matrix_parser(cub, cub->map->matrix);
 	cub->map->ceiling_hex = ft_arraytohex(cub->map->ceiling_rgb);
 	cub->map->floor_hex = ft_arraytohex(cub->map->floor_rgb);

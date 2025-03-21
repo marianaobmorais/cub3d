@@ -97,6 +97,8 @@ void	ft_render_walls(t_cub *cub)
 			ft_dda(cub->raycast, cub->map, &hit_wall);
 		ft_get_wall_height(cub->raycast);
 		ft_get_wall_hit_value(cub->raycast);
+		cub->hud->ray_hits[w].x = cub->raycast->step_squ.x; //minimap
+		cub->hud->ray_hits[w].y = cub->raycast->step_squ.y; //minimap
 		if (cub->raycast->hit_side == NORTH)
 			ft_paint_ray(cub, w, cub->raycast->north_texture);
 		if (cub->raycast->hit_side == SOUTH)
