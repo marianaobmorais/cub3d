@@ -6,17 +6,17 @@
 //This has to be done both for the x and y coordinate of the vector (since adding two vectors is adding their x-coordinates, and adding their y-coordinates).
 //delta_dist stores how far the ray has to travel in world space to cross one grid line in the X or Y direction.
 //dist_to_x and dist_to_t store the distance from the player's position to the next grid line in both X and Y directions.
-void	ft_get_ray_info(t_raycast *ray, int x)
+void	ft_get_ray_info(t_raycast *ray, int w)
 {
-	ray->factor = 2 * ((double)x / WIDTH) - 1; // or x / (double)WIDTH?
+	ray->factor = 2 * ((double)w / WIDTH) - 1; // or x / (double)WIDTH?
 	ray->ray_dir.x = ray->player_dir.x + (ray->camera_plane.x * ray->factor);
 	ray->ray_dir.y = ray->player_dir.y + (ray->camera_plane.y * ray->factor);
 	if (ray->ray_dir.x == 0)
-		ray->delta_dist_x = INT_MAX;
+		ray->delta_dist_x = INT_MAX; //need to study this more
 	else
 		ray->delta_dist_x = fabs(1 / ray->ray_dir.x);
 	if (ray->ray_dir.y == 0)
-		ray->delta_dist_y = INT_MAX;
+		ray->delta_dist_y = INT_MAX; //need to study this more
 	else
 		ray->delta_dist_y = fabs(1 / ray->ray_dir.y);
 
@@ -45,16 +45,16 @@ void	ft_define_steps(t_raycast *ray)
 		ray->step.y = -1;
 	else
 		ray->step.y = 1;
-	//printf("step x: %d, step y: %d\n", ray->step.x, ray->step.y);
 }
 
 void	ft_get_wall_height(t_raycast *ray)
 {
 	//get point in camera plane closest to the hitpoint of the ray
-	if (ray->hit_side == NORTH || ray->hit_side == SOUTH)
+	if (ray->hit_side == NORTH || ray->hit_side == SOUTH) //hit_side==0
 		ray->perp_wall_dist = ray->dist_to_x - ray->delta_dist_x;
 	else
 		ray->perp_wall_dist = ray->dist_to_y - ray->delta_dist_y;
+
 	//calculate the height of the line that has to be drawn on screen: this 
 	//is the inverse of perpWallDist, and then multiplied by h, the height in 
 	//pixels of the screen, to bring it to pixel coordinates. You can of course
@@ -69,44 +69,44 @@ void	ft_get_wall_height(t_raycast *ray)
 		ray->wall_end = HEIGHT - 1;
 }
 
-void	ft_paint_ray(t_cub *cub, int x, int color)
+void	ft_get_wall_hit_value(t_raycast *ray)
 {
-	int	h;
-
-	h = cub->raycast->wall_start;
-	while (h <= cub->raycast->wall_end)
-	{
-		ft_put_pixel(cub->image, x, h, color);
-		h++;
-	}
+	if (ray->hit_side == NORTH || ray->hit_side == SOUTH) //hit_side == 0 //hit a x axis (x value)
+		ray->wall_hit_value = ray->player_pos.y + ray->perp_wall_dist * ray->ray_dir.y;
+	else //hit a y axis (y value)
+		ray->wall_hit_value = ray->player_pos.x + ray->perp_wall_dist * ray->ray_dir.x;
+	//wall_hit_value (aka wallX) represents the exact value where the wall was hit, not just the integer coordinates of the wall.
+	//This is required to know which x-coordinate of the texture we have to use.
+	//This is calculated by first calculating the exact x or y coordinate in the world,
+	//and then substracting the integer value of the wall off it.
+	ray->wall_hit_value -= floor(ray->wall_hit_value);
 }
 
 void	ft_render_walls(t_cub *cub)
 {
-	int		x;
+	int		w;
 	bool	hit_wall;
 
-	x = 0;
-	while (x < WIDTH)
+	w = 0;
+	while (w < WIDTH)
 	{
-		ft_get_ray_info(cub->raycast, x);
+		ft_get_ray_info(cub->raycast, w);
 		ft_define_steps(cub->raycast);
 		hit_wall = false;
 		while (!hit_wall)
 			ft_dda(cub->raycast, cub->map, &hit_wall);
 		ft_get_wall_height(cub->raycast);
-
-		cub->hud->ray_hits[x].x = cub->raycast->step_squ.x; //minimap
+		ft_get_wall_hit_value(cub->raycast);
+    cub->hud->ray_hits[x].x = cub->raycast->step_squ.x; //minimap
 		cub->hud->ray_hits[x].y = cub->raycast->step_squ.y; //minimap
-
 		if (cub->raycast->hit_side == NORTH)
-			ft_paint_ray(cub, x, YELLOW); //substituir ultimo parametro por: map->north_texture;
+			ft_paint_ray(cub, w, cub->raycast->north_texture);
 		if (cub->raycast->hit_side == SOUTH)
-			ft_paint_ray(cub, x, PINK); //map->south_texture;
+			ft_paint_ray(cub, w, cub->raycast->south_texture);
 		if (cub->raycast->hit_side == EAST)
-			ft_paint_ray(cub, x, GREEN); //map->east_texture;
+			ft_paint_ray(cub, w, cub->raycast->east_texture);
 		if (cub->raycast->hit_side == WEST)
-			ft_paint_ray(cub, x, BLUE); //map->west_texture;
-		x++;
+			ft_paint_ray(cub, w, cub->raycast->west_texture);
+		w++;
 	}
 }

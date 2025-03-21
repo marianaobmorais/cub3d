@@ -1,4 +1,16 @@
-# ifndef CUB3D_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/20 18:26:59 by mariaoli          #+#    #+#             */
+/*   Updated: 2025/03/20 19:24:13 by mariaoli         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef CUB3D_H
 # define CUB3D_H
 
 # include "../libft/libft.h"
@@ -6,10 +18,9 @@
 # include "hud.h"
 # include <X11/keysym.h>
 # include <X11/X.h>
-# include <stdio.h> //do we use this?
+# include <stdio.h> //will we use printf?
 # include <stdlib.h>
-//# include <unistd.h> //duplicated from libft
-# include <sys/time.h> //do we use this?
+//# include <sys/time.h> //do we use this?
 # include <math.h>
 # include <fcntl.h>
 # include <errno.h>
@@ -27,6 +38,7 @@
 # define MSG_DUP_COLOR "Color: Something is wrong 😕: Duplicate"
 //# define PIXEL 100 //32
 
+
 /* colors in hex*/
 
 # define GRAY 0x818d94
@@ -41,9 +53,9 @@
 
 /* measurements */
 
-# define PIXEL 1
 # define WIDTH 960
 # define HEIGHT 600
+# define MOVE_SPEED 0.1
 
 typedef struct s_minimap	t_minimap; //bonus
 
@@ -76,6 +88,17 @@ typedef struct s_ipoint
 	int	y;
 }	t_ipoint;
 
+typedef struct s_texture
+{
+	void	*img_ptr;
+	char	*addr;
+	int		width;
+	int		height;
+	int		bpp;
+	int		line_len;
+	int		endian;
+}	t_texture;
+
 typedef struct s_raycast
 {
 	t_dpoint		player_pos;
@@ -86,18 +109,22 @@ typedef struct s_raycast
 	t_ipoint		step;
 	t_ipoint		step_squ;
 	double			factor;
-	//double			frame_time;
-	//double			last_frame_time;
 	double			delta_dist_x;
 	double			delta_dist_y;
 	double			dist_to_x;
 	double			dist_to_y;
 	double			perp_wall_dist;
 	double			move_speed;
-	t_directions	hit_side;
+	double			wall_hit_value;
+	double			texture_pos;
 	int				wall_height;
 	int				wall_start;
 	int				wall_end;
+	t_directions	hit_side;
+	t_texture		north_texture;
+	t_texture		south_texture;
+	t_texture		east_texture;
+	t_texture		west_texture;
 }	t_raycast;
 
 typedef struct s_map
@@ -119,8 +146,7 @@ typedef struct s_map
 	t_directions	direction;
 }	t_map;
 
-typedef struct	s_image
-
+typedef struct s_image
 {
 	void	*img_ptr;
 	char	*addr;
@@ -148,7 +174,6 @@ typedef struct s_cub
 	int			current_screen; //screen
 	t_raycast	*raycast;
 }	t_cub;
-
 
 /* ft_init_structs.c */
 
@@ -204,7 +229,6 @@ bool	ft_valid_wall(char *line, char *previous_line, bool first_or_last);
 
 /* ft_run_game.c */
 
-void	ft_run_game(t_cub *cub);
 void	ft_put_image(t_cub *cub);
 
 /* ft_put_pixel.c */
@@ -218,6 +242,14 @@ int		ft_close_window(t_cub *cub);
 
 void	ft_put_image(t_cub *cub);
 
+/* move_utils.c */
+
+void	ft_move_left(t_cub *cub, double *tmp_x, double *tmp_y);
+void	ft_move_right(t_cub *cub, double *tmp_x, double *tmp_y);
+void	ft_move_up(t_cub *cub, double *tmp_x, double *tmp_y);
+void	ft_move_down(t_cub *cub, double *tmp_x, double *tmp_y);
+void	ft_update_position(t_cub *cub, double tmp_x, double tmp_y);
+
 /* ft_init_raycast.c */
 
 void	ft_init_raycast(t_cub*cub);
@@ -226,8 +258,12 @@ void	ft_init_raycast(t_cub*cub);
 
 void	ft_render_walls(t_cub *cub);
 
+/* ft_paint_ray.c */
+
+void	ft_paint_ray(t_cub *cub, int w, t_texture texture);
+
 /* ft_dda.c */
 
 void	ft_dda(t_raycast *ray, t_map *map, bool *hit_wall);
 
-# endif //CUB3D_H
+#endif //CUB3D_H
