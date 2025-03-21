@@ -46,18 +46,20 @@ bool	ft_is_ext(char *filename, char *ext)
 }
 
 /**
- * @brief Checks if a character is a whitespace character.
+ * @brief Checks if a character is a space or a whitespace character.
  * 
- * Determines whether the given character is a whitespace character, including 
- * space (' ') and other control characters like tab, newline, vertical tab, 
- * form feed, and carriage return.
+ * This function determines whether a given character is a space (' ') or
+ * a control character like tab, newline, or carriage return, depending on 
+ * the specified mode. In mode 0, it checks for both spaces and control 
+ * characters. In mode 1, it only checks for control characters.
  * 
- * @param c The character to check, represented as an int.
- * @return 1 if the character is a whitespace character, or 0 otherwise.
+ * @param c The character to check.
+ * @param mode The mode to specify which characters to check for (0 for space 
+ * and control characters, 1 for only control characters).
+ * @return 1 if the character is a space or whitespace character, 0 otherwise.
  */
 int	ft_isspace(int c, int mode)
 {
-	//update brief
 	if (mode == 0)
 	{
 		if ((c == 32) || (c > 8 && c < 14))
@@ -75,19 +77,21 @@ int	ft_isspace(int c, int mode)
 }
 
 /**
- * @brief Removes leading and trailing whitespace from a string in place.
+ * @brief Strips whitespace characters from the beginning and end of a string.
  * 
- * Trims leading and trailing whitespace characters from the given string, 
- * modifying it directly. The function ensures the resulting string is 
- * null-terminated and handles empty or fully whitespace strings correctly.
+ * This function removes leading and trailing whitespace characters from 
+ * the given string. The characters considered as whitespace are determined 
+ * by the `ft_isspace` function, and the behavior can be modified using the 
+ * `mode` parameter. If the `mode` is 0, it removes spaces, tabs, and other 
+ * control characters. If the `mode` is 1, it only removes control characters.
  * 
- * @param str The string to be stripped, as a null-terminated char array. 
- *            If the string is NULL or empty, it is returned unchanged.
- * @return A pointer to the modified string.
+ * @param str The string to strip, modified in place.
+ * @param mode The mode determining which characters to strip (0 for space 
+ * and control characters, 1 for only control characters).
+ * @return The modified string with leading and trailing whitespace removed.
  */
 char	*ft_strip(char *str, int mode)
 {
-	//update brief
 	int		start;
 	int		end;
 	int		i;
@@ -113,37 +117,6 @@ char	*ft_strip(char *str, int mode)
 		str[i] = '\0';
 	}
 	return (str);
-}
-
-/**
- * @brief Checks if a string contains only numeric characters.
- * 
- * Verifies whether the given string consists exclusively of digits (0-9). 
- * The function iterates over each character in the string and checks if each 
- * one is a valid digit. If any non-digit character is found, the function 
- * returns false.
- * 
- * @param nbr The string to check, as a null-terminated char array.
- * @return 1 if the string is entirely numeric, 0 otherwise.
- */
-int	ft_isnumeric(char *nbr)
-{
-	int	i;
-
-	i = 0;
-	while (nbr[i])
-	{
-		if (!ft_isdigit(nbr[i]))
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
-int	ft_arraytohex(unsigned char *rgb)
-{
-	//brief
-	return (rgb[0] << 16 | rgb[1] << 8 | rgb[2]);
 }
 
 /* DEBUG */
