@@ -1,16 +1,16 @@
 #include "../../includes/cub3d.h"
 
-static int	ft_get_pixel_color(int x, int y, t_image *source)
-{
-	char	*addr;
-	char	*dst;
-	int		offset;
+// static int	ft_get_pixel_color(int x, int y, t_image *source)
+// {
+// 	char	*addr;
+// 	char	*dst;
+// 	int		offset;
 
-	addr = source->addr ;
-	offset = (y * source->line_len) + (x * (source->bpp / 8));
-	dst = offset + addr;
-	return (*(unsigned int *)dst);
-}
+// 	addr = source->addr ;
+// 	offset = (y * source->line_len) + (x * (source->bpp / 8));
+// 	dst = offset + addr;
+// 	return (*(unsigned int *)dst);
+// }
 
 void	ft_paint_source_on_hud(t_cub *cub, t_image *source, int pos_x, int pos_y)
 {
