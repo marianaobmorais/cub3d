@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: marianamorais <marianamorais@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:26:59 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/03/20 19:24:13 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/03/21 11:09:44 by marianamora      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,16 +88,27 @@ typedef struct s_ipoint
 	int	y;
 }	t_ipoint;
 
-typedef struct s_texture
+// typedef struct s_texture
+// {
+// 	void	*img_ptr;
+// 	char	*addr;
+// 	int		width;
+// 	int		height;
+// 	int		bpp;
+// 	int		line_len;
+// 	int		endian;
+// }	t_texture;
+
+typedef struct s_image
 {
 	void	*img_ptr;
 	char	*addr;
-	int		width;
-	int		height;
 	int		bpp;
 	int		line_len;
 	int		endian;
-}	t_texture;
+	int		width; //new
+	int		height; //new
+}	t_image;
 
 typedef struct s_raycast
 {
@@ -121,10 +132,10 @@ typedef struct s_raycast
 	int				wall_start;
 	int				wall_end;
 	t_directions	hit_side;
-	t_texture		north_texture;
-	t_texture		south_texture;
-	t_texture		east_texture;
-	t_texture		west_texture;
+	t_image			north_texture;
+	t_image			south_texture;
+	t_image			east_texture;
+	t_image			west_texture;
 }	t_raycast;
 
 typedef struct s_map
@@ -146,17 +157,6 @@ typedef struct s_map
 	t_directions	direction;
 }	t_map;
 
-typedef struct s_image
-{
-	void	*img_ptr;
-	char	*addr;
-	int		bpp;
-	int		line_len;
-	int		endian;
-	int		width; //new
-	int		height; //new
-}	t_image;
-
 typedef struct s_cub
 {
 	void		*mlx;
@@ -177,7 +177,7 @@ typedef struct s_cub
 
 /* ft_init_structs.c */
 
-t_cub	*ft_init_structs(t_cub *cub, char *argv);
+t_cub			*ft_init_structs(t_cub *cub, char *argv);
 
 /* ft_handle_error.c */
 
@@ -192,6 +192,7 @@ void	ft_free_vector(char **vector);
 
 /* ft_loadmap.c */
 
+
 void	ft_load_map(char *const filepath, t_cub *cub);
 
 /* ft_map_parser.c */
@@ -205,6 +206,7 @@ t_parser_status	ft_add_texture(char *line, t_cub *game, char *identifier, \
 	t_directions direction);
 	
 /* parser_utils.c */
+
 
 bool	ft_access(char *filepath);
 bool	ft_is_ext(char *filename, char *ext);
@@ -229,41 +231,43 @@ bool	ft_valid_wall(char *line, char *previous_line, bool first_or_last);
 
 /* ft_run_game.c */
 
-void	ft_put_image(t_cub *cub);
+void			ft_put_image(t_cub *cub);
 
-/* ft_put_pixel.c */
+/* pixel_utils.c */
 
-void	ft_put_pixel(t_image *img, int x, int y, int color);
+void			ft_put_pixel(t_image *img, int x, int y, int color);
+unsigned int	ft_get_pixel_color(t_image source, int w, int h);
 
 /* hook_utils.c */
 
 int		ft_key_input(int keysym, t_cub *cub);
 int		ft_close_window(t_cub *cub);
 
-void	ft_put_image(t_cub *cub);
+
+void			ft_put_image(t_cub *cub); //organize this
 
 /* move_utils.c */
 
-void	ft_move_left(t_cub *cub, double *tmp_x, double *tmp_y);
-void	ft_move_right(t_cub *cub, double *tmp_x, double *tmp_y);
-void	ft_move_up(t_cub *cub, double *tmp_x, double *tmp_y);
-void	ft_move_down(t_cub *cub, double *tmp_x, double *tmp_y);
-void	ft_update_position(t_cub *cub, double tmp_x, double tmp_y);
+void			ft_move_left(t_cub *cub, double *tmp_x, double *tmp_y);
+void			ft_move_right(t_cub *cub, double *tmp_x, double *tmp_y);
+void			ft_move_up(t_cub *cub, double *tmp_x, double *tmp_y);
+void			ft_move_down(t_cub *cub, double *tmp_x, double *tmp_y);
+void			ft_update_position(t_cub *cub, double tmp_x, double tmp_y);
 
 /* ft_init_raycast.c */
 
-void	ft_init_raycast(t_cub*cub);
+void			ft_init_raycast(t_cub*cub);
 
 /* ft_render_walls.c */
 
-void	ft_render_walls(t_cub *cub);
+void			ft_render_walls(t_cub *cub);
 
 /* ft_paint_ray.c */
 
-void	ft_paint_ray(t_cub *cub, int w, t_texture texture);
+void			ft_paint_ray(t_cub *cub, int w, t_image texture);
 
 /* ft_dda.c */
 
-void	ft_dda(t_raycast *ray, t_map *map, bool *hit_wall);
+void			ft_dda(t_raycast *ray, t_map *map, bool *hit_wall);
 
 #endif //CUB3D_H

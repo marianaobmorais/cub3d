@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init_structs.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: marianamorais <marianamorais@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:32:10 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/03/20 19:39:44 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/03/21 10:59:05 by marianamora      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,10 @@ static void	ft_init_texture(t_cub *cub)
 	t_raycast	*ray;
 
 	ray = cub->raycast;
-	ft_memset(&ray->north_texture, 0, sizeof(t_texture));
-	ft_memset(&ray->south_texture, 0, sizeof(t_texture));
-	ft_memset(&ray->east_texture, 0, sizeof(t_texture));
-	ft_memset(&ray->west_texture, 0, sizeof(t_texture));
+	ft_memset(&ray->north_texture, 0, sizeof(t_image));
+	ft_memset(&ray->south_texture, 0, sizeof(t_image));
+	ft_memset(&ray->east_texture, 0, sizeof(t_image));
+	ft_memset(&ray->west_texture, 0, sizeof(t_image));
 	ray->north_texture.img_ptr = mlx_xpm_file_to_image(cub->mlx,
 			cub->map->north_texture, &ray->north_texture.width,
 			&ray->north_texture.height);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_put_pixel.c                                     :+:      :+:    :+:   */
+/*   pixel_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: marianamorais <marianamorais@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:34:49 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/03/20 18:37:56 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/03/21 11:05:20 by marianamora      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,17 @@ void	ft_put_pixel(t_image *img, int x, int y, int color)
 	offset = 0;
 	offset = (y * img->line_len) + (x * (img->bpp / 8));
 	*((unsigned int *)(offset + img->addr)) = color;
+}
+
+unsigned int	ft_get_pixel_color(t_image source, int w, int h)
+{
+	//add brief
+	char	*color;
+	int		offset;
+
+	if (!source.addr || w < 0 || w >= source.width || h < 0 || h >= source.height)
+		return (0);
+	offset = (h * source.line_len + w * (source.bpp / 8));
+	color = source.addr + offset;
+	return (*(unsigned int *)color);
 }

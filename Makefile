@@ -14,7 +14,7 @@ SRCS = $(SRCS_DIR)/main.c \
 	$(SRCS_DIR)/ft_put_image.c \
 	$(SRCS_DIR)/hook_utils.c \
 	$(SRCS_DIR)/ft_handle_error.c \
-	$(SRCS_DIR)/ft_put_pixel.c \
+	$(SRCS_DIR)/pixel_utils.c \
 	$(SRCS_DIR)/ft_clean_game.c \
 	$(SRCS_DIR)/ft_init_structs.c \
 	$(SRCS_DIR)/move_utils.c \

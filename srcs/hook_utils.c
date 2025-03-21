@@ -45,13 +45,14 @@ void	ft_manage_movements(int keysym, t_cub *cub)
 		ft_move_up(cub, &tmp_x, &tmp_y);
 	if (cub->started == true && (keysym == XK_S || keysym == XK_s))
 		ft_move_down(cub, &tmp_x, &tmp_y);
-	if (cub->map->matrix[(int)tmp_x][(int)tmp_y] != '1')
+	if (cub->started == true && cub->map->matrix[(int)tmp_x][(int)tmp_y] != '1')
 		ft_update_position(cub, tmp_x, tmp_y);
-	if (keysym == XK_Left)
+	if (cub->started == true && keysym == XK_Left)
 		ft_rotate(cub, MOVE_SPEED);
-	if (keysym == XK_Right)
+	if (cub->started == true && keysym == XK_Right)
 		ft_rotate(cub, -MOVE_SPEED);
-	ft_put_image(cub);
+	if (cub->started == true)
+		ft_put_image(cub);
 }
 
 void	ft_manage_exit(int keysym, t_cub *cub)

@@ -1,19 +1,19 @@
 #include "../../includes/cub3d.h"
 
-static unsigned int	ft_get_pixel_color(t_texture texture, int w, int h)
-{
-	char	*color;
-	int		offset;
+// static unsigned int	ft_get_pixel_color(t_image source, int w, int h)
+// {
+// 	char	*color;
+// 	int		offset;
 
-	if (!texture.addr || w < 0 || w >= texture.width || h < 0 || h >= texture.height)
-		return (0);
-	offset = (h * texture.line_len + w * (texture.bpp / 8));
-	color = texture.addr + offset;
-	//printf("color: %d, ", *color); //debug
-	return (*(unsigned int *)color);
-}
+// 	if (!source.addr || w < 0 || w >= source.width || h < 0 || h >= source.height)
+// 		return (0);
+// 	offset = (h * source.line_len + w * (source.bpp / 8));
+// 	color = source.addr + offset;
+// 	//printf("color: %d, ", *color); //debug
+// 	return (*(unsigned int *)color);
+// }
 
-void	ft_paint_ray(t_cub *cub, int window_w, t_texture texture)
+void	ft_paint_ray(t_cub *cub, int window_w, t_image texture)
 {
 	double			step;
 	int				texture_w;

@@ -19,11 +19,11 @@ int	ft_get_pixel_color_other(int x, int y, t_image *source)
 	char	*dst;
 	int		offset;
 
-	addr = source->addr ;
-	offset = (y * source->line_len) + (x * (source->bpp / 8));
-	dst = offset + addr;
-	return (*(unsigned int *)dst);
-}
+// 	addr = source->addr ;
+// 	offset = (y * source->line_len) + (x * (source->bpp / 8));
+// 	dst = offset + addr;
+// 	return (*(unsigned int *)dst);
+// }
 
 /**
  * @brief Paints the source image onto the HUD at a specific position.
