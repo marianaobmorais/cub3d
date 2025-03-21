@@ -23,6 +23,7 @@ void	ft_init_breads(t_cub *cub)
 	cub->hud->breads->addr = mlx_get_data_addr(cub->hud->breads->img_ptr, \
 		&cub->hud->breads->bpp, &cub->hud->breads->line_len, \
 		&cub->hud->breads->endian);
+	//protect img_ptr and addr
 }
 
 /**
@@ -48,6 +49,7 @@ void	ft_init_viewmodel(t_cub *cub)
 	cub->hud->viewmodel->addr = mlx_get_data_addr(cub->hud->viewmodel->img_ptr, \
 		&cub->hud->viewmodel->bpp, &cub->hud->viewmodel->line_len, \
 		&cub->hud->viewmodel->endian);
+	//protect img_ptr and addr
 }
 
 /**
@@ -74,6 +76,7 @@ void	ft_init_breadcrumbs(t_cub *cub)
 		cub->hud->breadcrumbs->img_ptr, \
 		&cub->hud->breadcrumbs->bpp, &cub->hud->breadcrumbs->line_len, \
 		&cub->hud->breadcrumbs->endian);
+	//protect img_ptr and addr
 }
 
 /**
@@ -99,6 +102,7 @@ void	ft_init_watch(t_cub *cub)
 	cub->hud->watch->addr = mlx_get_data_addr(cub->hud->watch->img_ptr, \
 		&cub->hud->watch->bpp, &cub->hud->watch->line_len, \
 		&cub->hud->watch->endian);
+	//protect img_ptr and addr
 }
 
 /**
@@ -124,6 +128,7 @@ void	ft_init_door(t_cub *cub)
 	cub->hud->door->addr = mlx_get_data_addr(cub->hud->door->img_ptr, \
 		&cub->hud->door->bpp, &cub->hud->door->line_len, \
 		&cub->hud->door->endian);
+	//protect img_ptr and addr
 }
 
 /**
