@@ -1,23 +1,23 @@
 #include "../../includes/cub3d.h"
 
-/**
- * @brief Retrieves the color of a specific pixel from an image.
- *
- * This function calculates the pixel's memory address based on the 
- * given coordinates (x, y) and returns the color value at that 
- * position in the image.
- *
- * @param x X-coordinate of the pixel.
- * @param y Y-coordinate of the pixel.
- * @param source Pointer to the image from which the pixel color is fetched.
- * 
- * @return The color of the pixel at the given coordinates.
- */
-int	ft_get_pixel_color_other(int x, int y, t_image *source)
-{
-	char	*addr;
-	char	*dst;
-	int		offset;
+// /**
+//  * @brief Retrieves the color of a specific pixel from an image.
+//  *
+//  * This function calculates the pixel's memory address based on the 
+//  * given coordinates (x, y) and returns the color value at that 
+//  * position in the image.
+//  *
+//  * @param x X-coordinate of the pixel.
+//  * @param y Y-coordinate of the pixel.
+//  * @param source Pointer to the image from which the pixel color is fetched.
+//  * 
+//  * @return The color of the pixel at the given coordinates.
+//  */
+// int	ft_get_pixel_color_other(int x, int y, t_image *source)
+// {
+// 	char	*addr;
+// 	char	*dst;
+// 	int		offset;
 
 // 	addr = source->addr ;
 // 	offset = (y * source->line_len) + (x * (source->bpp / 8));
@@ -50,11 +50,10 @@ void	ft_paint_source_on_hud(t_cub *cub, t_image *source, int pos_x, int pos_y)
 		x = 0;
 		while (x < source->width)
 		{
-			source_color = ft_get_pixel_color_other(x, y, source);
+			source_color = ft_get_pixel_color(source, x, y);
 			if (source_color == IGNORE)
 			{
-				default_color = ft_get_pixel_color_other(x + pos_x, y + pos_y, \
-					cub->image);
+				default_color = ft_get_pixel_color(cub->image, x + pos_x, y + pos_y);
 				ft_put_pixel(cub->image, x + pos_x, y + pos_y, default_color);
 			}
 			else

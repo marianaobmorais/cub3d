@@ -11,7 +11,7 @@ MLIBX = ./minilibx-linux/libmlx.a
 MLIBX_DIR = ./minilibx-linux
 
 SRCS = $(SRCS_DIR)/main.c \
-	$(SRCS_DIR)/ft_put_image.c \
+	$(SRCS_DIR)/ft_handle_img.c \
 	$(SRCS_DIR)/hook_utils.c \
 	$(SRCS_DIR)/ft_handle_error.c \
 	$(SRCS_DIR)/pixel_utils.c \
