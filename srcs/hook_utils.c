@@ -51,7 +51,7 @@ void	ft_manage_movements(int keysym, t_cub *cub)
 		ft_rotate(cub, MOVE_SPEED);
 	if (keysym == XK_Right)
 		ft_rotate(cub, -MOVE_SPEED);
-	ft_put_image(cub);
+	ft_handle_img(cub);
 }
 
 void	ft_manage_exit(int keysym, t_cub *cub)

@@ -31,5 +31,5 @@ void	ft_put_image(t_cub *cub)
 {
 	ft_render_bg(cub->image, cub->map->ceiling_hex, cub->map->floor_hex);
 	ft_render_walls(cub);
-	mlx_put_image_to_window(cub->mlx, cub->window, cub->image->img_ptr, 0, 0);
+	//mlx_put_image_to_window(cub->mlx, cub->window, cub->image->img_ptr, 0, 0);
 }

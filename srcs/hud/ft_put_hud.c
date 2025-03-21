@@ -94,4 +94,5 @@ void	ft_put_hud(t_cub *cub)
 	ft_paint_source_on_hud(cub, cub->hud->breads, 820, 0);
 	ft_paint_minimap_on_hud(cub); //minimap
 	//ft_door(cub, cub->hud->door, 420, 300);
+	mlx_put_image_to_window(cub->mlx, cub->window, cub->image->img_ptr, 0, 0);
 }
