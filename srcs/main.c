@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/21 19:38:54 by mariaoli          #+#    #+#             */
+/*   Updated: 2025/03/21 19:48:14 by mariaoli         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/cub3d.h"
 
 int	main(int argc, char **argv)
@@ -8,8 +20,6 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 		ft_handle_error(strerror(EINVAL), cub);
 	cub = ft_init_structs(cub, argv[1]);
-	//ft_print_map(cub->map); //debug
-	//ft_put_image(cub);
 	mlx_loop_hook(cub->mlx, ft_put_start_screen, cub);
 	mlx_hook(cub->window, KeyPress, KeyPressMask, ft_key_input, cub);
 	mlx_hook(cub->window, DestroyNotify, NoEventMask, ft_close_window, cub);

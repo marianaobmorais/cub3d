@@ -1,5 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_init_raycast.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/21 20:27:19 by mariaoli          #+#    #+#             */
+/*   Updated: 2025/03/21 20:27:48 by mariaoli         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/cub3d.h"
 
+/**
+ * @brief Initializes the player's direction and camera plane for facing North.
+ * 
+ * Sets the player's direction vector to face North and adjusts the camera plane
+ * accordingly for correct field of view calculations.
+ * 
+ * @param raycast Pointer to the raycasting structure.
+ */
 static void	ft_init_north(t_raycast *raycast)
 {
 	raycast->player_dir.y = 0;
@@ -8,6 +28,14 @@ static void	ft_init_north(t_raycast *raycast)
 	raycast->camera_plane.x = 0;
 }
 
+/**
+ * @brief Initializes the player's direction and camera plane for facing South.
+ * 
+ * Sets the player's direction vector to face South and adjusts the camera plane
+ * accordingly for correct field of view calculations.
+ * 
+ * @param raycast Pointer to the raycasting structure.
+ */
 static void	ft_init_south(t_raycast *raycast)
 {
 	raycast->player_dir.y = 0;
@@ -16,6 +44,14 @@ static void	ft_init_south(t_raycast *raycast)
 	raycast->camera_plane.x = 0;
 }
 
+/**
+ * @brief Initializes the player's direction and camera plane for facing East.
+ * 
+ * Sets the player's direction vector to face East and adjusts the camera plane 
+ * accordingly for correct field of view calculations.
+ * 
+ * @param raycast Pointer to the raycasting structure.
+ */
 static void	ft_init_east(t_raycast *raycast)
 {
 	raycast->player_dir.y = 1;
@@ -24,6 +60,14 @@ static void	ft_init_east(t_raycast *raycast)
 	raycast->camera_plane.x = 0.66;
 }
 
+/**
+ * @brief Initializes the player's direction and camera plane for facing West.
+ * 
+ * Sets the player's direction vector to face West and adjusts the camera plane 
+ * accordingly for correct field of view calculations.
+ * 
+ * @param raycast Pointer to the raycasting structure.
+ */
 static void	ft_init_west(t_raycast *raycast)
 {
 	raycast->player_dir.y = -1;
@@ -32,6 +76,17 @@ static void	ft_init_west(t_raycast *raycast)
 	raycast->camera_plane.x = -0.66;
 }
 
+/**
+ * @brief Initializes the raycasting structure and sets up player position and
+ *        direction.
+ * 
+ * Allocates memory for the raycasting structure, sets the player's position in
+ * the world, and calls the appropriate direction initialization function based 
+ * on the player's starting direction from the map data. Also initializes
+ * movement speed.
+ * 
+ * @param cub Pointer to the main game structure.
+ */
 void	ft_init_raycast(t_cub *cub)
 {
 	cub->raycast = (t_raycast *)malloc(sizeof(t_raycast));

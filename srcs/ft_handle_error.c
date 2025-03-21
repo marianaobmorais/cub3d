@@ -1,27 +1,37 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_handle_error.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/21 20:38:58 by mariaoli          #+#    #+#             */
+/*   Updated: 2025/03/21 20:41:09 by mariaoli         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/cub3d.h"
 
 /**
- * @brief Handles errors, logs a message, cleans resources, and exits the
- *        program.
+ * @brief Handles errors by printing an error message and cleaning up the game
+ *        state.
  * 
- * Logs the provided error message or a system error message if no specific 
- * message is given. Cleans up all allocated resources within the game 
- * structure (t_game) and terminates the program. The exit code and output 
- * destination for the error message should be specified during implementation.
+ * This function prints an error message to the standard error output, cleans up
+ * the resources used by the game (such as memory allocations), and then exits
+ * the program with a status code of 1 to indicate failure. If no error message
+ * is provided, a system error message is printed instead.
  * 
- * @param error_msg The custom error message to display, or NULL to display 
- *                  a system error message.
- * @param game A pointer to the game structure (t_game) to clean up before 
- *            program termination.
+ * @param error_msg The error message to be printed (can be NULL for system
+ *        error).
+ * @param cub Pointer to the main game structure, used for cleanup.
  */
 void	ft_handle_error(const char *error_msg, t_cub *cub)
 {
-	//update brief
-	printf("Error\n"); //TODO stderr
+	ft_fprintf(2, "Error\n");
 	if (error_msg)
-		printf("%s\n", error_msg); //TODO stderr
+		ft_fprintf(2, "%s\n", error_msg);
 	else
 		perror("");
 	ft_clean_game(cub);
-	exit(1); // shouldn't exit with 0
+	exit(1);
 }
