@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 19:38:45 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/03/21 19:38:46 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/03/22 18:53:42 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ void	ft_move_up(t_cub *cub, double *tmp_x, double *tmp_y)
 /**
  * @brief Moves the player backward.
  *
- * Adjusts the temporary player position by moving backward based on the player's
- * direction vector and movement speed.
+ * Adjusts the temporary player position by moving backward based on the
+ * player's direction vector and movement speed.
  *
  * @param cub Pointer to the main game structure.
  * @param tmp_x Pointer to the temporary x-coordinate of the player.

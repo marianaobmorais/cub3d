@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 20:02:43 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/03/21 20:55:23 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/03/22 18:54:02 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ static void	ft_get_wall_height(t_raycast *ray)
 		ray->perp_wall_dist = ray->dist_to_x - ray->delta_dist_x;
 	else
 		ray->perp_wall_dist = ray->dist_to_y - ray->delta_dist_y;
-	ray->wall_height = (int)(HEIGHT / ray->perp_wall_dist); //ou can of course also multiply it with another value, for example 2*h, if you want to walls to be higher or lower.
+	ray->wall_height = (int)(HEIGHT / ray->perp_wall_dist);
 	ray->wall_start = -(ray->wall_height / 2) + (HEIGHT / 2);
 	if (ray->wall_start < 0)
 		ray->wall_start = 0;
