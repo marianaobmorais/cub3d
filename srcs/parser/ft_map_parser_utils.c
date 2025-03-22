@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_map_parser_utils.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/22 18:55:07 by joneves-          #+#    #+#             */
+/*   Updated: 2025/03/22 18:55:08 by joneves-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/cub3d.h"
 
 /**
@@ -62,29 +74,29 @@ t_parser_status	ft_add_texture(char *line, t_cub *cub, char *identifier, \
 		filepath = ft_strip(ft_strdup(tmp[1]), 0);
 		ft_free_vector(tmp);
 		if (!ft_is_ext(filepath, ".xpm"))
-			return (free(filepath), ERROR); //ext
+			return (free(filepath), ERROR);
 		if (!ft_access(filepath))
-			return (free(filepath), ERROR); // file
+			return (free(filepath), ERROR);
 		if (!ft_set_texture(cub, filepath, direction))
-			return (free(filepath), ERROR); //duplicate
+			return (free(filepath), ERROR);
 	}
 	return (NO_BUFFER);
 }
 
 /**
- * @brief Buffers the content of a line and returns a new concatenated string.
+ * ft_buffer - Appends a line to the existing map buffer or handles empty
+ * lines that appear after the map has started.
  *
- * This function checks if the line is empty and handles errors accordingly. 
- * If the line is not empty, it concatenates the `buffer` and the `line`
- * into a new string and frees the previous `buffer`. If any error occurs
- * while handling the line, an error message is displayed.
+ * @buffer: Current map buffer (may be NULL on first call).
+ * @line: Line to append to the buffer.
+ * @start: Indicates if this is the beginning of the map (1 if true).
+ * @cub: Pointer to the main game struct, used for error handling and file
+ *       access.
  *
- * @param buffer The existing string buffer.
- * @param line The new line to be added to the buffer.
- * @param start A flag indicating the start of processing.
- * @param cub The main structure containing the game-related data.
+ * If an empty line appears after the map has started (start == 0), the
+ * function frees all resources, skips remaining lines, and throws an error.
  *
- * @return A new concatenated string or NULL if the line is empty.
+ * Returns the updated buffer with the new line appended, or NULL on error.
  */
 char	*ft_buffer(char *buffer, char *line, int start, t_cub *cub)
 {
@@ -96,6 +108,12 @@ char	*ft_buffer(char *buffer, char *line, int start, t_cub *cub)
 		line = NULL;
 		free(buffer);
 		buffer = NULL;
+		line = get_next_line(cub->fd);
+		while (line)
+		{
+			free(line);
+			line = get_next_line(cub->fd);
+		}
 		ft_handle_error("Map: error new line", cub);
 	}
 	if (ft_is_empty(line) == 1)
@@ -120,4 +138,22 @@ char	*ft_buffer(char *buffer, char *line, int start, t_cub *cub)
 int	ft_arraytohex(unsigned char *rgb)
 {
 	return (rgb[0] << 16 | rgb[1] << 8 | rgb[2]);
+}
+
+/**
+ * ft_safe_split - Safely splits the map buffer into lines.
+ *
+ * @buffer: Map buffer containing the full map as a string.
+ * @cub: Pointer to the main game struct, used for error handling.
+ *
+ * If the buffer is NULL, triggers an error. Otherwise, splits the buffer
+ * into an array of strings using newline as the delimiter.
+ *
+ * Returns the resulting array of strings (map matrix).
+ */
+char	**ft_safe_split(char *buffer, t_cub *cub)
+{
+	if (!buffer)
+		ft_handle_error(MSG_MAP, cub);
+	return (ft_split(buffer, '\n'));
 }

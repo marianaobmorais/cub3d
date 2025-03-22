@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 15:44:19 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/02/02 16:52:09 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/03/22 15:54:39 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static size_t	ft_wordcount(char const *s, char c)
 
 	count = 0;
 	inword = 0;
-	while (*s != '\0')
+	while (s && *s != '\0')
 	{
 		if (*s == c)
 			inword = 0;

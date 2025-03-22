@@ -6,9 +6,13 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:26:59 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/03/22 17:03:08 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/03/22 19:00:34 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
+
+
 
 #ifndef CUB3D_H
 # define CUB3D_H
@@ -190,7 +194,8 @@ void			ft_map_parser(int fd, t_cub *cub, int i);
 char			*ft_buffer(char *buffer, char *line, int start, t_cub *cub);
 t_parser_status	ft_add_texture(char *line, t_cub *game, char *identifier, \
 	t_directions direction);
-
+char	**ft_safe_split(char *buffer, t_cub *cub);
+	
 /* parser_utils.c */
 
 bool			ft_access(char *filepath);
