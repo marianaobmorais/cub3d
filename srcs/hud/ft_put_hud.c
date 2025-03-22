@@ -19,11 +19,11 @@ int	ft_get_pixel_color_other(int x, int y, t_image *source)
 	char	*dst;
 	int		offset;
 
-// 	addr = source->addr ;
-// 	offset = (y * source->line_len) + (x * (source->bpp / 8));
-// 	dst = offset + addr;
-// 	return (*(unsigned int *)dst);
-// }
+	addr = source->addr ;
+	offset = (y * source->line_len) + (x * (source->bpp / 8));
+	dst = offset + addr;
+	return (*(unsigned int *)dst);
+}
 
 /**
  * @brief Paints the source image onto the HUD at a specific position.
@@ -76,19 +76,6 @@ void	ft_paint_source_on_hud(t_cub *cub, t_image *source, int pos_x, int pos_y)
  */
 void	ft_put_hud(t_cub *cub)
 {
-	// if (cub->hud->img->img_ptr)
-	// 	mlx_destroy_image(cub->mlx, cub->hud->img->img_ptr);
-	// cub->hud->img->img_ptr = mlx_new_image(cub->mlx, WIDTH, HEIGHT);
-	// if (!cub->hud->img->img_ptr)
-	// 	ft_handle_error("malloc: hud->img_ptr", cub);
-	// cub->hud->img->bpp = 0;
-	// cub->hud->img->line_len = 0;
-	// cub->hud->img->endian = 0;
-	// cub->hud->img->addr = mlx_get_data_addr(cub->hud->img->img_ptr, 
-	// 	&cub->hud->img->bpp, &cub->hud->img->line_len, &cub->hud->img->endian);
-	// if (!cub->hud->img->addr)
-	// 	ft_handle_error("malloc: img->addr", cub);
-	//ft_paint_source_on_hud(cub, cub->image, 0, 0); //paint main image
 	ft_paint_source_on_hud(cub, cub->hud->watch, 0, 0);
 	ft_paint_source_on_hud(cub, cub->hud->viewmodel, 390, 420);
 	ft_paint_source_on_hud(cub, cub->hud->breads, 820, 0);

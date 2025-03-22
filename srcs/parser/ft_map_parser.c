@@ -1,20 +1,30 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_map_parser.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/22 18:55:42 by joneves-          #+#    #+#             */
+/*   Updated: 2025/03/22 18:55:43 by joneves-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/cub3d.h"
 
 /**
- * @brief Adds RGB color values to the specified color channel (floor/ceiling).
+ * ft_add_rgb - Parses a line to extract RGB values and stores them.
  *
- * This function processes a line that contains RGB values (in the format of
- * `R,G,B`) and stores them in the provided `rgb` array. The RGB values must
- * be numeric and within the valid range of 0 to 255.
+ * @line: Line containing the RGB values, expected in "R,G,B" format.
+ * @rgb: Pointer to an RGB array (allocated beforehand).
  *
- * @param line The line containing the RGB values.
- * @param cub The main struct containing the game-related data (not used here).
- * @param rgb The array to store the RGB values (3 elements: R, G, B).
+ * Splits the line by commas, validates each number (0–255), and stores it in
+ * the RGB array. If the format is invalid or values are out of range, frees
+ * all allocated memory and returns ERROR.
  *
- * @return A status code indicating the result of the operation.
- *         Possible values: `NO_BUFFER`, `ERROR`.
+ * Returns NO_BUFFER on success, or ERROR on failure.
  */
-static t_parser_status	ft_add_rgb(char *line, unsigned char *rgb)
+static t_parser_status	ft_add_rgb(char *line, unsigned char **rgb)
 {
 	char	**tmp;
 	int		nbr;
@@ -25,20 +35,22 @@ static t_parser_status	ft_add_rgb(char *line, unsigned char *rgb)
 	while (tmp[i])
 	{
 		if (i > 2)
-			return (free(line), ft_free_vector(tmp), ERROR); //arguments
+			return (free(line), ft_free_vector(tmp), ERROR);
 		ft_strip(tmp[i], 0);
 		if (!ft_isnumeric(tmp[i]))
-			return (free(line), ft_free_vector(tmp), ERROR); //numeric
+			return (free(line), ft_free_vector(tmp), ERROR);
 		nbr = ft_atoi(tmp[i]);
 		if (nbr < 0 || nbr > 255)
-			return (free(line), ft_free_vector(tmp), ERROR); //range
-		rgb[i] = nbr;
-		i++;
+			return (free(line), ft_free_vector(tmp), ERROR);
+		(*rgb)[i++] = (unsigned int) nbr;
 	}
-	ft_free_vector(tmp);
 	if (i < 3)
-		return (free(line), ERROR); //arguments
-	return (free(line), NO_BUFFER);
+	{
+		free(*rgb);
+		*rgb = NULL;
+		return (ft_free_vector(tmp), free(line), ERROR);
+	}
+	return (ft_free_vector(tmp), free(line), NO_BUFFER);
 }
 
 /**
@@ -69,14 +81,14 @@ static t_parser_status	ft_add_color(char *line, t_cub *cub, char *identifier, \
 			cub->map->floor_rgb = malloc(sizeof(unsigned char) * 3);
 			if (!cub->map->floor_rgb)
 				return (free(new_line), ERROR);
-			return (ft_add_rgb(new_line, cub->map->floor_rgb));
+			return (ft_add_rgb(new_line, &cub->map->floor_rgb));
 		}
 		else if (direction == CEILING && !cub->map->ceiling_rgb)
 		{
 			cub->map->ceiling_rgb = malloc(sizeof(unsigned char) * 3);
 			if (!cub->map->ceiling_rgb)
 				return (free(new_line), ERROR);
-			return (ft_add_rgb(new_line, cub->map->ceiling_rgb));
+			return (ft_add_rgb(new_line, &cub->map->ceiling_rgb));
 		}
 		else
 			return (free(new_line), ERROR);
@@ -86,22 +98,48 @@ static t_parser_status	ft_add_color(char *line, t_cub *cub, char *identifier, \
 }
 
 /**
- * @brief Parses a line to get texture or color data for the map.
+ * ft_isfilled - Checks if all required map information has been set.
  *
- * This function checks a given line to identify whether it defines a texture
- * for any of the four map directions (North, South, West, East) or the floor
- * and ceiling colors. Based on the identifier in the line, it calls the
- * appropriate function to process the texture or color data.
+ * @cub: Pointer to the main game struct.
+ * @buffer: Buffer to be freed if an error occurs (can be NULL).
+ * @mode: If 1, return false silently. If 0, free buffer, print error, and
+ *        return false.
  *
- * @param line The line to be parsed.
- * @param cub The main structure containing the game-related data.
- * @param i An index to determine if the line is the first to be processed.
- *
- * @return A status code indicating the result of the parsing. 
- *         Possible values: `NO_BUFFER`, `BUFFER`, `ERROR`.
+ * Returns true if all required textures and colors are filled in the map;
+ * otherwise returns false, optionally triggering an error.
  */
+static bool	ft_isfilled(t_cub *cub, char *buffer, int mode)
+{
+	if (!cub->map->north_texture || !cub->map->south_texture
+		|| !cub->map->west_texture || !cub->map->east_texture
+		|| !cub->map->ceiling_rgb || !cub->map->floor_rgb)
+	{
+		if (mode == 1)
+			return (false);
+		else
+		{
+			return (free(buffer), ft_handle_error(MSG_MAP, cub), false);
+		}
+	}
+	return (true);
+}
+
+/**
+ * ft_get_texture_color - Parses a line to extract texture or color info and
+ * stores it in the game's main struct.
+ *
+ * @line: Line read from the configuration file.
+ * @cub: Pointer to the main game struct.
+ * @i: Index of the current line, used to control error handling.
+ *
+ * Returns a parser status indicating whether the line was valid, should be
+ * buffered, or an error occurred.
+ */
+
 static t_parser_status	ft_get_texture_color(char *line, t_cub *cub, int i)
 {
+	if (ft_is_empty(line) == 1 && ft_isfilled(cub, NULL, 1) == true)
+		return (BUFFER);
 	if (ft_is_empty(line) == 1)
 		return (NO_BUFFER);
 	else if (ft_strnstr(line, "NO", ft_strlen(line)))
@@ -119,34 +157,24 @@ static t_parser_status	ft_get_texture_color(char *line, t_cub *cub, int i)
 	else
 	{
 		if (i == 0)
-		{
 			return (ERROR);
-		}
 		return (BUFFER);
 	}
 	return (NO_BUFFER);
 }
 
 /**
- * @brief Checks if all required map data is filled.
+ * ft_map_parser - Parses the configuration file, extracting textures, colors,
+ * and the map layout. Buffers map lines and fills the map matrix.
  *
- * This function checks whether all the required fields (textures for all four 
- * directions and the ceiling and floor colors) in the map structure are filled.
- * It returns `true` if all fields are filled, and `false` if any are missing.
+ * @fd: File descriptor of the configuration file.
+ * @cub: Pointer to the main game struct.
+ * @i: Line index used to help control error behavior during parsing.
  *
- * @param cub The main structure containing the game-related data.
- *
- * @return `true` if all required map data is filled, or `false` if any 
- *         required data is missing.
+ * Reads each line from the file, processes texture/color identifiers, and
+ * buffers map content. Verifies that required elements are present before
+ * converting the map into a matrix.
  */
-static void	ft_isfilled(t_cub *cub, char *buffer)
-{
-	if (!cub->map->north_texture || !cub->map->south_texture
-		|| !cub->map->west_texture || !cub->map->east_texture
-		|| !cub->map->ceiling_rgb || !cub->map->floor_rgb)
-		return (free(buffer), ft_handle_error(MSG_MAP, cub)); //arguments
-}
-
 void	ft_map_parser(int fd, t_cub *cub, int i)
 {
 	char			*line;
@@ -171,7 +199,7 @@ void	ft_map_parser(int fd, t_cub *cub, int i)
 		line = get_next_line(fd);
 		i++;
 	}
-	ft_isfilled(cub, buffer);
-	cub->map->matrix_tmp = ft_split(buffer, '\n');
+	ft_isfilled(cub, buffer, 0);
+	cub->map->matrix_tmp = ft_safe_split(buffer, cub);
 	return (ft_fill_matrix(cub), free(buffer));
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marianamorais <marianamorais@student.42    +#+  +:+       +#+        */
+/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:26:59 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/03/21 11:09:44 by marianamora      ###   ########.fr       */
+/*   Updated: 2025/03/22 18:45:24 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,6 +204,7 @@ void	ft_map_parser(int fd, t_cub *cub, int i);
 char	*ft_buffer(char *buffer, char *line, int start, t_cub *cub);
 t_parser_status	ft_add_texture(char *line, t_cub *game, char *identifier, \
 	t_directions direction);
+char	**ft_safe_split(char *buffer, t_cub *cub);
 	
 /* parser_utils.c */
 
