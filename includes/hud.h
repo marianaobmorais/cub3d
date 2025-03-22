@@ -42,22 +42,20 @@ typedef struct s_hud
 
 void	ft_init_hud(t_cub *cub);
 
-/* ft_paint_minimap_on_hud.c */
+/* ft_render_minimap_on_hud.c */
 
-void	ft_paint_minimap_on_hud(t_cub *cub);
+void	ft_render_minimap_on_hud(t_cub *cub);
 
-/* ft_paint_minimap_utils.c */
+/* ft_render_minimap_utils.c */
 
 void	ft_put_square(t_image *img, int x, int y, int color);
 void	ft_set_limit_x(t_cub *cub, int map_width);
 void	ft_set_limit_y(t_cub *cub, int map_height);
 void	ft_put_player(t_image *img, int x, int y, int color);
 
-/* ft_put_hud.c */
+/* ft_render_source_on_hud.c */
 
-int		ft_get_pixel_color_other(int x, int y, t_image *source);
-void	ft_paint_source_on_hud(t_cub *cub, t_image *source, int pos_x, int pos_y);
-void	ft_put_hud(t_cub *cub);
+void	ft_render_source_on_hud(t_cub *cub, t_image *source, int pos_x, int pos_y);
 
 /* screens.c */
 
@@ -74,5 +72,6 @@ void	ft_paint_action_on_hud(t_cub *cub, t_image *source, int pos_x, int pos_y);
 void	ft_render_fov_minimap(t_cub *cub);
 void	ft_paint_action_on_hud(t_cub *cub, t_image *source, int pos_x, int pos_y);
 void	ft_hextoarray(int hex, unsigned char *rgb);
+void	ft_door(t_cub *cub, t_image *source, int pos_x, int pos_y);
 
 # endif //HUD_H

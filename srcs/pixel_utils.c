@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pixel_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marianamorais <marianamorais@student.42    +#+  +:+       +#+        */
+/*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:34:49 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/03/21 11:05:20 by marianamora      ###   ########.fr       */
+/*   Updated: 2025/03/22 17:16:25 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,31 @@ void	ft_put_pixel(t_image *img, int x, int y, int color)
 	*((unsigned int *)(offset + img->addr)) = color;
 }
 
-unsigned int	ft_get_pixel_color(t_image source, int w, int h)
+/**
+ * @brief Retrieves the color value of a pixel from an image buffer.
+ * 
+ * This function extracts the color value of the pixel at the specified (w, h) 
+ * coordinates in the given image. It ensures that the coordinates are within 
+ * valid bounds. If the image is invalid or the coordinates are out of bounds, 
+ * an error is handled, and the function returns 0.
+ * 
+ * @param source Pointer to the image structure containing pixel data.
+ * @param w The x-coordinate of the pixel.
+ * @param h The y-coordinate of the pixel.
+ * @param cub Pointer to the main game structure, used for error handling.
+ * @return The color value of the pixel as an unsigned integer.
+ */
+unsigned int	ft_get_pixel_color(t_image *source, int w, int h, t_cub *cub)
 {
-	//add brief
-	char	*color;
-	int		offset;
+	char			*color;
+	int				offset;
+	unsigned int	color_value;
 
-	if (!source.addr || w < 0 || w >= source.width || h < 0 || h >= source.height)
-		return (0);
-	offset = (h * source.line_len + w * (source.bpp / 8));
-	color = source.addr + offset;
-	return (*(unsigned int *)color);
+	if (! source || !source->addr || w < 0 || w > source->width
+		|| h < 0 || h > source->height)
+		return (ft_handle_error("ft_get_pixel_color", cub), 0);
+	offset = (h * source->line_len + w * (source->bpp / 8));
+	color = source->addr + offset;
+	ft_memcpy(&color_value, color, sizeof(unsigned int));
+	return (color_value);
 }

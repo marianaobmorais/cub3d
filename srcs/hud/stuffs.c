@@ -28,16 +28,14 @@ void	ft_paint_action_on_hud(t_cub *cub, t_image *source, int pos_x, int pos_y)
 		x = 0;
 		while (x < source->width)
 		{
-			source_color = ft_get_pixel_color_other(x, y, source);
+			source_color = ft_get_pixel_color(source, x, y, cub);
 			if (source_color == IGNORE) //color to ignore
 			{
-				default_color = ft_get_pixel_color_other(x + pos_x, y + pos_y, cub->image);
+				default_color = ft_get_pixel_color(cub->image, x + pos_x, y + pos_y, cub);
 				ft_put_pixel(cub->hud->img, x, y, default_color);
 			}
 			else
-			{
 				ft_put_pixel(cub->hud->img, x, y, source_color);
-			}
 			x++;
 		}
 		y++;
@@ -125,10 +123,10 @@ void	ft_door(t_cub *cub, t_image *source, int pos_x, int pos_y)
 		x = 0;
 		while (x < source->width)
 		{
-			source_color = ft_get_pixel_color_other(x, y, source);
+			source_color = ft_get_pixel_color(source, x, y, cub);
 			if (source_color == 0x00FFFF) //color to ignore
 			{
-				default_color = ft_get_pixel_color_other(x + pos_x, y + pos_y, cub->image);
+				default_color = ft_get_pixel_color(cub->image, x + pos_x, y + pos_y, cub);
 				blend = ft_blendcolors(default_color, 0x00FFF0, 0.5);
 				ft_put_pixel(cub->image, x + pos_x, y + pos_y, blend);
 			}

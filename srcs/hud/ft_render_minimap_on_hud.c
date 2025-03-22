@@ -72,7 +72,7 @@ void	ft_colorize_minimap(t_cub *cub, int map_width, int map_height)
  *
  * @param cub Pointer to the main game structure.
  */
-void	ft_paint_minimap_on_hud(t_cub *cub)
+void	ft_render_minimap_on_hud(t_cub *cub)
 {
 	ft_bg_minimap(cub, MINI_HEIGHT, MINI_WIDTH, GRAY_2);
 	ft_set_limit_x(cub, cub->map->height);

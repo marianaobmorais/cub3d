@@ -1,12 +1,31 @@
 #include "../includes/cub3d.h"
 
+/**
+ * @brief Closes the game window and exits the program.
+ *
+ * Cleans up allocated resources, calls the game cleanup function, and 
+ * terminates the program with an exit status of 0.
+ *
+ * @param cub Pointer to the main game structure.
+ * @return Always returns 0.
+ */
 int	ft_close_window(t_cub *cub)
 {
 	ft_clean_game(cub);
 	exit(0);
 }
 
-void	ft_rotate(t_cub *cub, double angle)
+/**
+ * @brief Rotates the player's direction and camera plane.
+ *
+ * Applies a rotation matrix to the player's direction vector and camera plane 
+ * based on the given angle, allowing the player to look left or right.
+ *
+ * @param cub Pointer to the main game structure.
+ * @param angle The rotation angle in radians (positive for left, negative for
+ *        right).
+ */
+static void	ft_rotate(t_cub *cub, double angle)
 {
 	double	old_dir_x;
 	double	old_plane_x;
@@ -24,13 +43,18 @@ void	ft_rotate(t_cub *cub, double angle)
 		+ cub->raycast->camera_plane.y * cos(angle);
 }
 
-void	ft_handle_img(t_cub *cub)
-{
-	ft_put_image(cub);
-	ft_put_hud(cub);
-}
-
-void	ft_manage_movements(int keysym, t_cub *cub)
+/**
+ * @brief Handles player movement and rotation based on key input.
+ *
+ * Processes key inputs for movement (W, A, S, D) and rotation (Left, Right).
+ * Updates the player's position if movement is allowed, ensuring the new 
+ * position does not collide with walls. If movement occurs, it triggers an 
+ * image update.
+ *
+ * @param keysym The keycode representing the pressed key.
+ * @param cub Pointer to the main game structure.
+ */
+static void	ft_manage_movements(int keysym, t_cub *cub)
 {
 	double	tmp_x;
 	double	tmp_y;
@@ -52,22 +76,23 @@ void	ft_manage_movements(int keysym, t_cub *cub)
 	if (cub->started == true && keysym == XK_Right)
 		ft_rotate(cub, -MOVE_SPEED);
 	if (cub->started == true)
-		ft_put_image(cub);
+		ft_handle_img(cub);
 }
 
-void	ft_manage_exit(int keysym, t_cub *cub)
+static void	ft_manage_exit(int keysym, t_cub *cub)
 {
+	//add brief
 	static int	dir;
 
 	if (keysym == XK_W || keysym == XK_w || keysym == XK_Up)
 	{
 		dir = 1;
-		ft_put_end_screen(cub, dir); //up
+		ft_put_end_screen(cub, dir);
 	}
 	if (keysym == XK_S || keysym == XK_s || keysym == XK_Down)
 	{
 		dir = 0;
-		ft_put_end_screen(cub, dir); //down
+		ft_put_end_screen(cub, dir);
 	}
 	if (keysym == XK_Return && dir == 1)
 		ft_close_window(cub);
@@ -80,6 +105,7 @@ void	ft_manage_exit(int keysym, t_cub *cub)
 
 int	ft_key_input(int keysym, t_cub *cub)
 {
+	//add brief
 	if (cub->started == false && keysym == XK_Return)
 	{
 		cub->started = true;
