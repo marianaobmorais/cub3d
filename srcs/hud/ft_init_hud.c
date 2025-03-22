@@ -48,7 +48,7 @@ void	ft_init_viewmodel(t_cub *cub)
 	cub->hud->viewmodel->addr = mlx_get_data_addr(cub->hud->viewmodel->img_ptr, \
 		&cub->hud->viewmodel->bpp, &cub->hud->viewmodel->line_len, \
 		&cub->hud->viewmodel->endian);
-		if (!cub->hud->viewmodel->img_ptr)
+	if (!cub->hud->viewmodel->img_ptr)
 		ft_handle_error("cub->hud->viewmodel->img_ptr", cub);
 	if (!cub->hud->viewmodel->addr)
 		ft_handle_error("cub->hud->viewmodel->addr", cub);
@@ -151,11 +151,13 @@ void	ft_init_hud(t_cub *cub)
 	cub->hud = (t_hud *) malloc(sizeof(t_hud));
 	if (!cub->hud)
 		ft_handle_error("malloc: cub->hud", cub);
+	ft_memset(cub->hud, 0, sizeof(t_hud));
 	cub->hud->img = (t_image *)malloc(sizeof(t_image));
 	if (!cub->hud->img)
 		ft_handle_error("malloc: cub->hud->img", cub);
+	ft_memset(cub->hud->img, 0, sizeof(t_image));
 	cub->hud->img->img_ptr = NULL;
-	cub->hud->ray_hits = malloc(sizeof(t_dpoint) * WIDTH); //check
+	cub->hud->ray_hits = malloc(sizeof(t_dpoint) * WIDTH);
 	ft_init_watch(cub);
 	ft_init_viewmodel(cub);
 	ft_init_breads(cub);
