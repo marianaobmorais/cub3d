@@ -29,10 +29,10 @@ SRCS = $(SRCS_DIR)/main.c \
 	$(SRCS_DIR)/raycasting/ft_render_walls.c \
 	$(SRCS_DIR)/raycasting/ft_paint_ray.c \
 	$(SRCS_DIR)/raycasting/ft_dda.c \
-	$(SRCS_DIR)/hud/ft_paint_minimap_on_hud.c \
+	$(SRCS_DIR)/hud/ft_render_minimap_on_hud.c \
 	$(SRCS_DIR)/hud/ft_init_hud.c \
-	$(SRCS_DIR)/hud/ft_paint_minimap_utils.c \
-	$(SRCS_DIR)/hud/ft_put_hud.c \
+	$(SRCS_DIR)/hud/ft_render_minimap_utils.c \
+	$(SRCS_DIR)/hud/ft_render_source_on_hud.c \
 	$(SRCS_DIR)/hud/screens.c \
 	$(SRCS_DIR)/hud/stuffs.c \
 
