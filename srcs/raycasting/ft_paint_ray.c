@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 20:09:35 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/03/21 20:24:29 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/03/22 17:05:29 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	ft_paint_ray(t_cub *cub, int window_w, t_image texture)
 	{
 		texture_h = (int)cub->raycast->texture_pos % texture.height;
 		cub->raycast->texture_pos += step;
-		color = ft_get_pixel_color(&texture, texture_w, texture_h);
+		color = ft_get_pixel_color(&texture, texture_w, texture_h, cub);
 		ft_put_pixel(cub->image, window_w, window_h, color);
 		window_h++;
 	}

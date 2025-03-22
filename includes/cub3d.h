@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:26:59 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/03/21 20:53:57 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/03/22 17:03:08 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,7 +222,7 @@ void			ft_handle_img(t_cub *cub);
 /* pixel_utils.c */
 
 void			ft_put_pixel(t_image *img, int x, int y, int color);
-unsigned int	ft_get_pixel_color(t_image *source, int w, int h);
+unsigned int	ft_get_pixel_color(t_image *source, int w, int h, t_cub *cub);
 
 /* hook_utils.c */
 
