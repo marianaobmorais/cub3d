@@ -141,7 +141,8 @@ void	ft_print_map(t_map *map)
 	printf("direction: %s\n\n",
 			(map->direction == NORTH) ? "N" :
 			(map->direction == SOUTH) ? "S" :
-			(map->direction == WEST) ? "W" : "E");
+			(map->direction == WEST) ? "W" :
+			(map->direction == EAST) ? "E" : "x");
 	if (map->matrix)
 	{
 		while (map->matrix[i])

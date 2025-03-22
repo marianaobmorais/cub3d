@@ -1,15 +1,19 @@
 #include "../../includes/cub3d.h"
 
-
-/* Now the actual DDA starts. It's a loop that increments the ray with 1 square 
-every time, until a wall is hit. Each time, either it jumps a square in the 
-x-direction (with stepX) or a square in the y-direction (with stepY), it always 
-jumps 1 square at once. If the ray's direction would be the x-direction, the 
-loop will only have to jump a square in the x-direction everytime, because the 
-ray will never change its y-direction. If the ray is a bit sloped to the 
-y-direction, then every so many jumps in the x-direction, the ray will have to 
-jump one square in the y-direction. If the ray is exactly the y-direction, it 
-never has to jump in the x-direction, etc... */
+/**
+ * @brief Performs the DDA (Digital Differential Analysis) algorithm for
+ *        raycasting.
+ * 
+ * This function increments the ray step-by-step through the 2D grid until it 
+ * encounters a wall. It determines whether the next step should be in the 
+ * x-direction or y-direction based on the smallest distance increment. The 
+ * function updates the current grid position of the ray and records which 
+ * side of the wall was hit.
+ * 
+ * @param ray Pointer to the raycasting structure containing ray information.
+ * @param map Pointer to the map structure that holds the world matrix.
+ * @param hit_wall Pointer to a boolean that is set to true if a wall is hit.
+ */
 void	ft_dda(t_raycast *ray, t_map *map, bool *hit_wall)
 {
 	if (ray->dist_to_x < ray->dist_to_y)
@@ -30,8 +34,7 @@ void	ft_dda(t_raycast *ray, t_map *map, bool *hit_wall)
 		else
 			ray->hit_side = EAST;
 	}
-	//check if the ray hit a wall
 	if (map->matrix[ray->step_squ.x][ray->step_squ.y] 
-		&& map->matrix[ray->step_squ.x][ray->step_squ.y] == '1') //found a wall
+		&& map->matrix[ray->step_squ.x][ray->step_squ.y] == '1')
 		*hit_wall = true;
 }
