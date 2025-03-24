@@ -1,4 +1,4 @@
-#include "../../includes/cub3d.h"
+#include "../../includes/cub3d_bonus.h"
 
 /**
  * @brief Draws the minimap background on the HUD.

@@ -6,20 +6,15 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:26:59 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/03/22 19:00:34 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/03/22 20:12:05 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
-
-
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include "../libft/libft.h"
-# include "../minilibx-linux/mlx.h"
-# include "hud.h"
+# include "../../libft/libft.h"
+# include "../../minilibx-linux/mlx.h"
 # include <X11/keysym.h>
 # include <X11/X.h>
 # include <stdio.h> //will we use printf?
@@ -57,9 +52,7 @@
 
 # define WIDTH 960
 # define HEIGHT 600
-# define MOVE_SPEED 0.1
-
-typedef struct s_minimap	t_minimap; //bonus
+# define MOVE_SPEED 0.2913
 
 typedef enum e_directions
 {
@@ -97,8 +90,8 @@ typedef struct s_image
 	int		bpp;
 	int		line_len;
 	int		endian;
-	int		width; //new
-	int		height; //new
+	int		width;
+	int		height;
 }	t_image;
 
 typedef struct s_raycast
@@ -153,16 +146,9 @@ typedef struct s_cub
 	void		*mlx;
 	void		*window;
 	t_image		*image;
-	t_hud		*hud;
 	t_map		*map;
 	char		*filepath;
 	int			fd;
-	bool		started; //screen
-	bool		leaving; //screen
-	t_screen	*start_screen; //screen
-	t_screen	*end_screen; //screen
-	clock_t		last_time; //screen
-	int			current_screen; //screen
 	t_raycast	*raycast;
 }	t_cub;
 
@@ -194,7 +180,7 @@ void			ft_map_parser(int fd, t_cub *cub, int i);
 char			*ft_buffer(char *buffer, char *line, int start, t_cub *cub);
 t_parser_status	ft_add_texture(char *line, t_cub *game, char *identifier, \
 	t_directions direction);
-char	**ft_safe_split(char *buffer, t_cub *cub);
+char			**ft_safe_split(char *buffer, t_cub *cub);
 	
 /* parser_utils.c */
 
@@ -202,7 +188,7 @@ bool			ft_access(char *filepath);
 bool			ft_is_ext(char *filename, char *ext);
 int				ft_isspace(int c, int mode);
 char			*ft_strip(char *str, int mode);
-void			ft_print_map(t_map *map); //debug
+void	ft_print_map(t_map *map); //debug
 
 /* ft_fill_matrix.c */
 

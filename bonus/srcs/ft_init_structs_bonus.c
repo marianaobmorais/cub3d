@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_init_structs.c                                  :+:      :+:    :+:   */
+/*   ft_init_structs_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:32:10 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/03/21 19:52:06 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/03/22 19:31:07 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../includes/cub3d_bonus.h"
 
 /**
  * @brief Retrieves and stores texture memory addresses.

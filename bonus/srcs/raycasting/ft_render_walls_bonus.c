@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_render_walls.c                                  :+:      :+:    :+:   */
+/*   ft_render_walls_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 20:02:43 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/03/22 18:54:02 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/03/22 19:30:46 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "../../includes/cub3d_bonus.h"
 
 /**
  * @brief Computes ray direction and distance calculations.

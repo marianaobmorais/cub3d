@@ -87,42 +87,6 @@ void	ft_clean_game(t_cub *cub)
 				mlx_destroy_image(cub->mlx, cub->image->img_ptr);
 			free(cub->image);
 		}
-		if (cub->hud) //bonus
-		{
-			if (cub->hud->img->img_ptr)
-				mlx_destroy_image(cub->mlx, cub->hud->img->img_ptr);
-			free(cub->hud->img);
-			if (cub->hud->watch->img_ptr)
-				mlx_destroy_image(cub->mlx, cub->hud->watch->img_ptr);
-			free(cub->hud->watch);
-			if (cub->hud->viewmodel->img_ptr)
-				mlx_destroy_image(cub->mlx, cub->hud->viewmodel->img_ptr);
-			free(cub->hud->viewmodel);
-			if (cub->hud->breads->img_ptr)
-				mlx_destroy_image(cub->mlx, cub->hud->breads->img_ptr);
-			free(cub->hud->breads);
-			if (cub->hud->breadcrumbs->img_ptr)
-					mlx_destroy_image(cub->mlx, cub->hud->breadcrumbs->img_ptr);
-			free(cub->hud->breadcrumbs);
-			if (cub->hud->door->img_ptr)
-				mlx_destroy_image(cub->mlx, cub->hud->door->img_ptr);
-			free(cub->hud->door);
-			free(cub->hud);
-		}
-		if (cub->start_screen) //bonus
-		{
-			if (cub->start_screen->img)
-				mlx_destroy_image(cub->mlx, cub->start_screen->img);
-			free(cub->start_screen->paths);
-			free(cub->start_screen);
-		}
-		if (cub->end_screen) //bonus
-		{
-			free(cub->end_screen->paths);
-			if (cub->end_screen->img)
-				mlx_destroy_image(cub->mlx, cub->end_screen->img);
-			free(cub->end_screen);
-		}
 		if (cub->raycast)
 		{
 			if (cub->raycast->north_texture.img_ptr)

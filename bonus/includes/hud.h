@@ -1,7 +1,7 @@
 # ifndef HUD_H
 # define HUD_H
 
-# include "cub3d.h"
+# include "cub3d_bonus.h"
 
 /* measurements */
 

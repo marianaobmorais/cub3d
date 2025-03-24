@@ -1,4 +1,4 @@
-#include "../../includes/cub3d.h"
+#include "../../includes/cub3d_bonus.h"
 
 /**
  * @brief Draws a small square on the given image.

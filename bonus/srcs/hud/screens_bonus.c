@@ -1,4 +1,4 @@
-#include "../../includes/cub3d.h"
+#include "../../includes/cub3d_bonus.h"
 
 void	ft_init_start_screen(t_cub *cub)
 {

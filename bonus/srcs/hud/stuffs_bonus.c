@@ -1,4 +1,4 @@
-#include "../../includes/cub3d.h"
+#include "../../includes/cub3d_bonus.h"
 
 void	ft_paint_action_on_hud(t_cub *cub, t_image *source, int pos_x, int pos_y)
 {

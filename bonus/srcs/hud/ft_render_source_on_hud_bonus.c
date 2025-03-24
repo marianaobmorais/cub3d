@@ -1,4 +1,4 @@
-#include "../../includes/cub3d.h"
+#include "../../includes/cub3d_bonus.h"
 
 /**
  * @brief Renders the source image onto the HUD at a specific position.

@@ -1,8 +1,8 @@
 NAME = cub3D
-#B_NAME = cub3D_bonus
+B_NAME = cub3D_bonus
 
-SRCS_DIR = ./srcs
-#BONUS_DIR = ./bonus
+SRCS_DIR = ./mandatory/srcs
+BONUS_DIR = ./bonus/srcs
 
 LIBFT = ./libft/libft.a
 LIBFT_DIR = ./libft
@@ -29,15 +29,33 @@ SRCS = $(SRCS_DIR)/main.c \
 	$(SRCS_DIR)/raycasting/ft_render_walls.c \
 	$(SRCS_DIR)/raycasting/ft_paint_ray.c \
 	$(SRCS_DIR)/raycasting/ft_dda.c \
-	$(SRCS_DIR)/hud/ft_render_minimap_on_hud.c \
-	$(SRCS_DIR)/hud/ft_init_hud.c \
-	$(SRCS_DIR)/hud/ft_render_minimap_utils.c \
-	$(SRCS_DIR)/hud/ft_render_source_on_hud.c \
-	$(SRCS_DIR)/hud/screens.c \
-	$(SRCS_DIR)/hud/stuffs.c \
 
+B_SRCS = $(BONUS_DIR)/main_bonus.c \
+	$(BONUS_DIR)/ft_handle_img_bonus.c \
+	$(BONUS_DIR)/hook_utils_bonus.c \
+	$(BONUS_DIR)/ft_handle_error_bonus.c \
+	$(BONUS_DIR)/pixel_utils_bonus.c \
+	$(BONUS_DIR)/ft_clean_game_bonus.c \
+	$(BONUS_DIR)/ft_init_structs_bonus.c \
+	$(BONUS_DIR)/move_utils_bonus.c \
+	$(BONUS_DIR)/parser/ft_load_map_bonus.c \
+	$(BONUS_DIR)/parser/ft_fill_matrix_bonus.c \
+	$(BONUS_DIR)/parser/ft_map_parser_bonus.c \
+	$(BONUS_DIR)/parser/ft_map_parser_utils_bonus.c \
+	$(BONUS_DIR)/parser/ft_matrix_parser_bonus.c \
+	$(BONUS_DIR)/parser/ft_matrix_parser_utils_bonus.c \
+	$(BONUS_DIR)/parser/parser_utils_bonus.c \
+	$(BONUS_DIR)/raycasting/ft_init_raycast_bonus.c \
+	$(BONUS_DIR)/raycasting/ft_render_walls_bonus.c \
+	$(BONUS_DIR)/raycasting/ft_paint_ray_bonus.c \
+	$(BONUS_DIR)/raycasting/ft_dda_bonus.c \
+	$(BONUS_DIR)/hud/ft_render_minimap_on_hud_bonus.c \
+	$(BONUS_DIR)/hud/ft_init_hud_bonus.c \
+	$(BONUS_DIR)/hud/ft_render_minimap_utils_bonus.c \
+	$(BONUS_DIR)/hud/ft_render_source_on_hud_bonus.c \
+	$(BONUS_DIR)/hud/screens_bonus.c \
+	$(BONUS_DIR)/hud/stuffs_bonus.c \
 
-#B_SRCS = $(BONUS_DIR)/main_bonus.c \
 
 CC = cc
 CFLAGS = -Wall -Werror -Wextra -g
@@ -48,8 +66,7 @@ RM = rm -f
 $(NAME): $(LIBFT) $(MLIBX) $(SRCS)
 	$(CC) $(CFLAGS) $(SRCS) $(LIBFT) $(MLXFLAGS) -o $(NAME)
 
-all: $(NAME)
-#bonus
+all: $(NAME) bonus
 
 $(LIBFT):
 	$(MAKE) -C $(LIBFT_DIR)
@@ -57,19 +74,18 @@ $(LIBFT):
 $(MLIBX):
 	$(MAKE) -C $(MLIBX_DIR)
 
-#bonus: $(B_NAME)
+bonus: $(B_NAME)
 
-#$(B_NAME): $(LIBFT) $(MLIBX) $(B_SRCS)
-#	$(CC) $(CFLAGS) $(B_SRCS) $(LIBFT) $(MLXFLAGS) -o $(B_NAME)
+$(B_NAME): $(LIBFT) $(MLIBX) $(B_SRCS)
+	$(CC) $(CFLAGS) $(B_SRCS) $(LIBFT) $(MLXFLAGS) -o $(B_NAME)
 
 clean:
 	$(MAKE) clean -C $(LIBFT_DIR)
 	$(MAKE) clean -C $(MLIBX_DIR)
 
 fclean: clean
-	$(RM) $(NAME) $(LIBFT) $(MLIBX)
+	$(RM) $(NAME) $(LIBFT) $(MLIBX) $(B_NAME)
 	$(MAKE) fclean -C $(LIBFT_DIR)
-#$(B_NAME)
 
 re: fclean
 	$(MAKE) all

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   move_utils.c                                       :+:      :+:    :+:   */
+/*   move_utils_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 19:38:45 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/03/22 18:53:42 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/03/22 19:31:24 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../includes/cub3d_bonus.h"
 
 /**
  * @brief Moves the player to the left.
