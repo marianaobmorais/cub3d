@@ -61,7 +61,7 @@ void	ft_render_source_on_hud(t_cub *cub, t_image *source, int pos_x, int pos_y);
 
 void	ft_init_start_screen(t_cub *cub);
 void	ft_init_end_screen(t_cub *cub);
-int		ft_put_start_screen(t_cub *cub);
+int		ft_render_screen(t_cub *cub);
 int		ft_put_end_screen(t_cub *cub, int dir);
 
 /* stuffs */
