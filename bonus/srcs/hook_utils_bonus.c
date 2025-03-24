@@ -48,8 +48,7 @@ static void	ft_rotate(t_cub *cub, double angle)
  *
  * Processes key inputs for movement (W, A, S, D) and rotation (Left, Right).
  * Updates the player's position if movement is allowed, ensuring the new 
- * position does not collide with walls. If movement occurs, it triggers an 
- * image update.
+ * position does not collide with walls.
  *
  * @param keysym The keycode representing the pressed key.
  * @param cub Pointer to the main game structure.
@@ -59,24 +58,22 @@ static void	ft_manage_movements(int keysym, t_cub *cub)
 	double	tmp_x;
 	double	tmp_y;
 
+	if (keysym == XK_Left)
+		ft_rotate(cub, cub->raycast->move_speed);
+	if (keysym == XK_Right)
+		ft_rotate(cub, -cub->raycast->move_speed);
 	tmp_x = cub->raycast->player_pos.x;
 	tmp_y = cub->raycast->player_pos.y;
-	if (cub->started == true && (keysym == XK_A || keysym == XK_a))
+	if ((keysym == XK_A || keysym == XK_a))
 		ft_move_left(cub, &tmp_x, &tmp_y);
-	if (cub->started == true && (keysym == XK_D || keysym == XK_d))
+	if ((keysym == XK_D || keysym == XK_d))
 		ft_move_right(cub, &tmp_x, &tmp_y);
-	if (cub->started == true && (keysym == XK_W || keysym == XK_w))
+	if ((keysym == XK_W || keysym == XK_w))
 		ft_move_up(cub, &tmp_x, &tmp_y);
-	if (cub->started == true && (keysym == XK_S || keysym == XK_s))
+	if ((keysym == XK_S || keysym == XK_s))
 		ft_move_down(cub, &tmp_x, &tmp_y);
-	if (cub->started == true && cub->map->matrix[(int)tmp_x][(int)tmp_y] != '1')
+	if (cub->map->matrix[(int)tmp_x][(int)tmp_y] != '1')
 		ft_update_position(cub, tmp_x, tmp_y);
-	if (cub->started == true && keysym == XK_Left)
-		ft_rotate(cub, MOVE_SPEED);
-	if (cub->started == true && keysym == XK_Right)
-		ft_rotate(cub, -MOVE_SPEED);
-	if (cub->started == true)
-		ft_handle_img(cub);
 }
 
 static void	ft_manage_exit(int keysym, t_cub *cub)

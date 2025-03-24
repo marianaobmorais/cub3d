@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 18:55:17 by joneves-          #+#    #+#             */
-/*   Updated: 2025/03/22 18:55:18 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/03/24 17:21:06 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,24 +132,25 @@ char	*ft_strip(char *str, int mode)
 }
 
 /* DEBUG */
-void	ft_print_map(t_map *map)
-{
-	int	i;
+// void	ft_print_map(t_map *map)
+// {
 
-	i = 0;
-	printf("Player x=%d y=%d, ", map->player_squ_x, map->player_squ_y);
-	printf("direction: %s\n\n",
-			(map->direction == NORTH) ? "N" :
-			(map->direction == SOUTH) ? "S" :
-			(map->direction == WEST) ? "W" :
-			(map->direction == EAST) ? "E" : "x");
-	if (map->matrix)
-	{
-		while (map->matrix[i])
-		{
-			printf("[%d] |%s|\n", i, map->matrix[i]);
-			i++;
-		}
-	}
-	printf("\n");
-}
+// 	int	i;
+
+// 	i = 0;
+// 	printf("Player x=%d y=%d, ", map->player_squ_x, map->player_squ_y);
+// 	printf("direction: %s\n\n",
+// 		(map->direction == NORTH) ? "N" :
+// 		(map->direction == SOUTH) ? "S" :
+// 		(map->direction == WEST) ? "W" :
+// 		(map->direction == EAST) ? "E" : "x");
+// 	if (map->matrix)
+// 	{
+// 		while (map->matrix[i])
+// 		{
+// 			printf("[%d] |%s|\n", i, map->matrix[i]);
+// 			i++;
+// 		}
+// 	}
+// 	printf("\n");
+// }

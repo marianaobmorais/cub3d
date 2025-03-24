@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:32:10 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/03/22 19:16:55 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/03/24 17:16:44 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,6 @@ t_cub	*ft_init_structs(t_cub *cub, char *argv)
 		ft_handle_error("malloc: cub", cub);
 	ft_memset(cub, 0, sizeof(t_cub));
 	ft_load_map(argv, cub);
-	ft_print_map(cub->map); //debug
 	cub->mlx = mlx_init();
 	if (!cub->mlx)
 		ft_handle_error("malloc: cub->mlx", cub);

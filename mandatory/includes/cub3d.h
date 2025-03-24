@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:26:59 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/03/22 20:12:05 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/03/24 17:15:58 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,12 @@
 # include <X11/X.h>
 # include <stdio.h> //will we use printf?
 # include <stdlib.h>
-//# include <sys/time.h> //do we use this?
+# include <sys/time.h> //do we use this?
 # include <math.h>
 # include <fcntl.h>
 # include <errno.h>
 # include <string.h>
 # include <stdbool.h>
-# include <sys/wait.h> //bonus
-# include <time.h> //bonus
 # include <limits.h>
 
 /* messages */
@@ -52,7 +50,7 @@
 
 # define WIDTH 960
 # define HEIGHT 600
-# define MOVE_SPEED 0.2913
+# define MOVE_SPEED 0.314159265358979
 
 typedef enum e_directions
 {
@@ -103,13 +101,13 @@ typedef struct s_raycast
 	t_ipoint		player_squ;
 	t_ipoint		step;
 	t_ipoint		step_squ;
+	double			move_speed;
 	double			factor;
 	double			delta_dist_x;
 	double			delta_dist_y;
 	double			dist_to_x;
 	double			dist_to_y;
 	double			perp_wall_dist;
-	double			move_speed;
 	double			wall_hit_value;
 	double			texture_pos;
 	int				wall_height;
@@ -181,14 +179,14 @@ char			*ft_buffer(char *buffer, char *line, int start, t_cub *cub);
 t_parser_status	ft_add_texture(char *line, t_cub *game, char *identifier, \
 	t_directions direction);
 char			**ft_safe_split(char *buffer, t_cub *cub);
-	
+
 /* parser_utils.c */
 
 bool			ft_access(char *filepath);
 bool			ft_is_ext(char *filename, char *ext);
 int				ft_isspace(int c, int mode);
 char			*ft_strip(char *str, int mode);
-void	ft_print_map(t_map *map); //debug
+//void			ft_print_map(t_map *map); //debug
 
 /* ft_fill_matrix.c */
 
@@ -208,7 +206,7 @@ bool			ft_valid_wall(char *line, char *previous_line, \
 
 /* ft_handle_img.c */
 
-void			ft_handle_img(t_cub *cub);
+int				ft_handle_img(t_cub *cub);
 
 /* pixel_utils.c */
 

@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 19:38:45 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/03/22 19:57:06 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/03/24 14:39:25 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ void	ft_move_down(t_cub *cub, double *tmp_x, double *tmp_y)
  */
 void	ft_update_position(t_cub *cub, double tmp_x, double tmp_y)
 {
-	printf("update pos\n");//debug
 	cub->raycast->player_pos.x = tmp_x;
 	cub->raycast->player_pos.y = tmp_y;
 	cub->raycast->player_squ.x = (int)tmp_x;

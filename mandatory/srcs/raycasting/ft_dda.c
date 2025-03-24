@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_dda.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/24 17:20:33 by mariaoli          #+#    #+#             */
+/*   Updated: 2025/03/24 17:20:51 by mariaoli         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/cub3d.h"
 
 /**
@@ -34,7 +46,7 @@ void	ft_dda(t_raycast *ray, t_map *map, bool *hit_wall)
 		else
 			ray->hit_side = EAST;
 	}
-	if (map->matrix[ray->step_squ.x][ray->step_squ.y] 
+	if (map->matrix[ray->step_squ.x][ray->step_squ.y]
 		&& map->matrix[ray->step_squ.x][ray->step_squ.y] == '1')
 		*hit_wall = true;
 }
