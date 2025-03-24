@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:26:59 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/03/24 16:24:08 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/03/24 19:36:43 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ typedef struct s_raycast
 	t_ipoint		player_squ;
 	t_ipoint		step;
 	t_ipoint		step_squ;
+	t_ipoint		mouse_pos;
 	double			move_speed;
 	double			factor;
 	double			delta_dist_x;
