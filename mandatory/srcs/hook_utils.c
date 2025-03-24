@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   hook_utils.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/24 17:17:12 by mariaoli          #+#    #+#             */
+/*   Updated: 2025/03/24 17:19:26 by mariaoli         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/cub3d.h"
 
 /**
@@ -27,20 +39,21 @@ int	ft_close_window(t_cub *cub)
  */
 static void	ft_rotate(t_cub *cub, double angle)
 {
-	double	old_dir_x;
-	double	old_plane_x;
+	double		old_dir_x;
+	double		old_plane_x;
+	t_raycast	*ray;
 
-	old_dir_x = cub->raycast->player_dir.x;
-
-	cub->raycast->player_dir.x = cub->raycast->player_dir.x * cos(angle)
-		- cub->raycast->player_dir.y * sin(angle);
-	cub->raycast->player_dir.y = old_dir_x * sin(angle)
-		+ cub->raycast->player_dir.y * cos(angle);
-	old_plane_x = cub->raycast->camera_plane.x;
-	cub->raycast->camera_plane.x = cub->raycast->camera_plane.x * cos(angle)
-		- cub->raycast->camera_plane.y * sin(angle);
-	cub->raycast->camera_plane.y = old_plane_x * sin(angle)
-		+ cub->raycast->camera_plane.y * cos(angle);
+	ray = cub->raycast;
+	old_dir_x = ray->player_dir.x;
+	ray->player_dir.x = ray->player_dir.x * cos(angle)
+		- ray->player_dir.y * sin(angle);
+	ray->player_dir.y = old_dir_x * sin(angle)
+		+ ray->player_dir.y * cos(angle);
+	old_plane_x = ray->camera_plane.x;
+	ray->camera_plane.x = ray->camera_plane.x * cos(angle)
+		- ray->camera_plane.y * sin(angle);
+	ray->camera_plane.y = old_plane_x * sin(angle)
+		+ ray->camera_plane.y * cos(angle);
 }
 
 /**
@@ -72,15 +85,21 @@ static void	ft_manage_movements(int keysym, t_cub *cub)
 		ft_move_up(cub, &tmp_x, &tmp_y);
 	if ((keysym == XK_S || keysym == XK_s))
 		ft_move_down(cub, &tmp_x, &tmp_y);
-	//printf("tmp before: x: %lf, y: %lf, tile: %c\n", tmp_x, tmp_y, cub->map->matrix[(int)tmp_x][(int)tmp_y]); //debug
-	//printf("player before: x: %lf, y: %lf, tile: %c\n", cub->raycast->player_pos.x, cub->raycast->player_pos.y, cub->map->matrix[(int)tmp_x][(int)tmp_y]); //debug
 	if (cub->map->matrix[(int)tmp_x][(int)tmp_y] != '1')
 		ft_update_position(cub, tmp_x, tmp_y);
-	//printf("tmp After: x: %lf, y: %lf, tile: %c\n", tmp_x, tmp_y, cub->map->matrix[(int)tmp_x][(int)tmp_y]); //debug
-	//printf("player after: x: %lf, y: %lf, tile: %c\n\n", cub->raycast->player_pos.x, cub->raycast->player_pos.y, cub->map->matrix[(int)cub->raycast->player_pos.x][(int)cub->raycast->player_pos.y]); //debug
-	//ft_handle_img(cub);
 }
 
+/**
+ * @brief Handles keyboard input events.
+ * 
+ * This function processes key presses and performs corresponding actions, 
+ * such as closing the window when the Escape key is pressed or managing 
+ * player movements.
+ * 
+ * @param keysym The key symbol corresponding to the pressed key.
+ * @param cub The main game structure containing game state information.
+ * @return Always returns 0.
+ */
 int	ft_key_input(int keysym, t_cub *cub)
 {
 	if (keysym == XK_Escape)

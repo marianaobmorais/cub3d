@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_clean_game.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/24 17:14:10 by mariaoli          #+#    #+#             */
+/*   Updated: 2025/03/24 17:14:11 by mariaoli         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/cub3d.h"
 
 /**
@@ -27,49 +39,83 @@ void	ft_free_vector(char **vector)
 }
 
 /**
- * @brief Cleans up and frees memory allocated for the map structure.
+ * @brief Frees allocated memory for the map structure.
  * 
- * Frees all dynamically allocated fields within the map structure (t_map), 
- * including the matrix, textures, and RGB values for the floor and ceiling. 
- * This function ensures proper deallocation to prevent memory leaks.
+ * This function deallocates all dynamically allocated memory associated 
+ * with the map, including matrices, textures, and RGB color values.
+ * It ensures proper cleanup to prevent memory leaks.
  * 
- * @param map A pointer to the map structure (t_map) to be cleaned up. 
- *            The structure itself is not freed.
+ * @param cub The main game structure containing the map.
  */
-static void	ft_clean_map(t_map *map)
+static void	ft_clean_map(t_cub *cub)
 {
-	if (map->matrix)
-		ft_free_vector(map->matrix);
-	if (map->matrix_tmp)
-		ft_free_vector(map->matrix_tmp);
-	if (map->north_texture)
-		free(map->north_texture);
-	if (map->south_texture)
-		free(map->south_texture);
-	if (map->west_texture)
-		free(map->west_texture);
-	if (map->east_texture)
-		free(map->east_texture);
-	if (map->ceiling_rgb)
-		free(map->ceiling_rgb);
-	if (map->floor_rgb)
-		free(map->floor_rgb);
+	if (cub->map->matrix)
+		ft_free_vector(cub->map->matrix);
+	if (cub->map->matrix_tmp)
+		ft_free_vector(cub->map->matrix_tmp);
+	if (cub->map->north_texture)
+		free(cub->map->north_texture);
+	if (cub->map->south_texture)
+		free(cub->map->south_texture);
+	if (cub->map->west_texture)
+		free(cub->map->west_texture);
+	if (cub->map->east_texture)
+		free(cub->map->east_texture);
+	if (cub->map->ceiling_rgb)
+		free(cub->map->ceiling_rgb);
+	if (cub->map->floor_rgb)
+		free(cub->map->floor_rgb);
+	free(cub->map);
 }
 
 /**
- * @brief Cleans up and frees memory allocated for the game structure.
+ * @brief Frees allocated memory for the raycasting structure.
  * 
- * Releases all resources associated with the game structure (t_game), including 
- * closing the file descriptor, freeing the map structure and its contents, and 
- * deallocating other dynamically allocated fields. Ensures proper cleanup to 
- * prevent memory leaks.
+ * This function destroys the textures used in raycasting and 
+ * deallocates the raycasting structure itself.
  * 
- * @param game A pointer to the game structure (t_game) to be cleaned up. 
- *            The structure itself is also freed.
+ * @param cub The main game structure containing the raycasting data.
+ */
+static void	ft_free_raycast(t_cub *cub)
+{
+	if (cub->raycast->north_texture.img_ptr)
+		mlx_destroy_image(cub->mlx, cub->raycast->north_texture.img_ptr);
+	if (cub->raycast->south_texture.img_ptr)
+		mlx_destroy_image(cub->mlx, cub->raycast->south_texture.img_ptr);
+	if (cub->raycast->east_texture.img_ptr)
+		mlx_destroy_image(cub->mlx, cub->raycast->east_texture.img_ptr);
+	if (cub->raycast->west_texture.img_ptr)
+		mlx_destroy_image(cub->mlx, cub->raycast->west_texture.img_ptr);
+	free(cub->raycast);
+}
+
+/**
+ * @brief Frees allocated memory for the image structure.
+ * 
+ * This function deallocates the main image used for rendering and 
+ * frees the memory allocated for the image structure.
+ * 
+ * @param cub The main game structure containing the image.
+ */
+static void	ft_free_image(t_cub *cub)
+{
+	if (cub->image->img_ptr)
+		mlx_destroy_image(cub->mlx, cub->image->img_ptr);
+	free(cub->image);
+}
+
+/**
+ * @brief Frees all allocated memory and resources in the game structure.
+ * 
+ * This function safely deallocates memory and closes file descriptors, 
+ * images, textures, and other dynamically allocated resources associated 
+ * with the `cub` structure. It ensures proper cleanup before exiting the 
+ * program to prevent memory leaks.
+ * 
+ * @param cub The main game structure to be cleaned.
  */
 void	ft_clean_game(t_cub *cub)
 {
-	//update brief
 	if (cub)
 	{
 		if (cub->fd != -1)
@@ -77,28 +123,11 @@ void	ft_clean_game(t_cub *cub)
 		if (cub->filepath)
 			free(cub->filepath);
 		if (cub->map)
-		{
-			ft_clean_map(cub->map);
-			free(cub->map);
-		}
+			ft_clean_map(cub);
 		if (cub->image)
-		{
-			if (cub->image->img_ptr)
-				mlx_destroy_image(cub->mlx, cub->image->img_ptr);
-			free(cub->image);
-		}
+			ft_free_image(cub);
 		if (cub->raycast)
-		{
-			if (cub->raycast->north_texture.img_ptr)
-				mlx_destroy_image(cub->mlx, cub->raycast->north_texture.img_ptr);
-			if (cub->raycast->south_texture.img_ptr)
-				mlx_destroy_image(cub->mlx, cub->raycast->south_texture.img_ptr);
-			if (cub->raycast->east_texture.img_ptr)
-				mlx_destroy_image(cub->mlx, cub->raycast->east_texture.img_ptr);
-			if (cub->raycast->west_texture.img_ptr)
-				mlx_destroy_image(cub->mlx, cub->raycast->west_texture.img_ptr);
-			free(cub->raycast);
-		}
+			ft_free_raycast(cub);
 		if (cub->window)
 			mlx_destroy_window(cub->mlx, cub->window);
 		if (cub->mlx)

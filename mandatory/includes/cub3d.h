@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:26:59 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/03/24 16:24:10 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/03/24 17:15:58 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,14 +179,14 @@ char			*ft_buffer(char *buffer, char *line, int start, t_cub *cub);
 t_parser_status	ft_add_texture(char *line, t_cub *game, char *identifier, \
 	t_directions direction);
 char			**ft_safe_split(char *buffer, t_cub *cub);
-	
+
 /* parser_utils.c */
 
 bool			ft_access(char *filepath);
 bool			ft_is_ext(char *filename, char *ext);
 int				ft_isspace(int c, int mode);
 char			*ft_strip(char *str, int mode);
-void	ft_print_map(t_map *map); //debug
+//void			ft_print_map(t_map *map); //debug
 
 /* ft_fill_matrix.c */
 
@@ -206,7 +206,7 @@ bool			ft_valid_wall(char *line, char *previous_line, \
 
 /* ft_handle_img.c */
 
-int			ft_handle_img(t_cub *cub);
+int				ft_handle_img(t_cub *cub);
 
 /* pixel_utils.c */
 
