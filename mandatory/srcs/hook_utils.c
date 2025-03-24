@@ -65,19 +65,19 @@ static void	ft_manage_movements(int keysym, t_cub *cub)
 	tmp_x = cub->raycast->player_pos.x;
 	tmp_y = cub->raycast->player_pos.y;
 	if ((keysym == XK_A || keysym == XK_a))
-	ft_move_left(cub, &tmp_x, &tmp_y);
+		ft_move_left(cub, &tmp_x, &tmp_y);
 	if ((keysym == XK_D || keysym == XK_d))
-	ft_move_right(cub, &tmp_x, &tmp_y);
+		ft_move_right(cub, &tmp_x, &tmp_y);
 	if ((keysym == XK_W || keysym == XK_w))
-	ft_move_up(cub, &tmp_x, &tmp_y);
+		ft_move_up(cub, &tmp_x, &tmp_y);
 	if ((keysym == XK_S || keysym == XK_s))
-	ft_move_down(cub, &tmp_x, &tmp_y);
-	printf("tmp before: x: %lf, y: %lf, tile: %c\n", tmp_x, tmp_y, cub->map->matrix[(int)tmp_x][(int)tmp_y]); //debug
-	printf("player before: x: %lf, y: %lf, tile: %c\n", cub->raycast->player_pos.x, cub->raycast->player_pos.y, cub->map->matrix[(int)tmp_x][(int)tmp_y]); //debug
+		ft_move_down(cub, &tmp_x, &tmp_y);
+	//printf("tmp before: x: %lf, y: %lf, tile: %c\n", tmp_x, tmp_y, cub->map->matrix[(int)tmp_x][(int)tmp_y]); //debug
+	//printf("player before: x: %lf, y: %lf, tile: %c\n", cub->raycast->player_pos.x, cub->raycast->player_pos.y, cub->map->matrix[(int)tmp_x][(int)tmp_y]); //debug
 	if (cub->map->matrix[(int)tmp_x][(int)tmp_y] != '1')
 		ft_update_position(cub, tmp_x, tmp_y);
-	printf("tmp After: x: %lf, y: %lf, tile: %c\n", tmp_x, tmp_y, cub->map->matrix[(int)tmp_x][(int)tmp_y]); //debug
-	printf("player after: x: %lf, y: %lf, tile: %c\n\n", cub->raycast->player_pos.x, cub->raycast->player_pos.y, cub->map->matrix[(int)cub->raycast->player_pos.x][(int)cub->raycast->player_pos.y]); //debug
+	//printf("tmp After: x: %lf, y: %lf, tile: %c\n", tmp_x, tmp_y, cub->map->matrix[(int)tmp_x][(int)tmp_y]); //debug
+	//printf("player after: x: %lf, y: %lf, tile: %c\n\n", cub->raycast->player_pos.x, cub->raycast->player_pos.y, cub->map->matrix[(int)cub->raycast->player_pos.x][(int)cub->raycast->player_pos.y]); //debug
 	//ft_handle_img(cub);
 }
 
