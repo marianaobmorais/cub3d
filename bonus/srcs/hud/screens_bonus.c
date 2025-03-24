@@ -82,7 +82,7 @@ int	ft_put_end_screen(t_cub *cub, int dir)
  * @param cub Pointer to the main game structure.
  * @return 0 upon completion.
  */
-int	ft_put_start_screen(t_cub *cub)
+int	ft_render_screen(t_cub *cub)
 {
 	clock_t		now;
 	double		elapsed;
@@ -104,5 +104,7 @@ int	ft_put_start_screen(t_cub *cub)
 		cub->last_time = now;
 		cub->current_screen++;
 	}
+	if (cub->started && !cub->leaving)
+		ft_handle_img(cub);
 	return (0);
 }
