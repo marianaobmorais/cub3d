@@ -48,8 +48,7 @@ static void	ft_rotate(t_cub *cub, double angle)
  *
  * Processes key inputs for movement (W, A, S, D) and rotation (Left, Right).
  * Updates the player's position if movement is allowed, ensuring the new 
- * position does not collide with walls. If movement occurs, it triggers an 
- * image update.
+ * position does not collide with walls.
  *
  * @param keysym The keycode representing the pressed key.
  * @param cub Pointer to the main game structure.
@@ -59,6 +58,10 @@ static void	ft_manage_movements(int keysym, t_cub *cub)
 	double	tmp_x;
 	double	tmp_y;
 
+	if (keysym == XK_Left)
+		ft_rotate(cub, cub->raycast->move_speed);
+	if (keysym == XK_Right)
+		ft_rotate(cub, -cub->raycast->move_speed);
 	tmp_x = cub->raycast->player_pos.x;
 	tmp_y = cub->raycast->player_pos.y;
 	if ((keysym == XK_A || keysym == XK_a))
@@ -69,17 +72,13 @@ static void	ft_manage_movements(int keysym, t_cub *cub)
 	ft_move_up(cub, &tmp_x, &tmp_y);
 	if ((keysym == XK_S || keysym == XK_s))
 	ft_move_down(cub, &tmp_x, &tmp_y);
-	printf("before: x: %lf, y: %lf, tile: %c\n", tmp_x, tmp_y, cub->map->matrix[(int)tmp_x][(int)tmp_y]); //debug
-	printf("before: x: %lf, y: %lf, tile: %c\n", cub->raycast->player_pos.x, cub->raycast->player_pos.y, cub->map->matrix[(int)tmp_x][(int)tmp_y]); //debug
+	printf("tmp before: x: %lf, y: %lf, tile: %c\n", tmp_x, tmp_y, cub->map->matrix[(int)tmp_x][(int)tmp_y]); //debug
+	printf("player before: x: %lf, y: %lf, tile: %c\n", cub->raycast->player_pos.x, cub->raycast->player_pos.y, cub->map->matrix[(int)tmp_x][(int)tmp_y]); //debug
 	if (cub->map->matrix[(int)tmp_x][(int)tmp_y] != '1')
 		ft_update_position(cub, tmp_x, tmp_y);
-	if (keysym == XK_Left)
-		ft_rotate(cub, MOVE_SPEED);
-	if (keysym == XK_Right)
-		ft_rotate(cub, -MOVE_SPEED);
-	printf("After: x: %lf, y: %lf, tile: %c\n", tmp_x, tmp_y, cub->map->matrix[(int)tmp_x][(int)tmp_y]); //debug
-	printf("after: x: %lf, y: %lf, tile: %c\n\n", cub->raycast->player_pos.x, cub->raycast->player_pos.y, cub->map->matrix[(int)cub->raycast->player_pos.x][(int)cub->raycast->player_pos.y]); //debug
-	ft_handle_img(cub);
+	printf("tmp After: x: %lf, y: %lf, tile: %c\n", tmp_x, tmp_y, cub->map->matrix[(int)tmp_x][(int)tmp_y]); //debug
+	printf("player after: x: %lf, y: %lf, tile: %c\n\n", cub->raycast->player_pos.x, cub->raycast->player_pos.y, cub->map->matrix[(int)cub->raycast->player_pos.x][(int)cub->raycast->player_pos.y]); //debug
+	//ft_handle_img(cub);
 }
 
 int	ft_key_input(int keysym, t_cub *cub)
