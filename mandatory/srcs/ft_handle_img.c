@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 18:36:57 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/03/24 17:19:53 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/03/25 20:46:01 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,17 @@ static void	ft_render_bg(t_image *img, int ceiling_color, int floor_color)
 	}
 }
 
+size_t	get_time(void)
+{
+	//add brief
+	size_t			milliseconds;
+	struct timeval	time;
+
+	gettimeofday(&time, NULL);
+	milliseconds = (time.tv_sec * 1000) + (time.tv_usec / 1000);
+	return (milliseconds);
+}
+
 /**
  * @brief Handles the rendering of the game frame.
  *
@@ -70,8 +81,19 @@ static void	ft_render_bg(t_image *img, int ceiling_color, int floor_color)
  */
 int	ft_handle_img(t_cub *cub)
 {
-	ft_render_bg(cub->image, cub->map->ceiling_hex, cub->map->floor_hex);
-	ft_render_walls(cub);
-	mlx_put_image_to_window(cub->mlx, cub->window, cub->image->img_ptr, 0, 0);
+	size_t		now;
+
+	now = get_time();
+	cub->frame_time = (now - cub->last_time) / 1000.0;
+	//printf("cub->fram_time = %lf\n", cub->frame_time); //debug
+	if (cub->frame_time >= 0.016)
+	{
+		cub->raycast->move_speed = cub->frame_time * MOVE_SPEED;
+		cub->raycast->rotate_speed = cub->frame_time * ROTATE_SPEED;
+		ft_render_bg(cub->image, cub->map->ceiling_hex, cub->map->floor_hex);
+		ft_render_walls(cub);
+		mlx_put_image_to_window(cub->mlx, cub->window, cub->image->img_ptr, 0, 0);
+		cub->last_time = now;
+	}
 	return (0);
 }

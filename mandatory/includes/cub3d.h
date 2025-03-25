@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:26:59 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/03/24 17:15:58 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/03/25 20:52:01 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@
 
 # define WIDTH 960
 # define HEIGHT 600
-# define MOVE_SPEED 0.314159265358979
+# define MOVE_SPEED 8
+# define ROTATE_SPEED 4
 
 typedef enum e_directions
 {
@@ -102,6 +103,7 @@ typedef struct s_raycast
 	t_ipoint		step;
 	t_ipoint		step_squ;
 	double			move_speed;
+	double			rotate_speed;
 	double			factor;
 	double			delta_dist_x;
 	double			delta_dist_y;
@@ -147,6 +149,8 @@ typedef struct s_cub
 	t_map		*map;
 	char		*filepath;
 	int			fd;
+	size_t		last_time;
+	double		frame_time;
 	t_raycast	*raycast;
 }	t_cub;
 

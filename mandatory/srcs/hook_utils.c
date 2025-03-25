@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 17:17:12 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/03/24 17:19:26 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/03/25 19:45:27 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,9 @@ static void	ft_manage_movements(int keysym, t_cub *cub)
 	double	tmp_y;
 
 	if (keysym == XK_Left)
-		ft_rotate(cub, cub->raycast->move_speed);
+		ft_rotate(cub, cub->raycast->rotate_speed);
 	if (keysym == XK_Right)
-		ft_rotate(cub, -cub->raycast->move_speed);
+		ft_rotate(cub, -cub->raycast->rotate_speed);
 	tmp_x = cub->raycast->player_pos.x;
 	tmp_y = cub->raycast->player_pos.y;
 	if ((keysym == XK_A || keysym == XK_a))
