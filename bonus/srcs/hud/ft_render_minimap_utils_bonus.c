@@ -98,17 +98,6 @@ void	ft_set_limit_y(t_cub *cub, int matrix_width)
 	}
 }
 
-/**
- * @brief Draws a small player marker on the given image.
- *
- * This function renders a 5x5 pixel square to represent the player's 
- * position on the minimap with a specified color.
- *
- * @param img Pointer to the image where the player marker will be drawn.
- * @param x X-coordinate (scaled by square size).
- * @param y Y-coordinate (scaled by square size).
- * @param color Color of the player marker.
- */
 void	ft_put_player(t_image *img, int x, int y, int color)
 {
 	int	offset;
@@ -117,9 +106,10 @@ void	ft_put_player(t_image *img, int x, int y, int color)
 	int	size;
 
 	i = 0;
-	size = 5;
-	x *= size;
-	y *= size;
+	size = 3;
+	// size = 5;
+	// x *= size;
+	// y *= size;
 	while (i < size)
 	{
 		j = 0;
