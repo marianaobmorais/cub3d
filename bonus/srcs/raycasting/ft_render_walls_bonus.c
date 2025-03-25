@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_render_walls_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 20:02:43 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/03/22 19:30:46 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/03/25 10:22:37 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static void	ft_get_ray_info(t_raycast *ray, int w)
  *
  * @param ray A pointer to the raycasting structure.
  */
-static void	ft_define_steps(t_raycast *ray)
+void	ft_define_steps(t_raycast *ray)
 {
 	ray->step_squ.x = ray->player_squ.x;
 	ray->step_squ.y = ray->player_squ.y;
@@ -138,8 +138,6 @@ void	ft_render_walls(t_cub *cub)
 			ft_dda(cub->raycast, cub->map, &hit_wall);
 		ft_get_wall_height(cub->raycast);
 		ft_get_wall_hit_value(cub->raycast);
-		cub->hud->ray_hits[w].x = cub->raycast->step_squ.x; //minimap
-		cub->hud->ray_hits[w].y = cub->raycast->step_squ.y; //minimap
 		if (cub->raycast->hit_side == NORTH)
 			ft_paint_ray(cub, w, cub->raycast->north_texture);
 		if (cub->raycast->hit_side == SOUTH)
