@@ -7,8 +7,10 @@
 
 # define MINI_WIDTH 87
 # define MINI_HEIGHT 52
-# define MINIMAP_SCALE_X 0.090625
-# define MINIMAP_SCALE_Y 0.086666
+# define TILE 5
+# define OFFSET_X (9 * TILE)
+# define OFFSET_Y (4 * TILE)
+# define FOV (M_PI / 3)
 
 typedef struct s_cub	t_cub;
 typedef struct s_image	t_image;
@@ -31,10 +33,10 @@ typedef struct s_hud
 	t_image		*breadcrumbs;
 	t_image		*door;
 	t_dpoint	*ray_hits;
-	int		start_x;
-	int		start_y;
-	int		end_x;
-	int		end_y;
+	int			start_x;
+	int			start_y;
+	int			end_x;
+	int			end_y;
 }	t_hud;
 
 
@@ -73,5 +75,8 @@ void	ft_render_fov_minimap(t_cub *cub);
 void	ft_paint_action_on_hud(t_cub *cub, t_image *source, int pos_x, int pos_y);
 void	ft_hextoarray(int hex, unsigned char *rgb);
 void	ft_door(t_cub *cub, t_image *source, int pos_x, int pos_y);
+
+
+void	ft_render_fov_minimap(t_cub *cub);
 
 # endif //HUD_H

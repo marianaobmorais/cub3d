@@ -50,6 +50,7 @@ B_SRCS = $(BONUS_DIR)/main_bonus.c \
 	$(BONUS_DIR)/raycasting/ft_paint_ray_bonus.c \
 	$(BONUS_DIR)/raycasting/ft_dda_bonus.c \
 	$(BONUS_DIR)/hud/ft_render_minimap_on_hud_bonus.c \
+	$(BONUS_DIR)/hud/ft_render_fov_minimap_bonus.c \
 	$(BONUS_DIR)/hud/ft_init_hud_bonus.c \
 	$(BONUS_DIR)/hud/ft_render_minimap_utils_bonus.c \
 	$(BONUS_DIR)/hud/ft_render_source_on_hud_bonus.c \
