@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init_structs_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:32:10 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/03/22 19:31:07 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/03/25 19:45:29 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,7 @@ t_cub	*ft_init_structs(t_cub *cub, char *argv)
 	ft_init_hud(cub);
 	ft_init_start_screen(cub); //screen
 	ft_init_end_screen(cub); //screen
+	cub->action = false;
 	cub->window = mlx_new_window(cub->mlx, WIDTH, HEIGHT, "cub3d");
 	if (!cub->window)
 		ft_handle_error("malloc: cub->window", cub);

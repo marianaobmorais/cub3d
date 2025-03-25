@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_handle_img_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 18:36:57 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/03/24 16:31:59 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/03/25 17:14:56 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ static void	ft_render_bg(t_image *img, int ceiling_color, int floor_color)
  */
 int	ft_handle_img(t_cub *cub)
 {
+	//add frames
 	ft_render_bg(cub->image, cub->map->ceiling_hex, cub->map->floor_hex);
 	ft_render_walls(cub);
 	ft_render_source_on_hud(cub, cub->hud->watch, 0, 0); //bonus

@@ -104,7 +104,11 @@ int	ft_render_screen(t_cub *cub)
 		cub->last_time = now;
 		cub->current_screen++;
 	}
-	if (cub->started && !cub->leaving)
+	if (cub->started && !cub->leaving && elapsed >= 0.016)
 		ft_handle_img(cub);
+	if (cub->started && cub->action)
+	{
+		
+	}
 	return (0);
 }

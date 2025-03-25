@@ -6,7 +6,7 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:26:59 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/03/25 10:10:46 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/03/25 19:37:06 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@
 # define WIDTH 960
 # define HEIGHT 600
 # define MOVE_SPEED 0.314159265358979
+# define FRAME_TIME 0.016
 
 typedef struct s_minimap	t_minimap;
 
@@ -156,6 +157,7 @@ typedef struct s_cub
 	int			fd;
 	bool		started; //screen
 	bool		leaving; //screen
+	bool		action;
 	t_screen	*start_screen; //screen
 	t_screen	*end_screen; //screen
 	clock_t		last_time; //screen

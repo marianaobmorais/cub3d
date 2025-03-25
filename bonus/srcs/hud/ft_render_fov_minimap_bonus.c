@@ -28,7 +28,7 @@ static void	ft_get_wall_minimap(t_raycast *ray, bool hit_wall)
 {
 	double	max_dist;
 
-	max_dist = 5;
+	max_dist = 8;
 	if (ray->hit_side == NORTH || ray->hit_side == SOUTH)
 		ray->perp_wall_dist = ray->dist_to_x - ray->delta_dist_x;
 	else
@@ -110,13 +110,14 @@ void	raycast_minimap(t_cub *cub, t_raycast ray,double angle)
 
 void	ft_render_fov_minimap(t_cub *cub)
 {
-	t_raycast	ray;
+	t_raycast	*ray;
 	int			i;
 	int			num_rays;
 	double		player_angle;
 	double		angle_start;
 	double		angle;
 
+	ray = malloc(sizeof(t_raycast *));
 	player_angle = atan2(cub->raycast->player_dir.x, cub->raycast->player_dir.y);
 	angle_start = player_angle - (FOV / 2);
 	num_rays = 120;
@@ -124,7 +125,7 @@ void	ft_render_fov_minimap(t_cub *cub)
 	while (i < num_rays)
 	{
 		angle = angle_start + i * (FOV / (num_rays));
-		raycast_minimap(cub, ray, angle);
+		raycast_minimap(cub, *ray, angle);
 		i++;
 	}
 }

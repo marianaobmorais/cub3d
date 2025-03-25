@@ -72,6 +72,8 @@ static void	ft_manage_movements(int keysym, t_cub *cub)
 		ft_move_up(cub, &tmp_x, &tmp_y);
 	if ((keysym == XK_S || keysym == XK_s))
 		ft_move_down(cub, &tmp_x, &tmp_y);
+	if (keysym == XK_Control_R || keysym == XK_Control_L)
+		cub->action = true;
 	if (cub->map->matrix[(int)tmp_x][(int)tmp_y] != '1')
 		ft_update_position(cub, tmp_x, tmp_y);
 }
