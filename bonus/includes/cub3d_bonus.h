@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:26:59 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/03/24 16:24:08 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/03/25 10:10:46 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@
 # define YELLOW 0xfff200
 # define BLUE 0x030bfc
 # define GREEN 0x009c00
+# define GREEN2 0xCCFF33
 # define RED 0xff1100
 # define BLACK 0x000000
 # define IGNORE 0x00FFFF
@@ -245,6 +246,7 @@ void			ft_init_raycast(t_cub*cub);
 /* ft_render_walls_bonus.c */
 
 void			ft_render_walls(t_cub *cub);
+void			ft_define_steps(t_raycast *ray);
 
 /* ft_paint_ray_bonus.c */
 
