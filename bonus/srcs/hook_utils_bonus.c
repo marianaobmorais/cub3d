@@ -25,11 +25,12 @@ int	ft_close_window(t_cub *cub)
  * @param angle The rotation angle in radians (positive for left, negative for
  *        right).
  */
-static void	ft_rotate(t_cub *cub, double angle)
+void	ft_rotate(t_cub *cub, double angle)
 {
 	double	old_dir_x;
 	double	old_plane_x;
 
+	//printf("rotate\n");
 	old_dir_x = cub->raycast->player_dir.x;
 
 	cub->raycast->player_dir.x = cub->raycast->player_dir.x * cos(angle)
@@ -41,6 +42,8 @@ static void	ft_rotate(t_cub *cub, double angle)
 		- cub->raycast->camera_plane.y * sin(angle);
 	cub->raycast->camera_plane.y = old_plane_x * sin(angle)
 		+ cub->raycast->camera_plane.y * cos(angle);
+	mlx_mouse_move(cub->mlx, cub->window, WIDTH / 2, HEIGHT / 2); //testing
+
 }
 
 /**
@@ -59,9 +62,9 @@ static void	ft_manage_movements(int keysym, t_cub *cub)
 	double	tmp_y;
 
 	if (keysym == XK_Left)
-		ft_rotate(cub, cub->raycast->move_speed);
+		ft_rotate(cub, cub->raycast->rotate_speed);
 	if (keysym == XK_Right)
-		ft_rotate(cub, -cub->raycast->move_speed);
+		ft_rotate(cub, -cub->raycast->rotate_speed);
 	tmp_x = cub->raycast->player_pos.x;
 	tmp_y = cub->raycast->player_pos.y;
 	if ((keysym == XK_A || keysym == XK_a))

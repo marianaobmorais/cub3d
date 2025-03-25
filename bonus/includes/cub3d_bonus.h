@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:26:59 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/03/24 19:36:43 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/03/25 20:57:51 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@
 
 # define WIDTH 960
 # define HEIGHT 600
-# define MOVE_SPEED 0.314159265358979
+# define MOVE_SPEED 8
+# define ROTATE_SPEED 4
 
 typedef struct s_minimap	t_minimap;
 
@@ -108,6 +109,7 @@ typedef struct s_raycast
 	t_ipoint		step_squ;
 	t_ipoint		mouse_pos;
 	double			move_speed;
+	double			rotate_speed;
 	double			factor;
 	double			delta_dist_x;
 	double			delta_dist_y;
@@ -158,8 +160,9 @@ typedef struct s_cub
 	bool		leaving; //screen
 	t_screen	*start_screen; //screen
 	t_screen	*end_screen; //screen
-	clock_t		last_time; //screen
+	size_t		last_time; //screen
 	int			current_screen; //screen
+	double		frame_time;
 	t_raycast	*raycast;
 }	t_cub;
 
@@ -230,6 +233,10 @@ unsigned int	ft_get_pixel_color(t_image *source, int w, int h, t_cub *cub);
 
 int				ft_key_input(int keysym, t_cub *cub);
 int				ft_close_window(t_cub *cub);
+void			ft_rotate(t_cub *cub, double angle);
+
+/* hook_mouse_bonus.c */
+int				ft_mouse_hook(t_cub *cub);
 
 /* move_utils_bonus.c */
 

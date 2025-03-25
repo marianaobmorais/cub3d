@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 19:38:45 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/03/24 19:18:31 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/03/25 15:15:05 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,11 @@ void	ft_update_position(t_cub *cub, double tmp_x, double tmp_y)
 	t_raycast	*ray;
 
 	ray = cub->raycast;
-	cub->map->matrix[ray->player_squ.x][ray->player_squ.y] = '0';
-	cub->map->matrix[(int)tmp_x][(int)tmp_y] = 'P';
+	if (cub->map->matrix[ray->player_squ.x][ray->player_squ.y] != 'D') //if it is not a door, update map
+	{
+		cub->map->matrix[ray->player_squ.x][ray->player_squ.y] = '0';
+		cub->map->matrix[(int)tmp_x][(int)tmp_y] = 'P';
+	}
 	//ft_print_map(cub->map); //debug
 	ray->player_pos.x = tmp_x;
 	ray->player_pos.y = tmp_y;

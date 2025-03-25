@@ -82,14 +82,62 @@ int	ft_put_end_screen(t_cub *cub, int dir)
  * @param cub Pointer to the main game structure.
  * @return 0 upon completion.
  */
+// int	ft_put_start_screen(t_cub *cub)
+// {
+// 	clock_t		now;
+// 	double		elapsed;
+
+// 	now = clock();
+// 	elapsed = (double)(now - cub->last_time) / CLOCKS_PER_SEC;
+// 	if (!cub->started && elapsed >= 0.2)
+// 	{
+// 		if (cub->current_screen == 4)
+// 			cub->current_screen = 0;
+// 		if (cub->start_screen->img)
+// 			mlx_destroy_image(cub->mlx, cub->start_screen->img);
+// 		cub->start_screen->img = mlx_xpm_file_to_image(cub->mlx, \
+// 			cub->start_screen->paths[cub->current_screen], \
+// 			&cub->start_screen->width, \
+// 			&cub->start_screen->height);
+// 		mlx_put_image_to_window(cub->mlx, cub->window, cub->start_screen->img, \
+// 			0, 0);
+// 		cub->last_time = now;
+// 		cub->current_screen++;
+// 	}
+// 	return (0);
+// }
+
+size_t	get_time(void)
+{
+	//add brief
+	size_t			milliseconds;
+	struct timeval	time;
+
+	gettimeofday(&time, NULL);
+	milliseconds = (time.tv_sec * 1000) + (time.tv_usec / 1000);
+	return (milliseconds);
+}
+
+
+/**
+ * @brief Displays the start screen of the game with changing images.
+ *
+ * This function controls the display of a start screen sequence by cycling 
+ * through images at a regular interval (every 0.2 seconds). It updates the 
+ * image shown on the screen and ensures smooth transitions between the 
+ * images. Once all images have been displayed, the cycle restarts.
+ *
+ * @param cub Pointer to the main game structure.
+ * @return 0 upon completion.
+ */
 int	ft_render_screen(t_cub *cub)
 {
-	clock_t		now;
-	double		elapsed;
+	//update brief
+	size_t		now;
 
-	now = clock();
-	elapsed = (double)(now - cub->last_time) / CLOCKS_PER_SEC;
-	if (!cub->started && elapsed >= 0.2)
+	now = get_time();
+	cub->frame_time = (now - cub->last_time) / 1000.0;
+	if (!cub->started && cub->frame_time >= 0.2)
 	{
 		if (cub->current_screen == 4)
 			cub->current_screen = 0;
@@ -104,7 +152,10 @@ int	ft_render_screen(t_cub *cub)
 		cub->last_time = now;
 		cub->current_screen++;
 	}
-	if (cub->started && !cub->leaving)
+	if (cub->started && !cub->leaving && cub->frame_time >= 0.016)
+	{
 		ft_handle_img(cub);
+		cub->last_time = now;
+	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 18:36:57 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/03/24 19:36:26 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/03/25 20:52:52 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,10 @@ static void	ft_render_bg(t_image *img, int ceiling_color, int floor_color)
  */
 int	ft_handle_img(t_cub *cub)
 {
-	//mouse
-	mlx_mouse_get_pos(cub->mlx, cub->window, &cub->raycast->mouse_pos.x, &cub->raycast->mouse_pos.y);
-	//printf("mouse x: %d, mouse y: %d\n", cub->raycast->mouse_pos.x, cub->raycast->mouse_pos.y); //debug
-	//
-
+	//update speed
+	cub->raycast->move_speed = cub->frame_time * MOVE_SPEED;
+	cub->raycast->rotate_speed = cub->frame_time * ROTATE_SPEED;
+	ft_mouse_hook(cub); //mouse
 	ft_render_bg(cub->image, cub->map->ceiling_hex, cub->map->floor_hex);
 	ft_render_walls(cub);
 	ft_render_source_on_hud(cub, cub->hud->watch, 0, 0); //bonus
