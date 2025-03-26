@@ -98,9 +98,12 @@ void	ft_clean_game(t_cub *cub)
 			if (cub->hud->viewmodel->img_ptr)
 				mlx_destroy_image(cub->mlx, cub->hud->viewmodel->img_ptr);
 			free(cub->hud->viewmodel);
-			if (cub->hud->breads->img_ptr)
-				mlx_destroy_image(cub->mlx, cub->hud->breads->img_ptr);
-			free(cub->hud->breads);
+			if (cub->hud->bread->img_ptr)
+				mlx_destroy_image(cub->mlx, cub->hud->bread->img_ptr);
+			free(cub->hud->bread);
+			if (cub->hud->empty_bread->img_ptr)
+				mlx_destroy_image(cub->mlx, cub->hud->empty_bread->img_ptr);
+			free(cub->hud->empty_bread);
 			if (cub->hud->breadcrumbs->img_ptr)
 					mlx_destroy_image(cub->mlx, cub->hud->breadcrumbs->img_ptr);
 			free(cub->hud->breadcrumbs);

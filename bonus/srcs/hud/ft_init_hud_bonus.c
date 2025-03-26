@@ -1,30 +1,48 @@
 #include "../../includes/cub3d_bonus.h"
 
 /**
- * @brief Initializes the breads image in the HUD.
+ * @brief Initializes the empty_bread image in the HUD.
  *
- * This function allocates memory for the breads image and loads its 
+ * This function allocates memory for the empty_bread image and loads its 
  * texture from an XPM file. It also initializes image properties, 
  * handling errors if allocation fails.
  *
  * @param cub Pointer to the main game structure.
  */
-void	ft_init_breads(t_cub *cub)
+void	ft_init_bread(t_cub *cub)
 {
-	cub->hud->breads = (t_image *) malloc(sizeof(t_image));
-	if (!cub->hud->breads)
-		ft_handle_error("malloc: cub->hud->breads", cub);
-	ft_memset(cub->hud->breads, 0, sizeof(t_image));
-	cub->hud->breads->img_ptr = mlx_xpm_file_to_image(cub->mlx, \
-		"assets/hud/breads.xpm", &cub->hud->breads->width, \
-		&cub->hud->breads->height);
-	cub->hud->breads->addr = mlx_get_data_addr(cub->hud->breads->img_ptr, \
-		&cub->hud->breads->bpp, &cub->hud->breads->line_len, \
-		&cub->hud->breads->endian);
-	if (!cub->hud->breads->img_ptr)
-		ft_handle_error("cub->hud->breads->img_ptr", cub);
-	if (!cub->hud->breads->addr)
-		ft_handle_error("cub->hud->breads->addr", cub);
+	cub->hud->bread = (t_image *) malloc(sizeof(t_image));
+	if (!cub->hud->bread)
+		ft_handle_error("malloc: cub->hud->bread", cub);
+	ft_memset(cub->hud->bread, 0, sizeof(t_image));
+	cub->hud->bread->img_ptr = mlx_xpm_file_to_image(cub->mlx, \
+		"assets/hud/bread.xpm", &cub->hud->bread->width, \
+		&cub->hud->bread->height);
+	cub->hud->bread->addr = mlx_get_data_addr(cub->hud->bread->img_ptr, \
+		&cub->hud->bread->bpp, &cub->hud->bread->line_len, \
+		&cub->hud->bread->endian);
+	if (!cub->hud->bread->img_ptr)
+		ft_handle_error("cub->hud->bread->img_ptr", cub);
+	if (!cub->hud->bread->addr)
+		ft_handle_error("cub->hud->bread->addr", cub);
+}
+
+void	ft_init_empty_bread(t_cub *cub)
+{
+	cub->hud->empty_bread = (t_image *) malloc(sizeof(t_image));
+	if (!cub->hud->empty_bread)
+		ft_handle_error("malloc: cub->hud->empty_bread", cub);
+	ft_memset(cub->hud->empty_bread, 0, sizeof(t_image));
+	cub->hud->empty_bread->img_ptr = mlx_xpm_file_to_image(cub->mlx, \
+		"assets/hud/empty_bread.xpm", &cub->hud->empty_bread->width, \
+		&cub->hud->empty_bread->height);
+	cub->hud->empty_bread->addr = mlx_get_data_addr(cub->hud->empty_bread->img_ptr, \
+		&cub->hud->empty_bread->bpp, &cub->hud->empty_bread->line_len, \
+		&cub->hud->empty_bread->endian);
+	if (!cub->hud->empty_bread->img_ptr)
+		ft_handle_error("cub->hud->empty_bread->img_ptr", cub);
+	if (!cub->hud->empty_bread->addr)
+		ft_handle_error("cub->hud->empty_bread->addr", cub);
 }
 
 /**
@@ -141,7 +159,7 @@ void	ft_init_door(t_cub *cub)
  *
  * This function allocates memory for the HUD structure and its image,
  * handling errors if allocation fails. It also initializes various 
- * HUD components, such as watch, viewmodel, breads, breadcrumbs, 
+ * HUD components, such as watch, viewmodel, empty_bread, breadcrumbs, 
  * and doors.
  *
  * @param cub Pointer to the main game structure.
@@ -160,7 +178,8 @@ void	ft_init_hud(t_cub *cub)
 	cub->hud->ray_hits = malloc(sizeof(t_dpoint) * WIDTH);
 	ft_init_watch(cub);
 	ft_init_viewmodel(cub);
-	ft_init_breads(cub);
+	ft_init_bread(cub);
+	ft_init_empty_bread(cub);
 	ft_init_breadcrumbs(cub);
 	ft_init_door(cub);
 }
