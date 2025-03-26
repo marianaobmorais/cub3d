@@ -37,3 +37,21 @@ void	ft_hextoarray(int hex, unsigned char *rgb)
 	rgb[1] = (hex >> 8) & 0xFF;
 	rgb[2] = hex & 0xFF;
 }
+
+int	ft_blendcolors(int color1, int color2, float alpha)
+{
+	unsigned char	rgb1[3];
+	unsigned char	rgb2[3];
+	unsigned char	blended[3];
+
+	if (alpha < 0.0)
+		alpha = 0.0;
+	if (alpha > 1.0)
+		alpha = 1.0;
+	ft_hextoarray(color1, rgb1);
+	ft_hextoarray(color2, rgb2);
+	blended[0] = (unsigned char)((rgb1[0] * alpha) + (rgb2[0] * (1 - alpha)));
+	blended[1] = (unsigned char)((rgb1[1] * alpha) + (rgb2[1] * (1 - alpha)));
+	blended[2] = (unsigned char)((rgb1[2] * alpha) + (rgb2[2] * (1 - alpha)));
+	return (ft_arraytohex(blended));
+}
