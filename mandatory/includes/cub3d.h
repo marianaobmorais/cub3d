@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:26:59 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/03/25 20:52:01 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/03/26 16:43:15 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
 # include "../../minilibx-linux/mlx.h"
 # include <X11/keysym.h>
 # include <X11/X.h>
-# include <stdio.h> //will we use printf?
+# include <stdio.h>
 # include <stdlib.h>
-# include <sys/time.h> //do we use this?
+# include <sys/time.h>
 # include <math.h>
 # include <fcntl.h>
 # include <errno.h>
