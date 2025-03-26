@@ -175,7 +175,6 @@ void	ft_init_hud(t_cub *cub)
 		ft_handle_error("malloc: cub->hud->img", cub);
 	ft_memset(cub->hud->img, 0, sizeof(t_image));
 	cub->hud->img->img_ptr = NULL;
-	cub->hud->ray_hits = malloc(sizeof(t_dpoint) * WIDTH);
 	ft_init_watch(cub);
 	ft_init_viewmodel(cub);
 	ft_init_bread(cub);

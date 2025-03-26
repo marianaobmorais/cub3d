@@ -117,7 +117,7 @@ void	ft_render_fov_minimap(t_cub *cub)
 	double		angle_start;
 	double		angle;
 
-	ray = malloc(sizeof(t_raycast *));
+	ray = (t_raycast *) malloc(sizeof(t_raycast));
 	player_angle = atan2(cub->raycast->player_dir.x, cub->raycast->player_dir.y);
 	angle_start = player_angle - (FOV / 2);
 	num_rays = 120;
@@ -128,4 +128,5 @@ void	ft_render_fov_minimap(t_cub *cub)
 		raycast_minimap(cub, *ray, angle);
 		i++;
 	}
+	free(ray);
 }
