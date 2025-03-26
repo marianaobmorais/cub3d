@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_matrix_parser_bonus.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 18:55:25 by joneves-          #+#    #+#             */
-/*   Updated: 2025/03/22 19:29:53 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/03/26 17:05:29 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 static bool	ft_valid_char(char c)
 {
 	if (c != '1' && c != '0' && c != ' ' && c != 'S' && c != 'N'
-		&& c != 'E' && c != 'W')
+		&& c != 'E' && c != 'W' && c != 'D')
 		return (false);
 	return (true);
 }
