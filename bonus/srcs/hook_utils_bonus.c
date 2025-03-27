@@ -30,9 +30,7 @@ void	ft_rotate(t_cub *cub, double angle)
 	double	old_dir_x;
 	double	old_plane_x;
 
-	//printf("rotate\n");
 	old_dir_x = cub->raycast->player_dir.x;
-
 	cub->raycast->player_dir.x = cub->raycast->player_dir.x * cos(angle)
 		- cub->raycast->player_dir.y * sin(angle);
 	cub->raycast->player_dir.y = old_dir_x * sin(angle)
@@ -75,7 +73,9 @@ static void	ft_manage_movements(int keysym, t_cub *cub)
 		ft_move_up(cub, &tmp_x, &tmp_y);
 	if ((keysym == XK_S || keysym == XK_s))
 		ft_move_down(cub, &tmp_x, &tmp_y);
-	if (cub->map->matrix[(int)tmp_x][(int)tmp_y] != '1')
+	if (tmp_x >= 0 && tmp_x < cub->map->height
+		&& tmp_y >= 0 && tmp_y < cub->map->width
+		&& cub->map->matrix[(int)tmp_x][(int)tmp_y] != '1')
 		ft_update_position(cub, tmp_x, tmp_y);
 }
 
