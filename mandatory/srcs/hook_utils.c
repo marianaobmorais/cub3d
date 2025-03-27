@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 17:17:12 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/03/25 19:45:27 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/03/27 19:52:34 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,10 @@ static void	ft_rotate(t_cub *cub, double angle)
  * @brief Handles player movement and rotation based on key input.
  *
  * Processes key inputs for movement (W, A, S, D) and rotation (Left, Right).
- * Updates the player's position if movement is allowed, ensuring the new 
- * position does not collide with walls.
- *
+ * This function processes user input to move or rotate the player within the 
+ * game world. It updates the player's position and direction based on the
+ * pressed key while ensuring that movement stays within valid map boundaries.
+ * 
  * @param keysym The keycode representing the pressed key.
  * @param cub Pointer to the main game structure.
  */
@@ -85,7 +86,8 @@ static void	ft_manage_movements(int keysym, t_cub *cub)
 		ft_move_up(cub, &tmp_x, &tmp_y);
 	if ((keysym == XK_S || keysym == XK_s))
 		ft_move_down(cub, &tmp_x, &tmp_y);
-	if (cub->map->matrix[(int)tmp_x][(int)tmp_y] != '1')
+	if (tmp_x >= 0 && tmp_x < cub->map->height
+		&& tmp_y >= 0 && tmp_y < cub->map->width)
 		ft_update_position(cub, tmp_x, tmp_y);
 }
 

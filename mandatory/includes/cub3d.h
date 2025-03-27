@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:26:59 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/03/26 16:43:15 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/03/27 19:36:33 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,10 +112,10 @@ typedef struct s_raycast
 	double			perp_wall_dist;
 	double			wall_hit_value;
 	double			texture_pos;
+	int				hit_side;
 	int				wall_height;
 	int				wall_start;
 	int				wall_end;
-	t_directions	hit_side;
 	t_image			north_texture;
 	t_image			south_texture;
 	t_image			east_texture;
@@ -190,7 +190,7 @@ bool			ft_access(char *filepath);
 bool			ft_is_ext(char *filename, char *ext);
 int				ft_isspace(int c, int mode);
 char			*ft_strip(char *str, int mode);
-//void			ft_print_map(t_map *map); //debug
+void			ft_print_map(t_map *map); //debug
 
 /* ft_fill_matrix.c */
 
