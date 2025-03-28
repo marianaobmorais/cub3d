@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 18:55:25 by joneves-          #+#    #+#             */
-/*   Updated: 2025/03/22 19:29:53 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/03/27 14:56:27 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,9 @@
  */
 static bool	ft_valid_char(char c)
 {
+	//update brief
 	if (c != '1' && c != '0' && c != ' ' && c != 'S' && c != 'N'
-		&& c != 'E' && c != 'W')
+		&& c != 'E' && c != 'W' && c != 'D' && c != 'X') //added D for door and X for pigeon
 		return (false);
 	return (true);
 }

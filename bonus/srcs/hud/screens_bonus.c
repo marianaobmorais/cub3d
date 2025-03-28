@@ -51,7 +51,7 @@ void	ft_init_end_screen(t_cub *cub)
 int	ft_put_end_screen(t_cub *cub, int dir)
 {
 	if (cub->end_screen->img)
-		mlx_destroy_image(cub->mlx, cub->end_screen->img);
+		mlx_destroy_image(cub->mlx, cub->end_screen->img); //do we need this?
 	if (dir == 0)
 	{
 		cub->end_screen->img = mlx_xpm_file_to_image(cub->mlx, \
@@ -104,7 +104,7 @@ static void	ft_put_start_screen(t_cub *cub)
 	if (cub->current_screen == 4)
 		cub->current_screen = 0;
 	if (cub->start_screen->img)
-		mlx_destroy_image(cub->mlx, cub->start_screen->img);
+		mlx_destroy_image(cub->mlx, cub->start_screen->img); //do we need this?
 	cub->start_screen->img = mlx_xpm_file_to_image(cub->mlx, \
 		cub->start_screen->paths[cub->current_screen], \
 		&cub->start_screen->width, \
@@ -143,4 +143,5 @@ int	ft_render_screen(t_cub *cub)
 		cub->last_time = now;
 	}
 	return (0);
+	//rename this file? suggestion: ft_render_screen.c
 }
