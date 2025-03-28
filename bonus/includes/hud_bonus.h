@@ -1,5 +1,5 @@
-# ifndef HUD_H
-# define HUD_H
+# ifndef HUD_BONUS_H
+# define HUD_BONUS_H
 
 # include "cub3d_bonus.h"
 
@@ -74,4 +74,4 @@ void	ft_paint_action_on_hud(t_cub *cub, t_image *source, int pos_x, int pos_y);
 void	ft_hextoarray(int hex, unsigned char *rgb);
 void	ft_door(t_cub *cub, t_image *source, int pos_x, int pos_y);
 
-# endif //HUD_H
+# endif //HUD_BONUS_H
