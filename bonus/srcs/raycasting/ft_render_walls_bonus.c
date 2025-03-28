@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 20:02:43 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/03/27 19:42:03 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/03/28 18:01:07 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,8 @@ void	ft_render_walls(t_cub *cub)
 			ft_paint_ray(cub, w, cub->raycast->east_texture);
 		if (cub->raycast->hit_side == 1 && cub->raycast->ray_dir.y < 0)
 			ft_paint_ray(cub, w, cub->raycast->west_texture);
+		cub->raycast->buffer[w] = cub->raycast->perp_wall_dist;
+		//printf("buffer[%d]: %lf\n", w, cub->raycast->buffer[w]); //debug
 		w++;
 	}
 }
