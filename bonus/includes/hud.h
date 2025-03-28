@@ -29,7 +29,6 @@ typedef struct s_screen
 
 typedef struct s_hud
 {
-	t_image		*img;
 	t_image		*watch;
 	t_image		*viewmodel;
 	t_image		*bread;
