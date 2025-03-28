@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 18:36:57 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/03/25 20:52:52 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/03/28 19:24:26 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ int	ft_handle_img(t_cub *cub)
 	ft_mouse_hook(cub); //mouse
 	ft_render_bg(cub->image, cub->map->ceiling_hex, cub->map->floor_hex);
 	ft_render_walls(cub);
+	//ft_render_sprites(cub); //sprites
 	ft_render_source_on_hud(cub, cub->hud->watch, 0, 0); //bonus
 	ft_render_source_on_hud(cub, cub->hud->viewmodel, 390, 420); //bonus
 	ft_render_source_on_hud(cub, cub->hud->breads, 820, 0); //bonus

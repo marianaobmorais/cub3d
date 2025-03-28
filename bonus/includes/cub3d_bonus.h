@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:26:59 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/03/25 20:57:51 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/03/28 19:29:56 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "../../libft/libft.h"
 # include "../../minilibx-linux/mlx.h"
-# include "hud.h"
+# include "hud_bonus.h"
 # include <X11/keysym.h>
 # include <X11/X.h>
 # include <stdio.h> //will we use printf?
@@ -98,6 +98,16 @@ typedef struct s_image
 	int		height;
 }	t_image;
 
+typedef struct s_sprite
+{
+	int			id;
+	int			order;
+	t_image		image;
+	t_ipoint	squ;
+	t_dpoint	pos;
+	double		dist;
+}	t_sprite;
+
 typedef struct s_raycast
 {
 	t_dpoint		player_pos;
@@ -118,14 +128,17 @@ typedef struct s_raycast
 	double			perp_wall_dist;
 	double			wall_hit_value;
 	double			texture_pos;
+	int				hit_side;
 	int				wall_height;
 	int				wall_start;
 	int				wall_end;
-	t_directions	hit_side;
 	t_image			north_texture;
 	t_image			south_texture;
 	t_image			east_texture;
 	t_image			west_texture;
+	t_image			sprite[4];
+	//t_image		sprite_b[4];
+	double			buffer[WIDTH]; //double check this
 }	t_raycast;
 
 typedef struct s_map
@@ -144,7 +157,9 @@ typedef struct s_map
 	int				player_squ_y;
 	int				width;
 	int				height;
+	int				sprite_count;
 	t_directions	direction;
+	t_sprite		*sprite;
 }	t_map;
 
 typedef struct s_cub
@@ -253,6 +268,10 @@ void			ft_init_raycast(t_cub*cub);
 /* ft_render_walls_bonus.c */
 
 void			ft_render_walls(t_cub *cub);
+
+/* ft_render_sprites_bonus.c */
+
+void			ft_render_sprites(t_cub *cub);
 
 /* ft_paint_ray_bonus.c */
 
