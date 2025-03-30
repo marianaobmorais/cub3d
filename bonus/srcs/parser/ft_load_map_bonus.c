@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_load_map_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 18:55:47 by joneves-          #+#    #+#             */
-/*   Updated: 2025/03/22 19:29:33 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/03/28 18:50:13 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,53 @@ static void	ft_init_map(t_cub *cub)
 	cub->map->player_squ_x = -1;
 	cub->map->player_squ_y = -1;
 	cub->map->direction = -1;
+	cub->map->sprites = NULL;
+	cub->map->amount_sprites = 0;
+}
+
+/**
+ * @brief Checks if a file is accessible for reading.
+ * 
+ * Attempts to open the specified file in read-only mode to determine whether 
+ * it is accessible. If the file can be opened successfully, it is considered 
+ * accessible.
+ * 
+ * @param filepath The path to the file to check, as a null-terminated string.
+ * @return true if the file is accessible for reading, false otherwise.
+ */
+bool	ft_access(char *filepath)
+{
+	int	fd;
+
+	fd = open(filepath, O_RDONLY);
+	if (fd == -1)
+		return (false);
+	close(fd);
+	return (true);
+}
+
+/**
+ * @brief Checks if a filename has a specific file extension.
+ * 
+ * Verifies whether the given filename ends with the specified file extension. 
+ * The comparison is case-sensitive and ensures the extension matches exactly 
+ * at the end of the filename.
+ * 
+ * @param filename The name of the file to check, as a null-terminated string.
+ * @param ext The expected file extension, as a null-terminated string.
+ * @return true if the filename ends with the specified extension, 
+ *         false otherwise.
+ */
+bool	ft_is_ext(char *filename, char *ext)
+{
+	char	*file_ext;
+
+	file_ext = ft_strnstr(filename, ext, ft_strlen(filename));
+	if (!file_ext || ft_strlen(file_ext) != ft_strlen(ext))
+	{
+		return (false);
+	}
+	return (true);
 }
 
 /**
@@ -67,6 +114,10 @@ void	ft_load_map(char *const filepath, t_cub *cub)
 		ft_handle_error(NULL, cub);
 	ft_init_map(cub);
 	ft_map_parser(cub->fd, cub, i);
+	cub->map->sprites = malloc(sizeof(t_sprite) * cub->map->amount_sprites + 1);
+	if (!cub->map->sprites)
+		ft_handle_error("Map: cub->map->sprites", cub);
+	cub->map->countdown_sprites = cub->map->amount_sprites;
 	ft_matrix_parser(cub, cub->map->matrix);
 	cub->map->ceiling_hex = ft_arraytohex(cub->map->ceiling_rgb);
 	cub->map->floor_hex = ft_arraytohex(cub->map->floor_rgb);

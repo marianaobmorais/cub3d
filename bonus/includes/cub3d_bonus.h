@@ -6,7 +6,7 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:26:59 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/03/26 17:49:12 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/03/28 22:26:31 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,12 @@ typedef struct s_image
 	int		height;
 }	t_image;
 
+typedef struct s_sprite
+{
+	t_ipoint	squ_pos;
+	int			id;
+}	t_sprite;
+
 typedef struct s_raycast
 {
 	t_dpoint		player_pos;
@@ -143,6 +149,9 @@ typedef struct s_map
 	int				player_squ_y;
 	int				width;
 	int				height;
+	int				amount_sprites;
+	int				sprites_increment;
+	t_sprite		*sprites;
 	t_directions	direction;
 }	t_map;
 
@@ -197,7 +206,12 @@ char			*ft_buffer(char *buffer, char *line, int start, t_cub *cub);
 t_parser_status	ft_add_texture(char *line, t_cub *game, char *identifier, \
 	t_directions direction);
 char	**ft_safe_split(char *buffer, t_cub *cub);
-	
+
+/* ft_map_parser_utils_bonus_2.c */
+
+void	ft_count_sprites(t_cub *cub, char *line);
+bool	is_valid_pigeon(char *line, char *previous_line, int y);
+
 /* parser_utils_bonus.c */
 
 bool			ft_access(char *filepath);

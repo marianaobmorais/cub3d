@@ -3,59 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 18:55:17 by joneves-          #+#    #+#             */
-/*   Updated: 2025/03/22 19:29:59 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/03/28 17:13:39 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d_bonus.h"
-
-/**
- * @brief Checks if a file is accessible for reading.
- * 
- * Attempts to open the specified file in read-only mode to determine whether 
- * it is accessible. If the file can be opened successfully, it is considered 
- * accessible.
- * 
- * @param filepath The path to the file to check, as a null-terminated string.
- * @return true if the file is accessible for reading, false otherwise.
- */
-bool	ft_access(char *filepath)
-{
-	int	fd;
-
-	fd = open(filepath, O_RDONLY);
-	if (fd == -1)
-		return (false);
-	close(fd);
-	return (true);
-}
-
-/**
- * @brief Checks if a filename has a specific file extension.
- * 
- * Verifies whether the given filename ends with the specified file extension. 
- * The comparison is case-sensitive and ensures the extension matches exactly 
- * at the end of the filename.
- * 
- * @param filename The name of the file to check, as a null-terminated string.
- * @param ext The expected file extension, as a null-terminated string.
- * @return true if the filename ends with the specified extension, 
- *         false otherwise.
- */
-bool	ft_is_ext(char *filename, char *ext)
-{
-	char	*file_ext;
-
-	file_ext = ft_strnstr(filename, ext, ft_strlen(filename));
-	if (!file_ext || ft_strlen(file_ext) != ft_strlen(ext))
-	{
-		return (false);
-	}
-	return (true);
-}
 
 /**
  * @brief Checks if a character is a space or a whitespace character.

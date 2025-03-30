@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_map_parser_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 18:55:07 by joneves-          #+#    #+#             */
-/*   Updated: 2025/03/22 19:29:45 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/03/28 18:43:26 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ char	*ft_buffer(char *buffer, char *line, int start, t_cub *cub)
 		line = get_next_line(cub->fd);
 		while (line)
 		{
+			ft_count_sprites(cub, line);
 			free(line);
 			line = get_next_line(cub->fd);
 		}
