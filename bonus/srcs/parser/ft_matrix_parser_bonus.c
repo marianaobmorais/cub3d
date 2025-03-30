@@ -6,7 +6,7 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 18:55:25 by joneves-          #+#    #+#             */
-/*   Updated: 2025/03/30 16:36:22 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/03/27 14:56:27 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
  */
 static bool	ft_valid_char(char c)
 {
+	//update brief
 	if (c != '1' && c != '0' && c != ' ' && c != 'S' && c != 'N'
 		&& c != 'E' && c != 'W' && c != 'D' && c != 'X')
 		return (false);

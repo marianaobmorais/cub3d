@@ -71,11 +71,13 @@ int		ft_blendcolors(int color1, int color2, float alpha);
 void	draw_line_minimap(t_cub *cub, int x1, int y1, int x2, int y2, int color);
 void	ft_paint_action_on_hud(t_cub *cub, t_image *source, int pos_x, int pos_y);
 void	ft_render_fov_minimap(t_cub *cub);
+
 void	ft_render_action(t_cub *cub);
 void	ft_hextoarray(int hex, unsigned char *rgb);
 void	ft_door(t_cub *cub, t_image *source, int pos_x, int pos_y);
 
 
 void	ft_render_fov_minimap(t_cub *cub);
+
 
 # endif //HUD_BONUS_H

@@ -51,7 +51,7 @@ void	ft_init_end_screen(t_cub *cub)
 int	ft_put_end_screen(t_cub *cub, int dir)
 {
 	if (cub->end_screen->img)
-		mlx_destroy_image(cub->mlx, cub->end_screen->img);
+		mlx_destroy_image(cub->mlx, cub->end_screen->img); //do we need this?
 	if (dir == 0)
 	{
 		cub->end_screen->img = mlx_xpm_file_to_image(cub->mlx, \
@@ -71,9 +71,16 @@ int	ft_put_end_screen(t_cub *cub, int dir)
 	return (0);
 }
 
-size_t	get_time(void)
+/**
+ * @brief Retrieves the current time in milliseconds.
+ * 
+ * This function uses `gettimeofday` to obtain the current time and converts 
+ * it into milliseconds. It is typically used for frame timing calculations.
+ * 
+ * @return The current time in milliseconds.
+ */
+static size_t	ft_get_time(void)
 {
-	//add brief
 	size_t			milliseconds;
 	struct timeval	time;
 
@@ -82,12 +89,22 @@ size_t	get_time(void)
 	return (milliseconds);
 }
 
-void	ft_render_start_screen(t_cub *cub)
+/**
+ * @brief Displays the start screen of the game with changing images.
+ *
+ * This function controls the display of a start screen sequence by cycling 
+ * through images at a regular interval (every 0.2 seconds). It updates the 
+ * image shown on the screen and ensures smooth transitions between the 
+ * images. Once all images have been displayed, the cycle restarts.
+ *
+ * @param cub Pointer to the main game structure.
+ */
+static void	ft_put_start_screen(t_cub *cub)
 {
 	if (cub->current_screen == 4)
 		cub->current_screen = 0;
 	if (cub->start_screen->img)
-		mlx_destroy_image(cub->mlx, cub->start_screen->img);
+		mlx_destroy_image(cub->mlx, cub->start_screen->img); //do we need this?
 	cub->start_screen->img = mlx_xpm_file_to_image(cub->mlx, \
 		cub->start_screen->paths[cub->current_screen], \
 		&cub->start_screen->width, \
@@ -97,16 +114,27 @@ void	ft_render_start_screen(t_cub *cub)
 	cub->current_screen++;
 }
 
+/**
+ * @brief Displays the start screen of the game with changing images.
+ *
+ * This function controls the display of a start screen sequence by cycling 
+ * through images at a regular interval (every 0.2 seconds). It updates the 
+ * image shown on the screen and ensures smooth transitions between the 
+ * images. Once all images have been displayed, the cycle restarts.
+ *
+ * @param cub Pointer to the main game structure.
+ * @return 0 upon completion.
+ */
 int	ft_render_screen(t_cub *cub)
 {
 	//update brief
 	size_t		now;
 
-	now = get_time();
+	now = ft_get_time();
 	cub->frame_time = (now - cub->last_time) / 1000.0;
 	if (!cub->started && cub->frame_time >= 0.2)
 	{
-		ft_render_start_screen(cub);
+		ft_put_start_screen(cub);
 		cub->last_time = now;
 	}
 	if (cub->started && !cub->leaving && cub->frame_time >= 0.016)
@@ -120,4 +148,5 @@ int	ft_render_screen(t_cub *cub)
 		cub->last_time = now;
 	}
 	return (0);
+	//rename this file? suggestion: ft_render_screen.c
 }

@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 20:27:19 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/03/22 20:12:57 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/03/25 20:57:37 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,5 +105,4 @@ void	ft_init_raycast(t_cub *cub)
 		ft_init_east(cub->raycast);
 	if (cub->map->direction == WEST)
 		ft_init_west(cub->raycast);
-	cub->raycast->move_speed = MOVE_SPEED;
 }

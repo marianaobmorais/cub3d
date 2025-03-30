@@ -33,6 +33,7 @@ SRCS = $(SRCS_DIR)/main.c \
 B_SRCS = $(BONUS_DIR)/main_bonus.c \
 	$(BONUS_DIR)/ft_handle_img_bonus.c \
 	$(BONUS_DIR)/hook_utils_bonus.c \
+	$(BONUS_DIR)/hook_mouse_bonus.c \
 	$(BONUS_DIR)/ft_handle_error_bonus.c \
 	$(BONUS_DIR)/pixel_utils_bonus.c \
 	$(BONUS_DIR)/ft_clean_game_bonus.c \
@@ -48,6 +49,7 @@ B_SRCS = $(BONUS_DIR)/main_bonus.c \
 	$(BONUS_DIR)/parser/parser_utils_bonus.c \
 	$(BONUS_DIR)/raycasting/ft_init_raycast_bonus.c \
 	$(BONUS_DIR)/raycasting/ft_render_walls_bonus.c \
+	$(BONUS_DIR)/raycasting/ft_render_sprites_bonus.c \
 	$(BONUS_DIR)/raycasting/ft_paint_ray_bonus.c \
 	$(BONUS_DIR)/raycasting/ft_dda_bonus.c \
 	$(BONUS_DIR)/hud/ft_render_minimap_on_hud_bonus.c \

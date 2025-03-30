@@ -6,7 +6,7 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 18:55:34 by joneves-          #+#    #+#             */
-/*   Updated: 2025/03/30 15:00:53 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/03/27 14:55:42 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static bool	is_valid_zero(char *line, char *previous_line, int y)
 {
+	//update brief
 	if (previous_line)
 	{
 		if (!previous_line[y] || previous_line[y] == ' ')

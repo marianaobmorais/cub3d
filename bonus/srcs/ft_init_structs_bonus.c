@@ -6,11 +6,12 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:32:10 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/03/30 16:39:25 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/03/28 19:30:07 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d_bonus.h"
+
 
 void	ft_init_xpm_image(t_cub *cub, t_image *img, char *path)
 {
@@ -23,6 +24,20 @@ void	ft_init_xpm_image(t_cub *cub, t_image *img, char *path)
 		&(img)->line_len, &(img)->endian);
 	if (!(img)->addr)
 		ft_handle_error("mlx_get_data_addr", cub);
+
+/* static  */void	ft_init_sprite(t_cub *cub)
+{
+	//add brief
+	t_raycast	*ray;
+	int			i;
+
+	i = 0;
+	ray = cub->raycast;
+	ft_memset(&ray->sprite[i], 0, sizeof(t_image));
+	ray->sprite[i].img_ptr = mlx_xpm_file_to_image(cub->mlx, "assets/textures/sprite_1.xpm", &ray->sprite[i].width, &ray->sprite[i].height);
+	ray->sprite[i].addr = mlx_get_data_addr(ray->sprite[i].img_ptr, &ray->sprite[i].bpp, &ray->sprite[i].line_len, &ray->sprite[i].endian);
+	if (!ray->sprite[i].img_ptr || !ray->sprite[i].addr)
+		ft_handle_error("problem loading sprite", cub); //rephrase later
 }
 
 /**
@@ -57,7 +72,7 @@ static void	ft_get_img_addr(t_cub *cub)
 }
 
 /**
- * @brief Loads texture images and initializes texture data.
+ * @brief Loads texture images for the walls and initializes texture data.
  *
  * This function loads texture images from XPM files and initializes the
  * corresponding texture structures. It also verifies that all images are 
@@ -65,7 +80,7 @@ static void	ft_get_img_addr(t_cub *cub)
  *
  * @param cub Pointer to the main game structure containing texture data.
  */
-static void	ft_init_texture(t_cub *cub)
+static void	ft_init_wall_texture(t_cub *cub)
 {
 	t_raycast	*ray;
 
@@ -148,13 +163,14 @@ t_cub	*ft_init_structs(t_cub *cub, char *argv)
 		ft_handle_error("malloc: cub->mlx", cub);
 	ft_init_image(cub);
 	ft_init_raycast(cub);
-	ft_init_texture(cub);
+	ft_init_wall_texture(cub);
 	ft_init_hud(cub);
-	ft_init_start_screen(cub); //screen
-	ft_init_end_screen(cub); //screen
 	cub->action = false; //action
 	cub->duration_action = 0; //action
 	cub->amount_action = 0; //action
+	ft_init_sprite(cub); //sprite
+	ft_init_start_screen(cub);
+	ft_init_end_screen(cub);
 	cub->window = mlx_new_window(cub->mlx, WIDTH, HEIGHT, "cub3d");
 	if (!cub->window)
 		ft_handle_error("malloc: cub->window", cub);
