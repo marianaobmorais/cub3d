@@ -6,7 +6,7 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:26:59 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/03/28 19:29:56 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/03/30 17:08:33 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,16 +92,10 @@ typedef struct s_ipoint
 
 typedef struct s_sprite
 {
-	t_ipoint	squ_pos;
-	int			id;
-}	t_sprite;
-
-typedef struct s_sprite
-{
 	int			id;
 	int			order;
 	t_image		image;
-	t_ipoint	squ;
+	t_ipoint	tile;
 	t_dpoint	pos;
 	double		dist;
 }	t_sprite;
@@ -112,9 +106,9 @@ typedef struct s_raycast
 	t_dpoint		player_dir;
 	t_dpoint		camera_plane;
 	t_dpoint		ray_dir;
-	t_ipoint		player_squ;
+	t_ipoint		player_tile;
 	t_ipoint		step;
-	t_ipoint		step_squ;
+	t_ipoint		step_tile;//
 	t_ipoint		mouse_pos;
 	double			move_speed;
 	double			rotate_speed;
@@ -134,7 +128,7 @@ typedef struct s_raycast
 	t_image			south_texture;
 	t_image			east_texture;
 	t_image			west_texture;
-	t_image			sprite[4];
+	t_image			sprite_a[4];
 	//t_image		sprite_b[4];
 	double			buffer[WIDTH]; //double check this
 }	t_raycast;
@@ -155,7 +149,7 @@ typedef struct s_map
 	int				player_squ_y;
 	int				width;
 	int				height;
-	int				amount_sprites;
+	int				sprite_count;
 	int				sprites_increment;
 	t_sprite		*sprites;
 	t_directions	direction;

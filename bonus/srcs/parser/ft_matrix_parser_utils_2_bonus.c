@@ -6,7 +6,7 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 18:55:34 by joneves-          #+#    #+#             */
-/*   Updated: 2025/03/30 16:33:49 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/03/30 17:01:21 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ bool	is_valid_pigeon(char *line, char *previous_line, int x)
 
 void	ft_set_pigeon(t_cub *cub, int x, int y)
 {
-	(cub->map->sprites[cub->map->sprites_increment]).squ_pos.x = y;
-	(cub->map->sprites[cub->map->sprites_increment]).squ_pos.y = x;
+	(cub->map->sprites[cub->map->sprites_increment]).tile.x = y;
+	(cub->map->sprites[cub->map->sprites_increment]).tile.y = x;
 	(cub->map->sprites[cub->map->sprites_increment]).id = cub->map->sprites_increment;
 	cub->map->sprites_increment++;
 }
@@ -67,7 +67,7 @@ void	ft_count_sprites(t_cub *cub, char *line)
 	while (line[i])
 	{
 		if (line[i] == 'X')
-			cub->map->amount_sprites++;
+			cub->map->sprite_count++;
 		i++;
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move_utils_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 19:38:45 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/03/25 15:15:05 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/03/30 16:58:15 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,14 +92,14 @@ void	ft_update_position(t_cub *cub, double tmp_x, double tmp_y)
 	t_raycast	*ray;
 
 	ray = cub->raycast;
-	if (cub->map->matrix[ray->player_squ.x][ray->player_squ.y] != 'D') //if it is not a door, update map
+	if (cub->map->matrix[ray->player_tile.x][ray->player_tile.y] != 'D') //if it is not a door, update map
 	{
-		cub->map->matrix[ray->player_squ.x][ray->player_squ.y] = '0';
+		cub->map->matrix[ray->player_tile.x][ray->player_tile.y] = '0';
 		cub->map->matrix[(int)tmp_x][(int)tmp_y] = 'P';
 	}
 	//ft_print_map(cub->map); //debug
 	ray->player_pos.x = tmp_x;
 	ray->player_pos.y = tmp_y;
-	ray->player_squ.x = (int)tmp_x;
-	ray->player_squ.y = (int)tmp_y;
+	ray->player_tile.x = (int)tmp_x;
+	ray->player_tile.y = (int)tmp_y;
 }

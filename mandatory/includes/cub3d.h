@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:26:59 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/03/27 19:36:33 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/03/30 16:59:50 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,9 +99,9 @@ typedef struct s_raycast
 	t_dpoint		player_dir;
 	t_dpoint		camera_plane;
 	t_dpoint		ray_dir;
-	t_ipoint		player_squ;
+	t_ipoint		player_tile;
 	t_ipoint		step;
-	t_ipoint		step_squ;
+	t_ipoint		step_tile;
 	double			move_speed;
 	double			rotate_speed;
 	double			factor;

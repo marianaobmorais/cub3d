@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init_raycast.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 20:27:19 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/03/25 20:43:43 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/03/30 16:58:15 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,8 @@ void	ft_init_raycast(t_cub *cub)
 	if (!cub->raycast)
 		ft_handle_error("malloc: cub->raycast", cub);
 	ft_memset(cub->raycast, 0, sizeof(t_raycast));
-	cub->raycast->player_squ.x = cub->map->player_squ_x;
-	cub->raycast->player_squ.y = cub->map->player_squ_y;
+	cub->raycast->player_tile.x = cub->map->player_squ_x;
+	cub->raycast->player_tile.y = cub->map->player_squ_y;
 	cub->raycast->player_pos.x = (double)cub->map->player_squ_x + 0.5;
 	cub->raycast->player_pos.y = (double)cub->map->player_squ_y + 0.5;
 	if (cub->map->direction == NORTH)

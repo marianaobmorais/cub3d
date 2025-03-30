@@ -1,6 +1,7 @@
 #ifndef HUD_BONUS_H
 # define HUD_BONUS_H
 
+# include <math.h>
 # include "image_bonus.h"
 # define MINI_WIDTH 87
 # define MINI_HEIGHT 52

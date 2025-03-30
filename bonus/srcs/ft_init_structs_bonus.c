@@ -6,7 +6,7 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:32:10 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/03/28 19:30:07 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/03/30 16:53:15 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	ft_init_xpm_image(t_cub *cub, t_image *img, char *path)
 		&(img)->line_len, &(img)->endian);
 	if (!(img)->addr)
 		ft_handle_error("mlx_get_data_addr", cub);
+}
 
 /* static  */void	ft_init_sprite(t_cub *cub)
 {

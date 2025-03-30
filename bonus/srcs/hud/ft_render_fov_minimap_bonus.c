@@ -11,16 +11,16 @@ static void	ft_get_ray_info_minimap(t_raycast *ray)
 	else
 		ray->delta_dist_y = fabs(1 / ray->ray_dir.y);
 	if (ray->ray_dir.x < 0)
-		ray->dist_to_x = (ray->player_pos.x - (double)ray->player_squ.x)
+		ray->dist_to_x = (ray->player_pos.x - (double)ray->player_tile.x)
 			* ray->delta_dist_x;
 	else
-		ray->dist_to_x = ((double)ray->player_squ.x + 1.0 - ray->player_pos.x)
+		ray->dist_to_x = ((double)ray->player_tile.x + 1.0 - ray->player_pos.x)
 			* ray->delta_dist_x;
 	if (ray->ray_dir.y < 0)
-		ray->dist_to_y = (ray->player_pos.y - (double)ray->player_squ.y)
+		ray->dist_to_y = (ray->player_pos.y - (double)ray->player_tile.y)
 			* ray->delta_dist_y;
 	else
-		ray->dist_to_y = ((double)ray->player_squ.y + 1.0 - ray->player_pos.y)
+		ray->dist_to_y = ((double)ray->player_tile.y + 1.0 - ray->player_pos.y)
 			* ray->delta_dist_y;
 }
 
@@ -28,7 +28,16 @@ static void	ft_get_wall_minimap(t_raycast *ray, bool hit_wall)
 {
 	double	max_dist;
 
-	max_dist = 8;
+	// if (cub->raycast->hit_side == 0 && cub->raycast->ray_dir.x < 0)
+	// 		ft_paint_ray(cub, w, cub->raycast->north_texture);
+	// 	if (cub->raycast->hit_side == 0 && cub->raycast->ray_dir.x >= 0)
+	// 		ft_paint_ray(cub, w, cub->raycast->south_texture);
+	// 	if (cub->raycast->hit_side == 1 && cub->raycast->ray_dir.y >= 0)
+	// 		ft_paint_ray(cub, w, cub->raycast->east_texture);
+	// 	if (cub->raycast->hit_side == 1 && cub->raycast->ray_dir.y < 0)
+	// 		ft_paint_ray(cub, w, cub->raycast->west_texture);
+
+	max_dist = 5;
 	if (ray->hit_side == NORTH || ray->hit_side == SOUTH)
 		ray->perp_wall_dist = ray->dist_to_x - ray->delta_dist_x;
 	else
@@ -85,8 +94,8 @@ void	raycast_minimap(t_cub *cub, t_raycast ray,double angle)
 	hit_wall = false;
 	ray.player_pos.x = cub->raycast->player_pos.x;
 	ray.player_pos.y = cub->raycast->player_pos.y;
-	ray.player_squ.x = (int) ray.player_pos.x;
-	ray.player_squ.y = (int) ray.player_pos.y;
+	ray.player_tile.x = (int) ray.player_pos.x;
+	ray.player_tile.y = (int) ray.player_pos.y;
 	ray.ray_dir.x = sin(angle);
 	ray.ray_dir.y = cos(angle);
 	ft_define_steps(&ray); //original
@@ -100,12 +109,12 @@ void	raycast_minimap(t_cub *cub, t_raycast ray,double angle)
 	ft_get_wall_minimap(&ray, hit_wall);
 	hit.x = ray.player_pos.x + ray.perp_wall_dist * ray.ray_dir.x;
 	hit.y = ray.player_pos.y + ray.perp_wall_dist * ray.ray_dir.y;
-	ray.player_squ.x = (ray.player_pos.x - cub->hud->start_x) * TILE + OFFSET_X;
-	ray.player_squ.y = (ray.player_pos.y - cub->hud->start_y) * TILE + OFFSET_Y;
+	ray.player_tile.x = (ray.player_pos.x - cub->hud->start_x) * TILE + OFFSET_X;
+	ray.player_tile.y = (ray.player_pos.y - cub->hud->start_y) * TILE + OFFSET_Y;
 	hit.x = (hit.x - cub->hud->start_x) * TILE + OFFSET_X;
 	hit.y = (hit.y - cub->hud->start_y) * TILE + OFFSET_Y;
-	draw_line_minimap(cub, ray.player_squ.y, ray.player_squ.x, (int) hit.y, (int) hit.x, GREEN2);
-	ft_put_player(cub->image, ray.player_squ.y, ray.player_squ.x, RED);
+	draw_line_minimap(cub, ray.player_tile.y, ray.player_tile.x, (int) hit.y, (int) hit.x, GREEN2);
+	ft_put_player(cub->image, ray.player_tile.y, ray.player_tile.x, RED);
 }
 
 void	ft_render_fov_minimap(t_cub *cub)

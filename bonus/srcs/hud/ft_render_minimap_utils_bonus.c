@@ -53,8 +53,8 @@ void	ft_put_square(t_image *img, int x, int y, int color)
  */
 void	ft_set_limit_x(t_cub *cub, int matrix_height)
 {
-	cub->hud->start_x = cub->raycast->player_squ.x - 4;
-	cub->hud->end_x = cub->raycast->player_squ.x + 4;
+	cub->hud->start_x = cub->raycast->player_tile.x - 4;
+	cub->hud->end_x = cub->raycast->player_tile.x + 4;
 	if (cub->hud->start_x < 0)
 	{
 		cub->hud->end_x -= cub->hud->start_x;
@@ -82,8 +82,8 @@ void	ft_set_limit_x(t_cub *cub, int matrix_height)
  */
 void	ft_set_limit_y(t_cub *cub, int matrix_width)
 {
-	cub->hud->start_y = cub->raycast->player_squ.y - 8;
-	cub->hud->end_y = cub->raycast->player_squ.y + 8;
+	cub->hud->start_y = cub->raycast->player_tile.y - 8;
+	cub->hud->end_y = cub->raycast->player_tile.y + 8;
 	if (cub->hud->start_y < 0)
 	{
 		cub->hud->end_y -= cub->hud->start_y;

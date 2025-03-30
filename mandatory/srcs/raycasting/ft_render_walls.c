@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_render_walls.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 20:02:43 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/03/27 19:44:59 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/03/30 16:59:04 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,16 @@ static void	ft_get_ray_info(t_raycast *ray, int w)
 	else
 		ray->delta_dist_y = fabs(1 / ray->ray_dir.y);
 	if (ray->ray_dir.x < 0)
-		ray->dist_to_x = (ray->player_pos.x - (double)ray->player_squ.x)
+		ray->dist_to_x = (ray->player_pos.x - (double)ray->player_tile.x)
 			* ray->delta_dist_x;
 	else
-		ray->dist_to_x = ((double)ray->player_squ.x + 1.0 - ray->player_pos.x)
+		ray->dist_to_x = ((double)ray->player_tile.x + 1.0 - ray->player_pos.x)
 			* ray->delta_dist_x;
 	if (ray->ray_dir.y < 0)
-		ray->dist_to_y = (ray->player_pos.y - (double)ray->player_squ.y)
+		ray->dist_to_y = (ray->player_pos.y - (double)ray->player_tile.y)
 			* ray->delta_dist_y;
 	else
-		ray->dist_to_y = ((double)ray->player_squ.y + 1.0 - ray->player_pos.y)
+		ray->dist_to_y = ((double)ray->player_tile.y + 1.0 - ray->player_pos.y)
 			* ray->delta_dist_y;
 }
 
@@ -59,8 +59,8 @@ static void	ft_get_ray_info(t_raycast *ray, int w)
  */
 static void	ft_define_steps(t_raycast *ray)
 {
-	ray->step_squ.x = ray->player_squ.x;
-	ray->step_squ.y = ray->player_squ.y;
+	ray->step_tile.x = ray->player_tile.x;
+	ray->step_tile.y = ray->player_tile.y;
 	if (ray->ray_dir.x < 0)
 		ray->step.x = -1;
 	else
@@ -85,9 +85,9 @@ static void	ft_define_steps(t_raycast *ray)
  */
 static void	ft_get_wall_height(t_raycast *ray, t_map *map)
 {
-	if (!(ray->step_squ.x >= 0 && ray->step_squ.x < map->height
-			&& ray->step_squ.y >= 0 && ray->step_squ.y < map->width
-			&& map->matrix[ray->step_squ.x][ray->step_squ.y]))
+	if (!(ray->step_tile.x >= 0 && ray->step_tile.x < map->height
+			&& ray->step_tile.y >= 0 && ray->step_tile.y < map->width
+			&& map->matrix[ray->step_tile.x][ray->step_tile.y]))
 		ray->perp_wall_dist = 0;
 	else if (ray->hit_side == 0)
 		ray->perp_wall_dist = ray->dist_to_x - ray->delta_dist_x;
