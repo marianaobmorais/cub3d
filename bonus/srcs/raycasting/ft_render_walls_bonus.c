@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 20:02:43 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/03/22 19:30:46 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/03/28 18:01:07 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,19 +72,24 @@ static void	ft_define_steps(t_raycast *ray)
 }
 
 /**
- * @brief Calculates the height of walls based on ray distance.
- *
- * Determines the projected height of walls to be drawn on the screen
- * based on the distance from the player. perp_wall_dist gets get point in the
- * camera plane closest to the hitpoint of the ray. wall_height is the inverse
- * of perp_wall_dist, and then multiplied by h, the height in pixels of the 
- * screen, to bring it to pixel coordinates.
- *
- * @param ray A pointer to the raycasting structure.
+ * @brief Calculates the wall height and rendering bounds.
+ * 
+ * This function determines the perpendicular wall distance based on the ray
+ * hit side and the distance values computed during raycasting. If the ray's
+ * step position is outisde the map bounds, it sets the perpendicular wall
+ * distance to 0. It then calculates the height of the wall slice that will be
+ * drawn on the screen, as well as the start and end positions for rendering.
+ * 
+ * @param ray Pointer to the raycasting structure containing ray information.
+ * @param map Pointer to the map structure containing level data.
  */
-static void	ft_get_wall_height(t_raycast *ray)
+static void	ft_get_wall_height(t_raycast *ray, t_map *map)
 {
-	if (ray->hit_side == NORTH || ray->hit_side == SOUTH)
+	if (!(ray->step_squ.x >= 0 && ray->step_squ.x < map->height
+			&& ray->step_squ.y >= 0 && ray->step_squ.y < map->width
+			&& map->matrix[ray->step_squ.x][ray->step_squ.y]))
+		ray->perp_wall_dist = 0;
+	if (ray->hit_side == 0)
 		ray->perp_wall_dist = ray->dist_to_x - ray->delta_dist_x;
 	else
 		ray->perp_wall_dist = ray->dist_to_y - ray->delta_dist_y;
@@ -106,7 +111,7 @@ static void	ft_get_wall_height(t_raycast *ray)
  */
 static void	ft_get_wall_hit_value(t_raycast *ray)
 {
-	if (ray->hit_side == NORTH || ray->hit_side == SOUTH)
+	if (ray->hit_side == 0)
 		ray->wall_hit_value = ray->player_pos.y + ray->perp_wall_dist
 			* ray->ray_dir.y;
 	else
@@ -126,28 +131,30 @@ static void	ft_get_wall_hit_value(t_raycast *ray)
 void	ft_render_walls(t_cub *cub)
 {
 	int		w;
-	bool	hit_wall;
+	bool	stop_loop;
 
 	w = 0;
 	while (w < WIDTH)
 	{
 		ft_get_ray_info(cub->raycast, w);
 		ft_define_steps(cub->raycast);
-		hit_wall = false;
-		while (!hit_wall)
-			ft_dda(cub->raycast, cub->map, &hit_wall);
-		ft_get_wall_height(cub->raycast);
+		stop_loop = false;
+		while (!stop_loop)
+			ft_dda(cub->raycast, cub->map, &stop_loop);
+		ft_get_wall_height(cub->raycast, cub->map);
 		ft_get_wall_hit_value(cub->raycast);
 		cub->hud->ray_hits[w].x = cub->raycast->step_squ.x; //minimap
 		cub->hud->ray_hits[w].y = cub->raycast->step_squ.y; //minimap
-		if (cub->raycast->hit_side == NORTH)
+		if (cub->raycast->hit_side == 0 && cub->raycast->ray_dir.x < 0)
 			ft_paint_ray(cub, w, cub->raycast->north_texture);
-		if (cub->raycast->hit_side == SOUTH)
+		if (cub->raycast->hit_side == 0 && cub->raycast->ray_dir.x >= 0)
 			ft_paint_ray(cub, w, cub->raycast->south_texture);
-		if (cub->raycast->hit_side == EAST)
+		if (cub->raycast->hit_side == 1 && cub->raycast->ray_dir.y >= 0)
 			ft_paint_ray(cub, w, cub->raycast->east_texture);
-		if (cub->raycast->hit_side == WEST)
+		if (cub->raycast->hit_side == 1 && cub->raycast->ray_dir.y < 0)
 			ft_paint_ray(cub, w, cub->raycast->west_texture);
+		cub->raycast->buffer[w] = cub->raycast->perp_wall_dist;
+		//printf("buffer[%d]: %lf\n", w, cub->raycast->buffer[w]); //debug
 		w++;
 	}
 }

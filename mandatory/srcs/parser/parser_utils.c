@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 18:55:17 by joneves-          #+#    #+#             */
-/*   Updated: 2025/03/24 17:21:06 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/03/27 19:21:40 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,8 @@ char	*ft_strip(char *str, int mode)
 // 	int	i;
 
 // 	i = 0;
-// 	printf("Player x=%d y=%d, ", map->player_squ_x, map->player_squ_y);
+// 	printf("Player x=%d y=%d\n", map->player_squ_x, map->player_squ_y);
+// 	printf("map width=%d height=%d, ", map->width, map->height);
 // 	printf("direction: %s\n\n",
 // 		(map->direction == NORTH) ? "N" :
 // 		(map->direction == SOUTH) ? "S" :

@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 18:55:34 by joneves-          #+#    #+#             */
-/*   Updated: 2025/03/22 19:29:56 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/03/27 14:55:42 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
  */
 static bool	is_valid_zero(char *line, char *previous_line, int y)
 {
+	//update brief
 	if (previous_line)
 	{
 		if (!previous_line[y] || previous_line[y] == ' ')
@@ -39,10 +40,12 @@ static bool	is_valid_zero(char *line, char *previous_line, int y)
 	}
 	if ((y > 0 && (line[y - 1] == '0' || line[y - 1] == '1'
 				|| line[y - 1] == 'S' || line[y - 1] == 'E'
-				|| line[y - 1] == 'W' || line[y - 1] == 'N'))
+				|| line[y - 1] == 'W' || line[y - 1] == 'N'
+				|| line[y - 1] == 'D' || line[y - 1] == 'X')) //D for door, X por pigeon
 		&& (line[y + 1] == '0' || line[y + 1] == '1'
 			|| line[y + 1] == 'S' || line[y + 1] == 'E'
-			|| line[y + 1] == 'W' || line[y + 1] == 'N'))
+			|| line[y + 1] == 'W' || line[y + 1] == 'N'
+			|| line[y + 1] == 'D' || line[y + 1] == 'X')) //D for door. X for pigeon
 	{
 		return (true);
 	}
