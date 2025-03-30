@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ft_render_walls_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 20:02:43 by mariaoli          #+#    #+#             */
 /*   Updated: 2025/03/28 18:01:07 by mariaoli         ###   ########.fr       */
@@ -57,7 +57,7 @@ static void	ft_get_ray_info(t_raycast *ray, int w)
  *
  * @param ray A pointer to the raycasting structure.
  */
-static void	ft_define_steps(t_raycast *ray)
+void	ft_define_steps(t_raycast *ray)
 {
 	ray->step_squ.x = ray->player_squ.x;
 	ray->step_squ.y = ray->player_squ.y;
@@ -143,8 +143,6 @@ void	ft_render_walls(t_cub *cub)
 			ft_dda(cub->raycast, cub->map, &stop_loop);
 		ft_get_wall_height(cub->raycast, cub->map);
 		ft_get_wall_hit_value(cub->raycast);
-		cub->hud->ray_hits[w].x = cub->raycast->step_squ.x; //minimap
-		cub->hud->ray_hits[w].y = cub->raycast->step_squ.y; //minimap
 		if (cub->raycast->hit_side == 0 && cub->raycast->ray_dir.x < 0)
 			ft_paint_ray(cub, w, cub->raycast->north_texture);
 		if (cub->raycast->hit_side == 0 && cub->raycast->ray_dir.x >= 0)

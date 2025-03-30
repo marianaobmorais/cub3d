@@ -45,6 +45,7 @@ B_SRCS = $(BONUS_DIR)/main_bonus.c \
 	$(BONUS_DIR)/parser/ft_map_parser_utils_bonus.c \
 	$(BONUS_DIR)/parser/ft_matrix_parser_bonus.c \
 	$(BONUS_DIR)/parser/ft_matrix_parser_utils_bonus.c \
+	$(BONUS_DIR)/parser/ft_matrix_parser_utils_2_bonus.c \
 	$(BONUS_DIR)/parser/parser_utils_bonus.c \
 	$(BONUS_DIR)/raycasting/ft_init_raycast_bonus.c \
 	$(BONUS_DIR)/raycasting/ft_render_walls_bonus.c \
@@ -52,9 +53,11 @@ B_SRCS = $(BONUS_DIR)/main_bonus.c \
 	$(BONUS_DIR)/raycasting/ft_paint_ray_bonus.c \
 	$(BONUS_DIR)/raycasting/ft_dda_bonus.c \
 	$(BONUS_DIR)/hud/ft_render_minimap_on_hud_bonus.c \
+	$(BONUS_DIR)/hud/ft_render_fov_minimap_bonus.c \
 	$(BONUS_DIR)/hud/ft_init_hud_bonus.c \
 	$(BONUS_DIR)/hud/ft_render_minimap_utils_bonus.c \
 	$(BONUS_DIR)/hud/ft_render_source_on_hud_bonus.c \
+	$(BONUS_DIR)/hud/ft_render_action_bonus.c \
 	$(BONUS_DIR)/hud/screens_bonus.c \
 	$(BONUS_DIR)/hud/stuffs_bonus.c \
 

@@ -109,8 +109,8 @@ static void	ft_put_start_screen(t_cub *cub)
 		cub->start_screen->paths[cub->current_screen], \
 		&cub->start_screen->width, \
 		&cub->start_screen->height);
-	mlx_put_image_to_window(cub->mlx, cub->window, 
-		cub->start_screen->img, 0, 0);
+	mlx_put_image_to_window(cub->mlx, cub->window, cub->start_screen->img, \
+		0, 0);
 	cub->current_screen++;
 }
 
@@ -140,6 +140,11 @@ int	ft_render_screen(t_cub *cub)
 	if (cub->started && !cub->leaving && cub->frame_time >= 0.016)
 	{
 		ft_handle_img(cub);
+		cub->last_time = now;
+	}
+	if (cub->action && cub->frame_time >= 0.016)
+	{
+		ft_render_action(cub);
 		cub->last_time = now;
 	}
 	return (0);

@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:26:59 by mariaoli          #+#    #+#             */
 /*   Updated: 2025/03/28 19:29:56 by mariaoli         ###   ########.fr       */
@@ -16,6 +16,7 @@
 # include "../../libft/libft.h"
 # include "../../minilibx-linux/mlx.h"
 # include "hud_bonus.h"
+# include "image_bonus.h"
 # include <X11/keysym.h>
 # include <X11/X.h>
 # include <stdio.h> //will we use printf?
@@ -45,6 +46,7 @@
 # define YELLOW 0xfff200
 # define BLUE 0x030bfc
 # define GREEN 0x009c00
+# define GREEN2 0xCCFF33
 # define RED 0xff1100
 # define BLACK 0x000000
 # define IGNORE 0x00FFFF
@@ -56,7 +58,8 @@
 # define MOVE_SPEED 8
 # define ROTATE_SPEED 4
 
-typedef struct s_minimap	t_minimap;
+
+typedef struct s_hud	t_hud;
 
 typedef enum e_directions
 {
@@ -87,16 +90,11 @@ typedef struct s_ipoint
 	int	y;
 }	t_ipoint;
 
-typedef struct s_image
+typedef struct s_sprite
 {
-	void	*img_ptr;
-	char	*addr;
-	int		bpp;
-	int		line_len;
-	int		endian;
-	int		width;
-	int		height;
-}	t_image;
+	t_ipoint	squ_pos;
+	int			id;
+}	t_sprite;
 
 typedef struct s_sprite
 {
@@ -157,7 +155,9 @@ typedef struct s_map
 	int				player_squ_y;
 	int				width;
 	int				height;
-	int				sprite_count;
+	int				amount_sprites;
+	int				sprites_increment;
+	t_sprite		*sprites;
 	t_directions	direction;
 	t_sprite		*sprite;
 }	t_map;
@@ -173,6 +173,9 @@ typedef struct s_cub
 	int			fd;
 	bool		started; //screen
 	bool		leaving; //screen
+	bool		action; //action
+	int			amount_action; //action
+	double		duration_action; //action
 	t_screen	*start_screen; //screen
 	t_screen	*end_screen; //screen
 	size_t		last_time; //screen
@@ -183,6 +186,7 @@ typedef struct s_cub
 
 /* ft_init_structs_bonus.c */
 
+void			ft_init_xpm_image(t_cub *cub, t_image *img, char *path);
 t_cub			*ft_init_structs(t_cub *cub, char *argv);
 
 /* ft_handle_error_bonus.c */
@@ -209,8 +213,14 @@ void			ft_map_parser(int fd, t_cub *cub, int i);
 char			*ft_buffer(char *buffer, char *line, int start, t_cub *cub);
 t_parser_status	ft_add_texture(char *line, t_cub *game, char *identifier, \
 	t_directions direction);
-char	**ft_safe_split(char *buffer, t_cub *cub);
-	
+char			**ft_safe_split(char *buffer, t_cub *cub);
+
+/* ft_map_parser_utils_bonus_2.c */
+
+void			ft_count_sprites(t_cub *cub, char *line);
+bool			is_valid_pigeon(char *line, char *previous_line, int x);
+void			ft_set_pigeon(t_cub *cub, int x, int y);
+
 /* parser_utils_bonus.c */
 
 bool			ft_access(char *filepath);
@@ -268,6 +278,7 @@ void			ft_init_raycast(t_cub*cub);
 /* ft_render_walls_bonus.c */
 
 void			ft_render_walls(t_cub *cub);
+void			ft_define_steps(t_raycast *ray);
 
 /* ft_render_sprites_bonus.c */
 

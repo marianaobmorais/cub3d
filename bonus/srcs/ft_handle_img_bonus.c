@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ft_handle_img_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 18:36:57 by mariaoli          #+#    #+#             */
 /*   Updated: 2025/03/28 19:24:26 by mariaoli         ###   ########.fr       */
@@ -71,16 +71,29 @@ static void	ft_render_bg(t_image *img, int ceiling_color, int floor_color)
  */
 int	ft_handle_img(t_cub *cub)
 {
+	//add frames
+	ft_render_bg(cub->image, cub->map->ceiling_hex, cub->map->floor_hex);
+	ft_render_walls(cub);
+	ft_render_source_on_hud(cub, &cub->hud->watch, 0, 0); //bonus
+	if (cub->amount_action < BREAD_3 + 1)
+		ft_render_source_on_hud(cub, &cub->hud->viewmodel, 390, 420); //bonus
+	if (cub->amount_action > BREAD_1)
+		ft_render_source_on_hud(cub, &cub->hud->empty_bread, WIDTH - 128, 0); //bonus
+	else
+		ft_render_source_on_hud(cub, &cub->hud->bread, WIDTH - 128, 0); //bonus
+	if (cub->amount_action > BREAD_2)
+		ft_render_source_on_hud(cub, &cub->hud->empty_bread, WIDTH - 192, 0); //bonus
+	else
+		ft_render_source_on_hud(cub, &cub->hud->bread, WIDTH - 192, 0); //bonus
+	if (cub->amount_action > BREAD_3)
+		ft_render_source_on_hud(cub, &cub->hud->empty_bread, WIDTH - 256, 0); //bonus
+	else
+		ft_render_source_on_hud(cub, &cub->hud->bread, WIDTH - 256, 0); //bonus
 	//update speed
 	cub->raycast->move_speed = cub->frame_time * MOVE_SPEED;
 	cub->raycast->rotate_speed = cub->frame_time * ROTATE_SPEED;
 	ft_mouse_hook(cub); //mouse
-	ft_render_bg(cub->image, cub->map->ceiling_hex, cub->map->floor_hex);
-	ft_render_walls(cub);
 	//ft_render_sprites(cub); //sprites
-	ft_render_source_on_hud(cub, cub->hud->watch, 0, 0); //bonus
-	ft_render_source_on_hud(cub, cub->hud->viewmodel, 390, 420); //bonus
-	ft_render_source_on_hud(cub, cub->hud->breads, 820, 0); //bonus
 	//ft_door(cub, cub->hud->door, WIDTH / 2 - 0, HEIGHT / 2 - 70); //bonus //move to render_wall?
 	ft_render_minimap_on_hud(cub); //bonus
 	mlx_put_image_to_window(cub->mlx, cub->window, cub->image->img_ptr, 0, 0);

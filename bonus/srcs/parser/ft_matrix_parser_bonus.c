@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ft_matrix_parser_bonus.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 18:55:25 by joneves-          #+#    #+#             */
 /*   Updated: 2025/03/27 14:56:27 by mariaoli         ###   ########.fr       */
@@ -28,7 +28,7 @@ static bool	ft_valid_char(char c)
 {
 	//update brief
 	if (c != '1' && c != '0' && c != ' ' && c != 'S' && c != 'N'
-		&& c != 'E' && c != 'W' && c != 'D' && c != 'X') //added D for door and X for pigeon
+		&& c != 'E' && c != 'W' && c != 'D' && c != 'X')
 		return (false);
 	return (true);
 }
@@ -70,21 +70,7 @@ static bool	ft_set_player(char c, t_cub *cub, int x, int y)
 	return (true);
 }
 
-/**
- * @brief Checks if a line in the map is valid and sets the player's position.
- * 
- * This function iterates over each character in a map line and validates it 
- * by ensuring that each character is a valid map character. If a player 
- * character ('S', 'N', 'E', 'W') is found, the player's position is set 
- * using the `ft_set_player` function. If any invalid characters or 
- * multiple player characters are found, the function returns false.
- * 
- * @param line The map line to check, as a null-terminated string.
- * @param y The y-coordinate (row) of the current line on the map.
- * @param cub The main structure holding the map data.
- * @return true if the line is valid, false otherwise.
- */
-static bool	ft_check_line(char *line, int y, t_cub *cub)
+static bool	ft_check_line(char *line, char *previous_line, int y, t_cub *cub)
 {
 	int	x;
 
@@ -92,14 +78,18 @@ static bool	ft_check_line(char *line, int y, t_cub *cub)
 	while (line[x])
 	{
 		if (!ft_valid_char(line[x]))
-		{
 			return (false);
-		}
 		if (line[x] == 'S' || line[x] == 'N' || line[x] == 'E'
 			|| line[x] == 'W')
 		{
 			if (!ft_set_player(line[x], cub, x, y))
 				return (false);
+		}
+		if (line[x] == 'X')
+		{
+			if (!is_valid_pigeon(line, previous_line, x))
+				return (false);
+			ft_set_pigeon(cub, x, y);
 		}
 		x++;
 	}
@@ -160,7 +150,7 @@ void	ft_matrix_parser(t_cub *cub, char **matrix)
 		line = matrix[y];
 		if (y > 0)
 			previous_line = matrix[y - 1];
-		if (!ft_check_line(line, y, cub))
+		if (!ft_check_line(line, previous_line, y, cub))
 			ft_handle_error(MSG_MAP, cub);
 		if (!ft_valid_wall(line, previous_line, first_or_last))
 			ft_handle_error(MSG_MAP, cub);

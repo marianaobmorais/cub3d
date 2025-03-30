@@ -56,6 +56,20 @@ static void	ft_clean_map(t_map *map)
 		free(map->floor_rgb);
 }
 
+void	ft_clean_hud(t_cub *cub)
+{
+	if (cub->hud->watch.img_ptr)
+		mlx_destroy_image(cub->mlx, cub->hud->watch.img_ptr);
+	if (cub->hud->viewmodel.img_ptr)
+		mlx_destroy_image(cub->mlx, cub->hud->viewmodel.img_ptr);
+	if (cub->hud->bread.img_ptr)
+		mlx_destroy_image(cub->mlx, cub->hud->bread.img_ptr);
+	if (cub->hud->empty_bread.img_ptr)
+		mlx_destroy_image(cub->mlx, cub->hud->empty_bread.img_ptr);
+	if (cub->hud->breadcrumbs.img_ptr)
+			mlx_destroy_image(cub->mlx, cub->hud->breadcrumbs.img_ptr);
+}
+
 /**
  * @brief Cleans up and frees memory allocated for the game structure.
  * 
@@ -89,24 +103,7 @@ void	ft_clean_game(t_cub *cub)
 		}
 		if (cub->hud) //bonus
 		{
-			if (cub->hud->img->img_ptr)
-				mlx_destroy_image(cub->mlx, cub->hud->img->img_ptr);
-			free(cub->hud->img);
-			if (cub->hud->watch->img_ptr)
-				mlx_destroy_image(cub->mlx, cub->hud->watch->img_ptr);
-			free(cub->hud->watch);
-			if (cub->hud->viewmodel->img_ptr)
-				mlx_destroy_image(cub->mlx, cub->hud->viewmodel->img_ptr);
-			free(cub->hud->viewmodel);
-			if (cub->hud->breads->img_ptr)
-				mlx_destroy_image(cub->mlx, cub->hud->breads->img_ptr);
-			free(cub->hud->breads);
-			if (cub->hud->breadcrumbs->img_ptr)
-					mlx_destroy_image(cub->mlx, cub->hud->breadcrumbs->img_ptr);
-			free(cub->hud->breadcrumbs);
-			if (cub->hud->door->img_ptr)
-				mlx_destroy_image(cub->mlx, cub->hud->door->img_ptr);
-			free(cub->hud->door);
+			ft_clean_hud(cub);
 			free(cub->hud);
 		}
 		if (cub->start_screen) //bonus

@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ft_matrix_parser_utils_bonus.c                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 18:55:34 by joneves-          #+#    #+#             */
 /*   Updated: 2025/03/27 14:55:42 by mariaoli         ###   ########.fr       */
@@ -12,22 +12,6 @@
 
 #include "../../includes/cub3d_bonus.h"
 
-/**
- * @brief Checks if the current position (y) in a line represents a valid
- *        '0' based on surrounding characters.
- *
- * This function validates whether the current '0' (empty space) is properly
- * surrounded by walls ('1') or characters representing the player or enemies
- * ('S', 'E', 'W', 'N') in the grid map. It ensures that the '0' is not at
- * the start or end of a line, and that its neighbors are valid positions.
- *
- * @param line The current line in the map.
- * @param previous_line The previous line in the map (for checking vertical
- *                      validity).
- * @param y The current position (index) in the line.
- *
- * @return `true` if the '0' is valid, `false` otherwise.
- */
 static bool	is_valid_zero(char *line, char *previous_line, int y)
 {
 	//update brief
@@ -41,11 +25,11 @@ static bool	is_valid_zero(char *line, char *previous_line, int y)
 	if ((y > 0 && (line[y - 1] == '0' || line[y - 1] == '1'
 				|| line[y - 1] == 'S' || line[y - 1] == 'E'
 				|| line[y - 1] == 'W' || line[y - 1] == 'N'
-				|| line[y - 1] == 'D' || line[y - 1] == 'X')) //D for door, X por pigeon
+				|| line[y - 1] == 'D' || line[y - 1] == 'X'))
 		&& (line[y + 1] == '0' || line[y + 1] == '1'
 			|| line[y + 1] == 'S' || line[y + 1] == 'E'
 			|| line[y + 1] == 'W' || line[y + 1] == 'N'
-			|| line[y + 1] == 'D' || line[y + 1] == 'X')) //D for door. X for pigeon
+			|| line[y + 1] == 'D' || line[y + 1] == 'X'))
 	{
 		return (true);
 	}
