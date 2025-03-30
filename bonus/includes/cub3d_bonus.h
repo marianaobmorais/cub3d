@@ -6,7 +6,7 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:26:59 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/03/28 22:26:31 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/03/30 16:19:47 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 
 # include "../../libft/libft.h"
 # include "../../minilibx-linux/mlx.h"
-# include "hud.h"
+# include "hud_bonus.h"
+# include "image_bonus.h"
 # include <X11/keysym.h>
 # include <X11/X.h>
 # include <stdio.h> //will we use printf?
@@ -57,7 +58,7 @@
 # define MOVE_SPEED 0.314159265358979
 # define FRAME_TIME 0.016
 
-typedef struct s_minimap	t_minimap;
+typedef struct s_hud	t_hud;
 
 typedef enum e_directions
 {
@@ -87,17 +88,6 @@ typedef struct s_ipoint
 	int	x;
 	int	y;
 }	t_ipoint;
-
-typedef struct s_image
-{
-	void	*img_ptr;
-	char	*addr;
-	int		bpp;
-	int		line_len;
-	int		endian;
-	int		width;
-	int		height;
-}	t_image;
 
 typedef struct s_sprite
 {
@@ -179,6 +169,7 @@ typedef struct s_cub
 
 /* ft_init_structs_bonus.c */
 
+void			ft_init_xpm_image(t_cub *cub, t_image *img, char *path);
 t_cub			*ft_init_structs(t_cub *cub, char *argv);
 
 /* ft_handle_error_bonus.c */
@@ -205,12 +196,13 @@ void			ft_map_parser(int fd, t_cub *cub, int i);
 char			*ft_buffer(char *buffer, char *line, int start, t_cub *cub);
 t_parser_status	ft_add_texture(char *line, t_cub *game, char *identifier, \
 	t_directions direction);
-char	**ft_safe_split(char *buffer, t_cub *cub);
+char			**ft_safe_split(char *buffer, t_cub *cub);
 
 /* ft_map_parser_utils_bonus_2.c */
 
-void	ft_count_sprites(t_cub *cub, char *line);
-bool	is_valid_pigeon(char *line, char *previous_line, int y);
+void			ft_count_sprites(t_cub *cub, char *line);
+bool			is_valid_pigeon(char *line, char *previous_line, int x);
+void			ft_set_pigeon(t_cub *cub, int x, int y);
 
 /* parser_utils_bonus.c */
 

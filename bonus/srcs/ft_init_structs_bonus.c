@@ -6,11 +6,24 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:32:10 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/03/26 17:50:39 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/03/30 16:39:25 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d_bonus.h"
+
+void	ft_init_xpm_image(t_cub *cub, t_image *img, char *path)
+{
+	ft_memset(img, 0, sizeof(t_image));
+	(img)->img_ptr = mlx_xpm_file_to_image(cub->mlx, path, 
+		&(img)->width, &(img)->height);
+	if (!(img)->img_ptr)
+		ft_handle_error("mlx_xpm_file_to_image", cub);
+	(img)->addr = mlx_get_data_addr((img)->img_ptr, &(img)->bpp, \
+		&(img)->line_len, &(img)->endian);
+	if (!(img)->addr)
+		ft_handle_error("mlx_get_data_addr", cub);
+}
 
 /**
  * @brief Retrieves and stores texture memory addresses.
@@ -119,9 +132,16 @@ t_cub	*ft_init_structs(t_cub *cub, char *argv)
 {
 	cub = (t_cub *) malloc(sizeof(t_cub));
 	if (!cub)
-		ft_handle_error("malloc: cub", cub);
+		ft_handle_error("malloc:cub", cub);
 	ft_memset(cub, 0, sizeof(t_cub));
 	ft_load_map(argv, cub);
+	// printf("quantidade %d\n", cub->map->amount_sprites); //debug
+	// int i = 0; //debug
+	// while (i < cub->map->amount_sprites) //debug
+	// {
+	// 	printf("[%d] -> x: %d y:%d\n", cub->map->sprites[i].id, cub->map->sprites[i].squ_pos.x, cub->map->sprites[i].squ_pos.y);
+	// 	i++;
+	// } //debug
 	ft_print_map(cub->map); //debug
 	cub->mlx = mlx_init();
 	if (!cub->mlx)

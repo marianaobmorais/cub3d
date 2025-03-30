@@ -6,7 +6,7 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 18:55:47 by joneves-          #+#    #+#             */
-/*   Updated: 2025/03/28 18:50:13 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/03/30 16:18:38 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ static void	ft_init_map(t_cub *cub)
 	cub->map->direction = -1;
 	cub->map->sprites = NULL;
 	cub->map->amount_sprites = 0;
+	cub->map->sprites_increment = 0;
 }
 
 /**
@@ -114,10 +115,9 @@ void	ft_load_map(char *const filepath, t_cub *cub)
 		ft_handle_error(NULL, cub);
 	ft_init_map(cub);
 	ft_map_parser(cub->fd, cub, i);
-	cub->map->sprites = malloc(sizeof(t_sprite) * cub->map->amount_sprites + 1);
+	cub->map->sprites = malloc(sizeof(t_sprite) * cub->map->amount_sprites);
 	if (!cub->map->sprites)
 		ft_handle_error("Map: cub->map->sprites", cub);
-	cub->map->countdown_sprites = cub->map->amount_sprites;
 	ft_matrix_parser(cub, cub->map->matrix);
 	cub->map->ceiling_hex = ft_arraytohex(cub->map->ceiling_rgb);
 	cub->map->floor_hex = ft_arraytohex(cub->map->floor_rgb);

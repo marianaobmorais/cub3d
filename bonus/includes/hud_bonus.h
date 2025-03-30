@@ -1,10 +1,7 @@
-# ifndef HUD_H
-# define HUD_H
+#ifndef HUD_BONUS_H
+# define HUD_BONUS_H
 
-# include "cub3d_bonus.h"
-
-/* measurements */
-
+# include "image_bonus.h"
 # define MINI_WIDTH 87
 # define MINI_HEIGHT 52
 # define TILE 5
@@ -16,7 +13,6 @@
 # define BREAD_3 (BREAD_1 * 3)
 
 typedef struct s_cub	t_cub;
-typedef struct s_image	t_image;
 typedef struct s_dpoint	t_dpoint;
 
 typedef struct s_screen
@@ -29,17 +25,17 @@ typedef struct s_screen
 
 typedef struct s_hud
 {
-	t_image		*watch;
-	t_image		*viewmodel;
-	t_image		*bread;
-	t_image		*empty_bread;
-	t_image		*breadcrumbs;
-	t_image		*door;
-	t_dpoint	*ray_hits;
 	int			start_x;
 	int			start_y;
 	int			end_x;
 	int			end_y;
+	t_image		watch;
+	t_image		viewmodel;
+	t_image		bread;
+	t_image		empty_bread;
+	t_image		breadcrumbs;
+	t_image		door;
+	t_dpoint	*ray_hits;
 }	t_hud;
 
 
@@ -82,4 +78,4 @@ void	ft_door(t_cub *cub, t_image *source, int pos_x, int pos_y);
 
 void	ft_render_fov_minimap(t_cub *cub);
 
-# endif //HUD_H
+# endif //HUD_BONUS_H

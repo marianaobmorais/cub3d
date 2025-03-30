@@ -58,21 +58,16 @@ static void	ft_clean_map(t_map *map)
 
 void	ft_clean_hud(t_cub *cub)
 {
-	if (cub->hud->watch && cub->hud->watch->img_ptr)
-		mlx_destroy_image(cub->mlx, cub->hud->watch->img_ptr);
-	free(cub->hud->watch);
-	if (cub->hud->viewmodel && cub->hud->viewmodel->img_ptr)
-		mlx_destroy_image(cub->mlx, cub->hud->viewmodel->img_ptr);
-	free(cub->hud->viewmodel);
-	if (cub->hud->bread && cub->hud->bread->img_ptr)
-		mlx_destroy_image(cub->mlx, cub->hud->bread->img_ptr);
-	free(cub->hud->bread);
-	if (cub->hud->empty_bread && cub->hud->empty_bread->img_ptr)
-		mlx_destroy_image(cub->mlx, cub->hud->empty_bread->img_ptr);
-	free(cub->hud->empty_bread);
-	if (cub->hud->breadcrumbs && cub->hud->breadcrumbs->img_ptr)
-			mlx_destroy_image(cub->mlx, cub->hud->breadcrumbs->img_ptr);
-	free(cub->hud->breadcrumbs);
+	if (cub->hud->watch.img_ptr)
+		mlx_destroy_image(cub->mlx, cub->hud->watch.img_ptr);
+	if (cub->hud->viewmodel.img_ptr)
+		mlx_destroy_image(cub->mlx, cub->hud->viewmodel.img_ptr);
+	if (cub->hud->bread.img_ptr)
+		mlx_destroy_image(cub->mlx, cub->hud->bread.img_ptr);
+	if (cub->hud->empty_bread.img_ptr)
+		mlx_destroy_image(cub->mlx, cub->hud->empty_bread.img_ptr);
+	if (cub->hud->breadcrumbs.img_ptr)
+			mlx_destroy_image(cub->mlx, cub->hud->breadcrumbs.img_ptr);
 }
 
 /**

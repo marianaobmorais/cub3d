@@ -6,7 +6,7 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 18:55:34 by joneves-          #+#    #+#             */
-/*   Updated: 2025/03/28 22:18:32 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/03/30 16:33:49 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,41 +33,29 @@
 // 	return (false);
 // }
 
-bool	is_valid_pigeon(char *line, char *previous_line, int y)
+bool	is_valid_pigeon(char *line, char *previous_line, int x)
 {
+	(void)previous_line;
 	if (previous_line)
 	{
-		if (previous_line[y] && (previous_line[y] != ' '
-				&& previous_line[y] != '1'))
+		if (previous_line[x] && previous_line[x] == ' ')
 		{
 			return (false);
 		}
 	}
-	if ((y > 0 && (line[y - 1] == ' ' || line[y - 1] == '1'))
-		&& (line[y + 1] == ' ' || line[y + 1] == '1' || line[y + 1] == '\0'))
-	{
-		return (true);
-	}
-	if (y == 0 && (line[y] == ' ' || line[y] == '1'))
+	if (x > 0 && line[x - 1] != ' ' && line[x + 1] != ' ' && line[x + 1] != '\0')
 	{
 		return (true);
 	}
 	return (false);
 }
 
-bool	ft_set_pigeon(t_cub *cub, int x, int y)
+void	ft_set_pigeon(t_cub *cub, int x, int y)
 {
-	if (is_valid_pigeon())
-	{
-		(cub->map->sprites[cub->map->sprites_increment]).squ_pos.x = y;
-		(cub->map->sprites[cub->map->sprites_increment]).squ_pos.y = x;
-		cub->map->sprites_increment++;
-		if (cub->map->sprites_increment > cub->map->amount_sprites)
-			(cub->map->sprites[cub->map->sprites_increment]) = NULL;
-	}
-	else
-		return (false);
-	return (true);
+	(cub->map->sprites[cub->map->sprites_increment]).squ_pos.x = y;
+	(cub->map->sprites[cub->map->sprites_increment]).squ_pos.y = x;
+	(cub->map->sprites[cub->map->sprites_increment]).id = cub->map->sprites_increment;
+	cub->map->sprites_increment++;
 }
 
 void	ft_count_sprites(t_cub *cub, char *line)
@@ -75,9 +63,10 @@ void	ft_count_sprites(t_cub *cub, char *line)
 	int	i;
 
 	i = 0;
+	printf("line -> %s\n", line);
 	while (line[i])
 	{
-		if (line[i] == 'F')
+		if (line[i] == 'X')
 			cub->map->amount_sprites++;
 		i++;
 	}

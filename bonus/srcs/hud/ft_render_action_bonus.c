@@ -32,8 +32,8 @@ void	ft_render_action(t_cub *cub)
 	t_ipoint	pos;
 
 	pos.x = 200;
-	pos.y = HEIGHT - cub->hud->breadcrumbs->height;
-	ft_paint_on_image(cub, cub->hud->breadcrumbs, pos, cub->duration_action);
+	pos.y = HEIGHT - cub->hud->breadcrumbs.height;
+	ft_paint_on_image(cub, &cub->hud->breadcrumbs, pos, cub->duration_action);
 	cub->duration_action += cub->frame_time;
 	if (cub->duration_action >= 0.5)
 	{

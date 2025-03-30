@@ -6,7 +6,7 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 18:55:07 by joneves-          #+#    #+#             */
-/*   Updated: 2025/03/28 18:43:26 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/03/30 16:30:30 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,6 @@ char	*ft_buffer(char *buffer, char *line, int start, t_cub *cub)
 		line = get_next_line(cub->fd);
 		while (line)
 		{
-			ft_count_sprites(cub, line);
 			free(line);
 			line = get_next_line(cub->fd);
 		}
@@ -119,6 +118,7 @@ char	*ft_buffer(char *buffer, char *line, int start, t_cub *cub)
 	}
 	if (ft_is_empty(line) == 1)
 		return (NULL);
+	ft_count_sprites(cub, line);
 	tmp = ft_strjoin(buffer, line);
 	free(buffer);
 	return (tmp);

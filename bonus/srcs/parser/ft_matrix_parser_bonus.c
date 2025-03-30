@@ -6,7 +6,7 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 18:55:25 by joneves-          #+#    #+#             */
-/*   Updated: 2025/03/28 22:26:09 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/03/30 16:36:22 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 static bool	ft_valid_char(char c)
 {
 	if (c != '1' && c != '0' && c != ' ' && c != 'S' && c != 'N'
-		&& c != 'E' && c != 'W' && c != 'D' && c != 'F')
+		&& c != 'E' && c != 'W' && c != 'D' && c != 'X')
 		return (false);
 	return (true);
 }
@@ -84,11 +84,11 @@ static bool	ft_check_line(char *line, char *previous_line, int y, t_cub *cub)
 			if (!ft_set_player(line[x], cub, x, y))
 				return (false);
 		}
-		if (line[x] == 'F')
+		if (line[x] == 'X')
 		{
-			if ()
-			if (!ft_set_pigeon(cub, x, y))
+			if (!is_valid_pigeon(line, previous_line, x))
 				return (false);
+			ft_set_pigeon(cub, x, y);
 		}
 		x++;
 	}
