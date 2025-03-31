@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:26:59 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/03/31 14:40:19 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/03/31 14:47:12 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,9 +151,8 @@ typedef struct s_map
 	int				height;
 	int				sprite_count;
 	int				sprites_increment;
-	t_sprite		*sprites;
+	t_sprite		*sprite;
 	t_directions	direction;
-	//t_sprite		*sprite;
 }	t_map;
 
 typedef struct s_cub

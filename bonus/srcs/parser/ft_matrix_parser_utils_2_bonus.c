@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 18:55:34 by joneves-          #+#    #+#             */
-/*   Updated: 2025/03/31 14:40:19 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/03/31 14:48:16 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ bool	is_valid_sprite(char *line, char *previous_line, int x)
 
 void	ft_set_sprite(t_cub *cub, int x, int y)
 {
-	(cub->map->sprites[cub->map->sprites_increment]).tile.x = y;
-	(cub->map->sprites[cub->map->sprites_increment]).tile.y = x;
-	(cub->map->sprites[cub->map->sprites_increment]).id = cub->map->sprites_increment;
+	(cub->map->sprite[cub->map->sprites_increment]).tile.x = y;
+	(cub->map->sprite[cub->map->sprites_increment]).tile.y = x;
+	(cub->map->sprite[cub->map->sprites_increment]).id = cub->map->sprites_increment;
 	cub->map->sprites_increment++;
 }
 
