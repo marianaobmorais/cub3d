@@ -38,7 +38,8 @@ static void	ft_get_wall_minimap(t_raycast *ray, bool hit_wall)
 	// 		ft_paint_ray(cub, w, cub->raycast->west_texture);
 
 	max_dist = 5;
-	if (ray->hit_side == NORTH || ray->hit_side == SOUTH)
+	if ((ray->hit_side == 0 && ray->ray_dir.x < 0)
+		|| (ray->hit_side == 0 && ray->ray_dir.x >= 0))
 		ray->perp_wall_dist = ray->dist_to_x - ray->delta_dist_x;
 	else
 		ray->perp_wall_dist = ray->dist_to_y - ray->delta_dist_y;
