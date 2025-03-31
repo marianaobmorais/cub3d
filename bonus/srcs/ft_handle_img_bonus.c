@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 18:36:57 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/03/31 14:39:39 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/03/31 14:44:37 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ static void	ft_render_bg(t_image *img, int ceiling_color, int floor_color)
 int	ft_handle_img(t_cub *cub)
 {
 	//add frames
+	//update brief
 	ft_render_bg(cub->image, cub->map->ceiling_hex, cub->map->floor_hex);
 	ft_render_walls(cub);
 	ft_render_source_on_hud(cub, &cub->hud->watch, 0, 0); //bonus

@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:32:10 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/03/31 14:39:10 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/03/31 14:46:41 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static void	ft_init_wall_texture(t_cub *cub)
  */
 static void	ft_init_image(t_cub *cub)
 {
-	cub->image = (t_image *)malloc(sizeof(t_image));
+	cub->image = (t_image *)malloc(sizeof(t_image)); //remove later?
 	if (!cub->image)
 		ft_handle_error("malloc: cub->image", cub);
 	ft_memset(cub->image, 0, sizeof(t_image));
