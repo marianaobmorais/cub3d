@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: marianamorais <marianamorais@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:26:59 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/03/30 17:08:33 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/03/31 12:20:07 by marianamora      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,7 @@ typedef struct s_map
 	int				sprites_increment;
 	t_sprite		*sprites;
 	t_directions	direction;
-	t_sprite		*sprite;
+	//t_sprite		*sprite;
 }	t_map;
 
 typedef struct s_cub
