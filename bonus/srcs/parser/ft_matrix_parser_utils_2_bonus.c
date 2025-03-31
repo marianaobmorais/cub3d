@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_matrix_parser_utils_2_bonus.c                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 18:55:34 by joneves-          #+#    #+#             */
-/*   Updated: 2025/03/30 17:01:21 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/03/31 14:40:19 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 // 	return (false);
 // }
 
-bool	is_valid_pigeon(char *line, char *previous_line, int x)
+bool	is_valid_sprite(char *line, char *previous_line, int x)
 {
 	(void)previous_line;
 	if (previous_line)
@@ -50,7 +50,7 @@ bool	is_valid_pigeon(char *line, char *previous_line, int x)
 	return (false);
 }
 
-void	ft_set_pigeon(t_cub *cub, int x, int y)
+void	ft_set_sprite(t_cub *cub, int x, int y)
 {
 	(cub->map->sprites[cub->map->sprites_increment]).tile.x = y;
 	(cub->map->sprites[cub->map->sprites_increment]).tile.y = x;
