@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:26:59 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/03/31 14:47:12 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/03/31 16:26:50 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,10 +94,11 @@ typedef struct s_sprite
 {
 	int			id;
 	int			order;
-	t_image		image;
 	t_ipoint	tile;
 	t_dpoint	pos;
 	double		dist;
+	t_image		img_a;
+	t_image		img_b;
 }	t_sprite;
 
 typedef struct s_raycast
@@ -108,7 +109,7 @@ typedef struct s_raycast
 	t_dpoint		ray_dir;
 	t_ipoint		player_tile;
 	t_ipoint		step;
-	t_ipoint		step_tile;//
+	t_ipoint		step_tile;
 	t_ipoint		mouse_pos;
 	double			move_speed;
 	double			rotate_speed;
@@ -128,8 +129,8 @@ typedef struct s_raycast
 	t_image			south_texture;
 	t_image			east_texture;
 	t_image			west_texture;
-	t_image			sprite_a[4];
-	//t_image		sprite_b[4];
+	t_image			sprite_a[4]; //review this
+	t_image			sprite_b[4]; //review this
 	double			buffer[WIDTH]; //double check this
 }	t_raycast;
 

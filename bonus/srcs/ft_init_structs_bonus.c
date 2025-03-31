@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:32:10 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/03/31 14:46:41 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/03/31 16:25:14 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,25 @@ void	ft_init_xpm_image(t_cub *cub, t_image *img, char *path)
 		ft_handle_error("mlx_get_data_addr", cub);
 }
 
-// /* static  */void	ft_init_sprite(t_cub *cub)
-// {
-// 	//add brief
-// 	t_raycast	*ray;
-// 	int			i;
+/* static  */void	ft_init_sprite(t_cub *cub)
+{
+	//add brief
+	t_raycast	*ray;
+	int			i;
 
-// 	i = 0;
-// 	ray = cub->raycast;
-// 	ft_memset(&ray->sprite_a[i], 0, sizeof(t_image));
-// 	ray->sprite_a[i].img_ptr = mlx_xpm_file_to_image(cub->mlx, "assets/textures/sprite_1.xpm", &ray->sprite_a[i].width, &ray->sprite_a[i].height);
-// 	ray->sprite_a[i].addr = mlx_get_data_addr(ray->sprite_a[i].img_ptr, &ray->sprite_a[i].bpp, &ray->sprite_a[i].line_len, &ray->sprite_a[i].endian);
-// 	if (!ray->sprite_a[i].img_ptr || !ray->sprite_a[i].addr)
-// 		ft_handle_error("problem loading sprite", cub); //rephrase later
-// }
+	ray = cub->raycast;
+	i = 0;
+	while (i < cub->map->sprite_count)
+	{
+		//add condition here if (i % 3 = 0), then if (i % 3 = 1), and so on
+		ft_init_xpm_image(cub, &ray->sprite_a[i], "assets/textures/pigeon_a1.xpm");
+		ft_init_xpm_image(cub, &ray->sprite_b[i], "assets/textures/pigeon_b1.xpm");
+		cub->map->sprite[i].pos.x = cub->map->sprite[i].tile.x + 0.5;
+		cub->map->sprite[i].pos.y = cub->map->sprite[i].tile.y + 0.5;
+		//printf("sprite[%d].pos: x = %lf, y = %lf\n", i, cub->map->sprite[i].pos.x, cub->map->sprite[i].pos.y); //debug
+		i++;
+	}
+}
 
 /**
  * @brief Loads texture images for the walls and initializes texture data.
@@ -117,7 +122,7 @@ t_cub	*ft_init_structs(t_cub *cub, char *argv)
 	cub->action = false; //action
 	cub->duration_action = 0; //action
 	cub->amount_action = 0; //action
-	//ft_init_sprite(cub); //sprite
+	ft_init_sprite(cub); //sprite
 	ft_init_start_screen(cub);
 	ft_init_end_screen(cub);
 	cub->window = mlx_new_window(cub->mlx, WIDTH, HEIGHT, "cub3d");
