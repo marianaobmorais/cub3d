@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 18:55:47 by joneves-          #+#    #+#             */
-/*   Updated: 2025/03/31 14:48:02 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/03/31 15:03:53 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void	ft_load_map(char *const filepath, t_cub *cub)
 	ft_map_parser(cub->fd, cub, i);
 	cub->map->sprite = malloc(sizeof(t_sprite) * cub->map->sprite_count);
 	if (!cub->map->sprite)
-		ft_handle_error("Map: cub->map->sprites", cub);
+		ft_handle_error("malloc: cub->map->sprites", cub);
 	ft_matrix_parser(cub, cub->map->matrix);
 	cub->map->ceiling_hex = ft_arraytohex(cub->map->ceiling_rgb);
 	cub->map->floor_hex = ft_arraytohex(cub->map->floor_rgb);
