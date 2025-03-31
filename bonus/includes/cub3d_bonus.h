@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marianamorais <marianamorais@student.42    +#+  +:+       +#+        */
+/*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:26:59 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/03/31 12:20:07 by marianamora      ###   ########.fr       */
+/*   Updated: 2025/03/31 14:40:19 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,8 +212,8 @@ char			**ft_safe_split(char *buffer, t_cub *cub);
 /* ft_map_parser_utils_bonus_2.c */
 
 void			ft_count_sprites(t_cub *cub, char *line);
-bool			is_valid_pigeon(char *line, char *previous_line, int x);
-void			ft_set_pigeon(t_cub *cub, int x, int y);
+bool			is_valid_sprite(char *line, char *previous_line, int x);
+void			ft_set_sprite(t_cub *cub, int x, int y);
 
 /* parser_utils_bonus.c */
 

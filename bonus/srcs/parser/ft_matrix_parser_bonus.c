@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_matrix_parser_bonus.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 18:55:25 by joneves-          #+#    #+#             */
-/*   Updated: 2025/03/27 14:56:27 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/03/31 14:40:19 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,9 @@ static bool	ft_check_line(char *line, char *previous_line, int y, t_cub *cub)
 		}
 		if (line[x] == 'X')
 		{
-			if (!is_valid_pigeon(line, previous_line, x))
+			if (!is_valid_sprite(line, previous_line, x))
 				return (false);
-			ft_set_pigeon(cub, x, y);
+			ft_set_sprite(cub, x, y);
 		}
 		x++;
 	}
