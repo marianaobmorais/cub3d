@@ -6,7 +6,7 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 18:55:47 by joneves-          #+#    #+#             */
-/*   Updated: 2025/03/30 16:54:25 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/03/31 22:04:36 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,12 @@ static void	ft_init_map(t_cub *cub)
 	cub->map->player_squ_x = -1;
 	cub->map->player_squ_y = -1;
 	cub->map->direction = -1;
-	cub->map->sprites = NULL;
+	cub->map->sprite = NULL;
 	cub->map->sprite_count = 0;
-	cub->map->sprites_increment = 0;
+	cub->map->sprite_increment = 0;
+	cub->map->door = NULL;
+	cub->map->door_count = 0;
+	cub->map->door_increment = 0;
 }
 
 /**
@@ -89,18 +92,7 @@ bool	ft_is_ext(char *filename, char *ext)
 	return (true);
 }
 
-/**
- * @brief Loads and parses the map file for the game.
- *
- * This function initializes the file path, checks if the file extension is
- * correct (".cub"), and attempts to open the map file. It then initializes
- * the map structure, parses the map data, processes the map matrix, and
- * calculates the ceiling and floor colors in hexadecimal. Finally, it closes
- * the file.
- *
- * @param filepath The path to the map file.
- * @param cub The main structure containing the map and game-related data.
- */
+
 void	ft_load_map(char *const filepath, t_cub *cub)
 {
 	int	i;
@@ -115,9 +107,12 @@ void	ft_load_map(char *const filepath, t_cub *cub)
 		ft_handle_error(NULL, cub);
 	ft_init_map(cub);
 	ft_map_parser(cub->fd, cub, i);
-	cub->map->sprites = malloc(sizeof(t_sprite) * cub->map->sprite_count);
-	if (!cub->map->sprites)
-		ft_handle_error("Map: cub->map->sprites", cub);
+	cub->map->sprite = malloc(sizeof(t_sprite) * cub->map->sprite_count);
+	if (!cub->map->sprite)
+		ft_handle_error("Map: cub->map->sprite", cub);
+	cub->map->door = malloc(sizeof(t_sprite) * cub->map->door_count);
+	if (!cub->map->door)
+		ft_handle_error("Map: cub->map->door", cub);
 	ft_matrix_parser(cub, cub->map->matrix);
 	cub->map->ceiling_hex = ft_arraytohex(cub->map->ceiling_rgb);
 	cub->map->floor_hex = ft_arraytohex(cub->map->floor_rgb);

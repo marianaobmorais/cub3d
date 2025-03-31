@@ -6,7 +6,7 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 18:55:07 by joneves-          #+#    #+#             */
-/*   Updated: 2025/03/30 16:30:30 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/03/31 22:05:16 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,21 +83,6 @@ t_parser_status	ft_add_texture(char *line, t_cub *cub, char *identifier, \
 	return (NO_BUFFER);
 }
 
-/**
- * ft_buffer - Appends a line to the existing map buffer or handles empty
- * lines that appear after the map has started.
- *
- * @buffer: Current map buffer (may be NULL on first call).
- * @line: Line to append to the buffer.
- * @start: Indicates if this is the beginning of the map (1 if true).
- * @cub: Pointer to the main game struct, used for error handling and file
- *       access.
- *
- * If an empty line appears after the map has started (start == 0), the
- * function frees all resources, skips remaining lines, and throws an error.
- *
- * Returns the updated buffer with the new line appended, or NULL on error.
- */
 char	*ft_buffer(char *buffer, char *line, int start, t_cub *cub)
 {
 	char	*tmp;
@@ -119,6 +104,7 @@ char	*ft_buffer(char *buffer, char *line, int start, t_cub *cub)
 	if (ft_is_empty(line) == 1)
 		return (NULL);
 	ft_count_sprites(cub, line);
+	ft_count_doors(cub, line);
 	tmp = ft_strjoin(buffer, line);
 	free(buffer);
 	return (tmp);

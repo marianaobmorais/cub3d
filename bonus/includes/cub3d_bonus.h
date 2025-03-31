@@ -6,7 +6,7 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:26:59 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/03/30 17:08:33 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/03/31 22:06:31 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,16 @@ typedef struct s_sprite
 	double		dist;
 }	t_sprite;
 
+typedef struct s_door
+{
+	int			id;
+	// int			order;
+	// t_image		image;
+	t_ipoint	tile;
+	// t_dpoint	pos;
+	// double		dist;
+}	t_door;
+
 typedef struct s_raycast
 {
 	t_dpoint		player_pos;
@@ -128,7 +138,7 @@ typedef struct s_raycast
 	t_image			south_texture;
 	t_image			east_texture;
 	t_image			west_texture;
-	t_image			sprite_a[4];
+	t_image			sprite[4];
 	//t_image		sprite_b[4];
 	double			buffer[WIDTH]; //double check this
 }	t_raycast;
@@ -150,10 +160,12 @@ typedef struct s_map
 	int				width;
 	int				height;
 	int				sprite_count;
-	int				sprites_increment;
-	t_sprite		*sprites;
-	t_directions	direction;
+	int				sprite_increment;
+	int				door_count;
+	int				door_increment;
 	t_sprite		*sprite;
+	t_door			*door;
+	t_directions	direction;
 }	t_map;
 
 typedef struct s_cub
@@ -196,6 +208,8 @@ void			ft_free_vector(char **vector);
 
 /* ft_loadmap_bonus.c */
 
+bool			ft_access(char *filepath);
+bool			ft_is_ext(char *filename, char *ext);
 void			ft_load_map(char *const filepath, t_cub *cub);
 
 /* ft_map_parser_bonus.c */
@@ -211,14 +225,15 @@ char			**ft_safe_split(char *buffer, t_cub *cub);
 
 /* ft_map_parser_utils_bonus_2.c */
 
+bool			is_valid_door(char *line, char *previous_line, int y);
+bool			is_valid_sprite(char *line, char *previous_line, int x);
 void			ft_count_sprites(t_cub *cub, char *line);
-bool			is_valid_pigeon(char *line, char *previous_line, int x);
-void			ft_set_pigeon(t_cub *cub, int x, int y);
+void			ft_set_sprite(t_cub *cub, int x, int y);
+void			ft_count_doors(t_cub *cub, char *line);
+void			ft_set_door(t_cub *cub, int x, int y);
 
 /* parser_utils_bonus.c */
 
-bool			ft_access(char *filepath);
-bool			ft_is_ext(char *filename, char *ext);
 int				ft_isspace(int c, int mode);
 char			*ft_strip(char *str, int mode);
 void			ft_print_map(t_map *map); //debug

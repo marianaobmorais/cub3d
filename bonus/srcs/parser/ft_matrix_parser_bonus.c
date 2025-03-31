@@ -6,24 +6,12 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 18:55:25 by joneves-          #+#    #+#             */
-/*   Updated: 2025/03/27 14:56:27 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/03/31 22:32:17 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d_bonus.h"
 
-/**
- * @brief Checks if a character is valid in the map configuration.
- * 
- * Validates if the given character is one of the following: wall ('1'), 
- * empty space ('0'), empty space (' '), or one of the player or direction 
- * markers ('S', 'N', 'E', 'W'). If the character is not one of these, the 
- * function returns false, indicating that the character is invalid for the 
- * map configuration. Otherwise, it returns true.
- * 
- * @param c The character to validate.
- * @return true if the character is valid, false otherwise.
- */
 static bool	ft_valid_char(char c)
 {
 	//update brief
@@ -87,9 +75,15 @@ static bool	ft_check_line(char *line, char *previous_line, int y, t_cub *cub)
 		}
 		if (line[x] == 'X')
 		{
-			if (!is_valid_pigeon(line, previous_line, x))
+			if (!is_valid_sprite(line, previous_line, x))
 				return (false);
-			ft_set_pigeon(cub, x, y);
+			ft_set_sprite(cub, x, y);
+		}
+		if (line[x] == 'D')
+		{
+			if (!is_valid_door(line, previous_line, x))
+				return (false);
+			ft_set_door(cub, x, y);
 		}
 		x++;
 	}
