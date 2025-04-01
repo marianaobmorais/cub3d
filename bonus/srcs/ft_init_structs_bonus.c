@@ -6,7 +6,7 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:32:10 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/03/30 16:53:15 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/04/01 20:24:40 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,14 +151,7 @@ t_cub	*ft_init_structs(t_cub *cub, char *argv)
 		ft_handle_error("malloc:cub", cub);
 	ft_memset(cub, 0, sizeof(t_cub));
 	ft_load_map(argv, cub);
-	// printf("quantidade %d\n", cub->map->amount_sprites); //debug
-	// int i = 0; //debug
-	// while (i < cub->map->amount_sprites) //debug
-	// {
-	// 	printf("[%d] -> x: %d y:%d\n", cub->map->sprites[i].id, cub->map->sprites[i].squ_pos.x, cub->map->sprites[i].squ_pos.y);
-	// 	i++;
-	// } //debug
-	ft_print_map(cub->map); //debug
+	//ft_print_map(cub->map); //debug
 	cub->mlx = mlx_init();
 	if (!cub->mlx)
 		ft_handle_error("malloc: cub->mlx", cub);

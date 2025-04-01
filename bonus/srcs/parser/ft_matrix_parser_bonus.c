@@ -6,15 +6,26 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 18:55:25 by joneves-          #+#    #+#             */
-/*   Updated: 2025/03/31 22:32:17 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/04/01 20:47:12 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d_bonus.h"
 
+/**
+ * @brief Validates if a character is a valid map element.
+ *
+ * This function checks if the given character is one of the valid characters 
+ * allowed in the map layout. Valid characters include walls ('1'), empty spaces 
+ * ('0'), sprite ('S'), player orientations ('N', 'E', 'W'), doors ('D'), 
+ * and special items ('X').
+ *
+ * @param c The character to be validated.
+ *
+ * @return `true` if the character is valid, `false` otherwise.
+ */
 static bool	ft_valid_char(char c)
 {
-	//update brief
 	if (c != '1' && c != '0' && c != ' ' && c != 'S' && c != 'N'
 		&& c != 'E' && c != 'W' && c != 'D' && c != 'X')
 		return (false);
@@ -58,6 +69,23 @@ static bool	ft_set_player(char c, t_cub *cub, int x, int y)
 	return (true);
 }
 
+/**
+ * @brief Checks if a line in the map is valid based on character rules and 
+ *        processes any players, sprites, or doors.
+ *
+ * This function validates each character in the line, ensuring it is a valid 
+ * map element. If the character represents a player, sprite, or door, the 
+ * function also checks if its position is valid and sets the corresponding 
+ * object in the map structure. Invalid characters or invalid positions for 
+ * sprites or doors will cause the function to return `false`.
+ *
+ * @param line The current line in the map.
+ * @param previous_line The previous line in the map for vertical validation.
+ * @param y The current position (index) of the line in the map.
+ * @param cub The main game structure containing the map data.
+ *
+ * @return `true` if the line is valid, `false` otherwise.
+ */
 static bool	ft_check_line(char *line, char *previous_line, int y, t_cub *cub)
 {
 	int	x;
@@ -67,12 +95,9 @@ static bool	ft_check_line(char *line, char *previous_line, int y, t_cub *cub)
 	{
 		if (!ft_valid_char(line[x]))
 			return (false);
-		if (line[x] == 'S' || line[x] == 'N' || line[x] == 'E'
-			|| line[x] == 'W')
-		{
+		if (ft_is_player(line[x]))
 			if (!ft_set_player(line[x], cub, x, y))
 				return (false);
-		}
 		if (line[x] == 'X')
 		{
 			if (!is_valid_sprite(line, previous_line, x))
@@ -91,28 +116,40 @@ static bool	ft_check_line(char *line, char *previous_line, int y, t_cub *cub)
 }
 
 /**
- * @brief Checks if a string contains only numeric characters.
- * 
- * Verifies whether the given string consists exclusively of digits (0-9). 
- * The function iterates over each character in the string and checks if each 
- * one is a valid digit. If any non-digit character is found, the function 
- * returns false.
- * 
- * @param nbr The string to check, as a null-terminated char array.
- * @return 1 if the string is entirely numeric, 0 otherwise.
+ * @brief Validates if a door at position (y) in a line is correctly placed 
+ *        based on surrounding characters.
+ *
+ * This function checks whether a door ('1' or '0') is correctly positioned 
+ * within the grid. A door is considered valid if:
+ * - A '1' in the previous line is adjacent to '0' or a player on both sides 
+ *   in the current line.
+ * - A '0' in the previous line is adjacent to '1' or a player on both sides 
+ *   in the current line.
+ *
+ * @param line The current line in the map.
+ * @param previous_line The previous line in the map (for vertical checks).
+ * @param y The current position (index) in the line.
+ *
+ * @return `true` if the door position is valid, `false` otherwise.
  */
-int	ft_isnumeric(char *nbr)
+bool	is_valid_door(char *line, char *previous_line, int y)
 {
-	int	i;
-
-	i = 0;
-	while (nbr[i])
+	if (previous_line && previous_line[y])
 	{
-		if (!ft_isdigit(nbr[i]))
-			return (0);
-		i++;
+		if (previous_line[y] == '1')
+		{
+			if ((y > 0 && (line[y - 1] == '0' || ft_is_player(line[y - 1])))
+				&& (line[y + 1] == '0' || ft_is_player(line[y + 1])))
+				return (true);
+		}
+		if (previous_line[y] == '0')
+		{
+			if ((y > 0 && (line[y - 1] == '1' || ft_is_player(line[y - 1])))
+				&& (line[y + 1] == '1' || ft_is_player(line[y + 1])))
+				return (true);
+		}
 	}
-	return (1);
+	return (false);
 }
 
 /**

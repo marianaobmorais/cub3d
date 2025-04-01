@@ -6,7 +6,7 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 18:55:07 by joneves-          #+#    #+#             */
-/*   Updated: 2025/03/31 22:05:16 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/04/01 20:39:18 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,24 @@ t_parser_status	ft_add_texture(char *line, t_cub *cub, char *identifier, \
 	return (NO_BUFFER);
 }
 
+/**
+ * @brief Processes a buffer and line of text to count sprites and doors 
+ *        and handles empty lines in the map.
+ *
+ * This function checks if the provided line is empty. If it is, the function 
+ * will handle the error by freeing allocated memory and returning `NULL`. 
+ * If the line is valid, it counts sprites and doors in the map, then 
+ * concatenates the line to the buffer. It also handles memory management 
+ * for the buffer and line.
+ *
+ * @param buffer The current buffer containing previous map data.
+ * @param line The current line being read from the map file.
+ * @param start The starting index for processing the line.
+ * @param cub The main game structure containing the map data.
+ *
+ * @return The updated buffer with the current line appended, or `NULL` 
+ *         if an empty line is encountered and processed.
+ */
 char	*ft_buffer(char *buffer, char *line, int start, t_cub *cub)
 {
 	char	*tmp;

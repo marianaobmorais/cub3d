@@ -26,36 +26,6 @@ void	ft_free_vector(char **vector)
 	}
 }
 
-/**
- * @brief Cleans up and frees memory allocated for the map structure.
- * 
- * Frees all dynamically allocated fields within the map structure (t_map), 
- * including the matrix, textures, and RGB values for the floor and ceiling. 
- * This function ensures proper deallocation to prevent memory leaks.
- * 
- * @param map A pointer to the map structure (t_map) to be cleaned up. 
- *            The structure itself is not freed.
- */
-static void	ft_clean_map(t_map *map)
-{
-	if (map->matrix)
-		ft_free_vector(map->matrix);
-	if (map->matrix_tmp)
-		ft_free_vector(map->matrix_tmp);
-	if (map->north_texture)
-		free(map->north_texture);
-	if (map->south_texture)
-		free(map->south_texture);
-	if (map->west_texture)
-		free(map->west_texture);
-	if (map->east_texture)
-		free(map->east_texture);
-	if (map->ceiling_rgb)
-		free(map->ceiling_rgb);
-	if (map->floor_rgb)
-		free(map->floor_rgb);
-}
-
 void	ft_clean_hud(t_cub *cub)
 {
 	if (cub->hud->watch.img_ptr)
@@ -67,7 +37,7 @@ void	ft_clean_hud(t_cub *cub)
 	if (cub->hud->empty_bread.img_ptr)
 		mlx_destroy_image(cub->mlx, cub->hud->empty_bread.img_ptr);
 	if (cub->hud->breadcrumbs.img_ptr)
-			mlx_destroy_image(cub->mlx, cub->hud->breadcrumbs.img_ptr);
+		mlx_destroy_image(cub->mlx, cub->hud->breadcrumbs.img_ptr);
 }
 
 /**

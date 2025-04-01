@@ -19,6 +19,6 @@ void	ft_init_hud(t_cub *cub)
 	ft_init_xpm_image(cub, &cub->hud->watch, "assets/hud/casio.xpm");
 	ft_init_xpm_image(cub, &cub->hud->bread, "assets/hud/bread.xpm"); //bag
 	ft_init_xpm_image(cub, &cub->hud->empty_bread, "assets/hud/empty_bread.xpm"); //bag
-	ft_init_xpm_image(cub, &cub->hud->viewmodel, "assets/hud/viewmodel.xpm");
+	ft_init_xpm_image(cub, &cub->hud->viewmodel, "assets/hud/viewmodel_1.xpm");
 	ft_init_xpm_image(cub, &cub->hud->breadcrumbs, "assets/hud/breadcrumbs.xpm");
 }
