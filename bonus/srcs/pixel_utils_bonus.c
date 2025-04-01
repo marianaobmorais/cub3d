@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:34:49 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/03/22 19:31:29 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/04/01 15:55:35 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,11 @@ unsigned int	ft_get_pixel_color(t_image *source, int w, int h, t_cub *cub)
 	char			*color;
 	int				offset;
 	unsigned int	color_value;
+	(void)cub; //debug
 
-	if (! source || !source->addr || w < 0 || w > source->width
-		|| h < 0 || h > source->height)
-		return (ft_handle_error("ft_get_pixel_color", cub), 0);
+	// if (!source || !source->addr || w < 0 || w > source->width
+	// 	|| h < 0 || h > source->height)
+	// 	return (ft_handle_error("ft_get_pixel_color", cub), 0);
 	offset = (h * source->line_len + w * (source->bpp / 8));
 	color = source->addr + offset;
 	ft_memcpy(&color_value, color, sizeof(unsigned int));
