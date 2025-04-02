@@ -6,7 +6,7 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:26:59 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/02 09:42:37 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/04/02 19:32:30 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,21 +59,7 @@
 # define MOVE_SPEED 8
 # define ROTATE_SPEED 4
 
-
 typedef struct s_hud	t_hud;
-
-
-typedef struct s_dpoint
-{
-	double	x;
-	double	y;
-}	t_dpoint;
-
-typedef struct s_ipoint
-{
-	int	x;
-	int	y;
-}	t_ipoint;
 
 typedef struct s_sprite
 {
@@ -209,5 +195,7 @@ void			ft_paint_ray(t_cub *cub, int w, t_image texture);
 /* ft_dda_bonus.c */
 
 void			ft_dda(t_raycast *ray, t_map *map, bool *hit_wall);
+
+int		ft_render_screen(t_cub *cub);
 
 #endif //CUB3D_BONUS_H

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   colors_utils.c                                     :+:      :+:    :+:   */
+/*   hud_utils_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 22:52:37 by joneves-          #+#    #+#             */
-/*   Updated: 2025/04/01 22:52:46 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/04/02 19:21:49 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,68 @@
 // 		y++;
 // 	}
 // }
+
+/**
+ * @brief Updates the current position of a point along a line.
+ *
+ * This function modifies the coordinates of `tile` according to Bresenham's 
+ * line algorithm, adjusting the error term to determine the next step.
+ *
+ * @param line A pointer to the line structure containing distance and error.
+ * @param tile A pointer to the current point being processed.
+ */
+static void	setting_line(t_line *line, t_ipoint *tile)
+{
+	line->e2 = line->err * 2;
+	if (line->e2 > -line->dist.y)
+	{
+		line->err -= line->dist.y;
+		tile->y += line->dir.x;
+	}
+	if (line->e2 < line->dist.x)
+	{
+		line->err += line->dist.x;
+		tile->x += line->dir.y;
+	}
+}
+
+/**
+ * @brief Draws a blended line between two points on the image.
+ *
+ * This function implements Bresenham's line algorithm to draw a line from 
+ * `tile` to `hit`, blending the given `color` with the background color at 
+ * each pixel.
+ *
+ * @param cub  A pointer to the main game structure.
+ * @param tile The starting point of the line.
+ * @param hit  The ending point of the line.
+ * @param color The color to blend into the line.
+ */
+void	ft_draw_line(t_cub *cub, t_ipoint tile, t_ipoint hit, int color)
+{
+	t_line		line;
+	int			blend;
+	int			default_color;
+
+	line.dist.y = abs(hit.x - tile.x);
+	line.dist.x = abs(hit.y - tile.y);
+	line.err = line.dist.x - line.dist.y;
+	if (tile.y < hit.y)
+		line.dir.x = 1;
+	else
+		line.dir.x = -1;
+	if (tile.x < hit.x)
+		line.dir.y = 1;
+	else
+		line.dir.y = -1;
+	while (tile.y != hit.y || tile.x != hit.x)
+	{
+		default_color = ft_get_pixel_color(cub->image, tile.y, tile.x, cub);
+		blend = ft_blendcolors(default_color, color, 0.9);
+		ft_put_pixel(cub->image, tile.y, tile.x, blend);
+		setting_line(&line, &tile);
+	}
+}
 
 /**
  * @brief Converts a hexadecimal color to an RGB array.

@@ -6,7 +6,7 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 23:11:58 by joneves-          #+#    #+#             */
-/*   Updated: 2025/04/01 23:17:39 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/04/02 19:31:02 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,9 @@ static void	ft_render_background(t_cub *cub, int height, int width, int color)
  */
 void	ft_colorize_minimap(t_cub *cub, int map_width, int map_height)
 {
-	int	y;
-	int	x;
-	int	tile_pos_x;
-	int	tile_pos_y;
+	int			y;
+	int			x;
+	t_ipoint	tile;
 
 	x = cub->hud->start_x;
 	while (x < map_height && x <= cub->hud->end_x)
@@ -74,14 +73,16 @@ void	ft_colorize_minimap(t_cub *cub, int map_width, int map_height)
 		y = cub->hud->start_y;
 		while (y < map_width -1 && y <= cub->hud->end_y)
 		{
-			tile_pos_y = (y - cub->hud->start_y) + 4;
-			tile_pos_x = (x - cub->hud->start_x) + 9;
+			tile.y = (y - cub->hud->start_y) + 4;
+			tile.x = (x - cub->hud->start_x) + 9;
 			if (x >= 0 && y >= 0 && cub->map->matrix[x][y] != '\0')
 			{
 				if (cub->map->matrix[x][y] == '1')
-					ft_put_square(cub->image, tile_pos_y, tile_pos_x, BLACK);
-				else if (ft_is_player(cub->map->matrix[x][y]) || cub->map->matrix[x][y] == '0' || cub->map->matrix[x][y] == 'P')
-					ft_put_square(cub->image, tile_pos_y, tile_pos_x, GRAY);
+					ft_put_square(cub->image, tile.y, tile.x, BLACK);
+				else if (ft_is_player(cub->map->matrix[x][y])
+					|| cub->map->matrix[x][y] == '0'
+					|| cub->map->matrix[x][y] == 'P')
+					ft_put_square(cub->image, tile.y, tile.x, GRAY);
 			}
 			y++;
 		}

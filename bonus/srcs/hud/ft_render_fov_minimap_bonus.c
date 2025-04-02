@@ -6,7 +6,7 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 23:13:41 by joneves-          #+#    #+#             */
-/*   Updated: 2025/04/02 17:41:56 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/04/02 19:28:19 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,59 +50,27 @@ static void	ft_get_wall_minimap(t_raycast *ray, bool hit_wall)
 		ray->perp_wall_dist = max_dist;
 }
 
-void	draw_line_minimap(t_cub *cub, int x1, int y1, int x2, int y2, int color)
+static void	setting_raycast(t_cub *cub, t_raycast *ray, double angle)
 {
-	t_ipoint	dist;
-	t_ipoint	dir;
-	int			err;
-	int			blend;
-	int			default_color;
-
-	dist.y = abs(y2 - y1);
-	dist.x = abs(x2 - x1);
-	err = dist.x - dist.y;
-	if (x1 < x2)
-		dir.x = 1;
-	else
-		dir.x = -1;
-	if (y1 < y2)
-		dir.y = 1;
-	else
-		dir.y = -1;
-	while (x1 != x2 || y1 != y2)
-	{
-		default_color = ft_get_pixel_color(cub->image, x1, y1, cub);
-		blend = ft_blendcolors(default_color, color, 0.9);
-		ft_put_pixel(cub->image, x1, y1, blend);
-		int e2 = err * 2;
-		if (e2 > -dist.y)
-		{
-			err -= dist.y;
-			x1 += dir.x;
-		}
-		if (e2 < dist.x)
-		{
-			err += dist.x;
-			y1 += dir.y;
-		}
-	}
+	ray->player_pos.x = cub->raycast->player_pos.x;
+	ray->player_pos.y = cub->raycast->player_pos.y;
+	ray->player_tile.x = (int) ray->player_pos.x;
+	ray->player_tile.y = (int) ray->player_pos.y;
+	ray->ray_dir.x = sin(angle);
+	ray->ray_dir.y = cos(angle);
+	ft_define_steps(ray);
+	ft_get_ray_info_minimap(ray);
 }
 
-void	raycast_minimap(t_cub *cub, t_raycast ray,double angle)
+void	raycast_minimap(t_cub *cub, t_raycast ray, double angle)
 {
+	t_dpoint	hit;
+	t_ipoint	ihit;
 	bool		hit_wall;
 	int			steps;
-	t_dpoint	hit;
 
 	hit_wall = false;
-	ray.player_pos.x = cub->raycast->player_pos.x;
-	ray.player_pos.y = cub->raycast->player_pos.y;
-	ray.player_tile.x = (int) ray.player_pos.x;
-	ray.player_tile.y = (int) ray.player_pos.y;
-	ray.ray_dir.x = sin(angle);
-	ray.ray_dir.y = cos(angle);
-	ft_define_steps(&ray); //original
-	ft_get_ray_info_minimap(&ray); //copy
+	setting_raycast(cub, &ray, angle);
 	steps = 0;
 	while (!hit_wall && steps < 10)
 	{
@@ -112,11 +80,13 @@ void	raycast_minimap(t_cub *cub, t_raycast ray,double angle)
 	ft_get_wall_minimap(&ray, hit_wall);
 	hit.x = ray.player_pos.x + ray.perp_wall_dist * ray.ray_dir.x;
 	hit.y = ray.player_pos.y + ray.perp_wall_dist * ray.ray_dir.y;
-	ray.player_tile.x = (ray.player_pos.x - cub->hud->start_x) * TILE + OFFSET_X;
-	ray.player_tile.y = (ray.player_pos.y - cub->hud->start_y) * TILE + OFFSET_Y;
-	hit.x = (hit.x - cub->hud->start_x) * TILE + OFFSET_X;
-	hit.y = (hit.y - cub->hud->start_y) * TILE + OFFSET_Y;
-	draw_line_minimap(cub, ray.player_tile.y, ray.player_tile.x, (int) hit.y, (int) hit.x, GREEN2);
+	ray.player_tile.x = (ray.player_pos.x - cub->hud->start_x) * TILE + \
+		(9 * TILE);
+	ray.player_tile.y = (ray.player_pos.y - cub->hud->start_y) * TILE + \
+		(4 * TILE);
+	ihit.x = (int)((hit.x - cub->hud->start_x) * TILE + (9 * TILE));
+	ihit.y = (int)((hit.y - cub->hud->start_y) * TILE + (4 * TILE));
+	ft_draw_line(cub, ray.player_tile, ihit, GREEN2);
 	ft_put_player(cub->image, ray.player_tile.y, ray.player_tile.x, RED);
 }
 
@@ -124,19 +94,20 @@ void	ft_render_fov_minimap(t_cub *cub)
 {
 	t_raycast	*ray;
 	int			i;
-	int			num_rays;
 	double		player_angle;
 	double		angle_start;
 	double		angle;
 
 	ray = (t_raycast *) malloc(sizeof(t_raycast));
-	player_angle = atan2(cub->raycast->player_dir.x, cub->raycast->player_dir.y);
+	if (!ray)
+		ft_handle_error("malloc: hud ray", cub);
+	player_angle = atan2(cub->raycast->player_dir.x, \
+		cub->raycast->player_dir.y);
 	angle_start = player_angle - (FOV / 2);
-	num_rays = 120;
 	i = 0;
-	while (i < num_rays)
+	while (i < 120)
 	{
-		angle = angle_start + i * (FOV / (num_rays));
+		angle = angle_start + i * (FOV / 120);
 		raycast_minimap(cub, *ray, angle);
 		i++;
 	}
