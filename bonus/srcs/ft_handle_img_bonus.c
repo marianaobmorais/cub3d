@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 18:36:57 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/03/31 14:51:31 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/04/02 18:01:39 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int	ft_handle_img(t_cub *cub)
 	//update speed
 	cub->raycast->move_speed = cub->frame_time * MOVE_SPEED;
 	cub->raycast->rotate_speed = cub->frame_time * ROTATE_SPEED;
-	ft_mouse_hook(cub); //mouse
+	//ft_mouse_hook(cub); //mouse
 	ft_render_sprites(cub); //sprites
 	//ft_door(cub, cub->hud->door, WIDTH / 2 - 0, HEIGHT / 2 - 70); //bonus //move to render_wall?
 	//ft_render_minimap_on_hud(cub); //bonus
