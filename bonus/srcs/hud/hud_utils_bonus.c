@@ -6,7 +6,7 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 22:52:37 by joneves-          #+#    #+#             */
-/*   Updated: 2025/04/02 19:21:49 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/04/02 20:58:10 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,30 @@
 // 		y++;
 // 	}
 // }
+
+/**
+ * @brief Checks if a point (x, y) is inside the minimap area.
+ * 
+ * This function determines whether the given coordinates (x, y)
+ * are within the defined minimap boundaries, considering an offset.
+ * 
+ * @param x The x-coordinate of the point.
+ * @param y The y-coordinate of the point.
+ * @return true if the point is inside the minimap, false otherwise.
+ */
+static bool	is_inside_minimap(int x, int y)
+{
+	int	max_y;
+	int	max_x;
+	int	offset_x;
+	int	offset_y;
+
+	offset_x = 42;
+	offset_y = 20;
+	max_x = MINI_HEIGHT + offset_x;
+	max_y = MINI_WIDTH + offset_y;
+	return (x >= offset_x && x < max_x && y >= offset_y && y < max_y);
+}
 
 /**
  * @brief Updates the current position of a point along a line.
@@ -98,9 +122,12 @@ void	ft_draw_line(t_cub *cub, t_ipoint tile, t_ipoint hit, int color)
 		line.dir.y = -1;
 	while (tile.y != hit.y || tile.x != hit.x)
 	{
-		default_color = ft_get_pixel_color(cub->image, tile.y, tile.x, cub);
-		blend = ft_blendcolors(default_color, color, 0.9);
-		ft_put_pixel(cub->image, tile.y, tile.x, blend);
+		if (is_inside_minimap(tile.x, tile.y))
+		{
+			default_color = ft_get_pixel_color(cub->image, tile.y, tile.x, cub);
+			blend = ft_blendcolors(default_color, color, 0.9);
+			ft_put_pixel(cub->image, tile.y, tile.x, blend);
+		}
 		setting_line(&line, &tile);
 	}
 }

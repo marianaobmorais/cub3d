@@ -6,7 +6,7 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 23:11:23 by joneves-          #+#    #+#             */
-/*   Updated: 2025/04/01 23:18:06 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/04/02 20:59:15 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ void	ft_set_limit_x(t_cub *cub, int matrix_height)
 		cub->hud->start_x -= (cub->hud->end_x - matrix_height + 1);
 		if (cub->hud->start_x < 0)
 			cub->hud->start_x = 0;
-		//cub->hud->end_x = matrix_height - 1;
 	}
 }
 
@@ -106,7 +105,6 @@ void	ft_set_limit_y(t_cub *cub, int matrix_width)
 		cub->hud->start_y -= (cub->hud->end_y - matrix_width + 1);
 		if (cub->hud->start_y < 0)
 			cub->hud->start_y = 0;
-		//cub->hud->end_y = matrix_width - 1;
 	}
 }
 

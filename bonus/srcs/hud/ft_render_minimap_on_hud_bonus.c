@@ -6,7 +6,7 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 23:11:58 by joneves-          #+#    #+#             */
-/*   Updated: 2025/04/02 19:31:02 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/04/02 19:35:58 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	ft_colorize_minimap(t_cub *cub, int map_width, int map_height)
 	while (x < map_height && x <= cub->hud->end_x)
 	{
 		y = cub->hud->start_y;
-		while (y < map_width -1 && y <= cub->hud->end_y)
+		while (y < map_width && y <= cub->hud->end_y)
 		{
 			tile.y = (y - cub->hud->start_y) + 4;
 			tile.x = (x - cub->hud->start_x) + 9;
