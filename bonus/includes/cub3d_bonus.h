@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:26:59 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/01 18:49:03 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/04/02 16:24:50 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@
 # define HEIGHT 600
 # define MOVE_SPEED 8
 # define ROTATE_SPEED 4
-# define SPRITE_SIZE 32
+# define SPRITE_SIZE 256
 
 
 typedef struct s_hud	t_hud;
