@@ -6,7 +6,7 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 18:55:34 by joneves-          #+#    #+#             */
-/*   Updated: 2025/04/01 20:49:14 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/04/01 21:13:14 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,19 +183,15 @@ bool	ft_valid_wall(char *line, char *previous_line, bool first_or_last)
 	while (line[y])
 	{
 		if (line[y] == '0')
-		{
 			if (y == 0 || line[y + 1] == '\0'
 				|| !is_valid_zero(line, previous_line, y))
 				return (false);
-		}
-		else if (line[y] == ' ')
+		if (line[y] == ' ')
 			if (!is_valid_space(line, previous_line, y))
 				return (false);
-		else if (line[y] == '1')
-		{
+		if (line[y] == '1')
 			if (!is_valid_wall_door(line, previous_line, y))
 				return (false);
-		}
 		y++;
 	}
 	return (true);

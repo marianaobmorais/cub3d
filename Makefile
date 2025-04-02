@@ -58,8 +58,9 @@ B_SRCS = $(BONUS_DIR)/main_bonus.c \
 	$(BONUS_DIR)/hud/ft_render_minimap_utils_bonus.c \
 	$(BONUS_DIR)/hud/ft_render_source_on_hud_bonus.c \
 	$(BONUS_DIR)/hud/ft_render_action_bonus.c \
+	$(BONUS_DIR)/hud/ft_render_viewmodel_bonus.c \
 	$(BONUS_DIR)/hud/screens_bonus.c \
-	$(BONUS_DIR)/hud/stuffs_bonus.c \
+	$(BONUS_DIR)/hud/colors_utils_bonus.c \
 
 
 CC = cc

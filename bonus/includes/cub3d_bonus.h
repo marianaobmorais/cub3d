@@ -6,7 +6,7 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:26:59 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/01 20:06:33 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/04/02 09:42:37 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,10 +143,8 @@ typedef struct s_cub
 	bool		action; //action
 	int			amount_action; //action
 	double		duration_action; //action
-	t_screen	*start_screen; //screen
-	t_screen	*end_screen; //screen
-	size_t		last_time; //screen
-	int			current_screen; //screen
+	t_screen	screens;
+	size_t		last_time;
 	double		frame_time;
 	t_raycast	*raycast;
 }	t_cub;

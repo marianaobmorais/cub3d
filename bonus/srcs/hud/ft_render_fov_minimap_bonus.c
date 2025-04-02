@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_render_fov_minimap_bonus.c                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/01 23:13:41 by joneves-          #+#    #+#             */
+/*   Updated: 2025/04/02 17:41:56 by joneves-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/cub3d_bonus.h"
 
 static void	ft_get_ray_info_minimap(t_raycast *ray)
@@ -28,15 +40,6 @@ static void	ft_get_wall_minimap(t_raycast *ray, bool hit_wall)
 {
 	double	max_dist;
 
-	// if (cub->raycast->hit_side == 0 && cub->raycast->ray_dir.x < 0)
-	// 		ft_paint_ray(cub, w, cub->raycast->north_texture);
-	// 	if (cub->raycast->hit_side == 0 && cub->raycast->ray_dir.x >= 0)
-	// 		ft_paint_ray(cub, w, cub->raycast->south_texture);
-	// 	if (cub->raycast->hit_side == 1 && cub->raycast->ray_dir.y >= 0)
-	// 		ft_paint_ray(cub, w, cub->raycast->east_texture);
-	// 	if (cub->raycast->hit_side == 1 && cub->raycast->ray_dir.y < 0)
-	// 		ft_paint_ray(cub, w, cub->raycast->west_texture);
-
 	max_dist = 5;
 	if ((ray->hit_side == 0 && ray->ray_dir.x < 0)
 		|| (ray->hit_side == 0 && ray->ray_dir.x >= 0))
@@ -49,7 +52,7 @@ static void	ft_get_wall_minimap(t_raycast *ray, bool hit_wall)
 
 void	draw_line_minimap(t_cub *cub, int x1, int y1, int x2, int y2, int color)
 {
-	t_ipoint	dist; // utilizar dpoint
+	t_ipoint	dist;
 	t_ipoint	dir;
 	int			err;
 	int			blend;
@@ -69,7 +72,6 @@ void	draw_line_minimap(t_cub *cub, int x1, int y1, int x2, int y2, int color)
 	while (x1 != x2 || y1 != y2)
 	{
 		default_color = ft_get_pixel_color(cub->image, x1, y1, cub);
-		//printf("cor-> %d\n", default_color);// debug
 		blend = ft_blendcolors(default_color, color, 0.9);
 		ft_put_pixel(cub->image, x1, y1, blend);
 		int e2 = err * 2;

@@ -6,7 +6,7 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:32:10 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/01 20:24:40 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/04/02 09:44:54 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,12 +159,13 @@ t_cub	*ft_init_structs(t_cub *cub, char *argv)
 	ft_init_raycast(cub);
 	ft_init_wall_texture(cub);
 	ft_init_hud(cub);
+	cub->started = false;
+	cub->leaving = false;
 	cub->action = false; //action
 	cub->duration_action = 0; //action
 	cub->amount_action = 0; //action
 	ft_init_sprite(cub); //sprite
-	ft_init_start_screen(cub);
-	ft_init_end_screen(cub);
+	ft_init_screens(cub);
 	cub->window = mlx_new_window(cub->mlx, WIDTH, HEIGHT, "cub3d");
 	if (!cub->window)
 		ft_handle_error("malloc: cub->window", cub);

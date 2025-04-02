@@ -1,152 +1,114 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   screens_bonus.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/01 23:13:15 by joneves-          #+#    #+#             */
+/*   Updated: 2025/04/02 17:40:39 by joneves-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/cub3d_bonus.h"
 
-void	ft_init_start_screen(t_cub *cub)
+/**
+ * @brief Initializes the game's start and end screens.
+ *
+ * This function loads the XPM images for the start and end screens, storing 
+ * them in the `cub->screens` structure. It sets the initial screen index 
+ * to zero, ensuring that the first screen is displayed at the start.
+ *
+ * @param cub A pointer to the main game structure containing screen data.
+ */
+void	ft_init_screens(t_cub *cub)
 {
-	cub->start_screen = malloc(sizeof(t_screen));
-	if (!cub->start_screen)
-		ft_handle_error("malloc: cub->start_screen", cub);
-	cub->started = false;
-	cub->leaving = false;
-	cub->start_screen->img = NULL;
-	cub->start_screen->width = WIDTH;
-	cub->start_screen->height = HEIGHT;
-	cub->start_screen->paths = malloc(sizeof(char *) * 4);
-	if (!cub->start_screen->paths)
-		ft_handle_error("malloc: cub->start_screen->paths", cub);
-	cub->start_screen->paths[0] = "assets/screens/start_screen0.xpm";
-	cub->start_screen->paths[1] = "assets/screens/start_screen1.xpm";
-	cub->start_screen->paths[2] = "assets/screens/start_screen2.xpm";
-	cub->start_screen->paths[3] = "assets/screens/start_screen3.xpm";
-}
-
-void	ft_init_end_screen(t_cub *cub)
-{
-	cub->end_screen = malloc(sizeof(t_screen));
-	if (!cub->end_screen)
-		ft_handle_error("malloc: cub->end_screen", cub);
-	cub->end_screen->img = NULL;
-	cub->end_screen->width = WIDTH;
-	cub->end_screen->height = HEIGHT;
-	cub->end_screen->paths = malloc(sizeof(char *) * 2);
-	if (!cub->end_screen->paths)
-		ft_handle_error("malloc: cub->end_screen->paths", cub);
-	cub->end_screen->paths[0] = "assets/screens/end_screen0.xpm";
-	cub->end_screen->paths[1] = "assets/screens/end_screen1.xpm";
+	cub->screens.current_screen = 0;
+	ft_init_xpm_image(cub, &cub->screens.start_0, \
+		"assets/screens/start_screen0.xpm");
+	ft_init_xpm_image(cub, &cub->screens.start_1, \
+		"assets/screens/start_screen1.xpm");
+	ft_init_xpm_image(cub, &cub->screens.start_2, \
+		"assets/screens/start_screen2.xpm");
+	ft_init_xpm_image(cub, &cub->screens.start_3, \
+		"assets/screens/start_screen3.xpm");
+	ft_init_xpm_image(cub, &cub->screens.end_0, \
+		"assets/screens/end_screen0.xpm");
+	ft_init_xpm_image(cub, &cub->screens.end_1, \
+		"assets/screens/end_screen1.xpm");
 }
 
 /**
- * @brief Displays the end screen based on the game's outcome.
+ * @brief Frees the memory allocated for the game's start and end screens.
  *
- * This function displays an end screen image based on the provided direction 
- * (`dir`). It first destroys the previous end screen image, then loads and 
- * displays the appropriate image from a predefined set of images (paths[0] or 
- * paths[1]). The `dir` parameter determines which image is chosen (e.g., 
- * success or failure screen).
+ * This function destroys the XPM images associated with the start and end 
+ * screens, ensuring that the allocated memory is properly released.
  *
- * @param cub Pointer to the main game structure.
- * @param dir Integer indicating the direction (0 for one image, 1 for another).
+ * @param cub A pointer to the main game structure containing screen data.
+ */
+void	ft_clean_screens(t_cub *cub)
+{
+	if (cub->screens.start_0.img_ptr)
+		mlx_destroy_image(cub->mlx, cub->screens.start_0.img_ptr);
+	if (cub->screens.start_1.img_ptr)
+		mlx_destroy_image(cub->mlx, cub->screens.start_1.img_ptr);
+	if (cub->screens.start_2.img_ptr)
+		mlx_destroy_image(cub->mlx, cub->screens.start_2.img_ptr);
+	if (cub->screens.start_3.img_ptr)
+		mlx_destroy_image(cub->mlx, cub->screens.start_3.img_ptr);
+	if (cub->screens.end_0.img_ptr)
+		mlx_destroy_image(cub->mlx, cub->screens.end_0.img_ptr);
+	if (cub->screens.end_1.img_ptr)
+		mlx_destroy_image(cub->mlx, cub->screens.end_1.img_ptr);
+}
+
+/**
+ * @brief Displays the appropriate end screen based on the given direction.
  *
- * @return 0 upon completion.
+ * This function renders one of the end screen images onto the game window 
+ * depending on the value of `dir`. If `dir` is 0, it displays `end_0`; 
+ * if `dir` is 1, it displays `end_1`.
+ *
+ * @param cub A pointer to the main game structure containing screen data.
+ * @param dir The direction that determines which end screen to display.
+ *
+ * @return Always returns 0.
  */
 int	ft_put_end_screen(t_cub *cub, int dir)
 {
-	if (cub->end_screen->img)
-		mlx_destroy_image(cub->mlx, cub->end_screen->img); //do we need this?
 	if (dir == 0)
-	{
-		cub->end_screen->img = mlx_xpm_file_to_image(cub->mlx, \
-			cub->end_screen->paths[0], &cub->end_screen->width, \
-			&cub->end_screen->height);
-		mlx_put_image_to_window(cub->mlx, cub->window, cub->end_screen->img, \
-			0, 0);
-	}
+		mlx_put_image_to_window(cub->mlx, cub->window, \
+			cub->screens.end_0.img_ptr, 0, 0);
 	if (dir == 1)
-	{
-		cub->end_screen->img = mlx_xpm_file_to_image(cub->mlx, \
-			cub->end_screen->paths[1], &cub->end_screen->width, \
-			&cub->end_screen->height);
-		mlx_put_image_to_window(cub->mlx, cub->window, cub->end_screen->img, \
-			0, 0);
-	}
+		mlx_put_image_to_window(cub->mlx, cub->window, \
+			cub->screens.end_1.img_ptr, 0, 0);
 	return (0);
 }
 
 /**
- * @brief Retrieves the current time in milliseconds.
- * 
- * This function uses `gettimeofday` to obtain the current time and converts 
- * it into milliseconds. It is typically used for frame timing calculations.
- * 
- * @return The current time in milliseconds.
+ * @brief Displays the start screen animation frame by frame.
+ *
+ * This function cycles through the start screen images and renders them 
+ * onto the game window. It ensures the `current_screen` index loops back 
+ * to 0 after reaching the last frame.
+ *
+ * @param cub A pointer to the main game structure containing screen data.
  */
-static size_t	ft_get_time(void)
+void	ft_put_start_screen(t_cub *cub)
 {
-	size_t			milliseconds;
-	struct timeval	time;
-
-	gettimeofday(&time, NULL);
-	milliseconds = (time.tv_sec * 1000) + (time.tv_usec / 1000);
-	return (milliseconds);
-}
-
-/**
- * @brief Displays the start screen of the game with changing images.
- *
- * This function controls the display of a start screen sequence by cycling 
- * through images at a regular interval (every 0.2 seconds). It updates the 
- * image shown on the screen and ensures smooth transitions between the 
- * images. Once all images have been displayed, the cycle restarts.
- *
- * @param cub Pointer to the main game structure.
- */
-static void	ft_put_start_screen(t_cub *cub)
-{
-	if (cub->current_screen == 4)
-		cub->current_screen = 0;
-	if (cub->start_screen->img)
-		mlx_destroy_image(cub->mlx, cub->start_screen->img); //do we need this?
-	cub->start_screen->img = mlx_xpm_file_to_image(cub->mlx, \
-		cub->start_screen->paths[cub->current_screen], \
-		&cub->start_screen->width, \
-		&cub->start_screen->height);
-	mlx_put_image_to_window(cub->mlx, cub->window, cub->start_screen->img, \
-		0, 0);
-	cub->current_screen++;
-}
-
-/**
- * @brief Displays the start screen of the game with changing images.
- *
- * This function controls the display of a start screen sequence by cycling 
- * through images at a regular interval (every 0.2 seconds). It updates the 
- * image shown on the screen and ensures smooth transitions between the 
- * images. Once all images have been displayed, the cycle restarts.
- *
- * @param cub Pointer to the main game structure.
- * @return 0 upon completion.
- */
-int	ft_render_screen(t_cub *cub)
-{
-	//update brief
-	size_t		now;
-
-	now = ft_get_time();
-	cub->frame_time = (now - cub->last_time) / 1000.0;
-	if (!cub->started && cub->frame_time >= 0.2)
-	{
-		ft_put_start_screen(cub);
-		cub->last_time = now;
-	}
-	if (cub->started && !cub->leaving && cub->frame_time >= 0.016)
-	{
-		ft_handle_img(cub);
-		cub->last_time = now;
-	}
-	if (cub->action && cub->frame_time >= 0.016)
-	{
-		ft_render_action(cub);
-		cub->last_time = now;
-	}
-	return (0);
-	//rename this file? suggestion: ft_render_screen.c
+	if (cub->screens.current_screen == 4)
+		cub->screens.current_screen = 0;
+	if (cub->screens.current_screen == 0)
+		mlx_put_image_to_window(cub->mlx, cub->window, \
+			cub->screens.start_0.img_ptr, 0, 0);
+	if (cub->screens.current_screen == 1)
+		mlx_put_image_to_window(cub->mlx, cub->window, \
+			cub->screens.start_1.img_ptr, 0, 0);
+	if (cub->screens.current_screen == 2)
+		mlx_put_image_to_window(cub->mlx, cub->window, \
+			cub->screens.start_2.img_ptr, 0, 0);
+	if (cub->screens.current_screen == 3)
+		mlx_put_image_to_window(cub->mlx, cub->window, \
+			cub->screens.start_3.img_ptr, 0, 0);
+	cub->screens.current_screen++;
 }
