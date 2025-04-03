@@ -48,7 +48,7 @@ static void	ft_get_sprite_info(t_cub *cub, int i)
 	if (sprite_end_w >= WIDTH)
 		sprite_end_w = WIDTH - 1;
 	
-	if (screen_w >= 0 && screen_w <= WIDTH)
+	if (screen_w >= 0 && screen_w <= WIDTH && transform_z > 0)
 	{
 		printf("screen_w: %d\n", screen_w);//debug
 		printf("sprite: height = %d, width = %d\n", sprite_height, sprite_width);//debug
