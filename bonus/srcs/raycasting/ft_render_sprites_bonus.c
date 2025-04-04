@@ -16,50 +16,48 @@ static void	ft_get_sprite_info(t_cub *cub, int i)
 
 	relative_x = cub->map->sprite[i].pos.x - cub->raycast->player_pos.x;
 	relative_y = cub->map->sprite[i].pos.y - cub->raycast->player_pos.y;
-	inv = 1.0 / (cub->raycast->camera_plane.x * cub->raycast->player_dir.y - cub->raycast->camera_plane.y * cub->raycast->player_dir.x);
-	
-	//printf("inv_determination: %lf\n", inv); //debug
+	inv = 1.0 / (cub->raycast->player_dir.x * cub->raycast->camera_plane.y - cub->raycast->player_dir.y * cub->raycast->camera_plane.x);
 	//The camera plane should be used for depth, while player_dir should be used for horizontal position.
 	//transform_x tells us how far the sprite is from the center of the screen
-	transform_w = inv * (cub->raycast->player_dir.y * relative_x - cub->raycast->player_dir.x * relative_y);
+	transform_w = inv * (-cub->raycast->player_dir.y * relative_x + cub->raycast->player_dir.x * relative_y);
+	//transform_w = inv * (cub->raycast->player_dir.y * relative_x - cub->raycast->player_dir.x * relative_y);
 	//transform_y tells us depth, which affects sprite scaling
 	//transform_y (depth) increases, sprite_screen_w decreases, making the sprite appear smaller
 	//transform_y decreases, sprite_screen_w increases, making the sprite larger
-	transform_z = inv * (-cub->raycast->camera_plane.y * relative_x - cub->raycast->camera_plane.x * relative_y);
-	//printf("transform: w = %lf, z = %lf\n", transform_w, transform_z);//debug
-	//screen_w will give the horizontal position on the screen where the sprite will be placed, based on its relative position to the player and the camera's orientation.
+	transform_z = inv * (cub->raycast->camera_plane.y * relative_x - cub->raycast->camera_plane.x * relative_y);
+	//transform_z = inv * (-cub->raycast->camera_plane.y * relative_x - cub->raycast->camera_plane.x * relative_y);
 	if (transform_z <= 0)
 		return ;
-	
+
+	//screen_w will give the horizontal position on the screen where the sprite will be placed, based on its relative position to the player and the camera's orientation.
 	screen_w = (int)((WIDTH / 2) * (1 + transform_w / transform_z)); //calculates where the sprite should be positioned on screen
 	//printf("screen_w: %d\n", screen_w);//debug
 	// the apparent height and width of the sprite are inversely proportional to transform_z. The larger the value of transform_z, the smaller the sprite appears on the screen and vice-versa
-	sprite_height = fabs((int)HEIGHT / transform_z); //do we need the fabs function? //using 'transform_y' instead of the real distance prevents fisheye
+	sprite_height = (int)HEIGHT / transform_z; //do we need the fabs function? //using 'transform_y' instead of the real distance prevents fisheye
 	sprite_width = sprite_height;
 	
 	sprite_start_h = -sprite_height / 2 + HEIGHT / 2;
-	if (sprite_start_h < 0)
-		sprite_start_h = 0;
+	// if (sprite_start_h < 0)
+	// 	sprite_start_h = 0;
 	sprite_end_h = sprite_height / 2 + HEIGHT / 2;
-	if (sprite_end_h >= HEIGHT)
-		sprite_end_h = HEIGHT - 1;
-	// if (screen_w < 0) //not sure
-	// 	screen_w = 0;
+	// if (sprite_end_h >= HEIGHT)
+	// 	sprite_end_h = HEIGHT - 1;
+
 	int		sprite_start_w = screen_w - sprite_width / 2;
-	if (sprite_start_w < 0)
-		sprite_start_w = 0;
+	// if (sprite_start_w < 0)
+	// 	sprite_start_w = 0;
 	int		sprite_end_w = screen_w + sprite_width / 2;
-	if (sprite_end_w >= WIDTH)
-		sprite_end_w = WIDTH - 1;
+	// if (sprite_end_w >= WIDTH)
+	// 	sprite_end_w = WIDTH - 1;
 	
 	if (screen_w >= 0 && screen_w <= WIDTH && transform_z > 0)
 	{
+		printf("transform: w = %lf, z = %lf\n", transform_w, transform_z);//debug
 		printf("screen_w: %d\n", screen_w);//debug
 		printf("sprite: height = %d, width = %d\n", sprite_height, sprite_width);//debug
 		printf("start_w = %d, end_w = %d, diff_w = %d\n", sprite_start_w, sprite_end_w, sprite_end_w - sprite_start_w); //debug
-		printf("start_h = %d, end_h = %d, diff_h = %d\n", sprite_start_h, sprite_end_h, sprite_end_h - sprite_start_h); //debug
+		printf("start_h = %d, end_h = %d, diff_h = %d\n\n", sprite_start_h, sprite_end_h, sprite_end_h - sprite_start_h); //debug
 	}
-
 
 	//draw sprite
 	int tmp_w = sprite_start_w;
@@ -68,7 +66,7 @@ static void	ft_get_sprite_info(t_cub *cub, int i)
 		//printf("tmp_w = %d, sprite_width: %d\n", tmp_w, sprite_width);//debug
 		if (tmp_w >= 0 && tmp_w < WIDTH && transform_z < cub->raycast->buffer[tmp_w])
 		{
-			int	texture_w = (int)((tmp_w - sprite_start_w) * (double)cub->map->sprite[i].img_a.width / sprite_width)
+			int	texture_w = (int)((tmp_w - sprite_start_w) * (double)cub->map->sprite[i].img_a.width / sprite_width);
 			//printf("texture_w = %d\n", texture_w);//debug		
 			int	tmp_h = sprite_start_h;
 			while (tmp_h < sprite_end_h)
@@ -80,8 +78,7 @@ static void	ft_get_sprite_info(t_cub *cub, int i)
 				if (tmp_h >= 0 && tmp_h < HEIGHT /* SPRITE_SIZE */)
 				{
 					int color = ft_get_pixel_color(&cub->map->sprite[i].img_a, texture_w, texture_h, cub);
-					//printf("color = %d\n\n", color);//debug
-					if (color != None)
+					if (color == IGNORE)
 					{
 						color = ft_get_pixel_color(cub->image, tmp_w, tmp_h, cub);
 						ft_put_pixel(cub->image, tmp_w, tmp_h, color);
