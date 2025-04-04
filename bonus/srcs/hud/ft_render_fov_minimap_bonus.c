@@ -6,7 +6,7 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 23:13:41 by joneves-          #+#    #+#             */
-/*   Updated: 2025/04/02 19:28:19 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/04/02 21:10:11 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	ft_get_wall_minimap(t_raycast *ray, bool hit_wall)
 {
 	double	max_dist;
 
-	max_dist = 5;
+	max_dist = 30;
 	if ((ray->hit_side == 0 && ray->ray_dir.x < 0)
 		|| (ray->hit_side == 0 && ray->ray_dir.x >= 0))
 		ray->perp_wall_dist = ray->dist_to_x - ray->delta_dist_x;

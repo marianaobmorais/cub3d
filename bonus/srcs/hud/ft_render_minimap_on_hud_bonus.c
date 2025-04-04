@@ -6,7 +6,7 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 23:11:58 by joneves-          #+#    #+#             */
-/*   Updated: 2025/04/02 19:35:58 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/04/02 21:40:40 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,10 @@ void	ft_colorize_minimap(t_cub *cub, int map_width, int map_height)
 			{
 				if (cub->map->matrix[x][y] == '1')
 					ft_put_square(cub->image, tile.y, tile.x, BLACK);
+				else if (cub->map->matrix[x][y] == 'D')
+					ft_put_square(cub->image, tile.y, tile.x, GREEN);
+				else if (cub->map->matrix[x][y] == 'X')
+					ft_put_square(cub->image, tile.y, tile.x, PINK);
 				else if (ft_is_player(cub->map->matrix[x][y])
 					|| cub->map->matrix[x][y] == '0'
 					|| cub->map->matrix[x][y] == 'P')

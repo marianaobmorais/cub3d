@@ -6,7 +6,7 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 18:55:34 by joneves-          #+#    #+#             */
-/*   Updated: 2025/04/01 20:47:05 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/04/03 21:51:26 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ void	ft_count_doors(t_cub *cub, char *line)
 	i = 0;
 	while (line[i])
 	{
-		if (line[i] == 'X')
+		if (line[i] == 'D')
 			cub->map->door_count++;
 		i++;
 	}

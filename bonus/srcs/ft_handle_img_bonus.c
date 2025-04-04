@@ -6,7 +6,7 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 18:36:57 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/01 23:04:28 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/04/04 10:20:32 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ int	ft_handle_img(t_cub *cub)
 	//add frames
 	ft_render_bg(cub->image, cub->map->ceiling_hex, cub->map->floor_hex);
 	ft_render_walls(cub);
+	ft_render_sprites(cub); //sprites	
+	ft_render_door(cub, (cub->map->door)[0]);
 	ft_render_source_on_hud(cub, &cub->hud->watch, 0, 0); //bonus
 	ft_render_minimap_on_hud(cub); //bonus
 	ft_render_viewmodel(cub);
@@ -81,7 +83,6 @@ int	ft_handle_img(t_cub *cub)
 	cub->raycast->move_speed = cub->frame_time * MOVE_SPEED;
 	cub->raycast->rotate_speed = cub->frame_time * ROTATE_SPEED;
 	ft_mouse_hook(cub); //mouse
-	ft_render_sprites(cub); //sprites
 	mlx_put_image_to_window(cub->mlx, cub->window, cub->image->img_ptr, 0, 0);
 	return (0);
 }

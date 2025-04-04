@@ -6,7 +6,7 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 22:59:03 by joneves-          #+#    #+#             */
-/*   Updated: 2025/04/02 11:17:15 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/04/03 15:04:48 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,5 @@ void	ft_init_hud(t_cub *cub)
 	ft_init_xpm_image(cub, &cub->hud->viewmodel_3, "assets/hud/vwmodel_3.xpm");
 	ft_init_xpm_image(cub, &cub->hud->viewmodel_4, "assets/hud/vwmodel_4.xpm");
 	ft_init_xpm_image(cub, &cub->hud->breadcrumbs, "assets/hud/crumbs.xpm");
+	ft_init_xpm_image(cub, &cub->hud->door, "assets/textures/door.xpm");
 }
