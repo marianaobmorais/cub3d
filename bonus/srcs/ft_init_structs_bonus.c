@@ -6,7 +6,7 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:32:10 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/03 21:50:28 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/04/05 18:29:23 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,11 +166,13 @@ t_cub	*ft_init_structs(t_cub *cub, char *argv)
 	cub->amount_action = 0; //action
 	ft_init_sprite(cub); //sprite
 	ft_init_screens(cub);
+	ft_init_doors(cub);
 	int i = 0;
 	printf("count door --> %d\n", cub->map->door_count);
 	while (i < cub->map->door_count)
 	{
 		printf("id: %d --> x %d y %d\n", (cub->map->door[i]).id, (cub->map->door[i]).tile.x, (cub->map->door[i]).tile.y);
+		printf("door tile id: %d --> x %d y %d\n", (cub->map->door[i]).id, (cub->map->door[i]).door_tile.x, (cub->map->door[i]).door_tile.y);
 		i++;
 	}
 	cub->window = mlx_new_window(cub->mlx, WIDTH, HEIGHT, "cub3d");

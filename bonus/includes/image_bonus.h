@@ -6,7 +6,7 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:26:59 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/02 19:04:38 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/04/05 14:48:46 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,13 @@ typedef struct s_ipoint
 	int	x;
 	int	y;
 }	t_ipoint;
+
+typedef enum e_door_status
+{
+	CLOSED,
+	OPEN,
+	OPENING,
+	CLOSING
+}	t_door_status;
 
 #endif //IMAGE_BONUS_H

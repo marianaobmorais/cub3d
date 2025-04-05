@@ -6,7 +6,7 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:26:59 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/04 16:23:20 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/04/05 18:58:25 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,17 @@ typedef struct s_sprite
 
 typedef struct s_door
 {
-	int			id;
+	int				id;
+	t_door_status	status;
 	// int			order;
-	// t_image		image;
-	t_ipoint	tile;
-	// t_dpoint	pos;
-	double		timer;
+	t_image			current;
+	t_ipoint		tile;
+	int				move;
+	// t_dpoint		pos;
+	double			timer;
+	t_ipoint		door_tile; //new
+	double			door_dist; //new
+	int				door_side; //new //0 x 1 y
 }	t_door;
 
 typedef struct s_raycast
@@ -103,17 +108,19 @@ typedef struct s_raycast
 	double			texture_pos;
 	int				hit_side;
 	bool			hit_door; //new
-	t_ipoint		door_tile; //new
-	double			door_dist; //new
-	int				door_side; //new //0 x 1 y
 	int				wall_height;
 	int				wall_start;
 	int				wall_end;
+	t_ipoint		doors_find[10];
+	int				door_increment;
 	t_image			north_texture;
 	t_image			south_texture;
 	t_image			east_texture;
 	t_image			west_texture;
 	t_image			sprite[4];
+	t_image			door_open;
+	t_image			door_closed;
+	t_image			doors[8];
 	//t_image		sprite_b[4];
 	double			buffer[WIDTH]; //double check this
 }	t_raycast;
@@ -198,12 +205,15 @@ void			ft_paint_ray(t_cub *cub, int w, t_image texture);
 
 /* ft_dda_bonus.c */
 
-void			ft_dda(t_raycast *ray, t_map *map, bool *hit_wall);
+void			ft_dda(t_raycast *ray, t_map *map, bool *hit_wall, t_cub *cub, bool fov);
 
 int		ft_render_screen(t_cub *cub);
 
 void	ft_render_door(t_cub *cub, t_door door);
 void	ft_paint_ray_door(t_cub *cub, int w, t_image texture,
 	double dist, int side, double wall_hit);
+int	where_door(t_cub *cub, int x, int y);
+void	update_doors(t_cub * cub);
+void	ft_init_doors(t_cub *cub);
 
 #endif //CUB3D_BONUS_H

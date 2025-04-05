@@ -6,7 +6,7 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 18:55:47 by joneves-          #+#    #+#             */
-/*   Updated: 2025/04/02 11:17:44 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/04/05 16:14:21 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,23 +28,10 @@ static void	ft_init_map(t_cub *cub)
 	cub->map = (t_map *) malloc(sizeof(t_map));
 	if (!cub->map)
 		ft_handle_error("Malloc: t_map", cub);
-	cub->map->matrix = NULL;
-	cub->map->matrix_tmp = NULL;
-	cub->map->north_texture = NULL;
-	cub->map->south_texture = NULL;
-	cub->map->west_texture = NULL;
-	cub->map->east_texture = NULL;
-	cub->map->floor_rgb = NULL;
-	cub->map->ceiling_rgb = NULL;
+	ft_memset(cub->map, 0, sizeof(t_map));
 	cub->map->player_squ_x = -1;
 	cub->map->player_squ_y = -1;
 	cub->map->direction = -1;
-	cub->map->sprite = NULL;
-	cub->map->sprite_count = 0;
-	cub->map->sprite_increment = 0;
-	cub->map->door = NULL;
-	cub->map->door_count = 0;
-	cub->map->door_increment = 0;
 }
 
 /**
@@ -150,7 +137,7 @@ void	ft_load_map(char *const filepath, t_cub *cub)
 	cub->map->sprite = malloc(sizeof(t_sprite) * cub->map->sprite_count);
 	if (!cub->map->sprite)
 		ft_handle_error("Map: cub->map->sprite", cub);
-	cub->map->door = malloc(sizeof(t_sprite) * cub->map->door_count);
+	cub->map->door = malloc(sizeof(t_door) * cub->map->door_count);
 	if (!cub->map->door)
 		ft_handle_error("Map: cub->map->door", cub);
 	ft_matrix_parser(cub, cub->map->matrix);

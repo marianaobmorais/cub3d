@@ -6,7 +6,7 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 18:55:34 by joneves-          #+#    #+#             */
-/*   Updated: 2025/04/03 21:51:26 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/04/05 16:20:39 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,9 +100,13 @@ void	ft_count_sprites(t_cub *cub, char *line)
  */
 void	ft_set_door(t_cub *cub, int x, int y)
 {
+	ft_memset(&cub->map->door[cub->map->door_increment], 0, sizeof(t_door));
 	(cub->map->door[cub->map->door_increment]).tile.x = y;
 	(cub->map->door[cub->map->door_increment]).tile.y = x;
 	(cub->map->door[cub->map->door_increment]).id = cub->map->door_increment;
+	(cub->map->door[cub->map->door_increment]).timer = 0;
+	(cub->map->door[cub->map->door_increment]).move = -1;
+	(cub->map->door[cub->map->door_increment]).status = OPEN; //test
 	cub->map->door_increment++;
 }
 

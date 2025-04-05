@@ -6,7 +6,7 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 20:09:35 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/04 19:15:25 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/04/05 15:50:08 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,49 +50,5 @@ void	ft_paint_ray(t_cub *cub, int window_w, t_image texture)
 		color = ft_get_pixel_color(&texture, texture_w, texture_h, cub);
 		ft_put_pixel(cub->image, window_w, window_h, color);
 		window_h++;
-	}
-}
-
-void	ft_paint_ray_door(t_cub *cub, int w, t_image texture,
-	double dist, int side, double wall_hit)
-{
-	int		tex_x;
-	int		tex_y;
-	int		draw_start;
-	int		draw_end;
-	double	texture_pos;
-	double	step;
-	int		door_height;
-	int		y;
-	int		color;
-
-	door_height = (int)(HEIGHT / dist);
-	draw_start = -door_height / 2 + HEIGHT / 2;
-	if (draw_start < 0)
-		draw_start = 0;
-	draw_end = door_height / 2 + HEIGHT / 2;
-	if (draw_end >= HEIGHT)
-		draw_end = HEIGHT - 1;
-
-	// tex_x (coluna da textura)
-	tex_x = (int)(wall_hit * texture.width);
-	if ((side == 0 && cub->raycast->ray_dir.x > 0) || (side == 1 && cub->raycast->ray_dir.y < 0))
-		tex_x = texture.width - tex_x - 1;
-	tex_x %= texture.width;
-
-	// passo vertical por pixel
-	step = (double)texture.height / door_height;
-	texture_pos = (draw_start - HEIGHT / 2 + door_height / 2) * step;
-
-	y = draw_start;
-	while (y < draw_end)
-	{
-		tex_y = (int)texture_pos % texture.height;
-		texture_pos += step;
-
-		color = ft_get_pixel_color(&texture, tex_x, tex_y, cub);
-		if (color != IGNORE)
-			ft_put_pixel(cub->image, w, y, color);
-		y++;
 	}
 }

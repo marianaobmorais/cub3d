@@ -6,7 +6,7 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 23:13:41 by joneves-          #+#    #+#             */
-/*   Updated: 2025/04/02 21:10:11 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/04/05 18:59:48 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	raycast_minimap(t_cub *cub, t_raycast ray, double angle)
 	steps = 0;
 	while (!hit_wall && steps < 10)
 	{
-		ft_dda(&ray, cub->map, &hit_wall);
+		ft_dda(&ray, cub->map, &hit_wall, cub, false);
 		steps++;
 	}
 	ft_get_wall_minimap(&ray, hit_wall);
