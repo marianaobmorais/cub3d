@@ -7,5 +7,6 @@ int	ft_mouse_hook(t_cub *cub)
 		ft_rotate(cub, cub->raycast->move_speed);
 	if ((cub->raycast->mouse_pos.x > WIDTH / 2 && cub->raycast->mouse_pos.x < WIDTH))
 		ft_rotate(cub, -cub->raycast->move_speed);
+	mlx_mouse_move(cub->mlx, cub->window, WIDTH / 2, HEIGHT / 2); //testing
 	return (0);
 }
