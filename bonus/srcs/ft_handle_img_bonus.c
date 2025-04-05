@@ -6,7 +6,7 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 18:36:57 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/04 10:20:32 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/04/04 15:54:35 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,8 @@ int	ft_handle_img(t_cub *cub)
 	//add frames
 	ft_render_bg(cub->image, cub->map->ceiling_hex, cub->map->floor_hex);
 	ft_render_walls(cub);
-	ft_render_sprites(cub); //sprites	
-	ft_render_door(cub, (cub->map->door)[0]);
+	//ft_render_sprites(cub); //sprites	
+	//ft_render_door(cub, (cub->map->door)[0]);
 	ft_render_source_on_hud(cub, &cub->hud->watch, 0, 0); //bonus
 	ft_render_minimap_on_hud(cub); //bonus
 	ft_render_viewmodel(cub);

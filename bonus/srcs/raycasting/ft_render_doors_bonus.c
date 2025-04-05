@@ -49,8 +49,9 @@ void	ft_render_door(t_cub *cub, t_door door)
 	
 	transform.x = inv * (cub->raycast->player_dir.y * relative.x - \
 		cub->raycast->player_dir.x * relative.y); //horizontal
-	transform.y = inv * (-cub->raycast->camera_plane.y * relative.x + \
-		cub->raycast->camera_plane.x * relative.y); //profundidade
+	// transform.y = inv * (-cub->raycast->camera_plane.y * relative.x + 
+	// 	cub->raycast->camera_plane.x * relative.y); //profundidade
+	transform.y = cub->raycast->perp_wall_dist;
 
 	if (transform.y <= 0) //atras do player
 		return ;
@@ -61,7 +62,7 @@ void	ft_render_door(t_cub *cub, t_door door)
 	draw_start = -door_height / 2 + HEIGHT / 2;
 	draw_end = door_height / 2 + HEIGHT / 2;
 
-	door_width = door_height;
+	door_width = abs((int) (HEIGHT / transform.y));
 	draw_left = screen_x - door_width / 2;
 	draw_right = screen_x + door_width / 2;
 

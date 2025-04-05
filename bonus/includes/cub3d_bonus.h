@@ -6,7 +6,7 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:26:59 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/04 10:09:26 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/04/04 16:23:20 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,10 @@ typedef struct s_raycast
 	double			wall_hit_value;
 	double			texture_pos;
 	int				hit_side;
+	bool			hit_door; //new
+	t_ipoint		door_tile; //new
+	double			door_dist; //new
+	int				door_side; //new //0 x 1 y
 	int				wall_height;
 	int				wall_start;
 	int				wall_end;
@@ -199,5 +203,7 @@ void			ft_dda(t_raycast *ray, t_map *map, bool *hit_wall);
 int		ft_render_screen(t_cub *cub);
 
 void	ft_render_door(t_cub *cub, t_door door);
+void	ft_paint_ray_door(t_cub *cub, int w, t_image texture,
+	double dist, int side, double wall_hit);
 
 #endif //CUB3D_BONUS_H

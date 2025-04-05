@@ -6,7 +6,7 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 19:30:11 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/03/30 16:59:04 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/04/04 19:37:12 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,16 @@ void	ft_dda(t_raycast *ray, t_map *map, bool *stop_loop)
 		&& ray->step_tile.y >= 0 && ray->step_tile.y < map->width
 		&& map->matrix[ray->step_tile.x][ray->step_tile.y])
 	{
+		if (map->matrix[ray->step_tile.x][ray->step_tile.y] == 'D' && !ray->hit_door)
+		{
+			ray->hit_door = true;
+			ray->door_tile = ray->step_tile;
+			ray->door_side = ray->hit_side;
+			if (ray->hit_side == 0)
+				ray->door_dist = ray->dist_to_x - ray->delta_dist_x;
+			else
+				ray->door_dist = ray->dist_to_y - ray->delta_dist_y;
+		}
 		if (map->matrix[ray->step_tile.x][ray->step_tile.y] == '1')
 			*stop_loop = true;
 	}
