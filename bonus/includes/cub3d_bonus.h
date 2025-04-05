@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:26:59 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/02 16:24:50 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/04/05 18:01:34 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@
 # define HEIGHT 600
 # define MOVE_SPEED 8
 # define ROTATE_SPEED 4
-# define SPRITE_SIZE 256
+//# define SPRITE_SIZE 256
 
 
 typedef struct s_hud	t_hud;
@@ -95,11 +95,20 @@ typedef struct s_sprite
 {
 	int			id;
 	int			order;
+	int			screen_w;
+	int			relative_width;
+	int			relative_height;
+	int			start_h;
+	int			end_h;
+	int			start_w;
+	int			end_w;
 	t_ipoint	tile;
 	t_dpoint	pos;
+	t_dpoint	transform;
+	t_image		img;
 	double		dist;
-	t_image		img_a;
-	t_image		img_b;
+	bool		status;
+	//t_image		img_b;
 }	t_sprite;
 
 typedef struct s_raycast
@@ -112,6 +121,7 @@ typedef struct s_raycast
 	t_ipoint		step;
 	t_ipoint		step_tile;
 	t_ipoint		mouse_pos;
+	bool			mouse_status;
 	double			move_speed;
 	double			rotate_speed;
 	double			factor;
@@ -122,6 +132,7 @@ typedef struct s_raycast
 	double			perp_wall_dist;
 	double			wall_hit_value;
 	double			texture_pos;
+	double			time;
 	int				hit_side;
 	int				wall_height;
 	int				wall_start;
@@ -130,8 +141,8 @@ typedef struct s_raycast
 	t_image			south_texture;
 	t_image			east_texture;
 	t_image			west_texture;
-	t_image			sprite_a[4]; //review this
-	t_image			sprite_b[4]; //review this
+	t_image			sprite_a[3]; //review this
+	t_image			sprite_b[3]; //review this
 	double			buffer[WIDTH]; //double check this
 }	t_raycast;
 
