@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 18:36:57 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/05 15:27:49 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/04/05 18:02:29 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,65 @@ static void	ft_render_bg(t_image *img, int ceiling_color, int floor_color)
 	}
 }
 
+// static void	ft_update_sprites(t_cub *cub)
+// {
+// 	int	i;
+// 	int	j;
+
+// 	i = 0;
+// 	j = 0;
+// 	while (i < cub->map->sprite_count)
+// 	{
+// 		if (j == 1)
+// 			j = 0;
+// 		if (cub->map->sprite->status)
+// 		{
+// 			cub->map->sprite[i].img = cub->raycast->sprite_a[j];
+// 			cub->map->sprite->status = false;
+// 		}
+// 		else
+// 		{
+// 			cub->map->sprite[i].img = cub->raycast->sprite_b[j];
+// 			cub->map->sprite->status = true;
+// 		}
+// 		i++;
+// 		j++;
+// 	}
+// }
+
+static void	ft_update_sprites(t_cub *cub)
+{
+	int	i;
+	//int	j;
+
+	i = 0;
+	//j = 0;
+	if (cub->raycast->time >= 0.4)
+	{
+		while (i < cub->map->sprite_count)
+		{
+			//if (j == 1)
+			//	j = 0;
+			if (cub->map->sprite->status)
+			{
+				cub->map->sprite[i].img = cub->raycast->sprite_a[0];
+				cub->map->sprite->status = false;
+			}
+			else
+			{
+				cub->map->sprite[i].img = cub->raycast->sprite_b[0];
+				cub->map->sprite->status = true;
+			}
+			i++;
+			//j++;
+		}
+		cub->raycast->time = 0;
+	}
+	cub->raycast->time += 0.016;
+}
+
+
+
 /**
  * @brief Handles the rendering of the game frame.
  *
@@ -75,6 +134,7 @@ int	ft_handle_img(t_cub *cub)
 	//update brief
 	ft_render_bg(cub->image, cub->map->ceiling_hex, cub->map->floor_hex);
 	ft_render_walls(cub);
+	ft_update_sprites(cub);
 	ft_render_sprites(cub); //sprites
 	ft_render_source_on_hud(cub, &cub->hud->watch, 0, 0); //bonus
 	if (cub->amount_action < BREAD_3 + 1)
