@@ -111,7 +111,7 @@ void	ft_render_sprites(t_cub *cub)
 			cub->map->sprite[i].pos.x) + (cub->raycast->player_pos.y -
 			cub->map->sprite[i].pos.y) * (cub->raycast->player_pos.y -
 			cub->map->sprite[i].pos.y);
-		cub->map->sprite[i].img = cub->raycast->sprite_a[0];
+		//cub->map->sprite[i].img = cub->raycast->sprite_a[0];
 		i++;
 	}
 	ft_sort_sprites(cub->map);
