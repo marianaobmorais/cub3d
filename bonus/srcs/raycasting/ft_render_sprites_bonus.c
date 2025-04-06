@@ -77,14 +77,45 @@ static int	ft_get_sprite_info(t_cub *cub, t_sprite *sprite)
 	return (1);
 }
 
+// static void	ft_update_sprites(t_cub *cub)
+// {
+// 	//add brief
+// 	int	i;
+
+// 	if (cub->raycast->time >= 0.4)
+// 	{
+// 		i = -1;
+// 		while (++i < cub->map->sprite_count)
+// 		{
+// 			if (cub->map->sprite->status)
+// 			{
+// 				cub->map->sprite[i].img = cub->raycast->sprite_a[0];
+// 				cub->map->sprite->status = false;
+// 			}
+// 			else if (!cub->map->sprite->status && !cub->action)
+// 			{
+// 				cub->map->sprite[i].img = cub->raycast->sprite_a[1];
+// 				cub->map->sprite->status = true;
+// 			}
+// 			else if (!cub->map->sprite->status && cub->action)
+// 			{
+// 				cub->map->sprite[i].img = cub->raycast->sprite_b[0];
+// 				cub->map->sprite->status = true;
+// 			}
+// 		}
+// 		cub->raycast->time = 0;
+// 	}
+// 	cub->raycast->time += 0.016;
+// }
+
 static void	ft_update_sprites(t_cub *cub)
 {
-	//add brief
+	//update brief
 	int	i;
 
-	i = 0;
 	if (cub->raycast->time >= 0.4)
 	{
+		i = 0;
 		while (i < cub->map->sprite_count)
 		{
 			if (cub->map->sprite->status)
@@ -92,14 +123,12 @@ static void	ft_update_sprites(t_cub *cub)
 				cub->map->sprite[i].img = cub->raycast->sprite_a[0];
 				cub->map->sprite->status = false;
 			}
-			else if (!cub->map->sprite->status && !cub->action)
+			else if (!cub->map->sprite->status)
 			{
-				cub->map->sprite[i].img = cub->raycast->sprite_a[1];
-				cub->map->sprite->status = true;
-			}
-			else if (!cub->map->sprite->status && cub->action)
-			{
-				cub->map->sprite[i].img = cub->raycast->sprite_b[0];
+				if (!cub->action)
+					cub->map->sprite[i].img = cub->raycast->sprite_a[1];
+				else
+					cub->map->sprite[i].img = cub->raycast->sprite_b[0];
 				cub->map->sprite->status = true;
 			}
 			i++;
