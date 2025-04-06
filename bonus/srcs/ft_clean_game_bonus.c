@@ -67,7 +67,26 @@ void	ft_clean_hud(t_cub *cub)
 	if (cub->hud->empty_bread.img_ptr)
 		mlx_destroy_image(cub->mlx, cub->hud->empty_bread.img_ptr);
 	if (cub->hud->breadcrumbs.img_ptr)
-			mlx_destroy_image(cub->mlx, cub->hud->breadcrumbs.img_ptr);
+		mlx_destroy_image(cub->mlx, cub->hud->breadcrumbs.img_ptr);
+}
+
+static void	ft_clean_raycast(t_cub *cub)
+{
+	//add brief
+	if (cub->raycast->north_texture.img_ptr)
+		mlx_destroy_image(cub->mlx, cub->raycast->north_texture.img_ptr);
+	if (cub->raycast->south_texture.img_ptr)
+		mlx_destroy_image(cub->mlx, cub->raycast->south_texture.img_ptr);
+	if (cub->raycast->east_texture.img_ptr)
+		mlx_destroy_image(cub->mlx, cub->raycast->east_texture.img_ptr);
+	if (cub->raycast->west_texture.img_ptr)
+		mlx_destroy_image(cub->mlx, cub->raycast->west_texture.img_ptr);
+	if (cub->raycast->sprite_still.img_ptr)
+		mlx_destroy_image(cub->mlx, cub->raycast->sprite_still.img_ptr);
+	if (cub->raycast->sprite_move.img_ptr)
+		mlx_destroy_image(cub->mlx, cub->raycast->sprite_move.img_ptr);
+	if (cub->raycast->sprite_eat.img_ptr)
+		mlx_destroy_image(cub->mlx, cub->raycast->sprite_eat.img_ptr);
 }
 
 /**
@@ -87,7 +106,7 @@ void	ft_clean_game(t_cub *cub)
 	if (cub)
 	{
 		if (cub->fd != -1)
-			close(cub->fd);
+			close(cub->fd); //not sure if it's necessary
 		if (cub->filepath)
 			free(cub->filepath);
 		if (cub->map)
@@ -122,14 +141,7 @@ void	ft_clean_game(t_cub *cub)
 		}
 		if (cub->raycast)
 		{
-			if (cub->raycast->north_texture.img_ptr)
-				mlx_destroy_image(cub->mlx, cub->raycast->north_texture.img_ptr);
-			if (cub->raycast->south_texture.img_ptr)
-				mlx_destroy_image(cub->mlx, cub->raycast->south_texture.img_ptr);
-			if (cub->raycast->east_texture.img_ptr)
-				mlx_destroy_image(cub->mlx, cub->raycast->east_texture.img_ptr);
-			if (cub->raycast->west_texture.img_ptr)
-				mlx_destroy_image(cub->mlx, cub->raycast->west_texture.img_ptr);
+			ft_clean_raycast(cub);
 			free(cub->raycast);
 		}
 		if (cub->window)

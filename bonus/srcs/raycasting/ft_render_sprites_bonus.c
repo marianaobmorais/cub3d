@@ -1,39 +1,28 @@
 #include "../../includes/cub3d_bonus.h"
 
-static void	ft_draw_sprite(t_cub *cub, t_sprite sprite)
+static void	ft_draw_sprite(t_cub *cub, t_sprite sprite, int w)
 {
 	//add brief
-	int		tmp_w;
-	int		tmp_h;
+	int		h;
 	int		texture_w;
 	int		texture_h;
 	int		color;
 
-	tmp_w = (sprite).start_w;
-	while (tmp_w < (sprite).end_w)
+	texture_w = (int)((w - sprite.start_w) * (double)sprite.img.width /
+		sprite.relative_width);
+	h = (sprite).start_h;
+	while (h < sprite.end_h)
 	{
-		if (tmp_w >= 0 && tmp_w < WIDTH && sprite.transform.y < cub->raycast->buffer[tmp_w])
+		texture_h = (int)((h - sprite.start_h) * (double)sprite.img.height /
+			sprite.relative_height);
+		if (h >= 0 && h < HEIGHT)
 		{
-			texture_w = (int)((tmp_w - (sprite).start_w) * (double)sprite.img.width / sprite.relative_width);
-			tmp_h = (sprite).start_h;
-			while (tmp_h < (sprite).end_h)
-			{
-				texture_h = (int)((tmp_h - (sprite).start_h) * (double)sprite.img.height / sprite.relative_height);
-				if (tmp_h >= 0 && tmp_h < HEIGHT)
-				{
-					color = ft_get_pixel_color(&sprite.img, texture_w, texture_h, cub);
-					if (color == IGNORE)
-					{
-						color = ft_get_pixel_color(cub->image, tmp_w, tmp_h, cub);
-						ft_put_pixel(cub->image, tmp_w, tmp_h, color);
-					}
-					else
-						ft_put_pixel(cub->image, tmp_w, tmp_h, color);
-				}
-				tmp_h++;
-			}
+			color = ft_get_pixel_color(&sprite.img, texture_w, texture_h, cub);
+			if (color == IGNORE)
+				color = ft_get_pixel_color(cub->image, w, h, cub);
+			ft_put_pixel(cub->image, w, h, color);
 		}
-		tmp_w++;
+		h++;
 	}
 }
 
@@ -120,15 +109,15 @@ static void	ft_update_sprites(t_cub *cub)
 		{
 			if (cub->map->sprite->status)
 			{
-				cub->map->sprite[i].img = cub->raycast->sprite_a[0];
+				cub->map->sprite[i].img = cub->raycast->sprite_still;
 				cub->map->sprite->status = false;
 			}
 			else if (!cub->map->sprite->status)
 			{
 				if (!cub->action)
-					cub->map->sprite[i].img = cub->raycast->sprite_a[1];
+					cub->map->sprite[i].img = cub->raycast->sprite_move;
 				else
-					cub->map->sprite[i].img = cub->raycast->sprite_b[0];
+					cub->map->sprite[i].img = cub->raycast->sprite_eat;
 				cub->map->sprite->status = true;
 			}
 			i++;
@@ -171,6 +160,7 @@ void	ft_render_sprites(t_cub *cub)
 {
 	//add brief
 	int	i;
+	int	w;
 
 	ft_sort_sprites(cub->map, cub->raycast);
 	ft_update_sprites(cub);
@@ -180,7 +170,14 @@ void	ft_render_sprites(t_cub *cub)
 		if (ft_get_sprite_info(cub, &cub->map->sprite[i]))
 		{
 			ft_get_draw_info(&cub->map->sprite[i]);
-			ft_draw_sprite(cub, cub->map->sprite[i]);
+			w = sprite[i].start_w;
+			while (w < sprite[i].end_w)
+			{
+				if (w >= 0 && w < WIDTH && sprite.transform.y <
+						cub->raycast->buffer[w])
+					ft_draw_sprite(cub, cub->map->sprite[i]);
+				w++;
+			}
 		}
 		i++;
 	}
