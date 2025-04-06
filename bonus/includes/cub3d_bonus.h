@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: marianamorais <marianamorais@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:26:59 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/05 18:01:34 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/04/06 18:19:53 by marianamora      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,8 +141,8 @@ typedef struct s_raycast
 	t_image			south_texture;
 	t_image			east_texture;
 	t_image			west_texture;
-	t_image			sprite_a[3]; //review this
-	t_image			sprite_b[3]; //review this
+	t_image			sprite_a[2]; //review this
+	t_image			sprite_b[1]; //review this
 	double			buffer[WIDTH]; //double check this
 }	t_raycast;
 
