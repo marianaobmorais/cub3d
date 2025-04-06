@@ -6,7 +6,7 @@
 /*   By: marianamorais <marianamorais@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:26:59 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/06 18:19:53 by marianamora      ###   ########.fr       */
+/*   Updated: 2025/04/06 23:53:19 by marianamora      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,8 +141,9 @@ typedef struct s_raycast
 	t_image			south_texture;
 	t_image			east_texture;
 	t_image			west_texture;
-	t_image			sprite_a[2]; //review this
-	t_image			sprite_b[1]; //review this
+	t_image			sprite_still;
+	t_image			sprite_move;
+	t_image			sprite_eat;
 	double			buffer[WIDTH]; //double check this
 }	t_raycast;
 

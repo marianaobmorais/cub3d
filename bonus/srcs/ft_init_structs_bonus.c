@@ -6,7 +6,7 @@
 /*   By: marianamorais <marianamorais@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:32:10 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/06 18:54:03 by marianamora      ###   ########.fr       */
+/*   Updated: 2025/04/06 23:36:00 by marianamora      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,20 +34,20 @@ static void	ft_init_sprites(t_cub *cub)
 	int			i;
 
 	ray = cub->raycast;
-	ft_init_xpm_image(cub, &ray->sprite_a[0], "assets/textures/sprite_a0.xpm");
-	ft_init_xpm_image(cub, &ray->sprite_a[1], "assets/textures/sprite_a1.xpm");
-	ft_init_xpm_image(cub, &ray->sprite_b[0], "assets/textures/sprite_b0.xpm");
+	ft_init_xpm_image(cub, &ray->sprite_still, "assets/textures/sprite_a0.xpm");
+	ft_init_xpm_image(cub, &ray->sprite_move, "assets/textures/sprite_a1.xpm");
+	ft_init_xpm_image(cub, &ray->sprite_eat, "assets/textures/sprite_b0.xpm");
 	i = 0;
 	while (i < cub->map->sprite_count)
 	{
 		if (i % 2 = 0)
 		{
-			cub->map->sprite[i].img = cub->raycast->sprite_a[0];
+			cub->map->sprite[i].img = cub->raycast->sprite_still;
 			cub->map->sprite[i].status = false;
 		}
 		else
 		{
-			cub->map->sprite[i].img = cub->raycast->sprite_a[1];
+			cub->map->sprite[i].img = cub->raycast->sprite_move;
 			cub->map->sprite[i].status = true;
 		}
 		cub->map->sprite[i].pos.x = cub->map->sprite[i].tile.x + 0.5;
