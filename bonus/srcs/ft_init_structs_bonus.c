@@ -6,7 +6,7 @@
 /*   By: marianamorais <marianamorais@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:32:10 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/06 18:27:23 by marianamora      ###   ########.fr       */
+/*   Updated: 2025/04/06 18:54:03 by marianamora      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,27 +27,31 @@ void	ft_init_xpm_image(t_cub *cub, t_image *img, char *path)
 		ft_handle_error("mlx_get_data_addr", cub);
 }
 
-/* static  */void	ft_init_sprite(t_cub *cub)
+static void	ft_init_sprites(t_cub *cub)
 {
 	//add brief
 	t_raycast	*ray;
 	int			i;
 
 	ray = cub->raycast;
-	i = 0;
 	ft_init_xpm_image(cub, &ray->sprite_a[0], "assets/textures/sprite_a0.xpm");
 	ft_init_xpm_image(cub, &ray->sprite_a[1], "assets/textures/sprite_a1.xpm");
 	ft_init_xpm_image(cub, &ray->sprite_b[0], "assets/textures/sprite_b0.xpm");
+	i = 0;
 	while (i < cub->map->sprite_count)
 	{
-		//if (i % 2 = 0)
+		if (i % 2 = 0)
+		{
 			cub->map->sprite[i].img = cub->raycast->sprite_a[0];
-		// else
-		// 	cub->map->sprite[i].img = cub->raycast->sprite_a[1];
+			cub->map->sprite[i].status = false;
+		}
+		else
+		{
+			cub->map->sprite[i].img = cub->raycast->sprite_a[1];
+			cub->map->sprite[i].status = true;
+		}
 		cub->map->sprite[i].pos.x = cub->map->sprite[i].tile.x + 0.5;
 		cub->map->sprite[i].pos.y = cub->map->sprite[i].tile.y + 0.5;
-		//cub->map->sprite[i].img = cub->raycast->sprite_b[0];
-		//printf("sprite[%d].pos: x = %lf, y = %lf\n", i, cub->map->sprite[i].pos.x, cub->map->sprite[i].pos.y); //debug
 		i++;
 	}
 }
@@ -124,10 +128,10 @@ t_cub	*ft_init_structs(t_cub *cub, char *argv)
 	ft_init_raycast(cub);
 	ft_init_wall_texture(cub);
 	ft_init_hud(cub);
-	cub->action = false; //action
-	cub->duration_action = 0; //action
-	cub->amount_action = 0; //action
-	ft_init_sprite(cub); //sprite
+	//cub->action = false; //action
+	//cub->duration_action = 0; //action
+	//cub->amount_action = 0; //action
+	ft_init_sprites(cub); //sprite
 	ft_init_start_screen(cub);
 	ft_init_end_screen(cub);
 	cub->window = mlx_new_window(cub->mlx, WIDTH, HEIGHT, "cub3d");
