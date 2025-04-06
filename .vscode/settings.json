@@ -1,6 +1,7 @@
 {
 	"files.associations": {
 		"map": "c",
-		"format": "c"
+		"format": "c",
+		"cmath": "c"
 	}
 }

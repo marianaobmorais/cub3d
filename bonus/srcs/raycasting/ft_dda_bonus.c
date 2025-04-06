@@ -6,7 +6,7 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 19:30:11 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/06 11:11:10 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/04/06 19:24:23 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ void	ft_dda(t_raycast *ray, t_map *map, bool *stop_loop, t_cub *cub, bool fov)
 		if (map->matrix[ray->step_tile.x][ray->step_tile.y] == 'D' && fov)
 		{
 			cub->raycast->door_increment++;
-			cub->raycast->doors_find[cub->raycast->door_increment].x = ray->step_tile.x;
-			cub->raycast->doors_find[cub->raycast->door_increment].y = ray->step_tile.y;
+			cub->raycast->doors_found[cub->raycast->door_increment].x = ray->step_tile.x;
+			cub->raycast->doors_found[cub->raycast->door_increment].y = ray->step_tile.y;
 			//printf("ray steps--> x %d y %d\n", ray->step_tile.x, ray->step_tile.y);
-			int index = where_door(cub, ray->step_tile.x, ray->step_tile.y);
+			int index = ft_find_door_index(cub, ray->step_tile.x, ray->step_tile.y);
 			//printf("\n \n \n index -> %d \n \n \n", index);
 			ray->hit_door = true;
 			cub->map->door[index].door_tile = ray->step_tile;

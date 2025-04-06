@@ -78,6 +78,8 @@ static void	ft_manage_movements(int keysym, t_cub *cub)
 		cub->action = true;
 		cub->amount_action++;
 	}
+	if (keysym == XK_space)
+		ft_open_or_close_door(cub);
 	if (tmp_x >= 0 && tmp_x < cub->map->height
 		&& tmp_y >= 0 && tmp_y < cub->map->width
 		&& cub->map->matrix[(int)tmp_x][(int)tmp_y] != '1')

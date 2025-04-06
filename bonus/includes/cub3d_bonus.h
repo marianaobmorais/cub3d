@@ -6,7 +6,7 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:26:59 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/05 18:58:25 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/04/06 19:26:19 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,9 @@
 # define HEIGHT 600
 # define MOVE_SPEED 8
 # define ROTATE_SPEED 4
+# define MAX_MOVE 70
+# define NUM_FRAMES 13
+# define FRAME_DELTA 0.016 // ~60 FPS
 
 typedef struct s_hud	t_hud;
 
@@ -107,20 +110,20 @@ typedef struct s_raycast
 	double			wall_hit_value;
 	double			texture_pos;
 	int				hit_side;
-	bool			hit_door; //new
 	int				wall_height;
 	int				wall_start;
 	int				wall_end;
-	t_ipoint		doors_find[10];
-	int				door_increment;
 	t_image			north_texture;
 	t_image			south_texture;
 	t_image			east_texture;
 	t_image			west_texture;
 	t_image			sprite[4];
-	t_image			door_open;
-	t_image			door_closed;
-	t_image			doors[8];
+	bool			hit_door; //door
+	int				door_increment;  //door
+	t_ipoint		doors_found[10]; //door
+	t_image			door_open; //door
+	t_image			door_closed; //door
+	t_image			doors[13]; //door
 	//t_image		sprite_b[4];
 	double			buffer[WIDTH]; //double check this
 }	t_raycast;
@@ -207,13 +210,20 @@ void			ft_paint_ray(t_cub *cub, int w, t_image texture);
 
 void			ft_dda(t_raycast *ray, t_map *map, bool *hit_wall, t_cub *cub, bool fov);
 
-int		ft_render_screen(t_cub *cub);
+/* ft_render_doors_utils.c */
 
-void	ft_render_door(t_cub *cub, t_door door);
-void	ft_paint_ray_door(t_cub *cub, int w, t_image texture,
-	double dist, int side, double wall_hit);
-int	where_door(t_cub *cub, int x, int y);
-void	update_doors(t_cub * cub);
-void	ft_init_doors(t_cub *cub);
+void			ft_open_or_close_door(t_cub *cub);
+int				ft_find_door_index(t_cub *cub, int x, int y);
+
+/* ft_render_doors.c */
+
+void			ft_render_doors(t_cub *cub, int w);
+void			ft_update_doors(t_cub * cub);
+void			ft_init_doors(t_cub *cub);
+//void	ft_clean_doors(t_cub *cub); missing
+
+
+
+int				ft_render_screen(t_cub *cub);
 
 #endif //CUB3D_BONUS_H
