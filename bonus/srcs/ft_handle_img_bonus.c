@@ -6,7 +6,7 @@
 /*   By: marianamorais <marianamorais@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 18:36:57 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/06 18:35:35 by marianamora      ###   ########.fr       */
+/*   Updated: 2025/04/06 18:44:24 by marianamora      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	ft_handle_img(t_cub *cub)
 	//update brief
 	ft_render_bg(cub->image, cub->map->ceiling_hex, cub->map->floor_hex);
 	ft_render_walls(cub);
-	//ft_render_sprites(cub); //sprites
+	ft_render_sprites(cub); //sprites
 	ft_render_source_on_hud(cub, &cub->hud->watch, 0, 0); //bonus
 	if (cub->amount_action < BREAD_3 + 1)
 		ft_render_source_on_hud(cub, &cub->hud->viewmodel, 390, 420); //bonus
