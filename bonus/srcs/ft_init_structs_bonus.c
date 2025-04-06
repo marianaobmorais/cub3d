@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init_structs_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: marianamorais <marianamorais@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:32:10 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/05 18:04:53 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/04/06 18:27:23 by marianamora      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,18 +35,17 @@ void	ft_init_xpm_image(t_cub *cub, t_image *img, char *path)
 
 	ray = cub->raycast;
 	i = 0;
-	ft_init_xpm_image(cub, &ray->sprite_a[0], "assets/textures/pigeon_a1.xpm");
-	ft_init_xpm_image(cub, &ray->sprite_b[0], "assets/textures/pigeon_b1.xpm");
-	//cub->map->sprite[0].img = cub->raycast->sprite_a[0];
-	//cub->map->sprite[0].img = cub->raycast->sprite_b[0];
+	ft_init_xpm_image(cub, &ray->sprite_a[0], "assets/textures/sprite_a0.xpm");
+	ft_init_xpm_image(cub, &ray->sprite_a[1], "assets/textures/sprite_a1.xpm");
+	ft_init_xpm_image(cub, &ray->sprite_b[0], "assets/textures/sprite_b0.xpm");
 	while (i < cub->map->sprite_count)
 	{
-		//add condition here if (i % 3 = 0), then if (i % 3 = 1), and so on
-		//ft_init_xpm_image(cub, &ray->sprite_a[0], "assets/textures/pigeon_a1.xpm");
-		//ft_init_xpm_image(cub, &ray->sprite_b[0], "assets/textures/pigeon_b1.xpm");
+		//if (i % 2 = 0)
+			cub->map->sprite[i].img = cub->raycast->sprite_a[0];
+		// else
+		// 	cub->map->sprite[i].img = cub->raycast->sprite_a[1];
 		cub->map->sprite[i].pos.x = cub->map->sprite[i].tile.x + 0.5;
 		cub->map->sprite[i].pos.y = cub->map->sprite[i].tile.y + 0.5;
-		cub->map->sprite[i].img = cub->raycast->sprite_a[0];
 		//cub->map->sprite[i].img = cub->raycast->sprite_b[0];
 		//printf("sprite[%d].pos: x = %lf, y = %lf\n", i, cub->map->sprite[i].pos.x, cub->map->sprite[i].pos.y); //debug
 		i++;
