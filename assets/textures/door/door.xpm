@@ -225,7 +225,7 @@ static char *result[] = {
 "iX c #FCF0EE",
 "pX c #EDDBE2",
 "aX c #F4C1BD",
-"sX c None",
+"sX c #00FFFF",
 /* pixels */
 "C 9.C C C *.*.*.C C C C C |.eXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXZ.9.9.w.9.w.w.9.w.w.9.w.w.9.w.w.w.9.",
 "C C C C C C C *.C C *.C C XXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXeXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXyXZ.9.w.9.w.9.9.w.9.w.w.9.w.9.w.9.w.w.",

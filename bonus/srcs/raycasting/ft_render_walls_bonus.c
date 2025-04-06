@@ -6,7 +6,7 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 20:02:43 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/05 18:57:52 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/04/06 11:12:22 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ void	ft_render_walls(t_cub *cub)
 		ft_define_steps(cub->raycast);
 		stop_loop = false;
 		cub->raycast->hit_door = false; //new
-		cub->raycast->door_increment = 0;
+		cub->raycast->door_increment = -1;
 		while (!stop_loop)
 			ft_dda(cub->raycast, cub->map, &stop_loop, cub, true);
 		ft_get_wall_height(cub->raycast, cub->map);
@@ -155,26 +155,30 @@ void	ft_render_walls(t_cub *cub)
 			ft_paint_ray(cub, w, cub->raycast->west_texture);
 		if (cub->raycast->hit_door)
 		{
-			//voltar procudando qual tile estou e verificar se ha porta
-			printf("o que veio do daa--> x %d y %d\n",cub->raycast->doors_find[cub->raycast->door_increment].x, \
-				cub->raycast->doors_find[cub->raycast->door_increment].y);
-			int index = where_door(cub, cub->raycast->doors_find[cub->raycast->door_increment].x, \
-				cub->raycast->doors_find[cub->raycast->door_increment].y);
-			printf("\n \n \n index -> %d \n \n \n", index);
-			cub->raycast->door_increment--;
-			double dist = (cub->map->door)[index].door_dist;
-			int side = (cub->map->door)[index].door_side;
-		
-			double wall_hit;
-			// if (side == 0)
-			wall_hit =  cub->raycast->player_pos.y + dist *  cub->raycast->ray_dir.y;
-			// else
-			// 	wall_hit =  cub->raycast->player_pos.x + dist *  cub->raycast->ray_dir.x;
-			wall_hit -= floor(wall_hit);
-			//wall_hit = fabs(wall_hit);
-			// wall_hit = 0.5 - wall_hit;
-			printf("t image door -> %d\n\n", cub->map->door[index].current.width);
-			ft_paint_ray_door(cub, w, cub->map->door[index].current, dist, side, wall_hit);
+			while (cub->raycast->door_increment > -1)
+			{
+				//voltar procudando qual tile estou e verificar se ha porta
+				//printf("o que veio do daa--> x %d y %d\n",cub->raycast->doors_find[cub->raycast->door_increment].x, 
+				//	cub->raycast->doors_find[cub->raycast->door_increment].y);
+				int index = where_door(cub, cub->raycast->doors_find[cub->raycast->door_increment].x, \
+					cub->raycast->doors_find[cub->raycast->door_increment].y);
+				///printf("\n  index -> %d", index);
+
+				t_door *door = &cub->map->door[index];
+				double dist = door->door_dist;
+				int side = door->door_side;
+				
+				double wall_hit;
+				if (side == 0)
+					wall_hit =  cub->raycast->player_pos.y + dist *  cub->raycast->ray_dir.y;
+				else
+					wall_hit =  cub->raycast->player_pos.x + dist *  cub->raycast->ray_dir.x;
+
+				wall_hit -= floor(wall_hit);
+				//printf("t image door -> %d\n\n", door->current.width);
+				ft_paint_ray_door(cub, w, door->current, dist, side, wall_hit);
+				cub->raycast->door_increment--;
+			}
 		}
 		cub->raycast->buffer[w] = cub->raycast->perp_wall_dist;
 		//printf("buffer[%d]: %lf\n", w, cub->raycast->buffer[w]); //debug

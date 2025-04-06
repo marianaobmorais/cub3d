@@ -1,5 +1,9 @@
 #include "../../includes/cub3d_bonus.h"
 
+#define MAX_MOVE 70
+#define NUM_FRAMES 8
+#define FRAME_DELTA 0.016 // ~60 FPS
+
 void	ft_init_doors(t_cub *cub)
 {
 	int	i;
@@ -18,7 +22,7 @@ void	ft_init_doors(t_cub *cub)
 	ft_init_xpm_image(cub, &cub->raycast->doors[8], "assets/textures/door/door9.xpm");
 	while (i < cub->map->door_count)
 	{
-		(cub->map->door)[i].current = cub->raycast->door_open;
+		(cub->map->door)[i].current = cub->raycast->door_closed;
 		i++;
 	}
 }
@@ -30,7 +34,7 @@ int	where_door(t_cub *cub, int x, int y)
 	i = 0;
 	while (i < cub->map->door_count)
 	{
-		printf("map door tile --> x %d y %d\n", (cub->map->door)[i].tile.x, (cub->map->door)[i].tile.y);
+		//printf("map door tile --> x %d y %d\n", (cub->map->door)[i].tile.x, (cub->map->door)[i].tile.y);
 		if (x == (cub->map->door)[i].tile.x
 			&& y == (cub->map->door)[i].tile.y)
 			return (i);
@@ -39,63 +43,135 @@ int	where_door(t_cub *cub, int x, int y)
 	return (-1);
 }
 
-void	update_doors(t_cub * cub)
-{
-	int	i;
-	int	index;
 
-	i = 0;
+
+void	update_doors(t_cub *cub)
+{
+	int i = 0;
 	while (i < cub->map->door_count)
 	{
-		if ((cub->map->door)[i].timer >= 5.0 && (cub->map->door)[i].status == OPEN)
-		{
-			(cub->map->door)[i].status = CLOSING;
-			(cub->map->door)[i].timer = 0;
-			printf("door [%d] -> OPEN -> CLOSING\n", i);
-		}
-		else if ((cub->map->door)[i].move >= 100)
-		{
-			(cub->map->door)[i].status = OPEN;
-			(cub->map->door)[i].current = cub->raycast->door_open;
-			printf("door [%d] -> OPENING -> OPEN\n", i);
-		}
-		else if ((cub->map->door)[i].move < -100 && (cub->map->door)[i].status == CLOSING)
-		{
-			(cub->map->door)[i].status = CLOSED;
-			(cub->map->door)[i].current = cub->raycast->door_closed;
-			printf("door [%d] -> CLOSING -> CLOSED\n", i);
-		}
+		t_door *door = &cub->map->door[i];
 
-		if ((cub->map->door)[i].status == CLOSED)
+		// === STATUS MACHINE ===
+		if (door->status == OPENING)
 		{
-			if ((cub->map->door)[i].timer >= 5.0) //test
-				(cub->map->door)[i].status = OPENING; //test
-			printf("door [%d] -> CLOSED\n", i); //(cub->map->door)[i].current = cub->hud->door;
+			door->move += 2;
+			if (door->move >= MAX_MOVE)
+			{
+				door->move = MAX_MOVE;
+				door->status = OPEN;
+				door->timer = 0;
+				door->current = cub->raycast->door_open;
+				printf("door [%d] -> OPENING -> OPEN\n", i);
+			}
+			else
+			{
+				int index = door->move * (NUM_FRAMES - 1) / MAX_MOVE;
+				door->current = cub->raycast->doors[index];
+				printf("door [%d] -> OPENING [%d]\n", i, door->move);
+			}
 		}
-		else if ((cub->map->door)[i].status == OPEN)
+		else if (door->status == CLOSING)
 		{
-			(cub->map->door)[i].timer++;
-			printf("door [%d] -> OPEN\n", i); //(cub->map->door)[i].current = cub->hud->door;
+			door->move -= 2;
+			if (door->move <= 0)
+			{
+				door->move = 0;
+				door->status = CLOSED;
+				door->current = cub->raycast->door_closed;
+				printf("door [%d] -> CLOSING -> CLOSED\n", i);
+			}
+			else
+			{
+				int index = door->move * (NUM_FRAMES - 1) / MAX_MOVE;
+				door->current = cub->raycast->doors[index];
+				printf("door [%d] -> CLOSING [%d]\n", i, door->move);
+			}
 		}
-		else if ((cub->map->door)[i].status == OPENING /* || action?? */)
+		else if (door->status == OPEN)
 		{
-			index = (cub->map->door)[i].move / 10;
-			(cub->map->door)[i].current = cub->raycast->doors[index];
-			(cub->map->door)[i].move++;
-			printf("door [%d] -> OPENING [%d]\n", i, (cub->map->door)[i].move); //(cub->map->door)[i].current = cub->hud->door;
+			door->timer += FRAME_DELTA;
+			if (door->timer >= 5.0)
+			{
+				door->status = CLOSING;
+				door->timer = 0;
+				printf("door [%d] -> OPEN -> CLOSING\n", i);
+			}
+			else
+			{
+				printf("door [%d] -> OPEN\n", i);
+			}
 		}
-		else if ((cub->map->door)[i].status == CLOSING /* || action?? */)
+		else if (door->status == CLOSED)
 		{
-			index = (cub->map->door)[i].move / 10;
-			(cub->map->door)[i].current = cub->raycast->doors[index];
-			(cub->map->door)[i].move--;
-			printf("door [%d] -> CLOSING [%d]\n", i, (cub->map->door)[i].move); //(cub->map->door)[i].current = cub->hud->door;
+			printf("door [%d] -> CLOSED\n", i);
+			// Teste antes de action
+			if (door->timer >= 5.0)
+				door->status = OPENING;
 		}
-		(cub->map->door)[i].timer += 0.016;//test
-		printf("timer-> %f\n",(cub->map->door)[i].timer);
+		door->timer += FRAME_DELTA; // Acumula timer global para todos os estados
 		i++;
 	}
 }
+
+
+// void	update_doors(t_cub * cub)
+// {
+// 	int	i;
+// 	int	index;
+
+// 	i = 0;
+// 	while (i < cub->map->door_count)
+// 	{
+// 		if ((cub->map->door)[i].timer >= 5.0 && (cub->map->door)[i].status == OPEN)
+// 		{
+// 			(cub->map->door)[i].status = CLOSING;
+// 			(cub->map->door)[i].timer = 0;
+// 			printf("door [%d] -> OPEN -> CLOSING\n", i);
+// 		}
+// 		else if ((cub->map->door)[i].move >= 70)
+// 		{
+// 			(cub->map->door)[i].status = OPEN;
+// 			(cub->map->door)[i].current = cub->raycast->door_open;
+// 			printf("door [%d] -> OPENING -> OPEN\n", i);
+// 		}
+// 		else if ((cub->map->door)[i].move < -70 && (cub->map->door)[i].status == CLOSING)
+// 		{
+// 			(cub->map->door)[i].status = CLOSED;
+// 			(cub->map->door)[i].current = cub->raycast->door_closed;
+// 			printf("door [%d] -> CLOSING -> CLOSED\n", i);
+// 		}
+
+// 		if ((cub->map->door)[i].status == CLOSED)
+// 		{
+// 			if ((cub->map->door)[i].timer >= 5.0) //test
+// 				(cub->map->door)[i].status = OPENING; //test
+// 			printf("door [%d] -> CLOSED\n", i); //(cub->map->door)[i].current = cub->hud->door;
+// 		}
+// 		else if ((cub->map->door)[i].status == OPEN)
+// 		{
+// 			(cub->map->door)[i].timer++;
+// 			printf("door [%d] -> OPEN\n", i); //(cub->map->door)[i].current = cub->hud->door;
+// 		}
+// 		else if ((cub->map->door)[i].status == OPENING /* || action?? */)
+// 		{
+// 			index = (cub->map->door)[i].move / 10;
+// 			(cub->map->door)[i].current = cub->raycast->doors[index];
+// 			(cub->map->door)[i].move++;
+// 			printf("door [%d] -> OPENING [%d]\n", i, (cub->map->door)[i].move); //(cub->map->door)[i].current = cub->hud->door;
+// 		}
+// 		else if ((cub->map->door)[i].status == CLOSING /* || action?? */)
+// 		{
+// 			index = (cub->map->door)[i].move / 10;
+// 			(cub->map->door)[i].current = cub->raycast->doors[index];
+// 			(cub->map->door)[i].move--;
+// 			printf("door [%d] -> CLOSING [%d]\n", i, (cub->map->door)[i].move); //(cub->map->door)[i].current = cub->hud->door;
+// 		}
+// 		(cub->map->door)[i].timer += 0.016;//test
+// 		printf("timer-> %f\n",(cub->map->door)[i].timer);
+// 		i++;
+// 	}
+// }
 
 void	paint_door(t_cub *cub, int draw_left, int x, int draw_start, int draw_end, int door_width, int door_height)
 {

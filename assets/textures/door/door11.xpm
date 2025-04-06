@@ -223,7 +223,7 @@ static char *result[] = {
 "yX c #FDF6F8",
 "uX c #FCF0EE",
 "iX c #F4C1BD",
-"pX c None",
+"pX c #00FFFF",
 /* pixels */
 "c c c 0.c =.=.c c =.c c c `.wXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXN.=.0.w.0.w.w.0.w.w.0.w.w.0.w.w.0.w.",
 "c c c c c c =.=.c c c c c `.tXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXwXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXN.w.w.0.w.0.0.w.0.w.0.w.w.w.w.w.0.w.",

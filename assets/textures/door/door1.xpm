@@ -224,7 +224,7 @@ static char *result[] = {
 "uX c #FCF0EE",
 "iX c #EDDBE2",
 "pX c #F4C1BD",
-"aX c None",
+"aX c #00FFFF",
 /* pixels */
 "A A A A A A A ;.A A A A A .XwXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXF.e.e.y.e.y.y.y.e.y.y.y.y.y.e.y.y.e.",
 "A A A A A A ;.;.A A A ;.A .XtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXwXtXwXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXtXF.e.y.e.e.y.e.y.y.e.y.e.y.e.y.y.y.y.",
