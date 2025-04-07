@@ -40,4 +40,11 @@ void	ft_render_action(t_cub *cub)
 		cub->action = false;
 		cub->duration_action = 0;
 	}
+	cub->raycast->eat_time += cub->frame_time;
+	if (cub->raycast->eat_time >= 0.8)
+	{
+		cub->raycast->sprite_action = false;
+		cub->raycast->eat_time = 0;
+	}
+
 }

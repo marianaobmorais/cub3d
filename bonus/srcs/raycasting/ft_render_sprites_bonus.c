@@ -66,37 +66,6 @@ static int	ft_get_sprite_info(t_cub *cub, t_sprite *sprite)
 	return (1);
 }
 
-// static void	ft_update_sprites(t_cub *cub)
-// {
-// 	//add brief
-// 	int	i;
-
-// 	if (cub->raycast->time >= 0.4)
-// 	{
-// 		i = -1;
-// 		while (++i < cub->map->sprite_count)
-// 		{
-// 			if (cub->map->sprite->status)
-// 			{
-// 				cub->map->sprite[i].img = cub->raycast->sprite_a[0];
-// 				cub->map->sprite->status = false;
-// 			}
-// 			else if (!cub->map->sprite->status && !cub->action)
-// 			{
-// 				cub->map->sprite[i].img = cub->raycast->sprite_a[1];
-// 				cub->map->sprite->status = true;
-// 			}
-// 			else if (!cub->map->sprite->status && cub->action)
-// 			{
-// 				cub->map->sprite[i].img = cub->raycast->sprite_b[0];
-// 				cub->map->sprite->status = true;
-// 			}
-// 		}
-// 		cub->raycast->time = 0;
-// 	}
-// 	cub->raycast->time += 0.016;
-// }
-
 static void	ft_update_sprites(t_cub *cub)
 {
 	//update brief
@@ -114,7 +83,7 @@ static void	ft_update_sprites(t_cub *cub)
 			}
 			else if (!cub->map->sprite->status)
 			{
-				if (!cub->action)
+				if (!cub->raycast->sprite_action)
 					cub->map->sprite[i].img = cub->raycast->sprite_move;
 				else
 					cub->map->sprite[i].img = cub->raycast->sprite_eat;
@@ -138,7 +107,7 @@ static void	ft_sort_sprites(t_map *map, t_raycast *ray)
 	while (++i < map->sprite_count)
 		map->sprite[i].dist = (ray->player_pos.x - map->sprite[i].pos.x) * 
 			(ray->player_pos.x - map->sprite[i].pos.x) + (ray->player_pos.y -
-			map->sprite[i].pos.y) * (rayc->player_pos.y - map->sprite[i].pos.y);
+			map->sprite[i].pos.y) * (ray->player_pos.y - map->sprite[i].pos.y);
 	count = map->sprite_count;
 	while (count)
 	{
@@ -170,12 +139,12 @@ void	ft_render_sprites(t_cub *cub)
 		if (ft_get_sprite_info(cub, &cub->map->sprite[i]))
 		{
 			ft_get_draw_info(&cub->map->sprite[i]);
-			w = sprite[i].start_w;
-			while (w < sprite[i].end_w)
+			w = cub->map->sprite[i].start_w;
+			while (w < cub->map->sprite[i].end_w)
 			{
-				if (w >= 0 && w < WIDTH && sprite.transform.y <
+				if (w >= 0 && w < WIDTH && cub->map->sprite[i].transform.y <
 						cub->raycast->buffer[w])
-					ft_draw_sprite(cub, cub->map->sprite[i]);
+					ft_draw_sprite(cub, cub->map->sprite[i], w);
 				w++;
 			}
 		}

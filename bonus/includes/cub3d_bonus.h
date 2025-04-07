@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marianamorais <marianamorais@student.42    +#+  +:+       +#+        */
+/*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:26:59 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/06 23:53:19 by marianamora      ###   ########.fr       */
+/*   Updated: 2025/04/07 15:09:39 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ typedef struct s_raycast
 	t_ipoint		step_tile;
 	t_ipoint		mouse_pos;
 	bool			mouse_status;
+	bool			sprite_action;
 	double			move_speed;
 	double			rotate_speed;
 	double			factor;
@@ -133,6 +134,7 @@ typedef struct s_raycast
 	double			wall_hit_value;
 	double			texture_pos;
 	double			time;
+	double			eat_time;
 	int				hit_side;
 	int				wall_height;
 	int				wall_start;
