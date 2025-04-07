@@ -6,7 +6,7 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 19:38:45 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/03 21:23:08 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/04/06 19:49:41 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,26 @@ void	ft_update_position(t_cub *cub, double tmp_x, double tmp_y)
 {
 	//update brief
 	t_raycast	*ray;
+	int			index;
+	char		tile;
 
 	ray = cub->raycast;
+	tile = cub->map->matrix[(int)tmp_x][(int)tmp_y];
+	if (tile == '1')
+		return ;
+	if (tile == 'D')
+	{
+		index = ft_find_door_index(cub, (int)tmp_x, (int)tmp_y);
+		if (index >= 0)
+		{
+			if (cub->map->door[index].status == CLOSED
+				|| cub->map->door[index].status == CLOSING
+				|| cub->map->door[index].status == OPENING)
+				return ;
+		}
+	}
+	// &&  != '1'
+	// && cub->map->matrix[(int)tmp_x][(int)tmp_y] != 'D'
 	// if (cub->map->matrix[(int)tmp_x][(int)tmp_y] != 'D') //if it is not a door, update map
 	// {
 	// 	cub->map->matrix[ray->player_tile.x][ray->player_tile.y] = '0';
