@@ -62,9 +62,8 @@ B_SRCS = $(BONUS_DIR)/main_bonus.c \
 	$(BONUS_DIR)/hud/screens_bonus.c \
 	$(BONUS_DIR)/hud/stuffs_bonus.c \
 
-
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -g
+CFLAGS = -Wall -Werror -Wextra -g -o3
 MLXFLAGS = -L ./minilibx-linux -lmlx -Ilmlx -lXext -lX11 -lm -lz
 
 RM = rm -f
