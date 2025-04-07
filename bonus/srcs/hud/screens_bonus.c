@@ -142,7 +142,7 @@ int	ft_render_screen(t_cub *cub)
 		ft_handle_img(cub);
 		cub->last_time = now;
 	}
-	if (cub->action && cub->frame_time >= 0.016)
+	if (cub->frame_time >= 0.016)
 	{
 		ft_render_action(cub);
 		cub->last_time = now;
