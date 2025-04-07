@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:26:59 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/07 15:49:38 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/04/07 16:34:21 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,7 @@
 # define WIDTH 960
 # define HEIGHT 600
 # define MOVE_SPEED 8
-# define ROTATE_SPEED 4
-//# define SPRITE_SIZE 256
-
+# define ROTATE_SPEED 3
 
 typedef struct s_hud	t_hud;
 
@@ -256,7 +254,7 @@ bool			ft_valid_wall(char *line, char *previous_line, \
 
 /* ft_handle_img_bonus.c */
 
-int			ft_handle_img(t_cub *cub);
+int				ft_handle_img(t_cub *cub);
 
 /* pixel_utils_bonus.c */
 
@@ -303,6 +301,6 @@ void			ft_dda(t_raycast *ray, t_map *map, bool *hit_wall);
 
 /* ft_draw_sprite.c */
 
-void	ft_draw_sprite(t_cub *cub, t_sprite sprite, int w);
+void			ft_draw_sprite(t_cub *cub, t_sprite sprite, int w);
 
 #endif //CUB3D_BONUS_H
