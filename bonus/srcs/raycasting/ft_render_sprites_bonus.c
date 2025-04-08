@@ -6,11 +6,86 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 15:40:10 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/07 15:47:09 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/04/08 15:29:52 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d_bonus.h"
+
+static void	ft_get_draw_info(t_sprite *sprite)
+{
+	//teste
+	(*sprite).start_h = -(*sprite).relative_height / 2 + HEIGHT / 2;
+	(*sprite).end_h = (*sprite).relative_height / 2 + HEIGHT / 2;
+	(*sprite).start_w = (*sprite).screen_w - (*sprite).relative_width / 2;
+	(*sprite).end_w = (*sprite).screen_w + (*sprite).relative_width / 2;
+}
+
+static int	ft_get_sprite_info(t_cub *cub, t_sprite *sprite)
+{
+	//teste
+	double	relative_pos_x;
+	double	relative_pos_y;
+
+	relative_pos_x = (*sprite).pos.x - cub->raycast->player_pos.x;
+	relative_pos_y = (*sprite).pos.y - cub->raycast->player_pos.y;
+
+	// Centered at sprite.pos (X, Y)
+	t_dpoint left  = {(*sprite).pos.x, (*sprite).pos.y - WIDTH / 2};
+	t_dpoint right = {(*sprite).pos.x, (*sprite).pos.y + WIDTH / 2};
+
+	t_dpoint relative_left = {left.x - cub->raycast->player_pos.x, left.y - cub->raycast->player_pos.y};
+	t_dpoint relative_right = {right.x - cub->raycast->player_pos.x, right.y - cub->raycast->player_pos.y};
+
+	
+	printf("Sprite at (%lf, %lf), rel to player: (%lf, %lf)\n", 
+		(*sprite).pos.x, (*sprite).pos.y, relative_pos_x, relative_pos_y);
+
+	double sprite_angle = atan2(relative_pos_y, relative_pos_x);
+	double player_angle = atan2(cub->raycast->player_dir.y, cub->raycast->player_dir.x);
+	double angle = sprite_angle - player_angle;
+
+	double sin_dir = sin(-player_angle);
+	double cos_dir = cos(-player_angle);
+	
+	t_dpoint transform_left = {
+		relative_left.x * cos_dir - relative_left.y * sin_dir,
+		relative_left.x * sin_dir + relative_left.y * cos_dir
+	};
+
+	t_dpoint transform_right = {
+		relative_right.x * cos_dir - relative_right.y * sin_dir,
+		relative_right.x * sin_dir + relative_right.y * cos_dir
+	};
+
+	double screen_x_left  = (WIDTH / 2) * (1 + transform_left.y / transform_left.x);
+	double screen_x_right = (WIDTH / 2) * (1 + transform_right.y / transform_right.x);
+
+	
+	printf("sprite_angle: %lf, player_angle: %lf, diff: %lf\n", sprite_angle, player_angle, angle);//debug
+	
+	if (angle > M_PI)
+		angle -= 2 * M_PI;
+	if (angle < -M_PI)
+		angle += 2 * M_PI;
+	printf("angle after normalize: %lf\n", angle); //debug
+	
+	if (fabs(angle) > (FOV / 2))
+	return (0);
+	
+	(*sprite).screen_w = (int)((WIDTH / 2) * (1 - tan(angle) / tan(FOV / 2)));
+	printf("screen_w: %d\n", (*sprite).screen_w); //debug
+	
+	double dist = sqrt(relative_pos_x * relative_pos_x + relative_pos_y * relative_pos_y);
+	printf("dist: %lf\n", dist); //debug
+	if (dist < 0.01)
+		return (0);
+	
+	(*sprite).relative_height = (int)(HEIGHT / dist);
+	(*sprite).relative_width = (*sprite).relative_height;
+	printf("relative_height: %d, relative_width: %d\n\n", (*sprite).relative_height, (*sprite).relative_width); //debug
+	return (1);
+}
 
 /**
  * @brief Calculates the on-screen size and position of the sprite.
@@ -21,15 +96,15 @@
  *
  * @param sprite Pointer to the sprite whose drawing info will be updated.
  */
-static void	ft_get_draw_info(t_sprite *sprite)
-{
-	(*sprite).relative_height = (int)HEIGHT / (*sprite).transform.y;
-	(*sprite).relative_width = (*sprite).relative_height;
-	(*sprite).start_h = -(*sprite).relative_height / 2 + HEIGHT / 2;
-	(*sprite).end_h = (*sprite).relative_height / 2 + HEIGHT / 2;
-	(*sprite).start_w = (*sprite).screen_w - (*sprite).relative_width / 2;
-	(*sprite).end_w = (*sprite).screen_w + (*sprite).relative_width / 2;
-}
+// static void	ft_get_draw_info(t_sprite *sprite)
+// {
+// 	(*sprite).relative_height = (int)HEIGHT / (*sprite).transform.y;
+// 	(*sprite).relative_width = (*sprite).relative_height;
+// 	(*sprite).start_h = -(*sprite).relative_height / 2 + HEIGHT / 2;
+// 	(*sprite).end_h = (*sprite).relative_height / 2 + HEIGHT / 2;
+// 	(*sprite).start_w = (*sprite).screen_w - (*sprite).relative_width / 2;
+// 	(*sprite).end_w = (*sprite).screen_w + (*sprite).relative_width / 2;
+// }
 
 /**
  * @brief Computes sprite position relative to the camera.
@@ -43,26 +118,26 @@ static void	ft_get_draw_info(t_sprite *sprite)
  * @param sprite Pointer to the sprite being transformed.
  * @return Returns 1 if the sprite is in front of the camera, otherwise 0.
  */
-static int	ft_get_sprite_info(t_cub *cub, t_sprite *sprite)
-{
-	double	relative_pos_x;
-	double	relative_pos_y;
-	double	inv_det;
+// static int	ft_get_sprite_info(t_cub *cub, t_sprite *sprite)
+// {
+// 	double	relative_pos_x;
+// 	double	relative_pos_y;
+// 	double	inv_det;
 
-	relative_pos_x = (*sprite).pos.x - cub->raycast->player_pos.x;
-	relative_pos_y = (*sprite).pos.y - cub->raycast->player_pos.y;
-	inv_det = 1.0 / (cub->raycast->player_dir.x * cub->raycast->camera_plane.y \
-		- cub->raycast->player_dir.y * cub->raycast->camera_plane.x);
-	(*sprite).transform.x = inv_det * (-cub->raycast->player_dir.y \
-		* relative_pos_x + cub->raycast->player_dir.x * relative_pos_y);
-	(*sprite).transform.y = inv_det * (cub->raycast->camera_plane.y \
-		* relative_pos_x - cub->raycast->camera_plane.x * relative_pos_y);
-	if ((*sprite).transform.y <= 0)
-		return (0);
-	(*sprite).screen_w = (int)((WIDTH / 2) * (1 + (*sprite).transform.x \
-		/ (*sprite).transform.y));
-	return (1);
-}
+// 	relative_pos_x = (*sprite).pos.x - cub->raycast->player_pos.x;
+// 	relative_pos_y = (*sprite).pos.y - cub->raycast->player_pos.y;
+// 	inv_det = 1.0 / (cub->raycast->player_dir.x * cub->raycast->camera_plane.y \
+// 		- cub->raycast->player_dir.y * cub->raycast->camera_plane.x);
+// 	(*sprite).transform.x = inv_det * (-cub->raycast->player_dir.y \
+// 		* relative_pos_x + cub->raycast->player_dir.x * relative_pos_y);
+// 	(*sprite).transform.y = inv_det * (cub->raycast->camera_plane.y \
+// 		* relative_pos_x - cub->raycast->camera_plane.x * relative_pos_y);
+// 	if ((*sprite).transform.y <= 0)
+// 		return (0);
+// 	(*sprite).screen_w = (int)((WIDTH / 2) * (1 + (*sprite).transform.x \
+// 		/ (*sprite).transform.y));
+// 	return (1);
+// }
 
 /**
  * @brief Updates sprite animations over time by toggling their image state.
@@ -127,7 +202,7 @@ static void	ft_sort_sprites(t_map *map, t_raycast *ray)
 	while (count)
 	{
 		i = -1;
-		while (++i < count)
+		while (++i < count - 1) //double check this
 		{
 			if (map->sprite[i].dist < map->sprite[i + 1].dist)
 			{
