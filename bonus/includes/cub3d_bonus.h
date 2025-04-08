@@ -6,7 +6,7 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:26:59 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/08 20:44:33 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/04/08 22:05:20 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,16 @@ typedef struct s_sprite
 	double		dist;
 }	t_sprite;
 
+typedef struct s_draw
+{
+	int		height;
+	int		draw_start;
+	int		draw_end;
+	int		tex_x;
+	double	step;
+	double	texture_pos;
+}	t_draw;
+
 typedef struct s_door
 {
 	int				id;
@@ -82,10 +92,11 @@ typedef struct s_door
 	t_ipoint		tile;
 	double			timer;
 	int				move;
-	t_ipoint		door_tile; //new
-	double			door_dist; //new
+	t_ipoint		door_tile;
+	double			door_dist;
 	double			wall_hit;
-	int				door_side; //new //0 x 1 y
+	int				door_side;
+	t_draw			draw;
 }	t_door;
 
 typedef struct s_raycast
@@ -210,19 +221,21 @@ void			ft_paint_ray(t_cub *cub, int w, t_image texture);
 
 void			ft_dda(t_raycast *ray, t_map *map, bool *hit_wall, t_cub *cub, bool fov);
 
-/* ft_render_doors_utils.c */
+/* ft_update_doors.c */
 
+void			ft_update_doors(t_cub * cub);
 void			ft_open_or_close_door(t_cub *cub);
-int				ft_find_door_index(t_cub *cub, int x, int y);
 
 /* ft_render_doors.c */
 
+int				ft_find_door_index(t_cub *cub, int x, int y);
 void			ft_render_doors(t_cub *cub, int w);
-void			ft_update_doors(t_cub * cub);
 void			ft_init_doors(t_cub *cub);
-//void	ft_clean_doors(t_cub *cub); missing
+void			ft_clean_doors(t_cub *cub);
 
+/* ft_paint_ray_door.c */
 
+void			ft_paint_ray_door(t_cub *cub, int w, t_door door);
 
 int				ft_render_screen(t_cub *cub);
 

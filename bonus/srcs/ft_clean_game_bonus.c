@@ -46,6 +46,7 @@ void	ft_clean_game(t_cub *cub)
 			close(cub->fd);
 		if (cub->filepath)
 			free(cub->filepath);
+		ft_clean_doors(cub);
 		if (cub->map)
 		{
 			ft_clean_map(cub->map);
