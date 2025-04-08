@@ -6,7 +6,7 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 20:51:46 by joneves-          #+#    #+#             */
-/*   Updated: 2025/04/05 14:48:22 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/04/08 18:20:35 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,8 @@ void			ft_load_map(char *const filepath, t_cub *cub);
 
 /* ft_map_parser_bonus.c */
 
-bool			is_valid_door(char *line, char *previous_line, int y);
+//bool			is_valid_door(char *line, char *previous_line, int y);
+//bool			is_valid_door(t_cub *cub);
 void			ft_map_parser(int fd, t_cub *cub, int i);
 
 /* ft_map_parser_utils_bonus.c */

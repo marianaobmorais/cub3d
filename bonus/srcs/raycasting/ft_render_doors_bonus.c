@@ -20,6 +20,7 @@ void	ft_init_doors(t_cub *cub)
 	ft_init_xpm_image(cub, &cub->raycast->doors[10], "assets/textures/door/door11.xpm");
 	ft_init_xpm_image(cub, &cub->raycast->doors[11], "assets/textures/door/door12.xpm");
 	ft_init_xpm_image(cub, &cub->raycast->doors[12], "assets/textures/door/door13.xpm");
+	ft_init_xpm_image(cub, &cub->raycast->grab_go, "assets/textures/grab_go.xpm");
 	while (i < cub->map->door_count)
 	{
 		(cub->map->door)[i].current = cub->raycast->door_closed;
@@ -70,7 +71,7 @@ void	ft_update_doors(t_cub *cub)
 		else if (door->status == OPEN)
 		{
 			door->timer += FRAME_DELTA;
-			if (door->timer >= 2.0)
+			if (door->timer >= 2.0 && (door->tile.x != cub->raycast->player_tile.x || door->tile.y != cub->raycast->player_tile.y))
 			{
 				door->status = CLOSING;
 				door->timer = 0;
@@ -81,20 +82,17 @@ void	ft_update_doors(t_cub *cub)
 	}
 }
 
-void	ft_paint_ray_door(t_cub *cub, int w, t_image texture,
-	double dist, int side, double wall_hit)
+void	ft_paint_ray_door(t_cub *cub, int w, t_door door)
 {
-	int		tex_x; //usar t_ipoint
-	int		tex_y;
-	int		draw_start;
-	int		draw_end;
-	double	texture_pos;
-	double	step;
+	int		tex_x, tex_y, y, color;
 	int		door_height;
-	int		y;
-	int		color;
+	int		draw_start, draw_end;
+	double	step, texture_pos;
 
-	door_height = (int)(HEIGHT / dist);
+	// Altura da projeção
+	door_height = (int)(HEIGHT / door.door_dist);
+
+	// Calcular início e fim do desenho vertical
 	draw_start = -door_height / 2 + HEIGHT / 2;
 	if (draw_start < 0)
 		draw_start = 0;
@@ -102,51 +100,80 @@ void	ft_paint_ray_door(t_cub *cub, int w, t_image texture,
 	if (draw_end >= HEIGHT)
 		draw_end = HEIGHT - 1;
 
-	// tex_x (coluna da textura)
-	tex_x = (int)(wall_hit * texture.width);
-	if ((side == 0 && cub->raycast->ray_dir.x > 0) || (side == 1 && cub->raycast->ray_dir.y < 0))
-		tex_x = texture.width - tex_x - 1;
-	tex_x %= texture.width;
+	// Coluna da textura (horizontal)
+	tex_x = (int)(door.wall_hit * door.current.width);
+	if ((door.door_side == 0 && cub->raycast->ray_dir.x > 0)
+		|| (door.door_side == 1 && cub->raycast->ray_dir.y < 0))
+		tex_x = door.current.width - tex_x - 1;
 
-	// passo vertical por pixel
-	step = (double)texture.height / door_height;
+	if (tex_x < 0)
+		tex_x = 0;
+	if (tex_x >= door.current.width)
+		tex_x = door.current.width - 1;
+
+	// Passo vertical por pixel
+	step = (double)door.current.height / door_height;
 	texture_pos = (draw_start - HEIGHT / 2 + door_height / 2) * step;
 
+	// Renderização da coluna
 	y = draw_start;
 	while (y < draw_end)
 	{
-		tex_y = (int)texture_pos % texture.height;
+		tex_y = (int)texture_pos;
 		texture_pos += step;
 
-		color = ft_get_pixel_color(&texture, tex_x, tex_y, cub);
+		if (tex_y < 0)
+			tex_y = 0;
+		if (tex_y >= door.current.height)
+			tex_y = door.current.height - 1;
+
+		color = ft_get_pixel_color(&door.current, tex_x, tex_y, cub);
 		if (color != IGNORE)
 			ft_put_pixel(cub->image, w, y, color);
 		y++;
 	}
 }
 
+
+void	ft_paint_internal_wall(t_cub *cub, int w)
+{
+	t_ipoint	tile;
+	char		**matrix;
+
+	tile = cub->raycast->step_tile;
+	matrix = cub->map->matrix;
+	if (cub->raycast->hit_side == 0 && cub->raycast->ray_dir.x < 0
+		&& tile.x + 1 < cub->map->height && matrix[tile.x + 1][tile.y] == 'D')
+		ft_paint_ray(cub, w, cub->raycast->grab_go); // face norte
+	if (cub->raycast->hit_side == 0 && cub->raycast->ray_dir.x >= 0
+		&& tile.x > 0 && matrix[tile.x - 1][tile.y] == 'D')
+		ft_paint_ray(cub, w, cub->raycast->grab_go); // face sul
+	if (cub->raycast->hit_side == 1 && cub->raycast->ray_dir.y < 0
+		&& tile.y + 1 < cub->map->width && matrix[tile.x][tile.y + 1] == 'D')
+		ft_paint_ray(cub, w, cub->raycast->grab_go); // face oeste
+	if (cub->raycast->hit_side == 1 && cub->raycast->ray_dir.y >= 0
+		&& tile.y > 0 && matrix[tile.x][tile.y - 1] == 'D')
+		ft_paint_ray(cub, w, cub->raycast->grab_go); // face leste
+}
+
 void	ft_render_doors(t_cub *cub, int w)
 {
 	int		index;
 	t_door	*door;
-	double	wall_hit;
-	double	side;
-	double	dist;
 
+	ft_paint_internal_wall(cub, w);
 	while (cub->raycast->door_increment > -1)
 	{
 		index = ft_find_door_index(cub, \
 			cub->raycast->doors_found[cub->raycast->door_increment].x, \
 			cub->raycast->doors_found[cub->raycast->door_increment].y);
 		door = &cub->map->door[index];
-		dist = door->door_dist;
-		side = door->door_side;
-		if (side == 0)
-			wall_hit = cub->raycast->player_pos.y + dist * cub->raycast->ray_dir.y;
+		if (door->door_side == 0)
+			door->wall_hit = cub->raycast->player_pos.y + door->door_dist * cub->raycast->ray_dir.y;
 		else
-			wall_hit = cub->raycast->player_pos.x + dist * cub->raycast->ray_dir.x;
-		wall_hit -= floor(wall_hit);
-		ft_paint_ray_door(cub, w, door->current, dist, side, wall_hit);
+			door->wall_hit = cub->raycast->player_pos.x + door->door_dist * cub->raycast->ray_dir.x;
+		door->wall_hit -= floor(door->wall_hit);
+		ft_paint_ray_door(cub, w, *door);
 		cub->raycast->door_increment--;
 	}
 	cub->raycast->hit_door = false;

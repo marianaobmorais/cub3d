@@ -6,7 +6,7 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:26:59 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/06 19:26:19 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/04/08 20:44:33 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,14 +78,13 @@ typedef struct s_door
 {
 	int				id;
 	t_door_status	status;
-	// int			order;
 	t_image			current;
 	t_ipoint		tile;
-	int				move;
-	// t_dpoint		pos;
 	double			timer;
+	int				move;
 	t_ipoint		door_tile; //new
 	double			door_dist; //new
+	double			wall_hit;
 	int				door_side; //new //0 x 1 y
 }	t_door;
 
@@ -117,6 +116,7 @@ typedef struct s_raycast
 	t_image			south_texture;
 	t_image			east_texture;
 	t_image			west_texture;
+	t_image			grab_go;
 	t_image			sprite[4];
 	bool			hit_door; //door
 	int				door_increment;  //door

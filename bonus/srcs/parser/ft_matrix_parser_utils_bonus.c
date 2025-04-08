@@ -6,7 +6,7 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 18:55:34 by joneves-          #+#    #+#             */
-/*   Updated: 2025/04/01 21:13:14 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/04/08 17:52:28 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,9 +150,17 @@ bool	is_valid_wall_door(char *line, char *previous_line, int y)
 	{
 		if (previous_line[y] == 'D')
 		{
-			if ((previous_line[y - 1] != '0' && !ft_is_player(line[y - 1]))
-				|| (previous_line[y + 1] != '0' && !ft_is_player(line[y + 1])))
+			if ((previous_line[y - 1] == '0' || ft_is_player(line[y - 1])) && previous_line[y + 1] != '1')
 				return (false);
+			if ((previous_line[y + 1] == '0' || ft_is_player(line[y + 1])) && previous_line[y - 1] != '1')
+				return (false);
+
+
+
+				
+			// if ((previous_line[y - 1] != '0' && !ft_is_player(line[y - 1]))
+			// 	|| (previous_line[y + 1] != '0' && !ft_is_player(line[y + 1])))
+			// 	return (false);
 		}
 	}
 	return (true);

@@ -6,7 +6,7 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 18:55:25 by joneves-          #+#    #+#             */
-/*   Updated: 2025/04/01 20:47:12 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/04/08 18:44:57 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,8 @@ static bool	ft_check_line(char *line, char *previous_line, int y, t_cub *cub)
 		}
 		if (line[x] == 'D')
 		{
-			if (!is_valid_door(line, previous_line, x))
-				return (false);
+			// if (!is_valid_door(line, previous_line, x))
+			// 	return (false);
 			ft_set_door(cub, x, y);
 		}
 		x++;
@@ -132,24 +132,54 @@ static bool	ft_check_line(char *line, char *previous_line, int y, t_cub *cub)
  *
  * @return `true` if the door position is valid, `false` otherwise.
  */
-bool	is_valid_door(char *line, char *previous_line, int y)
+// bool	is_valid_door(char *line, char *previous_line, int y)
+// {
+// 	if (previous_line && previous_line[y])
+// 	{
+// 		if (previous_line[y] == '1')
+// 		{
+// 			if (y > 0 && (line[y - 1] == '0' || ft_is_player(line[y - 1]))
+// 				&& line[y + 1] == '1')
+// 				return (true);
+// 			if (y > 0 && line[y - 1] == '1' && (line[y + 1] == '1'
+// 				|| ft_is_player(line[y + 1]) || line[y + 1] == '0'))
+// 				return (true);
+// 		}
+// 		if (previous_line[y] == '0')
+// 		{
+// 			if (y > 0 && line[y - 1] == '1' && line[y + 1] == '1')
+// 				return (true);
+// 		}
+// 	}
+// 	return (false);
+// }
+
+static bool	is_valid_door(t_cub *cub, char **matrix)
 {
-	if (previous_line && previous_line[y])
+	t_ipoint	tile;
+	int			openings;
+	int			i;
+
+	i = 0;
+	while (i < cub->map->door_count)
 	{
-		if (previous_line[y] == '1')
-		{
-			if ((y > 0 && (line[y - 1] == '0' || ft_is_player(line[y - 1])))
-				&& (line[y + 1] == '0' || ft_is_player(line[y + 1])))
-				return (true);
-		}
-		if (previous_line[y] == '0')
-		{
-			if ((y > 0 && (line[y - 1] == '1' || ft_is_player(line[y - 1])))
-				&& (line[y + 1] == '1' || ft_is_player(line[y + 1])))
-				return (true);
-		}
+		tile.x = cub->map->door[i].tile.x;
+		tile.y = cub->map->door[i].tile.y;
+		openings = 0;
+		if (matrix[tile.x + 1][tile.y] == '0')
+			openings++;
+		if (matrix[tile.x - 1][tile.y] == '0')
+			openings++;
+		if (matrix[tile.x][tile.y + 1] == '0')
+			openings++;
+		if (matrix[tile.x][tile.y - 1] == '0')
+			openings++;
+		printf("[%d] y %d x %d -> openings %d \n", i, tile.y, tile.x, openings);
+		if (openings != 1)
+			return (false);
+		i++;
 	}
-	return (false);
+	return (true);
 }
 
 /**
@@ -187,6 +217,8 @@ void	ft_matrix_parser(t_cub *cub, char **matrix)
 			ft_handle_error(MSG_MAP, cub);
 		y++;
 	}
+	if (!is_valid_door(cub, matrix))
+		ft_handle_error(MSG_MAP, cub);
 	if (cub->map->player_squ_x == -1)
 		ft_handle_error(MSG_MAP, cub);
 }
