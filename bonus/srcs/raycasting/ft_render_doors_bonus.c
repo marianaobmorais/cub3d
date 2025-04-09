@@ -51,7 +51,7 @@ static void	ft_paint_internal_wall(t_cub *cub, int w)
 	tile = cub->raycast->step_tile;
 	matrix = cub->map->matrix;
 	if (cub->raycast->hit_side == 0 && cub->raycast->ray_dir.x < 0
-		&& tile.x + 1 < cub->map->height && matrix[tile.x + 1][tile.y] == 'D')
+		&& tile.x + 1 < cub->map->height && matrix[tile.x + 1][tile.y] == 'D') // || matrix[ray->player_tile.x][ray->player_tile.y] == 'D';
 		ft_paint_ray(cub, w, cub->raycast->grab_go); // face norte
 	if (cub->raycast->hit_side == 0 && cub->raycast->ray_dir.x >= 0
 		&& tile.x > 0 && matrix[tile.x - 1][tile.y] == 'D')
