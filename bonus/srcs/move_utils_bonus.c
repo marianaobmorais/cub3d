@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 19:38:45 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/05 14:04:29 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/04/09 18:05:37 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,14 +92,15 @@ void	ft_update_position(t_cub *cub, double tmp_x, double tmp_y)
 	t_raycast	*ray;
 
 	ray = cub->raycast;
-	// if (cub->map->matrix[ray->player_tile.x][ray->player_tile.y] != 'D') //if it is not a door, update map
-	// {
-	// 	cub->map->matrix[ray->player_tile.x][ray->player_tile.y] = '0';
-	// 	cub->map->matrix[(int)tmp_x][(int)tmp_y] = 'P';
-	// }
-	//ft_print_map(cub->map); //debug
-	ray->player_pos.x = tmp_x;
-	ray->player_pos.y = tmp_y;
-	ray->player_tile.x = (int)tmp_x;
-	ray->player_tile.y = (int)tmp_y;
+	if (tmp_x >= 0 && tmp_x < cub->map->height
+		&& tmp_y >= 0 && tmp_y < cub->map->width
+		&& cub->map->matrix[(int)tmp_x][(int)tmp_y] != '1'
+		&& cub->map->matrix[(int)ray->player_pos.x][(int)tmp_y] != '1'
+		&& cub->map->matrix[(int)tmp_x][(int)ray->player_pos.y] != '1')
+	{
+		ray->player_pos.x = tmp_x;
+		ray->player_pos.y = tmp_y;
+		ray->player_tile.x = (int)tmp_x;
+		ray->player_tile.y = (int)tmp_y;
+	}
 }
