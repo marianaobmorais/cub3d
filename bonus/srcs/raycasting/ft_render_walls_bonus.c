@@ -140,7 +140,7 @@ void	ft_render_walls(t_cub *cub)
 		ft_define_steps(cub->raycast);
 		stop_loop = false;
 		while (!stop_loop)
-			ft_dda(cub->raycast, cub->map, &stop_loop);
+			ft_dda(cub->raycast, cub->map, &stop_loop, cub, true);
 		ft_get_wall_height(cub->raycast, cub->map);
 		ft_get_wall_hit_value(cub->raycast);
 		if (cub->raycast->hit_side == 0 && cub->raycast->ray_dir.x < 0)
@@ -151,6 +151,8 @@ void	ft_render_walls(t_cub *cub)
 			ft_paint_ray(cub, w, cub->raycast->east_texture);
 		if (cub->raycast->hit_side == 1 && cub->raycast->ray_dir.y < 0)
 			ft_paint_ray(cub, w, cub->raycast->west_texture);
+		if (cub->raycast->hit_door)
+			ft_render_doors(cub, w);
 		cub->raycast->buffer[w] = cub->raycast->perp_wall_dist;
 		w++;
 	}

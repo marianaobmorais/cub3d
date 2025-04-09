@@ -6,7 +6,7 @@
 /*   By: marianamorais <marianamorais@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 18:36:57 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/06 18:44:24 by marianamora      ###   ########.fr       */
+/*   Updated: 2025/04/06 19:12:19 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,30 +74,71 @@ int	ft_handle_img(t_cub *cub)
 	//add frames
 	//update brief
 	ft_render_bg(cub->image, cub->map->ceiling_hex, cub->map->floor_hex);
+	ft_update_doors(cub);
 	ft_render_walls(cub);
-	ft_render_sprites(cub); //sprites
-	ft_render_source_on_hud(cub, &cub->hud->watch, 0, 0); //bonus
-	if (cub->amount_action < BREAD_3 + 1)
-		ft_render_source_on_hud(cub, &cub->hud->viewmodel, 390, 420); //bonus
-	if (cub->amount_action > BREAD_1)
-		ft_render_source_on_hud(cub, &cub->hud->empty_bread, WIDTH - 128, 0); //bonus
-	else
-		ft_render_source_on_hud(cub, &cub->hud->bread, WIDTH - 128, 0); //bonus
-	if (cub->amount_action > BREAD_2)
-		ft_render_source_on_hud(cub, &cub->hud->empty_bread, WIDTH - 192, 0); //bonus
-	else
-		ft_render_source_on_hud(cub, &cub->hud->bread, WIDTH - 192, 0); //bonus
-	if (cub->amount_action > BREAD_3)
-		ft_render_source_on_hud(cub, &cub->hud->empty_bread, WIDTH - 256, 0); //bonus
-	else
-		ft_render_source_on_hud(cub, &cub->hud->bread, WIDTH - 256, 0); //bonus
-	//update speed
+	ft_render_sprites(cub);
+	ft_render_source_on_hud(cub, &cub->hud->watch, 0, 0);
+	ft_render_minimap_on_hud(cub);
+	ft_render_viewmodel(cub);
 	cub->raycast->move_speed = cub->frame_time * MOVE_SPEED;
 	cub->raycast->rotate_speed = cub->frame_time * ROTATE_SPEED;
 	if (!cub->raycast->mouse_status)
-		ft_mouse_hook(cub); //mouse
-	//ft_door(cub, cub->hud->door, WIDTH / 2 - 0, HEIGHT / 2 - 70); //bonus //move to render_wall?
-	//ft_render_minimap_on_hud(cub); //bonus
+		ft_mouse_hook(cub);
 	mlx_put_image_to_window(cub->mlx, cub->window, cub->image->img_ptr, 0, 0);
 	return (0);
+}
+
+/**
+ * @brief Retrieves the current time in milliseconds.
+ * 
+ * This function uses `gettimeofday` to obtain the current time and converts 
+ * it into milliseconds. It is typically used for frame timing calculations.
+ * 
+ * @return The current time in milliseconds.
+ */
+static size_t	ft_get_time(void)
+{
+	size_t			milliseconds;
+	struct timeval	time;
+
+	gettimeofday(&time, NULL);
+	milliseconds = (time.tv_sec * 1000) + (time.tv_usec / 1000);
+	return (milliseconds);
+}
+
+/**
+ * @brief Displays the start screen of the game with changing images.
+ *
+ * This function controls the display of a start screen sequence by cycling 
+ * through images at a regular interval (every 0.2 seconds). It updates the 
+ * image shown on the screen and ensures smooth transitions between the 
+ * images. Once all images have been displayed, the cycle restarts.
+ *
+ * @param cub Pointer to the main game structure.
+ * @return 0 upon completion.
+ */
+int	ft_render_screen(t_cub *cub)
+{
+	//update brief
+	size_t		now;
+
+	now = ft_get_time();
+	cub->frame_time = (now - cub->last_time) / 1000.0;
+	if (!cub->started && cub->frame_time >= 0.2)
+	{
+		ft_put_start_screen(cub);
+		cub->last_time = now;
+	}
+	if (cub->started && !cub->leaving && cub->frame_time >= 0.016)
+	{
+		ft_handle_img(cub);
+		cub->last_time = now;
+	}
+	if (cub->action && cub->frame_time >= 0.016)
+	{
+		ft_render_action(cub);
+		cub->last_time = now;
+	}
+	return (0);
+	//rename this file? suggestion: ft_render_screen.c
 }

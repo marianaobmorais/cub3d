@@ -137,9 +137,9 @@ t_cub	*ft_init_structs(t_cub *cub, char *argv)
 	ft_init_raycast(cub);
 	ft_init_wall_texture(cub);
 	ft_init_hud(cub);
+	ft_init_screens(cub);
+	ft_init_doors(cub);
 	ft_init_sprites(cub);
-	ft_init_start_screen(cub);
-	ft_init_end_screen(cub);
 	cub->window = mlx_new_window(cub->mlx, WIDTH, HEIGHT, "cub3d");
 	if (!cub->window)
 		ft_handle_error("malloc: cub->window", cub);

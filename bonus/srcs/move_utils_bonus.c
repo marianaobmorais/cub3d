@@ -90,8 +90,24 @@ void	ft_update_position(t_cub *cub, double tmp_x, double tmp_y)
 {
 	//update brief
 	t_raycast	*ray;
+	int			index;
+	char		tile;
 
 	ray = cub->raycast;
+	tile = cub->map->matrix[(int)tmp_x][(int)tmp_y];
+	if (tile == '1')
+		return ;
+	if (tile == 'D')
+	{
+		index = ft_find_door_index(cub, (int)tmp_x, (int)tmp_y);
+		if (index >= 0)
+		{
+			if (cub->map->door[index].status == CLOSED
+				|| cub->map->door[index].status == CLOSING
+				|| cub->map->door[index].status == OPENING)
+				return ;
+		}
+	}
 	if (tmp_x >= 0 && tmp_x < cub->map->height
 		&& tmp_y >= 0 && tmp_y < cub->map->width
 		&& cub->map->matrix[(int)tmp_x][(int)tmp_y] != '1'

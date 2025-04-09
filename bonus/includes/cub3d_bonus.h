@@ -16,19 +16,20 @@
 # include "../../libft/libft.h"
 # include "../../minilibx-linux/mlx.h"
 # include "hud_bonus.h"
+# include "parser_bonus.h"
 # include "image_bonus.h"
 # include <X11/keysym.h>
 # include <X11/X.h>
 # include <stdio.h> //will we use printf?
 # include <stdlib.h>
-# include <sys/time.h> //do we use this?
+# include <sys/time.h>
 # include <math.h>
 # include <fcntl.h>
 # include <errno.h>
 # include <string.h>
 # include <stdbool.h>
-# include <sys/wait.h> //bonus
-# include <time.h> //bonus
+# include <sys/wait.h>
+# include <time.h>
 # include <limits.h>
 
 /* messages */
@@ -57,37 +58,12 @@
 # define HEIGHT 600
 # define MOVE_SPEED 8
 # define ROTATE_SPEED 3
+# define MAX_MOVE 70
+# define NUM_FRAMES 13
+# define FRAME_DELTA 0.016 // ~60 FPS
+
 
 typedef struct s_hud	t_hud;
-
-typedef enum e_directions
-{
-	NORTH,
-	SOUTH,
-	WEST,
-	EAST,
-	FLOOR,
-	CEILING
-}	t_directions;
-
-typedef enum e_parser_status
-{
-	ERROR,
-	BUFFER,
-	NO_BUFFER
-}	t_parser_status;
-
-typedef struct s_dpoint
-{
-	double	x;
-	double	y;
-}	t_dpoint;
-
-typedef struct s_ipoint
-{
-	int	x;
-	int	y;
-}	t_ipoint;
 
 typedef struct s_sprite
 {
@@ -106,8 +82,32 @@ typedef struct s_sprite
 	t_image		img;
 	double		dist;
 	bool		status;
-	//t_image		img_b;
 }	t_sprite;
+
+typedef struct s_draw
+{
+	int		height;
+	int		draw_start;
+	int		draw_end;
+	int		tex_x;
+	double	step;
+	double	texture_pos;
+}	t_draw;
+
+typedef struct s_door
+{
+	int				id;
+	t_door_status	status;
+	t_image			current;
+	t_ipoint		tile;
+	double			timer;
+	int				move;
+	t_ipoint		door_tile;
+	double			door_dist;
+	double			wall_hit;
+	int				door_side;
+	t_draw			draw;
+}	t_door;
 
 typedef struct s_raycast
 {
@@ -142,6 +142,13 @@ typedef struct s_raycast
 	t_image			south_texture;
 	t_image			east_texture;
 	t_image			west_texture;
+	t_image			grab_go;
+	bool			hit_door; //door
+	int				door_increment;  //door
+	t_ipoint		doors_found[10]; //door
+	t_image			door_open; //door
+	t_image			door_closed; //door
+	t_image			doors[13]; //door
 	t_image			sprite_still;
 	t_image			sprite_move;
 	t_image			sprite_eat;
@@ -179,15 +186,13 @@ typedef struct s_cub
 	t_map		*map;
 	char		*filepath;
 	int			fd;
-	bool		started; //screen
-	bool		leaving; //screen
-	bool		action; //action
-	int			amount_action; //action
-	double		duration_action; //action
-	t_screen	*start_screen; //screen
-	t_screen	*end_screen; //screen
-	size_t		last_time; //screen
-	int			current_screen; //screen
+	bool		started; 
+	bool		leaving;
+	bool		action;
+	int			amount_action;
+	double		duration_action;
+	t_screen	screens;
+	size_t		last_time;
 	double		frame_time;
 	t_raycast	*raycast;
 }	t_cub;
@@ -205,53 +210,6 @@ void			ft_handle_error(const char *error_msg, t_cub *cub);
 
 void			ft_clean_game(t_cub *cub);
 void			ft_free_vector(char **vector);
-
-/* PARSER */
-
-/* ft_loadmap_bonus.c */
-
-void			ft_load_map(char *const filepath, t_cub *cub);
-
-/* ft_map_parser_bonus.c */
-
-void			ft_map_parser(int fd, t_cub *cub, int i);
-
-/* ft_map_parser_utils_bonus.c */
-
-char			*ft_buffer(char *buffer, char *line, int start, t_cub *cub);
-t_parser_status	ft_add_texture(char *line, t_cub *game, char *identifier, \
-	t_directions direction);
-char			**ft_safe_split(char *buffer, t_cub *cub);
-
-/* ft_map_parser_utils_bonus_2.c */
-
-void			ft_count_sprites(t_cub *cub, char *line);
-bool			is_valid_sprite(char *line, char *previous_line, int x);
-void			ft_set_sprite(t_cub *cub, int x, int y);
-
-/* parser_utils_bonus.c */
-
-bool			ft_access(char *filepath);
-bool			ft_is_ext(char *filename, char *ext);
-int				ft_isspace(int c, int mode);
-char			*ft_strip(char *str, int mode);
-void			ft_print_map(t_map *map); //debug
-
-/* ft_fill_matrix_bonus.c */
-
-void			ft_fill_matrix(t_cub *cub);
-
-/* ft_matrix_parser_bonus.c */
-
-int				ft_isnumeric(char *nbr);
-void			ft_matrix_parser(t_cub *cub, char **matrix);
-
-/* ft_matrix_parser_utils_bonus.c */
-
-int				ft_arraytohex(unsigned char *rgb);
-int				ft_is_empty(char *line);
-bool			ft_valid_wall(char *line, char *previous_line, \
-	bool first_or_last);
 
 /* ft_handle_img_bonus.c */
 
@@ -298,7 +256,25 @@ void			ft_paint_ray(t_cub *cub, int w, t_image texture);
 
 /* ft_dda_bonus.c */
 
-void			ft_dda(t_raycast *ray, t_map *map, bool *hit_wall);
+void			ft_dda(t_raycast *ray, t_map *map, bool *hit_wall, t_cub *cub, bool fov);
+
+/* ft_update_doors.c */
+
+void			ft_update_doors(t_cub * cub);
+void			ft_open_or_close_door(t_cub *cub);
+
+/* ft_render_doors.c */
+
+int				ft_find_door_index(t_cub *cub, int x, int y);
+void			ft_render_doors(t_cub *cub, int w);
+void			ft_init_doors(t_cub *cub);
+void			ft_clean_doors(t_cub *cub);
+
+/* ft_paint_ray_door.c */
+
+void			ft_paint_ray_door(t_cub *cub, int w, t_door door);
+
+int				ft_render_screen(t_cub *cub);
 
 /* ft_draw_sprite.c */
 

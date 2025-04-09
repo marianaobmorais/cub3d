@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_render_minimap_utils_bonus.c                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/01 23:11:23 by joneves-          #+#    #+#             */
+/*   Updated: 2025/04/02 20:59:15 by joneves-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/cub3d_bonus.h"
 
 /**
@@ -65,7 +77,6 @@ void	ft_set_limit_x(t_cub *cub, int matrix_height)
 		cub->hud->start_x -= (cub->hud->end_x - matrix_height + 1);
 		if (cub->hud->start_x < 0)
 			cub->hud->start_x = 0;
-		//cub->hud->end_x = matrix_height - 1;
 	}
 }
 
@@ -94,10 +105,22 @@ void	ft_set_limit_y(t_cub *cub, int matrix_width)
 		cub->hud->start_y -= (cub->hud->end_y - matrix_width + 1);
 		if (cub->hud->start_y < 0)
 			cub->hud->start_y = 0;
-		//cub->hud->end_y = matrix_width - 1;
 	}
 }
 
+/**
+ * @brief Renders a player icon onto the image at the specified position.
+ *
+ * This function draws a small square (3x3 pixels) representing the player 
+ * at the given coordinates (x, y) on the specified image. The square is 
+ * filled with the provided color. It is primarily used for visualizing the 
+ * player's position on the screen or in other image buffers.
+ *
+ * @param img The image where the player icon will be drawn.
+ * @param x The x-coordinate of the top-left corner of the player icon.
+ * @param y The y-coordinate of the top-left corner of the player icon.
+ * @param color The color used to fill the player icon (usually a single color)
+ */
 void	ft_put_player(t_image *img, int x, int y, int color)
 {
 	int	offset;
@@ -107,9 +130,6 @@ void	ft_put_player(t_image *img, int x, int y, int color)
 
 	i = 0;
 	size = 3;
-	// size = 5;
-	// x *= size;
-	// y *= size;
 	while (i < size)
 	{
 		j = 0;

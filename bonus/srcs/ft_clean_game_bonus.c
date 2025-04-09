@@ -27,36 +27,6 @@ void	ft_free_vector(char **vector)
 }
 
 /**
- * @brief Cleans up and frees memory allocated for the map structure.
- * 
- * Frees all dynamically allocated fields within the map structure (t_map), 
- * including the matrix, textures, and RGB values for the floor and ceiling. 
- * This function ensures proper deallocation to prevent memory leaks.
- * 
- * @param map A pointer to the map structure (t_map) to be cleaned up. 
- *            The structure itself is not freed.
- */
-static void	ft_clean_map(t_map *map)
-{
-	if (map->matrix)
-		ft_free_vector(map->matrix);
-	if (map->matrix_tmp)
-		ft_free_vector(map->matrix_tmp);
-	if (map->north_texture)
-		free(map->north_texture);
-	if (map->south_texture)
-		free(map->south_texture);
-	if (map->west_texture)
-		free(map->west_texture);
-	if (map->east_texture)
-		free(map->east_texture);
-	if (map->ceiling_rgb)
-		free(map->ceiling_rgb);
-	if (map->floor_rgb)
-		free(map->floor_rgb);
-}
-
-/**
  * @brief Frees all HUD-related images.
  *
  * Destroys images associated with the HUD (e.g., watch, viewmodel, bread, empty
@@ -128,6 +98,7 @@ void	ft_clean_game(t_cub *cub)
 			close(cub->fd); //not sure if it's necessary
 		if (cub->filepath)
 			free(cub->filepath);
+		ft_clean_doors(cub);
 		if (cub->map)
 		{
 			ft_clean_map(cub->map);
@@ -139,25 +110,9 @@ void	ft_clean_game(t_cub *cub)
 				mlx_destroy_image(cub->mlx, cub->image->img_ptr);
 			free(cub->image);
 		}
-		if (cub->hud) //bonus
-		{
+		if (cub->hud)
 			ft_clean_hud(cub);
-			free(cub->hud);
-		}
-		if (cub->start_screen) //bonus
-		{
-			if (cub->start_screen->img)
-				mlx_destroy_image(cub->mlx, cub->start_screen->img);
-			free(cub->start_screen->paths);
-			free(cub->start_screen);
-		}
-		if (cub->end_screen) //bonus
-		{
-			free(cub->end_screen->paths);
-			if (cub->end_screen->img)
-				mlx_destroy_image(cub->mlx, cub->end_screen->img);
-			free(cub->end_screen);
-		}
+		ft_clean_screens(cub);
 		if (cub->raycast)
 		{
 			ft_clean_raycast(cub);

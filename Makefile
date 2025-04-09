@@ -51,6 +51,9 @@ B_SRCS = $(BONUS_DIR)/main_bonus.c \
 	$(BONUS_DIR)/raycasting/ft_render_walls_bonus.c \
 	$(BONUS_DIR)/raycasting/ft_render_sprites_bonus.c \
 	$(BONUS_DIR)/raycasting/ft_draw_sprite.c \
+	$(BONUS_DIR)/raycasting/ft_render_doors_bonus.c \
+	$(BONUS_DIR)/raycasting/ft_paint_ray_door_bonus.c \
+	$(BONUS_DIR)/raycasting/ft_update_doors_bonus.c \
 	$(BONUS_DIR)/raycasting/ft_paint_ray_bonus.c \
 	$(BONUS_DIR)/raycasting/ft_dda_bonus.c \
 	$(BONUS_DIR)/hud/ft_render_minimap_on_hud_bonus.c \
@@ -59,8 +62,9 @@ B_SRCS = $(BONUS_DIR)/main_bonus.c \
 	$(BONUS_DIR)/hud/ft_render_minimap_utils_bonus.c \
 	$(BONUS_DIR)/hud/ft_render_source_on_hud_bonus.c \
 	$(BONUS_DIR)/hud/ft_render_action_bonus.c \
+	$(BONUS_DIR)/hud/ft_render_viewmodel_bonus.c \
 	$(BONUS_DIR)/hud/screens_bonus.c \
-	$(BONUS_DIR)/hud/stuffs_bonus.c \
+	$(BONUS_DIR)/hud/hud_utils_bonus.c \
 
 CC = cc
 CFLAGS = -Wall -Werror -Wextra -g -o3

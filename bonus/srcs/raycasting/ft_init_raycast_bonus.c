@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 20:27:19 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/02 18:56:05 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/04/06 19:27:31 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,8 @@ void	ft_init_raycast(t_cub *cub)
 	cub->raycast->player_tile.y = cub->map->player_squ_y;
 	cub->raycast->player_pos.x = (double)cub->map->player_squ_x + 0.5;
 	cub->raycast->player_pos.y = (double)cub->map->player_squ_y + 0.5;
+	cub->raycast->hit_door = false;
+	cub->raycast->door_increment = -1;
 	if (cub->map->direction == NORTH)
 		ft_init_north(cub->raycast);
 	if (cub->map->direction == SOUTH)

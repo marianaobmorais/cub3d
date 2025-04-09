@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_render_source_on_hud_bonus.c                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/01 23:09:55 by joneves-          #+#    #+#             */
+/*   Updated: 2025/04/01 23:11:07 by joneves-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/cub3d_bonus.h"
 
 /**
@@ -12,24 +24,24 @@
  * @param pos_x X-coordinate where the source image will be drawn on the HUD.
  * @param pos_y Y-coordinate where the source image will be drawn on the HUD.
  */
-void	ft_render_source_on_hud(t_cub *cub, t_image *source, int pos_x, int pos_y)
+void	ft_render_source_on_hud(t_cub *cub, t_image *src, int pos_x, int pos_y)
 {
-	//update brief
 	int	source_color;
 	int	default_color;
 	int	y;
 	int	x;
 
 	y = 0;
-	while (y < source->height)
+	while (y < src->height)
 	{
 		x = 0;
-		while (x < source->width)
+		while (x < src->width)
 		{
-			source_color = ft_get_pixel_color(source, x, y, cub);
+			source_color = ft_get_pixel_color(src, x, y, cub);
 			if (source_color == IGNORE)
 			{
-				default_color = ft_get_pixel_color(cub->image, x + pos_x, y + pos_y, cub);
+				default_color = ft_get_pixel_color(cub->image, x + pos_x, \
+					y + pos_y, cub);
 				ft_put_pixel(cub->image, x + pos_x, y + pos_y, default_color);
 			}
 			else
@@ -39,4 +51,3 @@ void	ft_render_source_on_hud(t_cub *cub, t_image *source, int pos_x, int pos_y)
 		y++;
 	}
 }
-

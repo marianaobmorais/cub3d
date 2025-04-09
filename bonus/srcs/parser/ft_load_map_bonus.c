@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 18:55:47 by joneves-          #+#    #+#             */
-/*   Updated: 2025/03/31 15:03:53 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/04/05 16:14:21 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,36 @@ static void	ft_init_map(t_cub *cub)
 	cub->map->player_squ_x = -1;
 	cub->map->player_squ_y = -1;
 	cub->map->direction = -1;
+}
+
+/**
+ * @brief Cleans up and frees memory allocated for the map structure.
+ * 
+ * Frees all dynamically allocated fields within the map structure (t_map), 
+ * including the matrix, textures, and RGB values for the floor and ceiling. 
+ * This function ensures proper deallocation to prevent memory leaks.
+ * 
+ * @param map A pointer to the map structure (t_map) to be cleaned up. 
+ *            The structure itself is not freed.
+ */
+void	ft_clean_map(t_map *map)
+{
+	if (map->matrix)
+		ft_free_vector(map->matrix);
+	if (map->matrix_tmp)
+		ft_free_vector(map->matrix_tmp);
+	if (map->north_texture)
+		free(map->north_texture);
+	if (map->south_texture)
+		free(map->south_texture);
+	if (map->west_texture)
+		free(map->west_texture);
+	if (map->east_texture)
+		free(map->east_texture);
+	if (map->ceiling_rgb)
+		free(map->ceiling_rgb);
+	if (map->floor_rgb)
+		free(map->floor_rgb);
 }
 
 /**
@@ -80,16 +110,15 @@ bool	ft_is_ext(char *filename, char *ext)
 }
 
 /**
- * @brief Loads and parses the map file for the game.
+ * @brief Loads and processes a map from the given file path.
  *
- * This function initializes the file path, checks if the file extension is
- * correct (".cub"), and attempts to open the map file. It then initializes
- * the map structure, parses the map data, processes the map matrix, and
- * calculates the ceiling and floor colors in hexadecimal. Finally, it closes
- * the file.
+ * This function initializes the map structure, validates the file extension, 
+ * and attempts to open the specified map file. It then parses the map data, 
+ * allocates memory for sprites and doors, processes the map matrix, and 
+ * converts RGB values to hexadecimal format.
  *
  * @param filepath The path to the map file.
- * @param cub The main structure containing the map and game-related data.
+ * @param cub The main game structure that will store the map data.
  */
 void	ft_load_map(char *const filepath, t_cub *cub)
 {
@@ -107,7 +136,10 @@ void	ft_load_map(char *const filepath, t_cub *cub)
 	ft_map_parser(cub->fd, cub, i);
 	cub->map->sprite = malloc(sizeof(t_sprite) * cub->map->sprite_count);
 	if (!cub->map->sprite)
-		ft_handle_error("malloc: cub->map->sprites", cub);
+		ft_handle_error("Map: cub->map->sprite", cub);
+	cub->map->door = malloc(sizeof(t_door) * cub->map->door_count);
+	if (!cub->map->door)
+		ft_handle_error("Map: cub->map->door", cub);
 	ft_matrix_parser(cub, cub->map->matrix);
 	cub->map->ceiling_hex = ft_arraytohex(cub->map->ceiling_rgb);
 	cub->map->floor_hex = ft_arraytohex(cub->map->floor_rgb);

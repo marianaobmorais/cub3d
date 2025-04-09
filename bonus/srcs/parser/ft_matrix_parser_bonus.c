@@ -6,27 +6,26 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 18:55:25 by joneves-          #+#    #+#             */
-/*   Updated: 2025/03/31 14:40:19 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/04/08 18:44:57 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d_bonus.h"
 
 /**
- * @brief Checks if a character is valid in the map configuration.
- * 
- * Validates if the given character is one of the following: wall ('1'), 
- * empty space ('0'), empty space (' '), or one of the player or direction 
- * markers ('S', 'N', 'E', 'W'). If the character is not one of these, the 
- * function returns false, indicating that the character is invalid for the 
- * map configuration. Otherwise, it returns true.
- * 
- * @param c The character to validate.
- * @return true if the character is valid, false otherwise.
+ * @brief Validates if a character is a valid map element.
+ *
+ * This function checks if the given character is one of the valid characters 
+ * allowed in the map layout. Valid characters include walls ('1'), empty spaces 
+ * ('0'), sprite ('S'), player orientations ('N', 'E', 'W'), doors ('D'), 
+ * and special items ('X').
+ *
+ * @param c The character to be validated.
+ *
+ * @return `true` if the character is valid, `false` otherwise.
  */
 static bool	ft_valid_char(char c)
 {
-	//update brief
 	if (c != '1' && c != '0' && c != ' ' && c != 'S' && c != 'N'
 		&& c != 'E' && c != 'W' && c != 'D' && c != 'X')
 		return (false);
@@ -70,6 +69,23 @@ static bool	ft_set_player(char c, t_cub *cub, int x, int y)
 	return (true);
 }
 
+/**
+ * @brief Checks if a line in the map is valid based on character rules and 
+ *        processes any players, sprites, or doors.
+ *
+ * This function validates each character in the line, ensuring it is a valid 
+ * map element. If the character represents a player, sprite, or door, the 
+ * function also checks if its position is valid and sets the corresponding 
+ * object in the map structure. Invalid characters or invalid positions for 
+ * sprites or doors will cause the function to return `false`.
+ *
+ * @param line The current line in the map.
+ * @param previous_line The previous line in the map for vertical validation.
+ * @param y The current position (index) of the line in the map.
+ * @param cub The main game structure containing the map data.
+ *
+ * @return `true` if the line is valid, `false` otherwise.
+ */
 static bool	ft_check_line(char *line, char *previous_line, int y, t_cub *cub)
 {
 	int	x;
@@ -79,46 +95,49 @@ static bool	ft_check_line(char *line, char *previous_line, int y, t_cub *cub)
 	{
 		if (!ft_valid_char(line[x]))
 			return (false);
-		if (line[x] == 'S' || line[x] == 'N' || line[x] == 'E'
-			|| line[x] == 'W')
-		{
+		if (ft_is_player(line[x]))
 			if (!ft_set_player(line[x], cub, x, y))
 				return (false);
-		}
 		if (line[x] == 'X')
 		{
 			if (!is_valid_sprite(line, previous_line, x))
 				return (false);
 			ft_set_sprite(cub, x, y);
 		}
+		if (line[x] == 'D')
+			ft_set_door(cub, x, y);
 		x++;
 	}
 	return (true);
 }
 
-/**
- * @brief Checks if a string contains only numeric characters.
- * 
- * Verifies whether the given string consists exclusively of digits (0-9). 
- * The function iterates over each character in the string and checks if each 
- * one is a valid digit. If any non-digit character is found, the function 
- * returns false.
- * 
- * @param nbr The string to check, as a null-terminated char array.
- * @return 1 if the string is entirely numeric, 0 otherwise.
- */
-int	ft_isnumeric(char *nbr)
+static bool	is_valid_door(t_cub *cub, char **matrix)
 {
-	int	i;
+  //add brief
+	t_ipoint	tile;
+	int			openings;
+	int			i;
 
 	i = 0;
-	while (nbr[i])
+	while (i < cub->map->door_count)
 	{
-		if (!ft_isdigit(nbr[i]))
-			return (0);
+		tile.x = cub->map->door[i].tile.x;
+		tile.y = cub->map->door[i].tile.y;
+		openings = 0;
+		if (matrix[tile.x + 1][tile.y] == '0')
+			openings++;
+		if (matrix[tile.x - 1][tile.y] == '0')
+			openings++;
+		if (matrix[tile.x][tile.y + 1] == '0')
+			openings++;
+		if (matrix[tile.x][tile.y - 1] == '0')
+			openings++;
+		printf("[%d] y %d x %d -> openings %d \n", i, tile.y, tile.x, openings);
+		if (openings != 1)
+			return (false);
 		i++;
 	}
-	return (1);
+	return (true);
 }
 
 /**
@@ -156,6 +175,8 @@ void	ft_matrix_parser(t_cub *cub, char **matrix)
 			ft_handle_error(MSG_MAP, cub);
 		y++;
 	}
+	if (!is_valid_door(cub, matrix))
+		ft_handle_error(MSG_MAP, cub);
 	if (cub->map->player_squ_x == -1)
 		ft_handle_error(MSG_MAP, cub);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_paint_ray_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 20:09:35 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/03/31 19:27:01 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/04/05 15:50:08 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

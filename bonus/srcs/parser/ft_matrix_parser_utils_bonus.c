@@ -6,30 +6,48 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 18:55:34 by joneves-          #+#    #+#             */
-/*   Updated: 2025/03/27 14:55:42 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/04/08 17:52:28 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d_bonus.h"
 
+/**
+ * @brief Validates if a zero ('0') character at position (y) in a line is 
+ *        correctly placed based on surrounding characters.
+ *
+ * This function checks if the '0' character is surrounded by valid elements 
+ * such as walls ('1'), players, doors ('D'), or other valid elements. It 
+ * also ensures that '0' characters are not adjacent to invalid positions.
+ * Special conditions are applied when the previous line contains a door ('D').
+ *
+ * @param line The current line in the map.
+ * @param previous_line The previous line in the map for vertical validation.
+ * @param y The current position (index) in the line.
+ *
+ * @return `true` if the '0' is valid, `false` otherwise.
+ */
 static bool	is_valid_zero(char *line, char *previous_line, int y)
 {
-	//update brief
-	if (previous_line)
+	if (previous_line && previous_line[y])
 	{
-		if (!previous_line[y] || previous_line[y] == ' ')
-		{
+		if (previous_line[y] == ' ')
 			return (false);
+		if (previous_line[y] == 'D')
+		{
+			if (previous_line[y - 1] != '1' || previous_line[y + 1] != '1')
+				return (false);
 		}
 	}
-	if ((y > 0 && (line[y - 1] == '0' || line[y - 1] == '1'
-				|| line[y - 1] == 'S' || line[y - 1] == 'E'
-				|| line[y - 1] == 'W' || line[y - 1] == 'N'
-				|| line[y - 1] == 'D' || line[y - 1] == 'X'))
-		&& (line[y + 1] == '0' || line[y + 1] == '1'
-			|| line[y + 1] == 'S' || line[y + 1] == 'E'
-			|| line[y + 1] == 'W' || line[y + 1] == 'N'
-			|| line[y + 1] == 'D' || line[y + 1] == 'X'))
+	if ((y > 0
+			&& (line[y - 1] == '0'
+				|| line[y - 1] == '1'
+				|| ft_is_player(line[y - 1]) || line[y - 1] == 'D'
+				|| line[y - 1] == 'X'))
+		&& (line[y + 1] == '0'
+			|| line[y + 1] == '1' || ft_is_player(line[y + 1])
+			|| line[y + 1] == 'D'
+			|| line[y + 1] == 'X'))
 	{
 		return (true);
 	}
@@ -112,6 +130,43 @@ static bool	is_valid_line_edges(char *line, bool first_or_last)
 }
 
 /**
+ * @brief Validates if a door ('D') is correctly placed in relation to walls 
+ *        and players.
+ *
+ * This function ensures that when a door is found in the previous line, 
+ * it is surrounded by walls ('0') or players ('P') in the current line. 
+ * The door should be adjacent to valid positions (walls or players) for 
+ * it to be considered valid.
+ *
+ * @param line The current line in the map.
+ * @param previous_line The previous line in the map for vertical validation.
+ * @param y The current position (index) in the line.
+ *
+ * @return `true` if the door is valid, `false` otherwise.
+ */
+bool	is_valid_wall_door(char *line, char *previous_line, int y)
+{
+	if (previous_line && previous_line[y])
+	{
+		if (previous_line[y] == 'D')
+		{
+			if ((previous_line[y - 1] == '0' || ft_is_player(line[y - 1])) && previous_line[y + 1] != '1')
+				return (false);
+			if ((previous_line[y + 1] == '0' || ft_is_player(line[y + 1])) && previous_line[y - 1] != '1')
+				return (false);
+
+
+
+				
+			// if ((previous_line[y - 1] != '0' && !ft_is_player(line[y - 1]))
+			// 	|| (previous_line[y + 1] != '0' && !ft_is_player(line[y + 1])))
+			// 	return (false);
+		}
+	}
+	return (true);
+}
+
+/**
  * @brief Validates a map wall line for proper structure and characters.
  * 
  * Checks whether a given line of a map wall is valid. It ensures that the 
@@ -136,43 +191,16 @@ bool	ft_valid_wall(char *line, char *previous_line, bool first_or_last)
 	while (line[y])
 	{
 		if (line[y] == '0')
-		{
 			if (y == 0 || line[y + 1] == '\0'
 				|| !is_valid_zero(line, previous_line, y))
 				return (false);
-		}
-		else if (line[y] == ' ')
-		{
+		if (line[y] == ' ')
 			if (!is_valid_space(line, previous_line, y))
 				return (false);
-		}
+		if (line[y] == '1')
+			if (!is_valid_wall_door(line, previous_line, y))
+				return (false);
 		y++;
 	}
 	return (true);
-}
-
-/**
- * @brief Checks if a given string is empty or consists only of whitespace.
- * 
- * Determines whether the input string is NULL, empty, or contains only 
- * whitespace characters. The function creates a stripped copy of the input 
- * string to perform the check, ensuring the original string remains unaltered.
- * 
- * @param line The string to check, as a null-terminated char array. 
- *             Can be NULL.
- * @return 1 if the string is NULL, empty, or consists only of whitespace, 
- *         0 otherwise.
- */
-int	ft_is_empty(char *line)
-{
-	char	*tmp;
-
-	if (!line)
-		return (1);
-	tmp = ft_strip(ft_strdup(line), 0);
-	if (!tmp)
-		return (1);
-	if (tmp[0] == '\0')
-		return (free(tmp), 1);
-	return (free(tmp), 0);
 }
