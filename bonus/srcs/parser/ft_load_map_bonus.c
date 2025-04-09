@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_load_map_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 18:55:47 by joneves-          #+#    #+#             */
-/*   Updated: 2025/03/30 16:54:25 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/03/31 15:03:53 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,20 +28,10 @@ static void	ft_init_map(t_cub *cub)
 	cub->map = (t_map *) malloc(sizeof(t_map));
 	if (!cub->map)
 		ft_handle_error("Malloc: t_map", cub);
-	cub->map->matrix = NULL;
-	cub->map->matrix_tmp = NULL;
-	cub->map->north_texture = NULL;
-	cub->map->south_texture = NULL;
-	cub->map->west_texture = NULL;
-	cub->map->east_texture = NULL;
-	cub->map->floor_rgb = NULL;
-	cub->map->ceiling_rgb = NULL;
+	ft_memset(cub->map, 0, sizeof(t_map));
 	cub->map->player_squ_x = -1;
 	cub->map->player_squ_y = -1;
 	cub->map->direction = -1;
-	cub->map->sprites = NULL;
-	cub->map->sprite_count = 0;
-	cub->map->sprites_increment = 0;
 }
 
 /**
@@ -115,9 +105,9 @@ void	ft_load_map(char *const filepath, t_cub *cub)
 		ft_handle_error(NULL, cub);
 	ft_init_map(cub);
 	ft_map_parser(cub->fd, cub, i);
-	cub->map->sprites = malloc(sizeof(t_sprite) * cub->map->sprite_count);
-	if (!cub->map->sprites)
-		ft_handle_error("Map: cub->map->sprites", cub);
+	cub->map->sprite = malloc(sizeof(t_sprite) * cub->map->sprite_count);
+	if (!cub->map->sprite)
+		ft_handle_error("malloc: cub->map->sprites", cub);
 	ft_matrix_parser(cub, cub->map->matrix);
 	cub->map->ceiling_hex = ft_arraytohex(cub->map->ceiling_rgb);
 	cub->map->floor_hex = ft_arraytohex(cub->map->floor_rgb);

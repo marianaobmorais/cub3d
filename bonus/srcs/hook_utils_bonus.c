@@ -40,8 +40,6 @@ void	ft_rotate(t_cub *cub, double angle)
 		- cub->raycast->camera_plane.y * sin(angle);
 	cub->raycast->camera_plane.y = old_plane_x * sin(angle)
 		+ cub->raycast->camera_plane.y * cos(angle);
-	mlx_mouse_move(cub->mlx, cub->window, WIDTH / 2, HEIGHT / 2); //testing
-
 }
 
 /**
@@ -65,23 +63,28 @@ static void	ft_manage_movements(int keysym, t_cub *cub)
 		ft_rotate(cub, -cub->raycast->rotate_speed);
 	tmp_x = cub->raycast->player_pos.x;
 	tmp_y = cub->raycast->player_pos.y;
-	if ((keysym == XK_A || keysym == XK_a))
+	if (keysym == XK_A || keysym == XK_a)
 		ft_move_left(cub, &tmp_x, &tmp_y);
-	if ((keysym == XK_D || keysym == XK_d))
+	if (keysym == XK_D || keysym == XK_d)
 		ft_move_right(cub, &tmp_x, &tmp_y);
-	if ((keysym == XK_W || keysym == XK_w))
+	if (keysym == XK_W || keysym == XK_w)
 		ft_move_up(cub, &tmp_x, &tmp_y);
-	if ((keysym == XK_S || keysym == XK_s))
+	if (keysym == XK_S || keysym == XK_s)
 		ft_move_down(cub, &tmp_x, &tmp_y);
 	if ((keysym == XK_Control_R || keysym == XK_Control_L) && cub->amount_action < BREAD_3 + 1)
 	{
+		cub->raycast->sprite_action = true;
 		cub->action = true;
 		cub->amount_action++;
 	}
-	if (tmp_x >= 0 && tmp_x < cub->map->height
-		&& tmp_y >= 0 && tmp_y < cub->map->width
-		&& cub->map->matrix[(int)tmp_x][(int)tmp_y] != '1')
-		ft_update_position(cub, tmp_x, tmp_y);
+	ft_update_position(cub, tmp_x, tmp_y);
+	if (keysym == XK_M || keysym == XK_m)
+	{
+		if (!cub->raycast->mouse_status)
+			cub->raycast->mouse_status = true;
+		else
+			cub->raycast->mouse_status = false;
+	}
 }
 
 static void	ft_manage_exit(int keysym, t_cub *cub)

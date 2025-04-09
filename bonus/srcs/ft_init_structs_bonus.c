@@ -3,109 +3,88 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init_structs_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:32:10 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/03/30 16:53:15 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/04/09 18:25:48 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d_bonus.h"
 
-
+/**
+ * @brief Loads an XPM image and initializes a t_image structure.
+ *
+ * Uses MiniLibX functions to load an XPM file from the specified path into
+ * an image structure. It also retrieves the image's address for pixel access.
+ * On failure, it triggers an error handler.
+ *
+ * @param cub Pointer to the main game structure, used for MLX context and error
+ *        handling.
+ * @param img Pointer to the t_image structure to initialize.
+ * @param path Path to the XPM image file to load.
+ */
 void	ft_init_xpm_image(t_cub *cub, t_image *img, char *path)
 {
 	ft_memset(img, 0, sizeof(t_image));
-	(img)->img_ptr = mlx_xpm_file_to_image(cub->mlx, path, 
-		&(img)->width, &(img)->height);
-	if (!(img)->img_ptr)
+	img->img_ptr = mlx_xpm_file_to_image(cub->mlx, path, \
+		&img->width, &img->height);
+	if (!img->img_ptr)
 		ft_handle_error("mlx_xpm_file_to_image", cub);
-	(img)->addr = mlx_get_data_addr((img)->img_ptr, &(img)->bpp, \
-		&(img)->line_len, &(img)->endian);
-	if (!(img)->addr)
+	img->addr = mlx_get_data_addr(img->img_ptr, &img->bpp, \
+		&img->line_len, &img->endian);
+	if (!img->addr)
 		ft_handle_error("mlx_get_data_addr", cub);
 }
 
-/* static  */void	ft_init_sprite(t_cub *cub)
+/**
+ * @brief Initializes sprite textures and positions.
+ *
+ * Loads XPM images for sprite animation states (still, move, eat) and assigns
+ * the default texture (still) to all map sprites. Also initializes each
+ * sprite's position by centering it within its tile coordinates.
+ *
+ * @param cub Pointer to the main game structure containing raycasting and map
+ *        data.
+ */
+static void	ft_init_sprites(t_cub *cub)
 {
-	//add brief
 	t_raycast	*ray;
 	int			i;
 
+	ray = cub->raycast;
+	ft_init_xpm_image(cub, &ray->sprite_still, "assets/textures/sprite_a0.xpm");
+	ft_init_xpm_image(cub, &ray->sprite_move, "assets/textures/sprite_a1.xpm");
+	ft_init_xpm_image(cub, &ray->sprite_eat, "assets/textures/sprite_b0.xpm");
 	i = 0;
-	ray = cub->raycast;
-	ft_memset(&ray->sprite[i], 0, sizeof(t_image));
-	ray->sprite[i].img_ptr = mlx_xpm_file_to_image(cub->mlx, "assets/textures/sprite_1.xpm", &ray->sprite[i].width, &ray->sprite[i].height);
-	ray->sprite[i].addr = mlx_get_data_addr(ray->sprite[i].img_ptr, &ray->sprite[i].bpp, &ray->sprite[i].line_len, &ray->sprite[i].endian);
-	if (!ray->sprite[i].img_ptr || !ray->sprite[i].addr)
-		ft_handle_error("problem loading sprite", cub); //rephrase later
+	while (i < cub->map->sprite_count)
+	{
+		cub->map->sprite[i].img = cub->raycast->sprite_still;
+		cub->map->sprite[i].pos.x = cub->map->sprite[i].tile.x + 0.5;
+		cub->map->sprite[i].pos.y = cub->map->sprite[i].tile.y + 0.5;
+		i++;
+	}
 }
 
 /**
- * @brief Retrieves and stores texture memory addresses.
+ * @brief Initializes wall textures from XPM files.
  *
- * This function initializes the memory addresses for the north, south, east, 
- * and west textures using `mlx_get_data_addr`. If any texture address retrieval
- * fails, it triggers an error handling function.
+ * Loads wall texture images (north, south, east, and west) using the provided
+ * file paths from the map structure. Each texture is stored in the
+ * corresponding raycast texture slot.
  *
- * @param cub Pointer to the main game structure containing raycasting data.
- */
-static void	ft_get_img_addr(t_cub *cub)
-{
-	t_raycast	*ray;
-
-	ray = cub->raycast;
-	ray->north_texture.addr = mlx_get_data_addr(ray->north_texture.img_ptr,
-			&ray->north_texture.bpp, &ray->north_texture.line_len,
-			&ray->north_texture.endian);
-	ray->south_texture.addr = mlx_get_data_addr(ray->south_texture.img_ptr,
-			&ray->south_texture.bpp, &ray->south_texture.line_len,
-			&ray->south_texture.endian);
-	ray->east_texture.addr = mlx_get_data_addr(ray->east_texture.img_ptr,
-			&ray->east_texture.bpp, &ray->east_texture.line_len,
-			&ray->east_texture.endian);
-	ray->west_texture.addr = mlx_get_data_addr(ray->west_texture.img_ptr,
-			&ray->west_texture.bpp, &ray->west_texture.line_len,
-			&ray->west_texture.endian);
-	if (!ray->north_texture.addr || !ray->south_texture.addr
-		|| !ray->east_texture.addr || !ray->west_texture.addr)
-		ft_handle_error("texture.addr", cub);
-}
-
-/**
- * @brief Loads texture images for the walls and initializes texture data.
- *
- * This function loads texture images from XPM files and initializes the
- * corresponding texture structures. It also verifies that all images are 
- * loaded correctly before retrieving their memory addresses.
- *
- * @param cub Pointer to the main game structure containing texture data.
+ * @param cub Pointer to the main game structure containing map data and
+ *        raycasting context.
  */
 static void	ft_init_wall_texture(t_cub *cub)
 {
 	t_raycast	*ray;
 
 	ray = cub->raycast;
-	ft_memset(&ray->north_texture, 0, sizeof(t_image));
-	ft_memset(&ray->south_texture, 0, sizeof(t_image));
-	ft_memset(&ray->east_texture, 0, sizeof(t_image));
-	ft_memset(&ray->west_texture, 0, sizeof(t_image));
-	ray->north_texture.img_ptr = mlx_xpm_file_to_image(cub->mlx,
-			cub->map->north_texture, &ray->north_texture.width,
-			&ray->north_texture.height);
-	ray->south_texture.img_ptr = mlx_xpm_file_to_image(cub->mlx,
-			cub->map->south_texture, &ray->south_texture.width,
-			&ray->south_texture.height);
-	ray->east_texture.img_ptr = mlx_xpm_file_to_image(cub->mlx,
-			cub->map->east_texture, &ray->east_texture.width,
-			&ray->east_texture.height);
-	ray->west_texture.img_ptr = mlx_xpm_file_to_image(cub->mlx,
-			cub->map->west_texture, &ray->west_texture.width,
-			&ray->west_texture.height);
-	if (!ray->north_texture.img_ptr || !ray->south_texture.img_ptr
-		|| !ray->east_texture.img_ptr || !ray->west_texture.img_ptr)
-		ft_handle_error("texture.img_ptr", cub);
-	ft_get_img_addr(cub);
+	ft_init_xpm_image(cub, &ray->north_texture, cub->map->north_texture);
+	ft_init_xpm_image(cub, &ray->south_texture, cub->map->south_texture);
+	ft_init_xpm_image(cub, &ray->east_texture, cub->map->east_texture);
+	ft_init_xpm_image(cub, &ray->west_texture, cub->map->west_texture);
 }
 
 /**
@@ -118,7 +97,7 @@ static void	ft_init_wall_texture(t_cub *cub)
  */
 static void	ft_init_image(t_cub *cub)
 {
-	cub->image = (t_image *)malloc(sizeof(t_image));
+	cub->image = (t_image *)malloc(sizeof(t_image)); //remove later?
 	if (!cub->image)
 		ft_handle_error("malloc: cub->image", cub);
 	ft_memset(cub->image, 0, sizeof(t_image));
@@ -151,14 +130,6 @@ t_cub	*ft_init_structs(t_cub *cub, char *argv)
 		ft_handle_error("malloc:cub", cub);
 	ft_memset(cub, 0, sizeof(t_cub));
 	ft_load_map(argv, cub);
-	// printf("quantidade %d\n", cub->map->amount_sprites); //debug
-	// int i = 0; //debug
-	// while (i < cub->map->amount_sprites) //debug
-	// {
-	// 	printf("[%d] -> x: %d y:%d\n", cub->map->sprites[i].id, cub->map->sprites[i].squ_pos.x, cub->map->sprites[i].squ_pos.y);
-	// 	i++;
-	// } //debug
-	ft_print_map(cub->map); //debug
 	cub->mlx = mlx_init();
 	if (!cub->mlx)
 		ft_handle_error("malloc: cub->mlx", cub);
@@ -166,10 +137,7 @@ t_cub	*ft_init_structs(t_cub *cub, char *argv)
 	ft_init_raycast(cub);
 	ft_init_wall_texture(cub);
 	ft_init_hud(cub);
-	cub->action = false; //action
-	cub->duration_action = 0; //action
-	cub->amount_action = 0; //action
-	ft_init_sprite(cub); //sprite
+	ft_init_sprites(cub);
 	ft_init_start_screen(cub);
 	ft_init_end_screen(cub);
 	cub->window = mlx_new_window(cub->mlx, WIDTH, HEIGHT, "cub3d");

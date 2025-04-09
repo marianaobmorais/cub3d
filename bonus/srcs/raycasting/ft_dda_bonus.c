@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_dda_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 19:30:11 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/03/30 16:59:04 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/04/07 15:50:19 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void	ft_dda(t_raycast *ray, t_map *map, bool *stop_loop)
 		ray->dist_to_y += ray->delta_dist_y;
 		ray->step_tile.y += ray->step.y;
 		ray->hit_side = 1;
-
 	}
 	if (ray->step_tile.x >= 0 && ray->step_tile.x < map->height
 		&& ray->step_tile.y >= 0 && ray->step_tile.y < map->width

@@ -56,6 +56,16 @@ static void	ft_clean_map(t_map *map)
 		free(map->floor_rgb);
 }
 
+/**
+ * @brief Frees all HUD-related images.
+ *
+ * Destroys images associated with the HUD (e.g., watch, viewmodel, bread, empty
+ * bread, breadcrumbs) using `mlx_destroy_image`, releasing MLX resources before
+ * the HUD is deallocated.
+ *
+ * @param cub Pointer to the main game structure containing the MLX instance and
+ * HUD data.
+ */
 void	ft_clean_hud(t_cub *cub)
 {
 	if (cub->hud->watch.img_ptr)
@@ -67,7 +77,35 @@ void	ft_clean_hud(t_cub *cub)
 	if (cub->hud->empty_bread.img_ptr)
 		mlx_destroy_image(cub->mlx, cub->hud->empty_bread.img_ptr);
 	if (cub->hud->breadcrumbs.img_ptr)
-			mlx_destroy_image(cub->mlx, cub->hud->breadcrumbs.img_ptr);
+		mlx_destroy_image(cub->mlx, cub->hud->breadcrumbs.img_ptr);
+}
+
+/**
+ * @brief Frees all images associated with the raycasting engine.
+ *
+ * Destroys all loaded wall and sprite textures using `mlx_destroy_image`.
+ * This function ensures that memory associated with MLX image buffers is
+ * properly released before freeing the `raycast` structure itself.
+ *
+ * @param cub Pointer to the main game structure containing the MLX instance and
+ *        raycast data.
+ */
+static void	ft_clean_raycast(t_cub *cub)
+{
+	if (cub->raycast->north_texture.img_ptr)
+		mlx_destroy_image(cub->mlx, cub->raycast->north_texture.img_ptr);
+	if (cub->raycast->south_texture.img_ptr)
+		mlx_destroy_image(cub->mlx, cub->raycast->south_texture.img_ptr);
+	if (cub->raycast->east_texture.img_ptr)
+		mlx_destroy_image(cub->mlx, cub->raycast->east_texture.img_ptr);
+	if (cub->raycast->west_texture.img_ptr)
+		mlx_destroy_image(cub->mlx, cub->raycast->west_texture.img_ptr);
+	if (cub->raycast->sprite_still.img_ptr)
+		mlx_destroy_image(cub->mlx, cub->raycast->sprite_still.img_ptr);
+	if (cub->raycast->sprite_move.img_ptr)
+		mlx_destroy_image(cub->mlx, cub->raycast->sprite_move.img_ptr);
+	if (cub->raycast->sprite_eat.img_ptr)
+		mlx_destroy_image(cub->mlx, cub->raycast->sprite_eat.img_ptr);
 }
 
 /**
@@ -87,7 +125,7 @@ void	ft_clean_game(t_cub *cub)
 	if (cub)
 	{
 		if (cub->fd != -1)
-			close(cub->fd);
+			close(cub->fd); //not sure if it's necessary
 		if (cub->filepath)
 			free(cub->filepath);
 		if (cub->map)
@@ -122,14 +160,7 @@ void	ft_clean_game(t_cub *cub)
 		}
 		if (cub->raycast)
 		{
-			if (cub->raycast->north_texture.img_ptr)
-				mlx_destroy_image(cub->mlx, cub->raycast->north_texture.img_ptr);
-			if (cub->raycast->south_texture.img_ptr)
-				mlx_destroy_image(cub->mlx, cub->raycast->south_texture.img_ptr);
-			if (cub->raycast->east_texture.img_ptr)
-				mlx_destroy_image(cub->mlx, cub->raycast->east_texture.img_ptr);
-			if (cub->raycast->west_texture.img_ptr)
-				mlx_destroy_image(cub->mlx, cub->raycast->west_texture.img_ptr);
+			ft_clean_raycast(cub);
 			free(cub->raycast);
 		}
 		if (cub->window)

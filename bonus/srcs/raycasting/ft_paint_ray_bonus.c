@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 20:09:35 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/03/22 19:30:42 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/03/31 19:27:01 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ft_paint_ray(t_cub *cub, int window_w, t_image texture)
 	double			step;
 	int				texture_w;
 	int				texture_h;
-	int				window_h;
+	int				tmp_h;
 	unsigned int	color;
 
 	texture_w = (int)(cub->raycast->wall_hit_value * (double)texture.width);
@@ -42,13 +42,13 @@ void	ft_paint_ray(t_cub *cub, int window_w, t_image texture)
 	step = 1.0 * ((double) texture.height / cub->raycast->wall_height);
 	cub->raycast->texture_pos = (cub->raycast->wall_start - HEIGHT / 2
 			+ cub->raycast->wall_height / 2) * step;
-	window_h = cub->raycast->wall_start;
-	while (window_h <= cub->raycast->wall_end)
+	tmp_h = cub->raycast->wall_start;
+	while (tmp_h <= cub->raycast->wall_end)
 	{
 		texture_h = (int)cub->raycast->texture_pos % texture.height;
 		cub->raycast->texture_pos += step;
 		color = ft_get_pixel_color(&texture, texture_w, texture_h, cub);
-		ft_put_pixel(cub->image, window_w, window_h, color);
-		window_h++;
+		ft_put_pixel(cub->image, window_w, tmp_h, color);
+		tmp_h++;
 	}
 }

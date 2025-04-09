@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:26:59 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/03/30 17:08:33 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/04/09 16:01:13 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,7 @@
 # define WIDTH 960
 # define HEIGHT 600
 # define MOVE_SPEED 8
-# define ROTATE_SPEED 4
-
+# define ROTATE_SPEED 3
 
 typedef struct s_hud	t_hud;
 
@@ -94,10 +93,20 @@ typedef struct s_sprite
 {
 	int			id;
 	int			order;
-	t_image		image;
+	int			screen_w;
+	int			relative_width;
+	int			relative_height;
+	int			start_h;
+	int			end_h;
+	int			start_w;
+	int			end_w;
 	t_ipoint	tile;
 	t_dpoint	pos;
+	t_dpoint	transform;
+	t_image		img;
 	double		dist;
+	bool		status;
+	//t_image		img_b;
 }	t_sprite;
 
 typedef struct s_raycast
@@ -108,8 +117,10 @@ typedef struct s_raycast
 	t_dpoint		ray_dir;
 	t_ipoint		player_tile;
 	t_ipoint		step;
-	t_ipoint		step_tile;//
+	t_ipoint		step_tile;
 	t_ipoint		mouse_pos;
+	bool			mouse_status;
+	bool			sprite_action;
 	double			move_speed;
 	double			rotate_speed;
 	double			factor;
@@ -120,6 +131,9 @@ typedef struct s_raycast
 	double			perp_wall_dist;
 	double			wall_hit_value;
 	double			texture_pos;
+	double			time;
+	double			eat_time;
+	double			mouse_time;
 	int				hit_side;
 	int				wall_height;
 	int				wall_start;
@@ -128,8 +142,9 @@ typedef struct s_raycast
 	t_image			south_texture;
 	t_image			east_texture;
 	t_image			west_texture;
-	t_image			sprite_a[4];
-	//t_image		sprite_b[4];
+	t_image			sprite_still;
+	t_image			sprite_move;
+	t_image			sprite_eat;
 	double			buffer[WIDTH]; //double check this
 }	t_raycast;
 
@@ -151,9 +166,8 @@ typedef struct s_map
 	int				height;
 	int				sprite_count;
 	int				sprites_increment;
-	t_sprite		*sprites;
-	t_directions	direction;
 	t_sprite		*sprite;
+	t_directions	direction;
 }	t_map;
 
 typedef struct s_cub
@@ -212,8 +226,8 @@ char			**ft_safe_split(char *buffer, t_cub *cub);
 /* ft_map_parser_utils_bonus_2.c */
 
 void			ft_count_sprites(t_cub *cub, char *line);
-bool			is_valid_pigeon(char *line, char *previous_line, int x);
-void			ft_set_pigeon(t_cub *cub, int x, int y);
+bool			is_valid_sprite(char *line, char *previous_line, int x);
+void			ft_set_sprite(t_cub *cub, int x, int y);
 
 /* parser_utils_bonus.c */
 
@@ -241,7 +255,7 @@ bool			ft_valid_wall(char *line, char *previous_line, \
 
 /* ft_handle_img_bonus.c */
 
-int			ft_handle_img(t_cub *cub);
+int				ft_handle_img(t_cub *cub);
 
 /* pixel_utils_bonus.c */
 
@@ -285,5 +299,9 @@ void			ft_paint_ray(t_cub *cub, int w, t_image texture);
 /* ft_dda_bonus.c */
 
 void			ft_dda(t_raycast *ray, t_map *map, bool *hit_wall);
+
+/* ft_draw_sprite.c */
+
+void			ft_draw_sprite(t_cub *cub, t_sprite sprite, int w);
 
 #endif //CUB3D_BONUS_H

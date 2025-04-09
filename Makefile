@@ -50,6 +50,7 @@ B_SRCS = $(BONUS_DIR)/main_bonus.c \
 	$(BONUS_DIR)/raycasting/ft_init_raycast_bonus.c \
 	$(BONUS_DIR)/raycasting/ft_render_walls_bonus.c \
 	$(BONUS_DIR)/raycasting/ft_render_sprites_bonus.c \
+	$(BONUS_DIR)/raycasting/ft_draw_sprite.c \
 	$(BONUS_DIR)/raycasting/ft_paint_ray_bonus.c \
 	$(BONUS_DIR)/raycasting/ft_dda_bonus.c \
 	$(BONUS_DIR)/hud/ft_render_minimap_on_hud_bonus.c \
@@ -61,9 +62,8 @@ B_SRCS = $(BONUS_DIR)/main_bonus.c \
 	$(BONUS_DIR)/hud/screens_bonus.c \
 	$(BONUS_DIR)/hud/stuffs_bonus.c \
 
-
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -g
+CFLAGS = -Wall -Werror -Wextra -g -o3
 MLXFLAGS = -L ./minilibx-linux -lmlx -Ilmlx -lXext -lX11 -lm -lz
 
 RM = rm -f

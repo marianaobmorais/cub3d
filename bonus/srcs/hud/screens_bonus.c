@@ -103,8 +103,8 @@ static void	ft_put_start_screen(t_cub *cub)
 {
 	if (cub->current_screen == 4)
 		cub->current_screen = 0;
-	if (cub->start_screen->img)
-		mlx_destroy_image(cub->mlx, cub->start_screen->img); //do we need this?
+	//if (cub->start_screen->img)
+	//	mlx_destroy_image(cub->mlx, cub->start_screen->img); //do we need this?
 	cub->start_screen->img = mlx_xpm_file_to_image(cub->mlx, \
 		cub->start_screen->paths[cub->current_screen], \
 		&cub->start_screen->width, \
@@ -142,7 +142,7 @@ int	ft_render_screen(t_cub *cub)
 		ft_handle_img(cub);
 		cub->last_time = now;
 	}
-	if (cub->action && cub->frame_time >= 0.016)
+	if (cub->started && cub->frame_time >= 0.016)
 	{
 		ft_render_action(cub);
 		cub->last_time = now;
