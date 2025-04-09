@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:32:10 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/07 15:03:34 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/04/09 18:00:52 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ static void	ft_init_sprites(t_cub *cub)
 	while (i < cub->map->sprite_count)
 	{
 		cub->map->sprite[i].img = cub->raycast->sprite_still;
-		cub->map->sprite[i].status = false;
 		cub->map->sprite[i].pos.x = cub->map->sprite[i].tile.x + 0.5;
 		cub->map->sprite[i].pos.y = cub->map->sprite[i].tile.y + 0.5;
 		i++;
