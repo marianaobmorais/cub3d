@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:26:59 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/07 16:34:21 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/04/09 16:01:13 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,7 @@ typedef struct s_raycast
 	double			texture_pos;
 	double			time;
 	double			eat_time;
+	double			mouse_time;
 	int				hit_side;
 	int				wall_height;
 	int				wall_start;
