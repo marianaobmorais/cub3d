@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 15:40:10 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/09 17:05:16 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/04/09 18:14:49 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ static void	ft_sort_sprites(t_map *map, t_raycast *ray)
 	while (count)
 	{
 		i = -1;
-		while (++i < count - 1) //double check this
+		while (++i < count - 1)
 		{
 			if (map->sprite[i].dist < map->sprite[i + 1].dist)
 			{
@@ -174,89 +174,3 @@ void	ft_render_sprites(t_cub *cub)
 		i++;
 	}
 }
-
-
-// static int	ft_get_sprite_info(t_cub *cub, t_sprite *sprite)
-// {
-// 	double	relative_pos_x = sprite->pos.x - cub->raycast->player_pos.x;
-// 	double	relative_pos_y = sprite->pos.y - cub->raycast->player_pos.y;
-
-// 	// Distance check (optional, avoid divide by 0)
-// 	double dist = sqrt(relative_pos_x * relative_pos_x + relative_pos_y * relative_pos_y);
-// 	if (dist < 0.01)
-// 		return (0);
-
-// 	// Define sprite size (can be adjusted to match sprite scale)
-// 	double sprite_world_width = 1.0;
-
-// 	// Sprite orientation (no rotation toward player)
-// 	t_dpoint left = { sprite->pos.x, sprite->pos.y - sprite_world_width / 2 };
-// 	t_dpoint right = { sprite->pos.x, sprite->pos.y + sprite_world_width / 2 };
-
-// 	// Vector from player to left/right corners
-// 	t_dpoint rel_left = { left.x - cub->raycast->player_pos.x, left.y - cub->raycast->player_pos.y };
-// 	t_dpoint rel_right = { right.x - cub->raycast->player_pos.x, right.y - cub->raycast->player_pos.y };
-
-// 	// Apply inverse camera rotation
-// 	double sin_dir = sin(-atan2(cub->raycast->player_dir.y, cub->raycast->player_dir.x));
-// 	double cos_dir = cos(-atan2(cub->raycast->player_dir.y, cub->raycast->player_dir.x));
-
-// 	t_dpoint trans_left = {
-// 		rel_left.x * cos_dir - rel_left.y * sin_dir,
-// 		rel_left.x * sin_dir + rel_left.y * cos_dir
-// 	};
-// 	t_dpoint trans_right = {
-// 		rel_right.x * cos_dir - rel_right.y * sin_dir,
-// 		rel_right.x * sin_dir + rel_right.y * cos_dir
-// 	};
-
-// 	// Project to screen
-// 	double screen_x_left = (WIDTH / 2.0) * (1 + trans_left.y / trans_left.x);
-// 	double screen_x_right = (WIDTH / 2.0) * (1 + trans_right.y / trans_right.x);
-
-// 	if (trans_left.x != 0 && trans_right.x != 0) {
-// 	    screen_x_left = (WIDTH / 2.0) * (1 + trans_left.y / trans_left.x);
-// 	    screen_x_right = (WIDTH / 2.0) * (1 + trans_right.y / trans_right.x);
-// 	} else {
-// 	    screen_x_left = screen_x_right = WIDTH / 2;  // Set to center of screen as fallback
-// 	}
-
-// 	screen_x_left = fmax(0, fmin(screen_x_left, WIDTH - 1));
-// 	screen_x_right = fmax(0, fmin(screen_x_right, WIDTH - 1));
-
-// 	// Perspective height
-// 	sprite->relative_height = (int)(HEIGHT / dist);
-
-// 	// Assign screen coordinates for drawing
-// 	// sprite->start_w = (int)screen_x_left;
-// 	// sprite->end_w = (int)screen_x_right;
-// 	sprite->start_w = fmax(0, fmin(sprite->start_w, WIDTH - 1));
-// 	sprite->end_w = fmax(0, fmin(sprite->end_w, WIDTH - 1));
-// 	if (sprite->start_w >= sprite->end_w)
-// 	{
-//     // Skip this sprite or fix the width to ensure it's visible
-// 	    sprite->end_w = sprite->start_w + 1;
-// 	}
-// 	sprite->start_h = HEIGHT / 2 - sprite->relative_height / 2;
-// 	sprite->end_h = HEIGHT / 2 + sprite->relative_height / 2;
-
-// 	if (sprite->start_w > sprite->end_w)
-// 	{
-// 	    // Swap or skip this sprite
-// 	    int temp = sprite->start_w;
-// 	    sprite->start_w = sprite->end_w;
-// 	    sprite->end_w = temp;
-// 	}
-
-// 	printf("sprite at (%lf, %lf), relative_pos_x: %lf, relative_pos_y: %lf, dist: %lf\n",
-//        sprite->pos.x, sprite->pos.y, relative_pos_x, relative_pos_y, dist);
-
-// 	printf("trans_left: (%lf, %lf), trans_right: (%lf, %lf)\n", trans_left.x, trans_left.y, trans_right.x, trans_right.y);
-
-// 	printf("screen_x_left: %lf, screen_x_right: %lf\n", screen_x_left, screen_x_right);
-
-// 	printf("relative_height: %d, start_w: %d, end_w: %d, start_h: %d, end_h: %d\n\n",
-// 	       sprite->relative_height, sprite->start_w, sprite->end_w, sprite->start_h, sprite->end_h);
-// 	return (1);
-// }
-
