@@ -6,18 +6,28 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:32:10 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/09 18:00:52 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/04/09 18:25:48 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d_bonus.h"
 
-
+/**
+ * @brief Loads an XPM image and initializes a t_image structure.
+ *
+ * Uses MiniLibX functions to load an XPM file from the specified path into
+ * an image structure. It also retrieves the image's address for pixel access.
+ * On failure, it triggers an error handler.
+ *
+ * @param cub Pointer to the main game structure, used for MLX context and error
+ *        handling.
+ * @param img Pointer to the t_image structure to initialize.
+ * @param path Path to the XPM image file to load.
+ */
 void	ft_init_xpm_image(t_cub *cub, t_image *img, char *path)
 {
-	//add brief
 	ft_memset(img, 0, sizeof(t_image));
-	img->img_ptr = mlx_xpm_file_to_image(cub->mlx, path, 
+	img->img_ptr = mlx_xpm_file_to_image(cub->mlx, path, \
 		&img->width, &img->height);
 	if (!img->img_ptr)
 		ft_handle_error("mlx_xpm_file_to_image", cub);
@@ -27,9 +37,18 @@ void	ft_init_xpm_image(t_cub *cub, t_image *img, char *path)
 		ft_handle_error("mlx_get_data_addr", cub);
 }
 
+/**
+ * @brief Initializes sprite textures and positions.
+ *
+ * Loads XPM images for sprite animation states (still, move, eat) and assigns
+ * the default texture (still) to all map sprites. Also initializes each
+ * sprite's position by centering it within its tile coordinates.
+ *
+ * @param cub Pointer to the main game structure containing raycasting and map
+ *        data.
+ */
 static void	ft_init_sprites(t_cub *cub)
 {
-	//add brief
 	t_raycast	*ray;
 	int			i;
 
@@ -48,17 +67,17 @@ static void	ft_init_sprites(t_cub *cub)
 }
 
 /**
- * @brief Loads texture images for the walls and initializes texture data.
+ * @brief Initializes wall textures from XPM files.
  *
- * This function loads texture images from XPM files and initializes the
- * corresponding texture structures. It also verifies that all images are 
- * loaded correctly before retrieving their memory addresses.
+ * Loads wall texture images (north, south, east, and west) using the provided
+ * file paths from the map structure. Each texture is stored in the
+ * corresponding raycast texture slot.
  *
- * @param cub Pointer to the main game structure containing texture data.
+ * @param cub Pointer to the main game structure containing map data and
+ *        raycasting context.
  */
 static void	ft_init_wall_texture(t_cub *cub)
 {
-	//update brief
 	t_raycast	*ray;
 
 	ray = cub->raycast;
@@ -89,7 +108,7 @@ static void	ft_init_image(t_cub *cub)
 			&cub->image->line_len, &cub->image->endian);
 	if (!cub->image->addr)
 		ft_handle_error("cub->image->addr", cub);
-	cub->image->width = WIDTH; //explore this
+	cub->image->width = WIDTH;
 	cub->image->height = HEIGHT;
 }
 
@@ -111,7 +130,6 @@ t_cub	*ft_init_structs(t_cub *cub, char *argv)
 		ft_handle_error("malloc:cub", cub);
 	ft_memset(cub, 0, sizeof(t_cub));
 	ft_load_map(argv, cub);
-	ft_print_map(cub->map); //debug
 	cub->mlx = mlx_init();
 	if (!cub->mlx)
 		ft_handle_error("malloc: cub->mlx", cub);
@@ -119,10 +137,7 @@ t_cub	*ft_init_structs(t_cub *cub, char *argv)
 	ft_init_raycast(cub);
 	ft_init_wall_texture(cub);
 	ft_init_hud(cub);
-	//cub->action = false; //action
-	//cub->duration_action = 0; //action
-	//cub->amount_action = 0; //action
-	ft_init_sprites(cub); //sprite
+	ft_init_sprites(cub);
 	ft_init_start_screen(cub);
 	ft_init_end_screen(cub);
 	cub->window = mlx_new_window(cub->mlx, WIDTH, HEIGHT, "cub3d");
