@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init_raycast_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 20:27:19 by mariaoli          #+#    #+#             */
 /*   Updated: 2025/04/06 19:27:31 by joneves-         ###   ########.fr       */
@@ -22,10 +22,10 @@
  */
 static void	ft_init_north(t_raycast *raycast)
 {
-	raycast->player_dir.y = 0;
 	raycast->player_dir.x = -1;
-	raycast->camera_plane.y = 0.66;
+	raycast->player_dir.y = 0;
 	raycast->camera_plane.x = 0;
+	raycast->camera_plane.y = 0.66;
 }
 
 /**
@@ -38,10 +38,10 @@ static void	ft_init_north(t_raycast *raycast)
  */
 static void	ft_init_south(t_raycast *raycast)
 {
-	raycast->player_dir.y = 0;
 	raycast->player_dir.x = 1;
-	raycast->camera_plane.y = -0.66;
+	raycast->player_dir.y = 0;
 	raycast->camera_plane.x = 0;
+	raycast->camera_plane.y = -0.66;
 }
 
 /**
@@ -54,10 +54,10 @@ static void	ft_init_south(t_raycast *raycast)
  */
 static void	ft_init_east(t_raycast *raycast)
 {
-	raycast->player_dir.y = 1;
 	raycast->player_dir.x = 0;
-	raycast->camera_plane.y = 0;
+	raycast->player_dir.y = 1;
 	raycast->camera_plane.x = 0.66;
+	raycast->camera_plane.y = 0;
 }
 
 /**
@@ -70,10 +70,10 @@ static void	ft_init_east(t_raycast *raycast)
  */
 static void	ft_init_west(t_raycast *raycast)
 {
-	raycast->player_dir.y = -1;
 	raycast->player_dir.x = 0;
-	raycast->camera_plane.y = 0;
+	raycast->player_dir.y = -1;
 	raycast->camera_plane.x = -0.66;
+	raycast->camera_plane.y = 0;
 }
 
 /**

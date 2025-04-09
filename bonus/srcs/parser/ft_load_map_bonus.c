@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ft_load_map_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 18:55:47 by joneves-          #+#    #+#             */
 /*   Updated: 2025/04/05 16:14:21 by joneves-         ###   ########.fr       */

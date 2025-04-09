@@ -68,15 +68,28 @@ static void	ft_paint_on_image(t_cub *cub, t_image *source, t_ipoint p, double t)
  */
 void	ft_render_action(t_cub *cub)
 {
+	//add brief
 	t_ipoint	pos;
 
-	pos.x = 200;
-	pos.y = HEIGHT - cub->hud->breadcrumbs.height;
-	ft_paint_on_image(cub, &cub->hud->breadcrumbs, pos, cub->duration_action);
-	cub->duration_action += cub->frame_time;
-	if (cub->duration_action >= 0.5)
+	if (cub->action)
 	{
-		cub->action = false;
-		cub->duration_action = 0;
+		pos.x = 200;
+		pos.y = HEIGHT - cub->hud->breadcrumbs.height;
+		ft_paint_on_image(cub, &cub->hud->breadcrumbs, pos, cub->duration_action);
+		cub->duration_action += cub->frame_time;
+		if (cub->duration_action >= 0.5)
+		{
+			cub->action = false;
+			cub->duration_action = 0;
+		}
+	}
+	if (cub->raycast->sprite_action)
+	{
+		cub->raycast->eat_time += cub->frame_time;
+		if (cub->raycast->eat_time >= 5)
+		{
+			cub->raycast->sprite_action = false;
+			cub->raycast->eat_time = 0;
+		}
 	}
 }

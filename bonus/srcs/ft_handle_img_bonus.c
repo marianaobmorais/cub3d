@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ft_handle_img_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: marianamorais <marianamorais@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 18:36:57 by mariaoli          #+#    #+#             */
 /*   Updated: 2025/04/06 19:12:19 by joneves-         ###   ########.fr       */
@@ -72,18 +72,18 @@ static void	ft_render_bg(t_image *img, int ceiling_color, int floor_color)
 int	ft_handle_img(t_cub *cub)
 {
 	//add frames
+	//update brief
 	ft_render_bg(cub->image, cub->map->ceiling_hex, cub->map->floor_hex);
 	ft_update_doors(cub);
 	ft_render_walls(cub);
-	//ft_render_sprites(cub); //sprites	
-	//ft_render_door(cub, (cub->map->door)[0]);
-	ft_render_source_on_hud(cub, &cub->hud->watch, 0, 0); //bonus
-	ft_render_minimap_on_hud(cub); //bonus
+	ft_render_sprites(cub);
+	ft_render_source_on_hud(cub, &cub->hud->watch, 0, 0);
+	ft_render_minimap_on_hud(cub);
 	ft_render_viewmodel(cub);
-	//update speed
 	cub->raycast->move_speed = cub->frame_time * MOVE_SPEED;
 	cub->raycast->rotate_speed = cub->frame_time * ROTATE_SPEED;
-	ft_mouse_hook(cub); //mouse
+	if (!cub->raycast->mouse_status)
+		ft_mouse_hook(cub);
 	mlx_put_image_to_window(cub->mlx, cub->window, cub->image->img_ptr, 0, 0);
 	return (0);
 }

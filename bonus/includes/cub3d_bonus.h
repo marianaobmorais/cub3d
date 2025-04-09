@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:26:59 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/08 22:05:20 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/04/09 16:01:13 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@
 # include <X11/X.h>
 # include <stdio.h> //will we use printf?
 # include <stdlib.h>
-# include <sys/time.h> //do we use this?
+# include <sys/time.h>
 # include <math.h>
 # include <fcntl.h>
 # include <errno.h>
 # include <string.h>
 # include <stdbool.h>
-# include <sys/wait.h> //bonus
-# include <time.h> //bonus
+# include <sys/wait.h>
+# include <time.h>
 # include <limits.h>
 
 /* messages */
@@ -57,10 +57,11 @@
 # define WIDTH 960
 # define HEIGHT 600
 # define MOVE_SPEED 8
-# define ROTATE_SPEED 4
+# define ROTATE_SPEED 3
 # define MAX_MOVE 70
 # define NUM_FRAMES 13
 # define FRAME_DELTA 0.016 // ~60 FPS
+
 
 typedef struct s_hud	t_hud;
 
@@ -68,10 +69,19 @@ typedef struct s_sprite
 {
 	int			id;
 	int			order;
-	t_image		image;
+	int			screen_w;
+	int			relative_width;
+	int			relative_height;
+	int			start_h;
+	int			end_h;
+	int			start_w;
+	int			end_w;
 	t_ipoint	tile;
 	t_dpoint	pos;
+	t_dpoint	transform;
+	t_image		img;
 	double		dist;
+	bool		status;
 }	t_sprite;
 
 typedef struct s_draw
@@ -107,8 +117,10 @@ typedef struct s_raycast
 	t_dpoint		ray_dir;
 	t_ipoint		player_tile;
 	t_ipoint		step;
-	t_ipoint		step_tile;//
+	t_ipoint		step_tile;
 	t_ipoint		mouse_pos;
+	bool			mouse_status;
+	bool			sprite_action;
 	double			move_speed;
 	double			rotate_speed;
 	double			factor;
@@ -119,6 +131,9 @@ typedef struct s_raycast
 	double			perp_wall_dist;
 	double			wall_hit_value;
 	double			texture_pos;
+	double			time;
+	double			eat_time;
+	double			mouse_time;
 	int				hit_side;
 	int				wall_height;
 	int				wall_start;
@@ -128,17 +143,39 @@ typedef struct s_raycast
 	t_image			east_texture;
 	t_image			west_texture;
 	t_image			grab_go;
-	t_image			sprite[4];
 	bool			hit_door; //door
 	int				door_increment;  //door
 	t_ipoint		doors_found[10]; //door
 	t_image			door_open; //door
 	t_image			door_closed; //door
 	t_image			doors[13]; //door
-	//t_image		sprite_b[4];
+	t_image			sprite_still;
+	t_image			sprite_move;
+	t_image			sprite_eat;
 	double			buffer[WIDTH]; //double check this
 }	t_raycast;
 
+typedef struct s_map
+{
+	char			**matrix;
+	char			**matrix_tmp;
+	char			*north_texture;
+	char			*south_texture;
+	char			*west_texture;
+	char			*east_texture;
+	unsigned char	*floor_rgb;
+	unsigned char	*ceiling_rgb;
+	int				floor_hex;
+	int				ceiling_hex;
+	int				player_squ_x;
+	int				player_squ_y;
+	int				width;
+	int				height;
+	int				sprite_count;
+	int				sprites_increment;
+	t_sprite		*sprite;
+	t_directions	direction;
+}	t_map;
 
 typedef struct s_cub
 {
@@ -149,11 +186,11 @@ typedef struct s_cub
 	t_map		*map;
 	char		*filepath;
 	int			fd;
-	bool		started; //screen
-	bool		leaving; //screen
-	bool		action; //action
-	int			amount_action; //action
-	double		duration_action; //action
+	bool		started; 
+	bool		leaving;
+	bool		action;
+	int			amount_action;
+	double		duration_action;
 	t_screen	screens;
 	size_t		last_time;
 	double		frame_time;
@@ -176,7 +213,7 @@ void			ft_free_vector(char **vector);
 
 /* ft_handle_img_bonus.c */
 
-int			ft_handle_img(t_cub *cub);
+int				ft_handle_img(t_cub *cub);
 
 /* pixel_utils_bonus.c */
 
@@ -238,5 +275,9 @@ void			ft_clean_doors(t_cub *cub);
 void			ft_paint_ray_door(t_cub *cub, int w, t_door door);
 
 int				ft_render_screen(t_cub *cub);
+
+/* ft_draw_sprite.c */
+
+void			ft_draw_sprite(t_cub *cub, t_sprite sprite, int w);
 
 #endif //CUB3D_BONUS_H

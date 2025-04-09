@@ -40,8 +40,6 @@ void	ft_rotate(t_cub *cub, double angle)
 		- cub->raycast->camera_plane.y * sin(angle);
 	cub->raycast->camera_plane.y = old_plane_x * sin(angle)
 		+ cub->raycast->camera_plane.y * cos(angle);
-	mlx_mouse_move(cub->mlx, cub->window, WIDTH / 2, HEIGHT / 2); //testing
-
 }
 
 /**
@@ -75,14 +73,20 @@ static void	ft_manage_movements(int keysym, t_cub *cub)
 	if ((keysym == XK_Control_R || keysym == XK_Control_L)
 		&& cub->amount_action < BREAD_3 + 1)
 	{
+		cub->raycast->sprite_action = true;
 		cub->action = true;
 		cub->amount_action++;
 	}
 	if (keysym == XK_space)
 		ft_open_or_close_door(cub);
-	if (tmp.x >= 0 && tmp.x < cub->map->height
-		&& tmp.y >= 0 && tmp.y < cub->map->width)
-		ft_update_position(cub, tmp.x, tmp.y);
+	ft_update_position(cub, tmp_x, tmp_y);
+	if (keysym == XK_M || keysym == XK_m)
+	{
+		if (!cub->raycast->mouse_status)
+			cub->raycast->mouse_status = true;
+		else
+			cub->raycast->mouse_status = false;
+	}
 }
 
 static void	ft_manage_exit(int keysym, t_cub *cub)
