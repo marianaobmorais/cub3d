@@ -1,8 +1,0 @@
-{
-	"files.associations": {
-		"map": "c",
-		"format": "c",
-		"cmath": "c",
-		"cub3d_bonus.h": "c"
-	}
-}
