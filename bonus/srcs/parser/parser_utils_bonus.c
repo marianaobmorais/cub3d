@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 18:55:17 by joneves-          #+#    #+#             */
-/*   Updated: 2025/04/01 20:46:31 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/04/09 19:38:18 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
  */
 bool	ft_is_player(char c)
 {
-	if (c == 'N' || c == 'S' || c == 'W' || c == 'N')
+	if (c == 'E' || c == 'S' || c == 'W' || c == 'N')
 		return (true);
 	else
 		return (false);

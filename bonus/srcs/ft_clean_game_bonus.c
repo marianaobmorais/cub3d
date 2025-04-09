@@ -1,6 +1,73 @@
 #include "../includes/cub3d_bonus.h"
 
 /**
+ * @brief Cleans up and frees memory allocated for the map structure.
+ * 
+ * Frees all dynamically allocated fields within the map structure (t_map), 
+ * including the matrix, textures, and RGB values for the floor and ceiling. 
+ * This function ensures proper deallocation to prevent memory leaks.
+ * 
+ * @param map A pointer to the map structure (t_map) to be cleaned up. 
+ *            The structure itself is not freed.
+ */
+void	ft_clean_map(t_map *map)
+{
+	if (map->matrix)
+		ft_free_vector(map->matrix);
+	if (map->matrix_tmp)
+		ft_free_vector(map->matrix_tmp);
+	if (map->north_texture)
+		free(map->north_texture);
+	if (map->south_texture)
+		free(map->south_texture);
+	if (map->west_texture)
+		free(map->west_texture);
+	if (map->east_texture)
+		free(map->east_texture);
+	if (map->ceiling_rgb)
+		free(map->ceiling_rgb);
+	if (map->floor_rgb)
+		free(map->floor_rgb);
+	if (map->door)
+		free(map->door);
+	if (map->sprite)
+		free(map->sprite);
+}
+
+/**
+ * @brief Cleans up and destroys all HUD-related images to free resources.
+ *
+ * This function destroys all the images related to the HUD, such as the 
+ * watch, viewmodels, bread, and breadcrumbs, by calling `mlx_destroy_image`. 
+ * It ensures that all image resources are properly freed when the HUD is no 
+ * longer needed, preventing memory leaks.
+ *
+ * @param cub The main game structure containing the HUD and image data.
+ */
+void	ft_clean_hud(t_cub *cub)
+{
+	if (cub->hud->watch.img_ptr)
+		mlx_destroy_image(cub->mlx, cub->hud->watch.img_ptr);
+	if (cub->hud->viewmodel_0.img_ptr)
+		mlx_destroy_image(cub->mlx, cub->hud->viewmodel_0.img_ptr);
+	if (cub->hud->viewmodel_1.img_ptr)
+		mlx_destroy_image(cub->mlx, cub->hud->viewmodel_1.img_ptr);
+	if (cub->hud->viewmodel_2.img_ptr)
+		mlx_destroy_image(cub->mlx, cub->hud->viewmodel_2.img_ptr);
+	if (cub->hud->viewmodel_3.img_ptr)
+		mlx_destroy_image(cub->mlx, cub->hud->viewmodel_3.img_ptr);
+	if (cub->hud->viewmodel_4.img_ptr)
+		mlx_destroy_image(cub->mlx, cub->hud->viewmodel_4.img_ptr);
+	if (cub->hud->bread.img_ptr)
+		mlx_destroy_image(cub->mlx, cub->hud->bread.img_ptr);
+	if (cub->hud->empty_bread.img_ptr)
+		mlx_destroy_image(cub->mlx, cub->hud->empty_bread.img_ptr);
+	if (cub->hud->breadcrumbs.img_ptr)
+		mlx_destroy_image(cub->mlx, cub->hud->breadcrumbs.img_ptr);
+	free(cub->hud);
+}
+
+/**
  * @brief Frees all strings in a vector (array of strings) and the vector
  *        itself.
  *
@@ -24,30 +91,6 @@ void	ft_free_vector(char **vector)
 		}
 		free(vector);
 	}
-}
-
-/**
- * @brief Frees all HUD-related images.
- *
- * Destroys images associated with the HUD (e.g., watch, viewmodel, bread, empty
- * bread, breadcrumbs) using `mlx_destroy_image`, releasing MLX resources before
- * the HUD is deallocated.
- *
- * @param cub Pointer to the main game structure containing the MLX instance and
- * HUD data.
- */
-void	ft_clean_hud(t_cub *cub)
-{
-	if (cub->hud->watch.img_ptr)
-		mlx_destroy_image(cub->mlx, cub->hud->watch.img_ptr);
-	if (cub->hud->viewmodel.img_ptr)
-		mlx_destroy_image(cub->mlx, cub->hud->viewmodel.img_ptr);
-	if (cub->hud->bread.img_ptr)
-		mlx_destroy_image(cub->mlx, cub->hud->bread.img_ptr);
-	if (cub->hud->empty_bread.img_ptr)
-		mlx_destroy_image(cub->mlx, cub->hud->empty_bread.img_ptr);
-	if (cub->hud->breadcrumbs.img_ptr)
-		mlx_destroy_image(cub->mlx, cub->hud->breadcrumbs.img_ptr);
 }
 
 /**
@@ -76,6 +119,19 @@ static void	ft_clean_raycast(t_cub *cub)
 		mlx_destroy_image(cub->mlx, cub->raycast->sprite_move.img_ptr);
 	if (cub->raycast->sprite_eat.img_ptr)
 		mlx_destroy_image(cub->mlx, cub->raycast->sprite_eat.img_ptr);
+	if (cub->raycast->door_closed.img_ptr)
+		mlx_destroy_image(cub->mlx, cub->raycast->door_closed.img_ptr);
+	if (cub->raycast->door_open.img_ptr)
+		mlx_destroy_image(cub->mlx, cub->raycast->door_open.img_ptr);
+	if (cub->raycast->grab_go.img_ptr)
+		mlx_destroy_image(cub->mlx, cub->raycast->grab_go.img_ptr);
+	int i = 0; //fix later
+	while (i < 13)
+	{
+		if (cub->raycast->doors[i].img_ptr)
+			mlx_destroy_image(cub->mlx, cub->raycast->doors[i].img_ptr);
+		i++;
+	}
 }
 
 /**
@@ -98,7 +154,6 @@ void	ft_clean_game(t_cub *cub)
 			close(cub->fd); //not sure if it's necessary
 		if (cub->filepath)
 			free(cub->filepath);
-		ft_clean_doors(cub);
 		if (cub->map)
 		{
 			ft_clean_map(cub->map);

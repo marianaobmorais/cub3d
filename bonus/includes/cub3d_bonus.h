@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:26:59 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/09 16:01:13 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/04/09 19:19:59 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,28 +154,6 @@ typedef struct s_raycast
 	t_image			sprite_eat;
 	double			buffer[WIDTH]; //double check this
 }	t_raycast;
-
-typedef struct s_map
-{
-	char			**matrix;
-	char			**matrix_tmp;
-	char			*north_texture;
-	char			*south_texture;
-	char			*west_texture;
-	char			*east_texture;
-	unsigned char	*floor_rgb;
-	unsigned char	*ceiling_rgb;
-	int				floor_hex;
-	int				ceiling_hex;
-	int				player_squ_x;
-	int				player_squ_y;
-	int				width;
-	int				height;
-	int				sprite_count;
-	int				sprites_increment;
-	t_sprite		*sprite;
-	t_directions	direction;
-}	t_map;
 
 typedef struct s_cub
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_handle_img_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marianamorais <marianamorais@student.42    +#+  +:+       +#+        */
+/*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 18:36:57 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/06 19:12:19 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/04/09 19:56:33 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,11 +134,10 @@ int	ft_render_screen(t_cub *cub)
 		ft_handle_img(cub);
 		cub->last_time = now;
 	}
-	if (cub->action && cub->frame_time >= 0.016)
+	if (cub->started && cub->frame_time >= 0.016)
 	{
 		ft_render_action(cub);
 		cub->last_time = now;
 	}
 	return (0);
-	//rename this file? suggestion: ft_render_screen.c
 }

@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 18:55:47 by joneves-          #+#    #+#             */
-/*   Updated: 2025/04/05 16:14:21 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/04/09 20:16:48 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,35 +34,6 @@ static void	ft_init_map(t_cub *cub)
 	cub->map->direction = -1;
 }
 
-/**
- * @brief Cleans up and frees memory allocated for the map structure.
- * 
- * Frees all dynamically allocated fields within the map structure (t_map), 
- * including the matrix, textures, and RGB values for the floor and ceiling. 
- * This function ensures proper deallocation to prevent memory leaks.
- * 
- * @param map A pointer to the map structure (t_map) to be cleaned up. 
- *            The structure itself is not freed.
- */
-void	ft_clean_map(t_map *map)
-{
-	if (map->matrix)
-		ft_free_vector(map->matrix);
-	if (map->matrix_tmp)
-		ft_free_vector(map->matrix_tmp);
-	if (map->north_texture)
-		free(map->north_texture);
-	if (map->south_texture)
-		free(map->south_texture);
-	if (map->west_texture)
-		free(map->west_texture);
-	if (map->east_texture)
-		free(map->east_texture);
-	if (map->ceiling_rgb)
-		free(map->ceiling_rgb);
-	if (map->floor_rgb)
-		free(map->floor_rgb);
-}
 
 /**
  * @brief Checks if a file is accessible for reading.
@@ -137,9 +108,15 @@ void	ft_load_map(char *const filepath, t_cub *cub)
 	cub->map->sprite = malloc(sizeof(t_sprite) * cub->map->sprite_count);
 	if (!cub->map->sprite)
 		ft_handle_error("Map: cub->map->sprite", cub);
+	i = -1;
+	while (++i < cub->map->sprite_count)
+		ft_memset(&cub->map->sprite[i], 0, sizeof(t_sprite)); //test
 	cub->map->door = malloc(sizeof(t_door) * cub->map->door_count);
 	if (!cub->map->door)
 		ft_handle_error("Map: cub->map->door", cub);
+	i = -1;
+	while (++i < cub->map->door_count)
+		ft_memset(&cub->map->door[i], 0, sizeof(t_door)); //test
 	ft_matrix_parser(cub, cub->map->matrix);
 	cub->map->ceiling_hex = ft_arraytohex(cub->map->ceiling_rgb);
 	cub->map->floor_hex = ft_arraytohex(cub->map->floor_rgb);

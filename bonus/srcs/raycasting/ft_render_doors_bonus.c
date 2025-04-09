@@ -28,24 +28,6 @@ void	ft_init_doors(t_cub *cub)
 	}
 }
 
-void	ft_clean_doors(t_cub *cub)
-{
-	// int	i;
-
-	if (cub->raycast->door_closed.img_ptr)
-		mlx_destroy_image(cub->mlx, cub->raycast->door_closed.img_ptr);
-	if (cub->raycast->door_open.img_ptr)
-		mlx_destroy_image(cub->mlx, cub->raycast->door_open.img_ptr);
-	// i = 0;
-	// while (i < cub->map->door_count)
-	// {
-	// 	mlx_destroy_image(cub->mlx, cub->raycast->doors);
-	// 	i++;
-	// }
-	// free(cub->raycast->doors);
-	free(cub->map->door);
-}
-
 int	ft_find_door_index(t_cub *cub, int x, int y)
 {
 	int	i;

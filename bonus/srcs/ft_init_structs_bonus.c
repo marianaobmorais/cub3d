@@ -6,11 +6,12 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:32:10 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/09 18:25:48 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/04/09 20:07:20 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d_bonus.h"
+
 
 /**
  * @brief Loads an XPM image and initializes a t_image structure.

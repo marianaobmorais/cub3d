@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 18:55:34 by joneves-          #+#    #+#             */
-/*   Updated: 2025/04/06 19:55:02 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/04/09 19:37:49 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,11 @@ bool	is_valid_sprite(char *line, char *previous_line, int x)
 	if (previous_line)
 	{
 		if (previous_line[x] && previous_line[x] == ' ')
-		{
 			return (false);
-		}
 	}
 	if (x > 0 && line[x - 1] != ' ' && line[x + 1] != ' '
 		&& line[x + 1] != '\0')
-	{
 		return (true);
-	}
 	return (false);
 }
 
@@ -91,7 +87,7 @@ void	ft_set_door(t_cub *cub, int x, int y)
 	(cub->map->door[cub->map->door_increment]).tile.x = y;
 	(cub->map->door[cub->map->door_increment]).tile.y = x;
 	(cub->map->door[cub->map->door_increment]).id = cub->map->door_increment;
-	(cub->map->door[cub->map->door_increment]).timer = 0;
+	//(cub->map->door[cub->map->door_increment]).timer = 0;
 	(cub->map->door[cub->map->door_increment]).move = -1;
 	(cub->map->door[cub->map->door_increment]).status = OPEN;
 	cub->map->door_increment++;

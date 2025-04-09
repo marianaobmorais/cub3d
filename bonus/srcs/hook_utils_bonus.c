@@ -60,8 +60,7 @@ static void	ft_manage_movements(int keysym, t_cub *cub)
 		ft_rotate(cub, cub->raycast->rotate_speed);
 	if (keysym == XK_Right)
 		ft_rotate(cub, -cub->raycast->rotate_speed);
-	tmp.x = cub->raycast->player_pos.x;
-	tmp.y = cub->raycast->player_pos.y;
+	tmp = cub->raycast->player_pos;
 	if ((keysym == XK_A || keysym == XK_a))
 		ft_move_left(cub, &tmp.x, &tmp.y);
 	if ((keysym == XK_D || keysym == XK_d))
@@ -79,7 +78,7 @@ static void	ft_manage_movements(int keysym, t_cub *cub)
 	}
 	if (keysym == XK_space)
 		ft_open_or_close_door(cub);
-	ft_update_position(cub, tmp_x, tmp_y);
+	ft_update_position(cub, tmp.x, tmp.y);
 	if (keysym == XK_M || keysym == XK_m)
 	{
 		if (!cub->raycast->mouse_status)
