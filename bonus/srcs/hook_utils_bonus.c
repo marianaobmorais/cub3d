@@ -77,10 +77,7 @@ static void	ft_manage_movements(int keysym, t_cub *cub)
 		cub->action = true;
 		cub->amount_action++;
 	}
-	if (tmp_x >= 0 && tmp_x < cub->map->height
-		&& tmp_y >= 0 && tmp_y < cub->map->width
-		&& cub->map->matrix[(int)tmp_x][(int)tmp_y] != '1')
-		ft_update_position(cub, tmp_x, tmp_y);
+	ft_update_position(cub, tmp_x, tmp_y);
 	if (keysym == XK_M || keysym == XK_m)
 	{
 		if (!cub->raycast->mouse_status)
