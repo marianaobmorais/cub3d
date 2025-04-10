@@ -6,7 +6,7 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 23:11:58 by joneves-          #+#    #+#             */
-/*   Updated: 2025/04/02 21:40:40 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/04/10 20:55:33 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,32 @@ static void	ft_render_background(t_cub *cub, int height, int width, int color)
 }
 
 /**
+ * @brief Paints a tile on the map based on the type of tile in the matrix.
+ *
+ * This function checks the tile type in the map matrix and paints it 
+ * accordingly. Different tile types are assigned different colors for 
+ * rendering: walls, doors, and player or empty tiles are handled 
+ * with specific rendering functions.
+ *
+ * @param cub The game structure containing the map and image to render to.
+ * @param tile The coordinates of the tile to paint.
+ * @param x The x-coordinate in the map matrix.
+ * @param y The y-coordinate in the map matrix.
+ */
+static void	ft_paint_tile(t_cub *cub, t_ipoint tile, int x, int y)
+{
+	if (cub->map->matrix[x][y] == '1')
+		ft_put_square(cub->image, tile.y, tile.x, BLACK);
+	else if (cub->map->matrix[x][y] == 'D')
+		ft_put_square(cub->image, tile.y, tile.x, ORANGE);
+	else if (cub->map->matrix[x][y] == 'X')
+		ft_put_x(cub->image, tile.y, tile.x, BLUE);
+	else if (ft_is_player(cub->map->matrix[x][y])
+		|| cub->map->matrix[x][y] == '0')
+		ft_put_square(cub->image, tile.y, tile.x, GRAY);
+}
+
+/**
  * @brief Colors the minimap based on the current map data.
  *
  * This function iterates through the map matrix and renders each tile 
@@ -61,7 +87,7 @@ static void	ft_render_background(t_cub *cub, int height, int width, int color)
  * @param map_width The width of the map.
  * @param map_height The height of the map.
  */
-void	ft_colorize_minimap(t_cub *cub, int map_width, int map_height)
+static void	ft_colorize_minimap(t_cub *cub, int map_width, int map_height)
 {
 	int			y;
 	int			x;
@@ -77,16 +103,7 @@ void	ft_colorize_minimap(t_cub *cub, int map_width, int map_height)
 			tile.x = (x - cub->hud->start_x) + 9;
 			if (x >= 0 && y >= 0 && cub->map->matrix[x][y] != '\0')
 			{
-				if (cub->map->matrix[x][y] == '1')
-					ft_put_square(cub->image, tile.y, tile.x, BLACK);
-				else if (cub->map->matrix[x][y] == 'D')
-					ft_put_square(cub->image, tile.y, tile.x, GREEN);
-				else if (cub->map->matrix[x][y] == 'X')
-					ft_put_square(cub->image, tile.y, tile.x, PINK);
-				else if (ft_is_player(cub->map->matrix[x][y])
-					|| cub->map->matrix[x][y] == '0'
-					|| cub->map->matrix[x][y] == 'P')
-					ft_put_square(cub->image, tile.y, tile.x, GRAY);
+				ft_paint_tile(cub, tile, x, y);
 			}
 			y++;
 		}

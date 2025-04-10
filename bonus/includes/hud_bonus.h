@@ -6,7 +6,7 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 22:17:20 by joneves-          #+#    #+#             */
-/*   Updated: 2025/04/02 19:33:40 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/04/10 20:54:53 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ void	ft_set_limit_x(t_cub *cub, int map_width);
 void	ft_set_limit_y(t_cub *cub, int map_height);
 void	ft_put_square(t_image *img, int x, int y, int color);
 void	ft_put_player(t_image *img, int x, int y, int color);
+void	ft_put_x(t_image *img, int x, int y, int color);
 
 /* ft_render_source_on_hud.c */
 
@@ -107,7 +108,6 @@ void	ft_render_action(t_cub *cub);
 
 /* ft_render_viewmodel.c */
 
-//void	ft_door(t_cub *cub, t_image *source, int pos_x, int pos_y);
 void	ft_render_viewmodel(t_cub *cub);
 
 #endif //HUD_BONUS_H

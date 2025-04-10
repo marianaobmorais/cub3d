@@ -6,7 +6,7 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:26:59 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/10 19:23:48 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/04/10 20:50:29 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@
 # define GREEN2 0xCCFF33
 # define RED 0xff1100
 # define BLACK 0x000000
+# define ORANGE 0XFFA500
 # define IGNORE 0x00FFFF
 
 /* measurements */

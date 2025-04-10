@@ -1,5 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_render_doors_bonus.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/10 21:06:29 by joneves-          #+#    #+#             */
+/*   Updated: 2025/04/10 21:06:30 by joneves-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/cub3d_bonus.h"
 
+/**
+ * @brief Initializes door textures and sets default door states.
+ *
+ * Loads all door-related textures from .xpm files into the raycast struct,
+ * including the closed door, open door, door animation frames, and the
+ * grab-go image. Sets all doors on the map to the closed state initially.
+ *
+ * @param cub A pointer to the main game structure.
+ */
 void	ft_init_doors(t_cub *cub)
 {
 	int	i;
@@ -28,6 +49,17 @@ void	ft_init_doors(t_cub *cub)
 	}
 }
 
+/**
+ * @brief Finds the index of a door in the map's door array by tile coords.
+ *
+ * Iterates through the door array to locate a door at the specified
+ * tile position (x, y). Returns the index if found, or -1 if not found.
+ *
+ * @param cub A pointer to the main game structure.
+ * @param x The x-coordinate of the door tile.
+ * @param y The y-coordinate of the door tile.
+ * @return The index of the door if found, otherwise -1.
+ */
 int	ft_find_door_index(t_cub *cub, int x, int y)
 {
 	int	i;
@@ -43,6 +75,16 @@ int	ft_find_door_index(t_cub *cub, int x, int y)
 	return (-1);
 }
 
+/**
+ * @brief Paints an internal wall segment if adjacent to a door tile.
+ *
+ * Checks whether the wall hit by the ray is adjacent to a door tile
+ * ('D') in the map matrix. If so, it draws the corresponding internal
+ * wall using a predefined texture.
+ *
+ * @param cub A pointer to the main game structure.
+ * @param w The screen column being processed.
+ */
 void	ft_paint_internal_wall(t_cub *cub, int w)
 {
 	t_ipoint	tile;
@@ -64,6 +106,16 @@ void	ft_paint_internal_wall(t_cub *cub, int w)
 		ft_paint_ray(cub, w, cub->raycast->grab_go);
 }
 
+/**
+ * @brief Renders all doors detected by the current raycast.
+ *
+ * Iterates through all doors hit during the raycast process, calculates the
+ * exact wall hit position for texture mapping, and draws each door slice
+ * using its corresponding texture and position.
+ *
+ * @param cub A pointer to the main game structure.
+ * @param w The current screen column being rendered.
+ */
 void	ft_render_doors(t_cub *cub, int w)
 {
 	int		index;

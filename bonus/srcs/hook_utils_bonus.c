@@ -88,9 +88,19 @@ static void	ft_manage_movements(int keysym, t_cub *cub)
 	}
 }
 
+/**
+ * @brief Handles user input when the exit screen is active.
+ *
+ * Responds to key presses to select and confirm exit options. 
+ * Arrow keys or W/S are used to toggle between options. Pressing Enter with
+ * the selected option either closes the window or cancels the exit and redraws
+ * the main screen.
+ *
+ * @param keysym The key symbol pressed by the user.
+ * @param cub A pointer to the main game structure.
+ */
 static void	ft_manage_exit(int keysym, t_cub *cub)
 {
-	//add brief
 	static int	dir;
 
 	if (keysym == XK_W || keysym == XK_w || keysym == XK_Up)
@@ -112,9 +122,20 @@ static void	ft_manage_exit(int keysym, t_cub *cub)
 	}
 }
 
+/**
+ * @brief Handles all key inputs during game runtime and at startup.
+ *
+ * This function processes key events based on the current game state. It
+ * starts the game on Enter, exits on Escape before starting, manages the exit
+ * screen when Escape is pressed during gameplay, and routes movement or exit
+ * handling accordingly.
+ *
+ * @param keysym The key symbol pressed by the user.
+ * @param cub A pointer to the main game structure.
+ * @return Always returns 0.
+ */
 int	ft_key_input(int keysym, t_cub *cub)
 {
-	//add brief
 	if (cub->started == false && keysym == XK_Return)
 	{
 		cub->started = true;
