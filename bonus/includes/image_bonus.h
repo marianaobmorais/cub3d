@@ -3,15 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   image_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:26:59 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/05 14:48:46 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/04/10 14:19:09 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef IMAGE_BONUS_H
 # define IMAGE_BONUS_H
+
+/* measurements */
+
+# define WIDTH 960
+# define HEIGHT 600
 
 typedef struct s_image
 {
