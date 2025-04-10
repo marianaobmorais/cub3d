@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 14:14:42 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/10 15:21:14 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/04/10 16:02:50 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,9 @@ typedef struct s_sprite
 	t_image		img;
 	double		dist;
 	bool		status;
-	bool		near_player;
+	bool		sprite_action;
+	bool		near_player; //test
+	double		eat_time;
 }	t_sprite;
 
 typedef struct s_raycast
@@ -46,7 +48,6 @@ typedef struct s_raycast
 	t_ipoint		step_tile;
 	t_ipoint		mouse_pos;
 	bool			mouse_status;
-	bool			sprite_action;
 	double			move_speed;
 	double			rotate_speed;
 	double			factor;
@@ -58,7 +59,6 @@ typedef struct s_raycast
 	double			wall_hit_value;
 	double			texture_pos;
 	double			time;
-	double			eat_time;
 	double			mouse_time;
 	int				hit_side;
 	int				wall_height;

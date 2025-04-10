@@ -72,7 +72,18 @@ static void	ft_manage_movements(int keysym, t_cub *cub)
 	if ((keysym == XK_Control_R || keysym == XK_Control_L)
 		&& cub->amount_action < BREAD_3 + 1)
 	{
-		cub->raycast->sprite_action = true;
+		int i = -1;
+		while (++i < cub->map->sprite_count)
+		{
+			if ((cub->raycast->player_tile.x == cub->map->sprite[i].tile.x && cub->raycast->player_tile.y == cub->map->sprite[i].tile.y)
+			|| (cub->raycast->player_tile.x + 1 == cub->map->sprite[i].tile.x && cub->raycast->player_tile.y + 1 == cub->map->sprite[i].tile.y)
+			|| (cub->raycast->player_tile.x - 1 == cub->map->sprite[i].tile.x && cub->raycast->player_tile.y - 1 == cub->map->sprite[i].tile.y)
+			|| (cub->raycast->player_tile.x + 1 == cub->map->sprite[i].tile.x && cub->raycast->player_tile.y == cub->map->sprite[i].tile.y)
+			|| (cub->raycast->player_tile.x == cub->map->sprite[i].tile.x && cub->raycast->player_tile.y + 1 == cub->map->sprite[i].tile.y)
+			|| (cub->raycast->player_tile.x - 1 == cub->map->sprite[i].tile.x && cub->raycast->player_tile.y == cub->map->sprite[i].tile.y)
+			|| (cub->raycast->player_tile.x == cub->map->sprite[i].tile.x && cub->raycast->player_tile.y - 1 == cub->map->sprite[i].tile.y))
+				cub->map->sprite[i].sprite_action = true;
+		}
 		cub->action = true;
 		cub->amount_action++;
 	}
