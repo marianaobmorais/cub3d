@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 22:53:48 by joneves-          #+#    #+#             */
-/*   Updated: 2025/04/10 15:59:29 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/04/10 16:27:54 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,15 +83,6 @@ void	ft_render_action(t_cub *cub)
 			cub->duration_action = 0;
 		}
 	}
-	int i = -1;
-	while (++i < cub->map->sprite_count)
-	{
-		if (cub->map->sprite[i].sprite_action)
-			cub->map->sprite[i].eat_time += 0.016;
-		if (cub->map->sprite[i].eat_time >= 4)
-		{
-			cub->map->sprite[i].sprite_action = false;
-			cub->map->sprite[i].eat_time = 0;
-		}
-	}
 }
+
+

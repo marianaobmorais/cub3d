@@ -153,7 +153,7 @@ static void	ft_clean_raycast(t_cub *cub)
  * prevent memory leaks.
  * 
  * @param game A pointer to the game structure (t_game) to be cleaned up. 
- *            The structure itself is also freed.
+ *        The structure itself is also freed.
  */
 void	ft_clean_game(t_cub *cub)
 {

@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 18:36:57 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/10 14:55:34 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/04/10 16:38:20 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,25 @@ static size_t	ft_get_time(void)
 	return (milliseconds);
 }
 
+void	ft_sprite_action(t_cub *cub)
+{
+	//add brief
+	int	i;
+
+	i = 0;
+	while (i < cub->map->sprite_count)
+	{
+		if (cub->map->sprite[i].sprite_action)
+			cub->map->sprite[i].eat_time += cub->frame_time;
+		if (cub->map->sprite[i].eat_time >= 4)
+		{
+			cub->map->sprite[i].sprite_action = false;
+			cub->map->sprite[i].eat_time = 0;
+		}
+		i++;
+	}
+}
+
 /**
  * @brief Displays the start screen of the game with changing images.
  *
@@ -137,6 +156,7 @@ int	ft_render_screen(t_cub *cub)
 	if (cub->started && !cub->leaving && cub->frame_time >= 0.016)
 	{
 		ft_render_action(cub);
+		ft_sprite_action(cub);
 		cub->last_time = now;
 	}
 	return (0);

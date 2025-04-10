@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 14:14:42 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/10 16:02:50 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/04/10 16:25:46 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,5 +101,7 @@ void			ft_paint_ray(t_cub *cub, int w, t_image texture);
 /* ft_dda_bonus.c */
 
 void			ft_dda(t_raycast *ray, t_map *map, bool *hit_wall, t_cub *cub, bool fov);
+
+void	ft_sprite_action(t_cub *cub);
 
 #endif //RAYCAST_BONUS_H

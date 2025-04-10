@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 19:38:45 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/09 18:05:37 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/04/10 16:37:58 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,6 @@ void	ft_update_position(t_cub *cub, double tmp_x, double tmp_y)
 
 	ray = cub->raycast;
 	tile = cub->map->matrix[(int)tmp_x][(int)tmp_y];
-	if (tile == '1')
-		return ;
 	if (tile == 'D')
 	{
 		index = ft_find_door_index(cub, (int)tmp_x, (int)tmp_y);
