@@ -10,7 +10,7 @@
  * @param map A pointer to the map structure (t_map) to be cleaned up. 
  *            The structure itself is not freed.
  */
-void	ft_clean_map(t_map *map)
+void	ft_clean_map(t_cub *cub, t_map *map)
 {
 	if (map->matrix)
 		ft_free_vector(map->matrix);
@@ -94,7 +94,7 @@ void	ft_free_vector(char **vector)
 	}
 }
 
-static void	ft_clean_doors(t_cub *cub)
+void	ft_clean_doors(t_cub *cub)
 {
 	//add brief
 	int	i;
@@ -165,7 +165,7 @@ void	ft_clean_game(t_cub *cub)
 		if (cub->filepath)
 			free(cub->filepath);
 		if (cub->map)
-			ft_clean_map(cub->map);
+			ft_clean_map(cub, cub->map);
 		if (cub->image)
 		{
 			if (cub->image->img_ptr)

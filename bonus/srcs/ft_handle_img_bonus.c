@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 18:36:57 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/09 19:56:33 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/04/10 14:55:34 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ int	ft_render_screen(t_cub *cub)
 		ft_handle_img(cub);
 		cub->last_time = now;
 	}
-	if (cub->started && cub->frame_time >= 0.016)
+	if (cub->started && !cub->leaving && cub->frame_time >= 0.016)
 	{
 		ft_render_action(cub);
 		cub->last_time = now;
