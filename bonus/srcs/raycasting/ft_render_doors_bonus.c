@@ -6,7 +6,7 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 21:06:29 by joneves-          #+#    #+#             */
-/*   Updated: 2025/04/10 21:06:30 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/04/10 22:02:01 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	ft_init_doors(t_cub *cub)
 
 	i = 0;
 	ft_init_xpm_image(cub, &cub->raycast->door_closed, "assets/door/door.xpm");
-	ft_init_xpm_image(cub, &cub->raycast->door_open, "assets/door/door14.xpm");
+	ft_init_xpm_image(cub, &cub->raycast->door_open, "assets/door/door13.xpm");
 	ft_init_xpm_image(cub, &cub->raycast->doors[0], "assets/door/door1.xpm");
 	ft_init_xpm_image(cub, &cub->raycast->doors[1], "assets/door/door2.xpm");
 	ft_init_xpm_image(cub, &cub->raycast->doors[2], "assets/door/door3.xpm");
@@ -40,8 +40,8 @@ void	ft_init_doors(t_cub *cub)
 	ft_init_xpm_image(cub, &cub->raycast->doors[9], "assets/door/door10.xpm");
 	ft_init_xpm_image(cub, &cub->raycast->doors[10], "assets/door/door11.xpm");
 	ft_init_xpm_image(cub, &cub->raycast->doors[11], "assets/door/door12.xpm");
-	ft_init_xpm_image(cub, &cub->raycast->doors[12], "assets/door/door13.xpm");
-	ft_init_xpm_image(cub, &cub->raycast->grab_go, "assets/door/grab_go.xpm");
+	ft_init_xpm_image(cub, &cub->raycast->grab_go, "assets/textures/grab_go.xpm");
+	ft_init_xpm_image(cub, &cub->raycast->grab_go2, "assets/textures/grab_go2.xpm");
 	while (i < cub->map->door_count)
 	{
 		(cub->map->door)[i].current = cub->raycast->door_closed;
@@ -94,7 +94,7 @@ void	ft_paint_internal_wall(t_cub *cub, int w)
 	matrix = cub->map->matrix;
 	if (cub->raycast->hit_side == 0 && cub->raycast->ray_dir.x < 0
 		&& tile.x + 1 < cub->map->height && matrix[tile.x + 1][tile.y] == 'D')
-		ft_paint_ray(cub, w, cub->raycast->grab_go);
+		ft_paint_ray(cub, w, cub->raycast->grab_go2);
 	else if (cub->raycast->hit_side == 0 && cub->raycast->ray_dir.x >= 0
 		&& tile.x > 0 && matrix[tile.x - 1][tile.y] == 'D')
 		ft_paint_ray(cub, w, cub->raycast->grab_go);
@@ -103,7 +103,7 @@ void	ft_paint_internal_wall(t_cub *cub, int w)
 		ft_paint_ray(cub, w, cub->raycast->grab_go);
 	else if (cub->raycast->hit_side == 1 && cub->raycast->ray_dir.y >= 0
 		&& tile.y > 0 && matrix[tile.x][tile.y - 1] == 'D')
-		ft_paint_ray(cub, w, cub->raycast->grab_go);
+		ft_paint_ray(cub, w, cub->raycast->grab_go2);
 }
 
 /**

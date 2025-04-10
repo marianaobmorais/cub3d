@@ -6,7 +6,7 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:26:59 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/10 20:50:29 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/04/10 21:58:40 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@
 # define MOVE_SPEED 8
 # define ROTATE_SPEED 3
 # define MAX_MOVE 70
-# define NUM_FRAMES 13
+# define NUM_FRAMES 12
 # define FRAME_DELTA 0.016 // ~60 FPS
 
 
@@ -144,12 +144,13 @@ typedef struct s_raycast
 	t_image			east_texture;
 	t_image			west_texture;
 	t_image			grab_go;
+	t_image			grab_go2;
 	bool			hit_door; //door
 	int				door_increment;  //door
 	t_ipoint		doors_found[10]; //door
 	t_image			door_open; //door
 	t_image			door_closed; //door
-	t_image			doors[13]; //door
+	t_image			doors[12]; //door
 	t_image			sprite_still;
 	t_image			sprite_move;
 	t_image			sprite_eat;
