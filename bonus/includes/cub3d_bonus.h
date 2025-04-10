@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:26:59 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/09 19:19:59 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/04/10 19:23:48 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -247,6 +247,7 @@ int				ft_find_door_index(t_cub *cub, int x, int y);
 void			ft_render_doors(t_cub *cub, int w);
 void			ft_init_doors(t_cub *cub);
 void			ft_clean_doors(t_cub *cub);
+void			ft_paint_internal_wall(t_cub *cub, int w);
 
 /* ft_paint_ray_door.c */
 
@@ -257,5 +258,6 @@ int				ft_render_screen(t_cub *cub);
 /* ft_draw_sprite.c */
 
 void			ft_draw_sprite(t_cub *cub, t_sprite sprite, int w);
+
 
 #endif //CUB3D_BONUS_H
