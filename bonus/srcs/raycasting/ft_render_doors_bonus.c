@@ -94,10 +94,10 @@ void	ft_paint_internal_wall(t_cub *cub, int w)
 	matrix = cub->map->matrix;
 	if (cub->raycast->hit_side == 0 && cub->raycast->ray_dir.x < 0
 		&& tile.x + 1 < cub->map->height && matrix[tile.x + 1][tile.y] == 'D')
-		ft_paint_ray(cub, w, cub->raycast->grab_go2);
+		ft_paint_ray(cub, w, cub->raycast->grab_go);
 	else if (cub->raycast->hit_side == 0 && cub->raycast->ray_dir.x >= 0
 		&& tile.x > 0 && matrix[tile.x - 1][tile.y] == 'D')
-		ft_paint_ray(cub, w, cub->raycast->grab_go);
+		ft_paint_ray(cub, w, cub->raycast->grab_go2);
 	else if (cub->raycast->hit_side == 1 && cub->raycast->ray_dir.y < 0
 		&& tile.y + 1 < cub->map->width && matrix[tile.x][tile.y + 1] == 'D')
 		ft_paint_ray(cub, w, cub->raycast->grab_go);

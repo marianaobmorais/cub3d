@@ -10,7 +10,7 @@
  * @param map A pointer to the map structure (t_map) to be cleaned up. 
  *            The structure itself is not freed.
  */
-void	ft_clean_map(t_map *map)
+void	ft_clean_map(t_cub *cub, t_map *map)
 {
 	if (map->matrix)
 		ft_free_vector(map->matrix);
@@ -32,6 +32,7 @@ void	ft_clean_map(t_map *map)
 		free(map->door);
 	if (map->sprite)
 		free(map->sprite);
+	free(cub->map);
 }
 
 /**
@@ -93,6 +94,20 @@ void	ft_free_vector(char **vector)
 	}
 }
 
+void	ft_clean_doors(t_cub *cub)
+{
+	//add brief
+	int	i;
+	
+	i = 0;
+	while (i < 13)
+	{
+		if (cub->raycast->doors[i].img_ptr)
+			mlx_destroy_image(cub->mlx, cub->raycast->doors[i].img_ptr);
+		i++;
+	}
+}
+
 /**
  * @brief Frees all images associated with the raycasting engine.
  *
@@ -125,15 +140,8 @@ static void	ft_clean_raycast(t_cub *cub)
 		mlx_destroy_image(cub->mlx, cub->raycast->door_open.img_ptr);
 	if (cub->raycast->grab_go.img_ptr)
 		mlx_destroy_image(cub->mlx, cub->raycast->grab_go.img_ptr);
-	if (cub->raycast->grab_go2.img_ptr)
-		mlx_destroy_image(cub->mlx, cub->raycast->grab_go2.img_ptr);
-	int i = 0; //fix later
-	while (i < 12)
-	{
-		if (cub->raycast->doors[i].img_ptr)
-			mlx_destroy_image(cub->mlx, cub->raycast->doors[i].img_ptr);
-		i++;
-	}
+	ft_clean_doors(cub);
+	free(cub->raycast);
 }
 
 /**
@@ -145,7 +153,7 @@ static void	ft_clean_raycast(t_cub *cub)
  * prevent memory leaks.
  * 
  * @param game A pointer to the game structure (t_game) to be cleaned up. 
- *            The structure itself is also freed.
+ *        The structure itself is also freed.
  */
 void	ft_clean_game(t_cub *cub)
 {
@@ -153,14 +161,11 @@ void	ft_clean_game(t_cub *cub)
 	if (cub)
 	{
 		if (cub->fd != -1)
-			close(cub->fd); //not sure if it's necessary
+			close(cub->fd);
 		if (cub->filepath)
 			free(cub->filepath);
 		if (cub->map)
-		{
-			ft_clean_map(cub->map);
-			free(cub->map);
-		}
+			ft_clean_map(cub, cub->map);
 		if (cub->image)
 		{
 			if (cub->image->img_ptr)
@@ -171,10 +176,7 @@ void	ft_clean_game(t_cub *cub)
 			ft_clean_hud(cub);
 		ft_clean_screens(cub);
 		if (cub->raycast)
-		{
 			ft_clean_raycast(cub);
-			free(cub->raycast);
-		}
 		if (cub->window)
 			mlx_destroy_window(cub->mlx, cub->window);
 		if (cub->mlx)

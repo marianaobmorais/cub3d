@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_bonus.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 20:51:46 by joneves-          #+#    #+#             */
-/*   Updated: 2025/04/08 18:20:35 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/04/10 14:53:18 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ typedef struct s_map
 
 bool			ft_access(char *filepath);
 bool			ft_is_ext(char *filename, char *ext);
-void			ft_clean_map(t_map *map);
+void			ft_clean_map(t_cub *cub, t_map *map);
 void			ft_load_map(char *const filepath, t_cub *cub);
 
 /* ft_map_parser_bonus.c */

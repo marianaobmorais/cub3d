@@ -42,6 +42,30 @@ void	ft_rotate(t_cub *cub, double angle)
 		+ cub->raycast->camera_plane.y * cos(angle);
 }
 
+void	ft_check_sprite_action(t_cub *cub)
+{
+	//add brief
+	int			i;
+	t_ipoint	tile;
+	t_sprite	*sprite;
+
+	i = 0;
+	tile = cub->raycast->player_tile;
+	sprite = cub->map->sprite;
+	while (i < cub->map->sprite_count)
+	{
+		if ((tile.x == sprite[i].tile.x && tile.y == sprite[i].tile.y)
+		|| (tile.x + 1 == sprite[i].tile.x && tile.y + 1 == sprite[i].tile.y)
+		|| (tile.x - 1 == sprite[i].tile.x && tile.y - 1 == sprite[i].tile.y)
+		|| (tile.x + 1 == sprite[i].tile.x && tile.y == sprite[i].tile.y)
+		|| (tile.x == sprite[i].tile.x && tile.y + 1 == sprite[i].tile.y)
+		|| (tile.x - 1 == sprite[i].tile.x && tile.y == sprite[i].tile.y)
+		|| (tile.x == sprite[i].tile.x && tile.y - 1 == sprite[i].tile.y))
+			sprite[i].sprite_action = true;
+		i++;
+	}
+}
+
 /**
  * @brief Handles player movement and rotation based on key input.
  *
@@ -72,9 +96,9 @@ static void	ft_manage_movements(int keysym, t_cub *cub)
 	if ((keysym == XK_Control_R || keysym == XK_Control_L)
 		&& cub->amount_action < BREAD_3 + 1)
 	{
-		cub->raycast->sprite_action = true;
 		cub->action = true;
 		cub->amount_action++;
+		ft_check_sprite_action(cub);
 	}
 	if (keysym == XK_space)
 		ft_open_or_close_door(cub);

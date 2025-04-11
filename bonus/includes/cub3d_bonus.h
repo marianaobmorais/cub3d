@@ -6,7 +6,7 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:26:59 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/10 21:58:40 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/04/10 14:20:01 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include "hud_bonus.h"
 # include "parser_bonus.h"
 # include "image_bonus.h"
+# include "raycast_bonus.h"
 # include <X11/keysym.h>
 # include <X11/X.h>
 # include <stdio.h> //will we use printf?
@@ -55,8 +56,6 @@
 
 /* measurements */
 
-# define WIDTH 960
-# define HEIGHT 600
 # define MOVE_SPEED 8
 # define ROTATE_SPEED 3
 # define MAX_MOVE 70
@@ -65,25 +64,6 @@
 
 
 typedef struct s_hud	t_hud;
-
-typedef struct s_sprite
-{
-	int			id;
-	int			order;
-	int			screen_w;
-	int			relative_width;
-	int			relative_height;
-	int			start_h;
-	int			end_h;
-	int			start_w;
-	int			end_w;
-	t_ipoint	tile;
-	t_dpoint	pos;
-	t_dpoint	transform;
-	t_image		img;
-	double		dist;
-	bool		status;
-}	t_sprite;
 
 typedef struct s_draw
 {
@@ -109,53 +89,6 @@ typedef struct s_door
 	int				door_side;
 	t_draw			draw;
 }	t_door;
-
-typedef struct s_raycast
-{
-	t_dpoint		player_pos;
-	t_dpoint		player_dir;
-	t_dpoint		camera_plane;
-	t_dpoint		ray_dir;
-	t_ipoint		player_tile;
-	t_ipoint		step;
-	t_ipoint		step_tile;
-	t_ipoint		mouse_pos;
-	bool			mouse_status;
-	bool			sprite_action;
-	double			move_speed;
-	double			rotate_speed;
-	double			factor;
-	double			delta_dist_x;
-	double			delta_dist_y;
-	double			dist_to_x;
-	double			dist_to_y;
-	double			perp_wall_dist;
-	double			wall_hit_value;
-	double			texture_pos;
-	double			time;
-	double			eat_time;
-	double			mouse_time;
-	int				hit_side;
-	int				wall_height;
-	int				wall_start;
-	int				wall_end;
-	t_image			north_texture;
-	t_image			south_texture;
-	t_image			east_texture;
-	t_image			west_texture;
-	t_image			grab_go;
-	t_image			grab_go2;
-	bool			hit_door; //door
-	int				door_increment;  //door
-	t_ipoint		doors_found[10]; //door
-	t_image			door_open; //door
-	t_image			door_closed; //door
-	t_image			doors[12]; //door
-	t_image			sprite_still;
-	t_image			sprite_move;
-	t_image			sprite_eat;
-	double			buffer[WIDTH]; //double check this
-}	t_raycast;
 
 typedef struct s_cub
 {
@@ -217,26 +150,7 @@ void			ft_move_up(t_cub *cub, double *tmp_x, double *tmp_y);
 void			ft_move_down(t_cub *cub, double *tmp_x, double *tmp_y);
 void			ft_update_position(t_cub *cub, double tmp_x, double tmp_y);
 
-/* ft_init_raycast_bonus.c */
 
-void			ft_init_raycast(t_cub*cub);
-
-/* ft_render_walls_bonus.c */
-
-void			ft_render_walls(t_cub *cub);
-void			ft_define_steps(t_raycast *ray);
-
-/* ft_render_sprites_bonus.c */
-
-void			ft_render_sprites(t_cub *cub);
-
-/* ft_paint_ray_bonus.c */
-
-void			ft_paint_ray(t_cub *cub, int w, t_image texture);
-
-/* ft_dda_bonus.c */
-
-void			ft_dda(t_raycast *ray, t_map *map, bool *hit_wall, t_cub *cub, bool fov);
 
 /* ft_update_doors.c */
 

@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:34:49 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/02 16:34:14 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/04/10 16:35:39 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ unsigned int	ft_get_pixel_color(t_image *source, int w, int h, t_cub *cub)
 	char			*color;
 	int				offset;
 	unsigned int	color_value;
-	(void)cub; //debug
 
 	if (!source || !source->addr || w < 0 || w > source->width
 		|| h < 0 || h > source->height)

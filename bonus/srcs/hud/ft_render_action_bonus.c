@@ -83,13 +83,6 @@ void	ft_render_action(t_cub *cub)
 			cub->duration_action = 0;
 		}
 	}
-	if (cub->raycast->sprite_action)
-	{
-		cub->raycast->eat_time += cub->frame_time;
-		if (cub->raycast->eat_time >= 4)
-		{
-			cub->raycast->sprite_action = false;
-			cub->raycast->eat_time = 0;
-		}
-	}
 }
+
+

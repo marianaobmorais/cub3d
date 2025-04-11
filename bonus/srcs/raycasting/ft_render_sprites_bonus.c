@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 15:40:10 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/09 18:14:49 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/04/10 15:56:36 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,10 +89,10 @@ static void	ft_update_sprites(t_cub *cub)
 			}
 			else if (!cub->map->sprite[i].status)
 			{
-				if (!cub->raycast->sprite_action)
-					cub->map->sprite[i].img = cub->raycast->sprite_move;
-				else
+				if (cub->map->sprite[i].sprite_action)
 					cub->map->sprite[i].img = cub->raycast->sprite_eat;
+				else
+					cub->map->sprite[i].img = cub->raycast->sprite_move;
 				cub->map->sprite[i].status = true;
 			}
 			i++;
