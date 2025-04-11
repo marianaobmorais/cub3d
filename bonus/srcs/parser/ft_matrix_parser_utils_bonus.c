@@ -6,7 +6,7 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 18:55:34 by joneves-          #+#    #+#             */
-/*   Updated: 2025/04/08 17:52:28 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/04/10 20:39:17 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,19 +130,20 @@ static bool	is_valid_line_edges(char *line, bool first_or_last)
 }
 
 /**
- * @brief Validates if a door ('D') is correctly placed in relation to walls 
- *        and players.
+ * @brief Validates if a door is correctly placed on the map with respect to\
+ *        walls and the player.
  *
- * This function ensures that when a door is found in the previous line, 
- * it is surrounded by walls ('0') or players ('P') in the current line. 
- * The door should be adjacent to valid positions (walls or players) for 
- * it to be considered valid.
+ * This function checks the door's position on the current and previous lines
+ * to ensure it follows these conditions:
+ * - If the previous line has a door 'D', it checks the surrounding characters.
+ * - The door must not be adjacent to open spaces ('0') or the player.
+ * - The door must not be adjacent to a wall ('1') on the wrong side.
  *
- * @param line The current line in the map.
- * @param previous_line The previous line in the map for vertical validation.
- * @param y The current position (index) in the line.
- *
- * @return `true` if the door is valid, `false` otherwise.
+ * @param line The current line of the map being checked.
+ * @param previous_line The line above the current one, or NULL if none.
+ * @param y The vertical position (index) being validated.
+ * @return true If the door placement is valid.
+ * @return false Otherwise.
  */
 bool	is_valid_wall_door(char *line, char *previous_line, int y)
 {
@@ -150,17 +151,12 @@ bool	is_valid_wall_door(char *line, char *previous_line, int y)
 	{
 		if (previous_line[y] == 'D')
 		{
-			if ((previous_line[y - 1] == '0' || ft_is_player(line[y - 1])) && previous_line[y + 1] != '1')
+			if ((previous_line[y - 1] == '0' || ft_is_player(line[y - 1]))
+				&& previous_line[y + 1] != '1')
 				return (false);
-			if ((previous_line[y + 1] == '0' || ft_is_player(line[y + 1])) && previous_line[y - 1] != '1')
+			if ((previous_line[y + 1] == '0' || ft_is_player(line[y + 1]))
+				&& previous_line[y - 1] != '1')
 				return (false);
-
-
-
-				
-			// if ((previous_line[y - 1] != '0' && !ft_is_player(line[y - 1]))
-			// 	|| (previous_line[y + 1] != '0' && !ft_is_player(line[y + 1])))
-			// 	return (false);
 		}
 	}
 	return (true);

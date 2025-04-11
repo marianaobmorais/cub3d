@@ -6,12 +6,24 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 23:13:41 by joneves-          #+#    #+#             */
-/*   Updated: 2025/04/05 18:59:48 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/04/10 21:03:36 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d_bonus.h"
 
+/**
+ * @brief Calculates the raycasting parameters needed for rendering the minimap.
+ *
+ * This function computes the ray's distance and delta distance in both the x 
+ * and y directions. It calculates the initial distances to the next vertical 
+ * and horizontal grid lines based on the player's position and the ray's 
+ * direction. These values are necessary for raycasting algorithms to determine 
+ * the intersection points with the walls.
+ *
+ * @param ray The raycast structure containing the player's position and ray 
+ *            direction, which will be updated with the calculated distances.
+ */
 static void	ft_get_ray_info_minimap(t_raycast *ray)
 {
 	if (ray->ray_dir.x == 0)
@@ -36,6 +48,19 @@ static void	ft_get_ray_info_minimap(t_raycast *ray)
 			* ray->delta_dist_y;
 }
 
+/**
+ * @brief Calculates the perpendicular dist to the wall for minimap rendering.
+ *
+ * This function computes the perpendicular distance from the player's position 
+ * to the nearest wall, based on the ray's direction and the side it hit. The 
+ * function ensures the calculated distance does not exceed a maximum value, 
+ * which is useful for rendering walls within a reasonable range on the minimap.
+ *
+ * @param ray The raycast structure containing the ray's distance and side, 
+ *            which will be updated with the perpendicular wall distance.
+ * @param hit_wall A flag indicating whether the ray hit a wall. If false, 
+ *                 the wall distance is set to a maximum value.
+ */
 static void	ft_get_wall_minimap(t_raycast *ray, bool hit_wall)
 {
 	double	max_dist;
@@ -50,6 +75,20 @@ static void	ft_get_wall_minimap(t_raycast *ray, bool hit_wall)
 		ray->perp_wall_dist = max_dist;
 }
 
+/**
+ * @brief Initializes the raycast structure based on the player's position 
+ *        and the given angle.
+ *
+ * This function sets up the raycast structure with the player's position and 
+ * tile coordinates, and calculates the direction of the ray based on the 
+ * specified angle. It also defines the ray's step values and computes the 
+ * ray's information for minimap rendering.
+ *
+ * @param cub The main game structure, which contains the player's position.
+ * @param ray The raycast structure to be initialized.
+ * @param angle The angle at which the ray is cast, typically based on 
+ *              player orientation.
+ */
 static void	setting_raycast(t_cub *cub, t_raycast *ray, double angle)
 {
 	ray->player_pos.x = cub->raycast->player_pos.x;
@@ -62,7 +101,23 @@ static void	setting_raycast(t_cub *cub, t_raycast *ray, double angle)
 	ft_get_ray_info_minimap(ray);
 }
 
-void	raycast_minimap(t_cub *cub, t_raycast ray, double angle)
+/**
+ * @brief Performs a raycast for minimap rendering, tracing a ray at the given 
+ *        angle and updating the minimap with the player's position and ray hit.
+ *
+ * This function casts a ray from the player's position in the specified 
+ * direction (angle), performing the DDA (Digital Differential Analyzer) 
+ * algorithm to trace the ray until it hits a wall or reaches a maximum number 
+ * of steps. It then calculates the hit position and draws the ray and player 
+ * position on the minimap.
+ *
+ * @param cub The main game structure, which contains the player's position, 
+ *            map data, and HUD settings.
+ * @param ray The raycast structure to be used for tracing the ray.
+ * @param angle The angle at which the ray is cast, typically based on the 
+ *              player's orientation.
+ */
+static void	raycast_minimap(t_cub *cub, t_raycast ray, double angle)
 {
 	t_dpoint	hit;
 	t_ipoint	ihit;
@@ -90,6 +145,17 @@ void	raycast_minimap(t_cub *cub, t_raycast ray, double angle)
 	ft_put_player(cub->image, ray.player_tile.y, ray.player_tile.x, RED);
 }
 
+/**
+ * @brief Renders the player's field of view (FOV) on the minimap.
+ *
+ * This function casts rays in the player's field of view (FOV) and draws them 
+ * on the minimap to represent the visible area. It calculates the start angle 
+ * based on the player's current direction and casts rays at intervals across 
+ * the FOV. The rays are used to update the minimap with the player's vision.
+ *
+ * @param cub The main game structure, containing the player's position, 
+ *            direction, and the map.
+ */
 void	ft_render_fov_minimap(t_cub *cub)
 {
 	t_raycast	*ray;

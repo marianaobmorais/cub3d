@@ -6,7 +6,7 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 23:11:23 by joneves-          #+#    #+#             */
-/*   Updated: 2025/04/02 20:59:15 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/04/10 20:58:12 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,46 @@ void	ft_put_player(t_image *img, int x, int y, int color)
 		{
 			offset = ((y + i) * img->line_len) + ((x + j) * (img->bpp / 8));
 			*((unsigned int *)(offset + img->addr)) = color;
+			j++;
+		}
+		i++;
+	}
+}
+
+/**
+ * @brief Draws an 'X' on the given image at the specified coordinates.
+ *
+ * This function renders a 5x5 'X' shape on the image at the given position.
+ * The 'X' is drawn by setting pixels where the row index equals the column 
+ * index (diagonal) or where the sum of the row and column indices equals 
+ * the size of the square minus 1 (anti-diagonal).
+ *
+ * @param img The image where the 'X' will be drawn.
+ * @param x The x-coordinate of the top-left corner of the 'X'.
+ * @param y The y-coordinate of the top-left corner of the 'X'.
+ * @param color The color of the 'X' to be drawn.
+ */
+void	ft_put_x(t_image *img, int x, int y, int color)
+{
+	int	offset;
+	int	i;
+	int	j;
+	int	size;
+
+	size = 5;
+	x *= size;
+	y *= size;
+	i = 0;
+	while (i < size)
+	{
+		j = 0;
+		while (j < size)
+		{
+			if (i == j || i + j == size - 1)
+			{
+				offset = ((y + i) * img->line_len) + ((x + j) * (img->bpp / 8));
+				*((unsigned int *)(offset + img->addr)) = color;
+			}
 			j++;
 		}
 		i++;

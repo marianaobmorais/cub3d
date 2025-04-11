@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:26:59 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/09 19:19:59 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/04/10 21:58:40 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@
 # define GREEN2 0xCCFF33
 # define RED 0xff1100
 # define BLACK 0x000000
+# define ORANGE 0XFFA500
 # define IGNORE 0x00FFFF
 
 /* measurements */
@@ -59,7 +60,7 @@
 # define MOVE_SPEED 8
 # define ROTATE_SPEED 3
 # define MAX_MOVE 70
-# define NUM_FRAMES 13
+# define NUM_FRAMES 12
 # define FRAME_DELTA 0.016 // ~60 FPS
 
 
@@ -143,12 +144,13 @@ typedef struct s_raycast
 	t_image			east_texture;
 	t_image			west_texture;
 	t_image			grab_go;
+	t_image			grab_go2;
 	bool			hit_door; //door
 	int				door_increment;  //door
 	t_ipoint		doors_found[10]; //door
 	t_image			door_open; //door
 	t_image			door_closed; //door
-	t_image			doors[13]; //door
+	t_image			doors[12]; //door
 	t_image			sprite_still;
 	t_image			sprite_move;
 	t_image			sprite_eat;
@@ -247,6 +249,7 @@ int				ft_find_door_index(t_cub *cub, int x, int y);
 void			ft_render_doors(t_cub *cub, int w);
 void			ft_init_doors(t_cub *cub);
 void			ft_clean_doors(t_cub *cub);
+void			ft_paint_internal_wall(t_cub *cub, int w);
 
 /* ft_paint_ray_door.c */
 
@@ -257,5 +260,6 @@ int				ft_render_screen(t_cub *cub);
 /* ft_draw_sprite.c */
 
 void			ft_draw_sprite(t_cub *cub, t_sprite sprite, int w);
+
 
 #endif //CUB3D_BONUS_H
