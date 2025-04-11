@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 14:14:42 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/10 16:25:46 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/04/11 09:52:37 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ typedef struct s_raycast
 	t_image			east_texture;
 	t_image			west_texture;
 	t_image			grab_go;
+	t_image			grab_go2;
 	bool			hit_door;
 	int				door_increment;
 	t_ipoint				doors_found[10]; //dynamic allocation?
