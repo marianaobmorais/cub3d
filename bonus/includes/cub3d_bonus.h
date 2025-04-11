@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:26:59 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/10 14:20:01 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/04/11 18:00:10 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include "hud_bonus.h"
 # include "parser_bonus.h"
 # include "image_bonus.h"
-# include "raycast_bonus.h"
+# include "raycasting_bonus.h"
 # include <X11/keysym.h>
 # include <X11/X.h>
 # include <stdio.h> //will we use printf?

@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   raycast_bonus.h                                    :+:      :+:    :+:   */
+/*   raycasting_bonus.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 14:14:42 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/11 17:58:03 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/04/11 17:59:35 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RAYCAST_BONUS_H
-# define RAYCAST_BONUS_H
+#ifndef RAYCASTING_BONUS_H
+# define RAYCASTING_BONUS_H
 
 # include "image_bonus.h"
 
@@ -109,4 +109,4 @@ void			ft_dda(t_raycast *ray, t_map *map, bool *hit_wall, t_cub *cub, bool fov);
 
 void	ft_sprite_action(t_cub *cub);
 
-#endif //RAYCAST_BONUS_H
+#endif //RAYCASTING_BONUS_H
