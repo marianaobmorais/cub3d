@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_render_action_bonus.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 22:53:48 by joneves-          #+#    #+#             */
-/*   Updated: 2025/04/10 16:27:54 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/04/10 20:44:17 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,26 +56,26 @@ static void	ft_paint_on_image(t_cub *cub, t_image *source, t_ipoint p, double t)
 }
 
 /**
- * @brief Renders the action (e.g., breadcrumbs) on the screen with progress.
+ * @brief Handles the rendering of actions in the game, such as displaying
+ *        HUD elements for actions and managing sprite actions.
  *
- * This function paints the breadcrumbs image onto the main image at a 
- * specified position, based on the current action's duration. The blending 
- * of the breadcrumbs image is controlled by the `duration_action` value, 
- * which is incremented by the frame time (`frame_time`). If the action 
- * duration exceeds 0.5s, the action is stopped and the duration is reset.
+ * This function updates the state of the action and sprite actions, 
+ * including rendering action icons on the HUD. It also manages the 
+ * duration of the action and the sprite action (e.g., eating time).
  *
- * @param cub The main game structure containing the HUD and action data.
+ * @param cub The game structure containing relevant data, including action 
+ *            durations, sprite actions, and HUD elements.
  */
 void	ft_render_action(t_cub *cub)
 {
-	//add brief
 	t_ipoint	pos;
 
 	if (cub->action)
 	{
 		pos.x = 200;
 		pos.y = HEIGHT - cub->hud->breadcrumbs.height;
-		ft_paint_on_image(cub, &cub->hud->breadcrumbs, pos, cub->duration_action);
+		ft_paint_on_image(cub, &cub->hud->breadcrumbs, pos, \
+			cub->duration_action);
 		cub->duration_action += cub->frame_time;
 		if (cub->duration_action >= 0.5)
 		{

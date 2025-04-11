@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_matrix_parser_bonus.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 18:55:25 by joneves-          #+#    #+#             */
-/*   Updated: 2025/04/08 18:44:57 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/04/10 20:40:29 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,9 +111,22 @@ static bool	ft_check_line(char *line, char *previous_line, int y, t_cub *cub)
 	return (true);
 }
 
+/**
+ * @brief Validates the placement of doors on the map.
+ *
+ * This function checks whether each door in the map has exactly one opening 
+ * adjacent to it. It checks the four neighboring cells of each door, ensuring 
+ * that only one of them is an open space ('0'). If a door has more or fewer 
+ * than one adjacent opening, it is considered invalid.
+ *
+ * @param cub The game structure containing map and door information.
+ * @param matrix The 2D array representing the map layout.
+ * @return true If all doors are valid, meaning they each have exactly one 
+ *         adjacent opening.
+ * @return false If any door has more or fewer than one adjacent opening.
+ */
 static bool	is_valid_door(t_cub *cub, char **matrix)
 {
-  //add brief
 	t_ipoint	tile;
 	int			openings;
 	int			i;
@@ -132,7 +145,6 @@ static bool	is_valid_door(t_cub *cub, char **matrix)
 			openings++;
 		if (matrix[tile.x][tile.y - 1] == '0')
 			openings++;
-		printf("[%d] y %d x %d -> openings %d \n", i, tile.y, tile.x, openings);
 		if (openings != 1)
 			return (false);
 		i++;

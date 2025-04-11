@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_render_walls_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 20:02:43 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/07 15:50:43 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/04/10 19:27:16 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,7 @@ void	ft_render_walls(t_cub *cub)
 			ft_paint_ray(cub, w, cub->raycast->east_texture);
 		if (cub->raycast->hit_side == 1 && cub->raycast->ray_dir.y < 0)
 			ft_paint_ray(cub, w, cub->raycast->west_texture);
+		ft_paint_internal_wall(cub, w);
 		if (cub->raycast->hit_door)
 			ft_render_doors(cub, w);
 		cub->raycast->buffer[w] = cub->raycast->perp_wall_dist;
