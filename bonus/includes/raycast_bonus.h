@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 14:14:42 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/11 09:52:37 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/04/11 17:58:03 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,10 @@ void			ft_define_steps(t_raycast *ray);
 /* ft_render_sprites_bonus.c */
 
 void			ft_render_sprites(t_cub *cub);
+
+/* ft_render_sprites_utils_bonus.c */
+
+void		ft_paint_external_wall(t_cub *cub, int w);
 
 /* ft_paint_ray_bonus.c */
 

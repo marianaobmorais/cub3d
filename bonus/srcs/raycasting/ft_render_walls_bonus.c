@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_render_walls_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 20:02:43 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/10 19:27:16 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/04/11 17:58:21 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ static void	ft_get_wall_hit_value(t_raycast *ray)
  */
 void	ft_render_walls(t_cub *cub)
 {
-	int		w;
+	int		w; //update brief
 	bool	stop_loop;
 
 	w = 0;
@@ -143,14 +143,7 @@ void	ft_render_walls(t_cub *cub)
 			ft_dda(cub->raycast, cub->map, &stop_loop, cub, true);
 		ft_get_wall_height(cub->raycast, cub->map);
 		ft_get_wall_hit_value(cub->raycast);
-		if (cub->raycast->hit_side == 0 && cub->raycast->ray_dir.x < 0)
-			ft_paint_ray(cub, w, cub->raycast->north_texture);
-		if (cub->raycast->hit_side == 0 && cub->raycast->ray_dir.x >= 0)
-			ft_paint_ray(cub, w, cub->raycast->south_texture);
-		if (cub->raycast->hit_side == 1 && cub->raycast->ray_dir.y >= 0)
-			ft_paint_ray(cub, w, cub->raycast->east_texture);
-		if (cub->raycast->hit_side == 1 && cub->raycast->ray_dir.y < 0)
-			ft_paint_ray(cub, w, cub->raycast->west_texture);
+		ft_paint_external_wall(cub, w);
 		ft_paint_internal_wall(cub, w);
 		if (cub->raycast->hit_door)
 			ft_render_doors(cub, w);
