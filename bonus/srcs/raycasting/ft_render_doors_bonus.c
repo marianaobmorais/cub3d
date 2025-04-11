@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_render_doors_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 21:06:29 by joneves-          #+#    #+#             */
-/*   Updated: 2025/04/10 22:02:01 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/04/11 18:09:48 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ void	ft_init_doors(t_cub *cub)
 	ft_init_xpm_image(cub, &cub->raycast->doors[9], "assets/door/door10.xpm");
 	ft_init_xpm_image(cub, &cub->raycast->doors[10], "assets/door/door11.xpm");
 	ft_init_xpm_image(cub, &cub->raycast->doors[11], "assets/door/door12.xpm");
-	ft_init_xpm_image(cub, &cub->raycast->grab_go, "assets/textures/grab_go.xpm");
-	ft_init_xpm_image(cub, &cub->raycast->grab_go2, "assets/textures/grab_go2.xpm");
+	ft_init_xpm_image(cub, &cub->raycast->grab_go, "assets/textures/g_g.xpm");
+	ft_init_xpm_image(cub, &cub->raycast->grab_go2, "assets/textures/g_g2.xpm");
 	while (i < cub->map->door_count)
 	{
 		(cub->map->door)[i].current = cub->raycast->door_closed;

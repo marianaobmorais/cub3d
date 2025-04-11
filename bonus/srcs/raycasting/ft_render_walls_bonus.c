@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 20:02:43 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/11 17:58:21 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/04/11 18:24:53 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,16 +121,22 @@ static void	ft_get_wall_hit_value(t_raycast *ray)
 }
 
 /**
- * @brief Renders walls using raycasting.
+ * @brief Casts rays and renders all visible wall segments for the current frame
  *
- * Iterates through screen columns, casts rays, determines wall hit points,
- * and renders the corresponding textures.
+ * Iterates over each vertical screen column, casting a ray from the player's
+ * perspective to determine wall intersections. For each ray, calculates
+ * intersection steps using DDA, identifies wall hit locations, computes the
+ * projected height of the wall segment, and paints the appropriate texture
+ * (external, internal, or door if applicable) based on the direction and type
+ * of hit. Stores the perpendicular wall distance in a buffer for later use
+ * (e.g., sprite rendering and depth comparison).
  *
- * @param cub A pointer to the game structure.
+ * @param cub Pointer to the main game structure containing map, raycasting, and
+ *        rendering data.
  */
 void	ft_render_walls(t_cub *cub)
 {
-	int		w; //update brief
+	int		w;
 	bool	stop_loop;
 
 	w = 0;
