@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:32:10 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/11 18:05:14 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/04/12 15:33:08 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ static void	ft_init_sprites(t_cub *cub)
  */
 static void	ft_init_wall_texture(t_cub *cub)
 {
+	//update brief
 	t_raycast	*ray;
 
 	ray = cub->raycast;
@@ -85,6 +86,8 @@ static void	ft_init_wall_texture(t_cub *cub)
 	ft_init_xpm_image(cub, &ray->south_texture, cub->map->south_texture);
 	ft_init_xpm_image(cub, &ray->east_texture, cub->map->east_texture);
 	ft_init_xpm_image(cub, &ray->west_texture, cub->map->west_texture);
+	ft_init_xpm_image(cub, &cub->raycast->grab_go, "assets/textures/g_g.xpm");
+	ft_init_xpm_image(cub, &cub->raycast->grab_go2, "assets/textures/g_g2.xpm");
 }
 
 /**

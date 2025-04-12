@@ -140,6 +140,8 @@ static void	ft_clean_raycast(t_cub *cub)
 		mlx_destroy_image(cub->mlx, cub->raycast->door_open.img_ptr);
 	if (cub->raycast->grab_go.img_ptr)
 		mlx_destroy_image(cub->mlx, cub->raycast->grab_go.img_ptr);
+	if (cub->raycast->grab_go2.img_ptr)
+		mlx_destroy_image(cub->mlx, cub->raycast->grab_go2.img_ptr);
 	ft_clean_doors(cub);
 	free(cub->raycast);
 }
