@@ -3,14 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   ft_dda_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: marianamorais <marianamorais@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 19:30:11 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/07 15:50:19 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/04/12 13:21:17 by marianamora      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d_bonus.h"
+
+static void	ft_get_door_info(t_raycast *ray, t_map *map, t_cub *cub)
+{
+	//add brief
+	int	index;
+
+	ray->door_increment++;
+	ray->doors_found[ray->door_increment].x = ray->step_tile.x;
+	ray->doors_found[cub->ray->door_increment].y = ray->step_tile.y;
+	index = ft_find_door_index(cub, ray->step_tile.x, ray->step_tile.y);
+	ray->hit_door = true;
+	map->door[index].door_tile = ray->step_tile;
+	map->door[index].door_side = ray->hit_side;
+	if (ray->hit_side == 0)
+		map->door[index].door_dist = ray->dist_to_x - ray->delta_dist_x;
+	else
+		map->door[index].door_dist = ray->dist_to_y - ray->delta_dist_y;
+}
 
 /**
  * @brief Performs the DDA (Digital Differential Analysis) algorithm for
@@ -29,7 +47,7 @@
  */
 void	ft_dda(t_raycast *ray, t_map *map, bool *stop_loop, t_cub *cub, bool fov)
 {
-	if (ray->dist_to_x < ray->dist_to_y)
+	if (ray->dist_to_x < ray->dist_to_y) //update brief
 	{
 		ray->dist_to_x += ray->delta_dist_x;
 		ray->step_tile.x += ray->step.x;
@@ -46,21 +64,7 @@ void	ft_dda(t_raycast *ray, t_map *map, bool *stop_loop, t_cub *cub, bool fov)
 		&& map->matrix[ray->step_tile.x][ray->step_tile.y])
 	{
 		if (map->matrix[ray->step_tile.x][ray->step_tile.y] == 'D' && fov)
-		{
-			cub->raycast->door_increment++;
-			cub->raycast->doors_found[cub->raycast->door_increment].x = ray->step_tile.x;
-			cub->raycast->doors_found[cub->raycast->door_increment].y = ray->step_tile.y;
-			//printf("ray steps--> x %d y %d\n", ray->step_tile.x, ray->step_tile.y);
-			int index = ft_find_door_index(cub, ray->step_tile.x, ray->step_tile.y);
-			//printf("\n \n \n index -> %d \n \n \n", index);
-			ray->hit_door = true;
-			cub->map->door[index].door_tile = ray->step_tile;
-			cub->map->door[index].door_side = ray->hit_side;
-			if (ray->hit_side == 0)
-				(cub->map->door)[index].door_dist = ray->dist_to_x - ray->delta_dist_x;
-			else
-				(cub->map->door)[index].door_dist = ray->dist_to_y - ray->delta_dist_y;
-		}
+			ft_get_door_info(ray, map, cub);
 		if (map->matrix[ray->step_tile.x][ray->step_tile.y] == '1')
 			*stop_loop = true;
 	}
