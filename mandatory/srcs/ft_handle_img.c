@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 18:36:57 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/03/26 16:38:44 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/04/12 16:01:23 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,13 +89,17 @@ static size_t	ft_get_time(void)
 int	ft_handle_img(t_cub *cub)
 {
 	size_t		now;
+	double		normalize;
 
 	now = ft_get_time();
 	cub->frame_time = (now - cub->last_time) / 1000.0;
 	if (cub->frame_time >= 0.016)
 	{
-		cub->raycast->move_speed = cub->frame_time * MOVE_SPEED;
-		cub->raycast->rotate_speed = cub->frame_time * ROTATE_SPEED;
+		normalize = cub->frame_time;
+		if (normalize > 0.02)
+			normalize = 0.016;
+		cub->raycast->move_speed = normalize * MOVE_SPEED;
+		cub->raycast->rotate_speed = normalize * ROTATE_SPEED;
 		ft_render_bg(cub->image, cub->map->ceiling_hex, cub->map->floor_hex);
 		ft_render_walls(cub);
 		mlx_put_image_to_window(cub->mlx, cub->window,
