@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_render_fov_minimap_bonus.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 23:13:41 by joneves-          #+#    #+#             */
-/*   Updated: 2025/04/10 21:03:36 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/04/12 15:44:41 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ static void	raycast_minimap(t_cub *cub, t_raycast ray, double angle)
 	steps = 0;
 	while (!hit_wall && steps < 10)
 	{
-		ft_dda(&ray, cub->map, &hit_wall, cub, false);
+		ft_dda(&ray, cub->map, &hit_wall, cub);
 		steps++;
 	}
 	ft_get_wall_minimap(&ray, hit_wall);
@@ -167,6 +167,7 @@ void	ft_render_fov_minimap(t_cub *cub)
 	ray = (t_raycast *) malloc(sizeof(t_raycast));
 	if (!ray)
 		ft_handle_error("malloc: hud ray", cub);
+	ft_memset(ray, 0, sizeof(t_raycast));
 	player_angle = atan2(cub->raycast->player_dir.x, \
 		cub->raycast->player_dir.y);
 	angle_start = player_angle - (FOV / 2);

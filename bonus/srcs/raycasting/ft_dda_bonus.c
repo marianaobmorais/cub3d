@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_dda_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marianamorais <marianamorais@student.42    +#+  +:+       +#+        */
+/*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 19:30:11 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/12 13:21:17 by marianamora      ###   ########.fr       */
+/*   Updated: 2025/04/12 15:44:19 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,10 @@ static void	ft_get_door_info(t_raycast *ray, t_map *map, t_cub *cub)
 	int	index;
 
 	ray->door_increment++;
+	if (ray->door_increment == -1)
+		return ;
 	ray->doors_found[ray->door_increment].x = ray->step_tile.x;
-	ray->doors_found[cub->ray->door_increment].y = ray->step_tile.y;
+	ray->doors_found[ray->door_increment].y = ray->step_tile.y;
 	index = ft_find_door_index(cub, ray->step_tile.x, ray->step_tile.y);
 	ray->hit_door = true;
 	map->door[index].door_tile = ray->step_tile;
@@ -45,7 +47,7 @@ static void	ft_get_door_info(t_raycast *ray, t_map *map, t_cub *cub)
  * @param map Pointer to the map structure that holds the world matrix.
  * @param stop_loop Pointer to a boolean that is set to true if a wall is hit.
  */
-void	ft_dda(t_raycast *ray, t_map *map, bool *stop_loop, t_cub *cub, bool fov)
+void	ft_dda(t_raycast *ray, t_map *map, bool *stop_loop, t_cub *cub)
 {
 	if (ray->dist_to_x < ray->dist_to_y) //update brief
 	{
@@ -63,7 +65,7 @@ void	ft_dda(t_raycast *ray, t_map *map, bool *stop_loop, t_cub *cub, bool fov)
 		&& ray->step_tile.y >= 0 && ray->step_tile.y < map->width
 		&& map->matrix[ray->step_tile.x][ray->step_tile.y])
 	{
-		if (map->matrix[ray->step_tile.x][ray->step_tile.y] == 'D' && fov)
+		if (map->matrix[ray->step_tile.x][ray->step_tile.y] == 'D')
 			ft_get_door_info(ray, map, cub);
 		if (map->matrix[ray->step_tile.x][ray->step_tile.y] == '1')
 			*stop_loop = true;
