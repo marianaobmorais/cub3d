@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_bonus.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 20:51:46 by joneves-          #+#    #+#             */
-/*   Updated: 2025/04/12 16:21:40 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/04/12 17:17:30 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,5 +110,9 @@ int				ft_arraytohex(unsigned char *rgb);
 int				ft_is_empty(char *line);
 bool			ft_valid_wall(char *line, char *previous_line, \
 	bool first_or_last);
+
+/* ft_clean_map_bonus.c */
+
+void			ft_clean_cub(t_cub *cub);
 
 #endif //PARSER_BONUS_H

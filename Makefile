@@ -47,6 +47,7 @@ B_SRCS = $(BONUS_DIR)/main_bonus.c \
 	$(BONUS_DIR)/parser/ft_matrix_parser_bonus.c \
 	$(BONUS_DIR)/parser/ft_matrix_parser_utils_bonus.c \
 	$(BONUS_DIR)/parser/ft_matrix_parser_utils_2_bonus.c \
+	$(BONUS_DIR)/parser/ft_clean_map_bonus.c \
 	$(BONUS_DIR)/parser/parser_utils_bonus.c \
 	$(BONUS_DIR)/raycasting/ft_init_raycast_bonus.c \
 	$(BONUS_DIR)/raycasting/ft_render_walls_bonus.c \
