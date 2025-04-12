@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:26:59 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/12 16:57:33 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/04/12 17:05:28 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,5 +171,9 @@ int				ft_render_screen(t_cub *cub);
 /* ft_draw_sprite.c */
 
 void			ft_draw_sprite(t_cub *cub, t_sprite sprite, int w);
+
+/* ft_manage_movements.c */
+
+void			ft_manage_movements(int keysym, t_cub *cub);
 
 #endif //CUB3D_BONUS_H

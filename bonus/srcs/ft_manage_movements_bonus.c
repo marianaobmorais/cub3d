@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:59:24 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/12 16:59:51 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/04/12 17:04:51 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static void	ft_check_sprite_action(t_cub *cub)
  * @param keysym The keycode representing the pressed key.
  * @param cub Pointer to the main game structure.
  */
-static void	ft_manage_movements(int keysym, t_cub *cub)
+void	ft_manage_movements(int keysym, t_cub *cub)
 {
 	t_dpoint	tmp;
 
