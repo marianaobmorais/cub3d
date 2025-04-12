@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 19:38:45 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/10 16:37:58 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/04/12 15:31:55 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,11 +91,13 @@ void	ft_update_position(t_cub *cub, double tmp_x, double tmp_y)
 	//update brief
 	t_raycast	*ray;
 	int			index;
-	char		tile;
 
 	ray = cub->raycast;
-	tile = cub->map->matrix[(int)tmp_x][(int)tmp_y];
-	if (tile == 'D')
+	if (!(tmp_x >= 0 && tmp_x < cub->map->height
+		&& tmp_y >= 0 && tmp_y < cub->map->width)
+		|| cub->map->matrix[(int)tmp_x][(int)tmp_y] == 32)
+		return ;
+	if (cub->map->matrix[(int)tmp_x][(int)tmp_y] == 'D')
 	{
 		index = ft_find_door_index(cub, (int)tmp_x, (int)tmp_y);
 		if (index >= 0)
@@ -106,9 +108,7 @@ void	ft_update_position(t_cub *cub, double tmp_x, double tmp_y)
 				return ;
 		}
 	}
-	if (tmp_x >= 0 && tmp_x < cub->map->height
-		&& tmp_y >= 0 && tmp_y < cub->map->width
-		&& cub->map->matrix[(int)tmp_x][(int)tmp_y] != '1'
+	if (cub->map->matrix[(int)tmp_x][(int)tmp_y] != '1'
 		&& cub->map->matrix[(int)ray->player_pos.x][(int)tmp_y] != '1'
 		&& cub->map->matrix[(int)tmp_x][(int)ray->player_pos.y] != '1')
 	{
