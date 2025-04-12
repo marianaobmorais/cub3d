@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_clean_game_utils_bonus.c                        :+:      :+:    :+:   */
+/*   ft_clean_map_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:32:10 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/12 17:16:00 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/04/12 18:08:17 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d_bonus.h"
+#include "../../includes/cub3d_bonus.h"
 
 /**
  * @brief Cleans up and frees memory allocated for the map structure.

@@ -6,42 +6,36 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 18:36:57 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/12 18:03:57 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/04/12 18:06:12 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d_bonus.h"
 
 /**
- * @brief Handles per-frame rendering and updates for the game.
+ * @brief Updates sprite actions over time (e.g. eating animation).
  *
- * Performs all rendering tasks for the current frame, including background, 
- * walls, doors, sprites, HUD elements, and the minimap. It also updates 
- * player movement and rotation speeds based on frame timing, and manages 
- * mouse input if active. Finally, it displays the rendered image to the 
- * game window using MLX.
+ * Iterates through all sprites in the map and, if a sprite is performing 
+ * an action, increments its action timer (`eat_time`) using the frame time. 
+ * Once the action duration reaches or exceeds 4 seconds, the action is 
+ * stopped and the timer is reset.
  *
- * @param cub Pointer to the main game context containing all game data.
- * @return Always returns 0.
+ * @param cub Pointer to the main game context containing map and frame data.
  */
-int	ft_handle_img(t_cub *cub)
+void	ft_sprite_action(t_cub *cub)
 {
-	double	normalize;
+	int	i;
 
-	normalize = cub->frame_time;
-	ft_render_bg(cub->image, cub->map->ceiling_hex, cub->map->floor_hex);
-	ft_update_doors(cub);
-	ft_render_walls(cub);
-	ft_render_sprites(cub);
-	ft_render_source_on_hud(cub, &cub->hud->watch, 0, 0);
-	ft_render_minimap_on_hud(cub);
-	ft_render_viewmodel(cub);
-	if (normalize > 0.02)
-		normalize = 0.016;
-	cub->raycast->move_speed = normalize * MOVE_SPEED;
-	cub->raycast->rotate_speed = normalize * ROTATE_SPEED;
-	if (!cub->raycast->mouse_status)
-		ft_mouse_hook(cub);
-	mlx_put_image_to_window(cub->mlx, cub->window, cub->image->img_ptr, 0, 0);
-	return (0);
+	i = 0;
+	while (i < cub->map->sprite_count)
+	{
+		if (cub->map->sprite[i].sprite_action)
+			cub->map->sprite[i].eat_time += cub->frame_time;
+		if (cub->map->sprite[i].eat_time >= 4)
+		{
+			cub->map->sprite[i].sprite_action = false;
+			cub->map->sprite[i].eat_time = 0;
+		}
+		i++;
+	}
 }

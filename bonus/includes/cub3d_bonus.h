@@ -6,7 +6,7 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:26:59 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/12 18:05:01 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/04/12 18:07:10 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ int				ft_handle_img(t_cub *cub);
 
 /* ft_handle_img_utils_bonus.c */
 
-int				ft_handle_img(t_cub *cub);
+void			ft_sprite_action(t_cub *cub);
 
 /* pixel_utils_bonus.c */
 
