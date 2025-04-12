@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 15:40:10 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/10 15:56:36 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/04/12 15:50:15 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ static void	ft_update_sprites(t_cub *cub)
 		}
 		cub->raycast->time = 0;
 	}
-	cub->raycast->time += 0.016;
+	cub->raycast->time += cub->frame_time;
 }
 
 /**
