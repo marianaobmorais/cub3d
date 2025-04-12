@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   hook_mouse_bonus.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/20 18:32:10 by mariaoli          #+#    #+#             */
+/*   Updated: 2025/04/12 16:59:58 by joneves-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/cub3d_bonus.h"
 
 int	ft_mouse_hook(t_cub *cub)
@@ -5,10 +17,13 @@ int	ft_mouse_hook(t_cub *cub)
 	cub->raycast->mouse_time += cub->frame_time;
 	if (cub->raycast->mouse_time >= 0.05)
 	{
-		mlx_mouse_get_pos(cub->mlx, cub->window, &cub->raycast->mouse_pos.x, &cub->raycast->mouse_pos.y);
-		if ((cub->raycast->mouse_pos.x >= 0 && cub->raycast->mouse_pos.x < WIDTH / 2))
+		mlx_mouse_get_pos(cub->mlx, cub->window, &cub->raycast->mouse_pos.x, \
+			&cub->raycast->mouse_pos.y);
+		if ((cub->raycast->mouse_pos.x >= 0
+				&& cub->raycast->mouse_pos.x < WIDTH / 2))
 			ft_rotate(cub, cub->raycast->move_speed);
-		if ((cub->raycast->mouse_pos.x > WIDTH / 2 && cub->raycast->mouse_pos.x < WIDTH))
+		if ((cub->raycast->mouse_pos.x > WIDTH / 2
+				&& cub->raycast->mouse_pos.x < WIDTH))
 			ft_rotate(cub, -cub->raycast->move_speed);
 		cub->raycast->mouse_time = 0;
 	}
