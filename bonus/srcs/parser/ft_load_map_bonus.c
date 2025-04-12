@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 18:55:47 by joneves-          #+#    #+#             */
-/*   Updated: 2025/04/09 20:16:48 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/04/12 16:36:18 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
  * @param game A pointer to the game structure (t_game) where the map structure 
  *            will be initialized.
  */
-static void	ft_init_map(t_cub *cub)
+void	ft_init_map(t_cub *cub)
 {
 	cub->map = (t_map *) malloc(sizeof(t_map));
 	if (!cub->map)
@@ -33,7 +33,6 @@ static void	ft_init_map(t_cub *cub)
 	cub->map->player_squ_y = -1;
 	cub->map->direction = -1;
 }
-
 
 /**
  * @brief Checks if a file is accessible for reading.
@@ -81,15 +80,48 @@ bool	ft_is_ext(char *filename, char *ext)
 }
 
 /**
- * @brief Loads and processes a map from the given file path.
+ * @brief Allocates and initializes memory for sprites and doors on the map.
  *
- * This function initializes the map structure, validates the file extension, 
- * and attempts to open the specified map file. It then parses the map data, 
- * allocates memory for sprites and doors, processes the map matrix, and 
- * converts RGB values to hexadecimal format.
+ * Based on the parsed map data, this function allocates memory for arrays of
+ * `t_sprite` and `t_door` structures according to `sprite_count` and
+ * `door_count`. Each structure is zero-initialized using `ft_memset`.
+ * If allocation fails, the function calls the error handler and exits the
+ * program.
  *
- * @param filepath The path to the map file.
- * @param cub The main game structure that will store the map data.
+ * @param cub Pointer to the main game structure, which contains the map data.
+ */
+static void	ft_init_map_countables(t_cub *cub)
+{
+	int	i;
+
+	i = -1;
+	cub->map->sprite = malloc(sizeof(t_sprite) * cub->map->sprite_count);
+	if (!cub->map->sprite)
+		ft_handle_error("Map: cub->map->sprite", cub);
+	while (++i < cub->map->sprite_count)
+		ft_memset(&cub->map->sprite[i], 0, sizeof(t_sprite));
+	cub->map->door = malloc(sizeof(t_door) * cub->map->door_count);
+	if (!cub->map->door)
+		ft_handle_error("Map: cub->map->door", cub);
+	i = -1;
+	while (++i < cub->map->door_count)
+		ft_memset(&cub->map->door[i], 0, sizeof(t_door));
+}
+
+/**
+ * @brief Loads and processes a map from the given file path
+ *
+ * This function validates the file extension,opens the map file for reading,
+ * parses map metadata (textures, colors, etc.) and stores it in `cub->map`, 
+ * initializes arrays for sprites and doors, converts the matrix of characters
+ * into a usable 2D game map format, converts RGB ceiling/floor color arrays
+ * into hexadecimal values.
+ * If any step fails (invalid extension, open error, memory allocation, etc.),
+ * the function triggers a controlled shutdown through the error handler.
+ *
+ * @param filepath The path to the `.cub` map file.
+ * @param cub Pointer to the main game structure that will store the parsed
+ *        map data.
  */
 void	ft_load_map(char *const filepath, t_cub *cub)
 {
@@ -103,20 +135,8 @@ void	ft_load_map(char *const filepath, t_cub *cub)
 	cub->fd = open(cub->filepath, O_RDONLY);
 	if (cub->fd == -1)
 		ft_handle_error(NULL, cub);
-	ft_init_map(cub);
 	ft_map_parser(cub->fd, cub, i);
-	cub->map->sprite = malloc(sizeof(t_sprite) * cub->map->sprite_count);
-	if (!cub->map->sprite)
-		ft_handle_error("Map: cub->map->sprite", cub);
-	i = -1;
-	while (++i < cub->map->sprite_count)
-		ft_memset(&cub->map->sprite[i], 0, sizeof(t_sprite)); //test
-	cub->map->door = malloc(sizeof(t_door) * cub->map->door_count);
-	if (!cub->map->door)
-		ft_handle_error("Map: cub->map->door", cub);
-	i = -1;
-	while (++i < cub->map->door_count)
-		ft_memset(&cub->map->door[i], 0, sizeof(t_door)); //test
+	ft_init_map_countables(cub);
 	ft_matrix_parser(cub, cub->map->matrix);
 	cub->map->ceiling_hex = ft_arraytohex(cub->map->ceiling_rgb);
 	cub->map->floor_hex = ft_arraytohex(cub->map->floor_rgb);

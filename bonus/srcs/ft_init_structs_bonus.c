@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:32:10 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/11 18:05:14 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/04/12 18:02:39 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,14 +67,15 @@ static void	ft_init_sprites(t_cub *cub)
 }
 
 /**
- * @brief Initializes wall textures from XPM files.
+ * @brief Initializes the wall textures for the raycasting engine.
  *
- * Loads wall texture images (north, south, east, and west) using the provided
- * file paths from the map structure. Each texture is stored in the
- * corresponding raycast texture slot.
+ * Loads the textures for the four cardinal directions (north, south, east,
+ * west) as well as additional textures related to specific gameplay elements
+ * such as the inside stores textures, for use in the raycasting engine. The
+ * textures are loaded from specified file paths and associated with the
+ * corresponding texture variables.
  *
- * @param cub Pointer to the main game structure containing map data and
- *        raycasting context.
+ * @param cub Pointer to the main game structure.
  */
 static void	ft_init_wall_texture(t_cub *cub)
 {
@@ -85,6 +86,8 @@ static void	ft_init_wall_texture(t_cub *cub)
 	ft_init_xpm_image(cub, &ray->south_texture, cub->map->south_texture);
 	ft_init_xpm_image(cub, &ray->east_texture, cub->map->east_texture);
 	ft_init_xpm_image(cub, &ray->west_texture, cub->map->west_texture);
+	ft_init_xpm_image(cub, &cub->raycast->grab_go, "assets/textures/g_g.xpm");
+	ft_init_xpm_image(cub, &cub->raycast->grab_go2, "assets/textures/g_g2.xpm");
 }
 
 /**
@@ -97,7 +100,7 @@ static void	ft_init_wall_texture(t_cub *cub)
  */
 static void	ft_init_image(t_cub *cub)
 {
-	cub->image = (t_image *)malloc(sizeof(t_image)); //remove later?
+	cub->image = (t_image *)malloc(sizeof(t_image));
 	if (!cub->image)
 		ft_handle_error("malloc: cub->image", cub);
 	ft_memset(cub->image, 0, sizeof(t_image));
@@ -129,6 +132,7 @@ t_cub	*ft_init_structs(t_cub *cub, char *argv)
 	if (!cub)
 		ft_handle_error("malloc:cub", cub);
 	ft_memset(cub, 0, sizeof(t_cub));
+	ft_init_map(cub);
 	ft_load_map(argv, cub);
 	cub->mlx = mlx_init();
 	if (!cub->mlx)

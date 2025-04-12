@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_matrix_parser_bonus.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 18:55:25 by joneves-          #+#    #+#             */
-/*   Updated: 2025/04/10 20:40:29 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/04/12 16:53:30 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,25 +125,25 @@ static bool	ft_check_line(char *line, char *previous_line, int y, t_cub *cub)
  *         adjacent opening.
  * @return false If any door has more or fewer than one adjacent opening.
  */
-static bool	is_valid_door(t_cub *cub, char **matrix)
+static bool	ft_is_valid_door(t_cub *cub, char **matrix)
 {
-	t_ipoint	tile;
+	t_ipoint	pos;
 	int			openings;
 	int			i;
 
 	i = 0;
 	while (i < cub->map->door_count)
 	{
-		tile.x = cub->map->door[i].tile.x;
-		tile.y = cub->map->door[i].tile.y;
+		pos.x = cub->map->door[i].tile.x;
+		pos.y = cub->map->door[i].tile.y;
 		openings = 0;
-		if (matrix[tile.x + 1][tile.y] == '0')
+		if (matrix[pos.x + 1][pos.y] == '0' || matrix[pos.x + 1][pos.y] == 'X')
 			openings++;
-		if (matrix[tile.x - 1][tile.y] == '0')
+		if (matrix[pos.x - 1][pos.y] == '0' || matrix[pos.x - 1][pos.y] == 'X')
 			openings++;
-		if (matrix[tile.x][tile.y + 1] == '0')
+		if (matrix[pos.x][pos.y + 1] == '0' || matrix[pos.x][pos.y + 1] == 'X')
 			openings++;
-		if (matrix[tile.x][tile.y - 1] == '0')
+		if (matrix[pos.x][pos.y - 1] == '0' || matrix[pos.x][pos.y - 1] == 'X')
 			openings++;
 		if (openings != 1)
 			return (false);
@@ -187,7 +187,7 @@ void	ft_matrix_parser(t_cub *cub, char **matrix)
 			ft_handle_error(MSG_MAP, cub);
 		y++;
 	}
-	if (!is_valid_door(cub, matrix))
+	if (!ft_is_valid_door(cub, matrix))
 		ft_handle_error(MSG_MAP, cub);
 	if (cub->map->player_squ_x == -1)
 		ft_handle_error(MSG_MAP, cub);

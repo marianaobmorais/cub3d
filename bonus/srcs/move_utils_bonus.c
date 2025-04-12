@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 19:38:45 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/10 16:37:58 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/04/12 16:53:58 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,38 +77,38 @@ void	ft_move_down(t_cub *cub, double *tmp_x, double *tmp_y)
 }
 
 /**
- * @brief Updates the player's position.
+ * @brief Updates the player’s position in the map if the move is valid.
  *
- * Sets the player's actual position and square (tile) position based on the 
- * temporary coordinates.
+ * This function checks if the proposed coordinates (`tmp_x`, `tmp_y`) are
+ * within map bounds, not on a space (' ') or wall ('1'), not on a open door
+ * ('D' with status != OPEN).
+ * If all conditions are met, the player's position and tile coordinates
+ * are updated in the raycasting data.
+ * This ensures that the player can move freely within walkable areas
+ * while respecting map boundaries and door logic.
  *
  * @param cub Pointer to the main game structure.
- * @param tmp_x The updated x-coordinate of the player.
- * @param tmp_y The updated y-coordinate of the player.
+ * @param tmp_x Proposed new X coordinate for the player.
+ * @param tmp_y Proposed new Y coordinate for the player.
  */
 void	ft_update_position(t_cub *cub, double tmp_x, double tmp_y)
 {
-	//update brief
 	t_raycast	*ray;
 	int			index;
-	char		tile;
 
 	ray = cub->raycast;
-	tile = cub->map->matrix[(int)tmp_x][(int)tmp_y];
-	if (tile == 'D')
+	if (!(tmp_x >= 0 && tmp_x < cub->map->height \
+		&& tmp_y >= 0 && tmp_y < cub->map->width) \
+		|| cub->map->matrix[(int)tmp_x][(int)tmp_y] == 32)
+		return ;
+	if (cub->map->matrix[(int)tmp_x][(int)tmp_y] == 'D')
 	{
 		index = ft_find_door_index(cub, (int)tmp_x, (int)tmp_y);
 		if (index >= 0)
-		{
-			if (cub->map->door[index].status == CLOSED
-				|| cub->map->door[index].status == CLOSING
-				|| cub->map->door[index].status == OPENING)
+			if (cub->map->door[index].status != OPEN)
 				return ;
-		}
 	}
-	if (tmp_x >= 0 && tmp_x < cub->map->height
-		&& tmp_y >= 0 && tmp_y < cub->map->width
-		&& cub->map->matrix[(int)tmp_x][(int)tmp_y] != '1'
+	if (cub->map->matrix[(int)tmp_x][(int)tmp_y] != '1'
 		&& cub->map->matrix[(int)ray->player_pos.x][(int)tmp_y] != '1'
 		&& cub->map->matrix[(int)tmp_x][(int)ray->player_pos.y] != '1')
 	{

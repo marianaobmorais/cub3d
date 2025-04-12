@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 20:02:43 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/11 18:24:53 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/04/12 15:44:51 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ void	ft_render_walls(t_cub *cub)
 		ft_define_steps(cub->raycast);
 		stop_loop = false;
 		while (!stop_loop)
-			ft_dda(cub->raycast, cub->map, &stop_loop, cub, true);
+			ft_dda(cub->raycast, cub->map, &stop_loop, cub);
 		ft_get_wall_height(cub->raycast, cub->map);
 		ft_get_wall_hit_value(cub->raycast);
 		ft_paint_external_wall(cub, w);

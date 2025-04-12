@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:26:59 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/11 18:00:10 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/04/12 18:07:10 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,7 @@
 # define ROTATE_SPEED 3
 # define MAX_MOVE 70
 # define NUM_FRAMES 12
-# define FRAME_DELTA 0.016 // ~60 FPS
-
+# define FRAME_DELTA 0.016
 
 typedef struct s_hud	t_hud;
 
@@ -99,7 +98,7 @@ typedef struct s_cub
 	t_map		*map;
 	char		*filepath;
 	int			fd;
-	bool		started; 
+	bool		started;
 	bool		leaving;
 	bool		action;
 	int			amount_action;
@@ -128,6 +127,10 @@ void			ft_free_vector(char **vector);
 
 int				ft_handle_img(t_cub *cub);
 
+/* ft_handle_img_utils_bonus.c */
+
+void			ft_sprite_action(t_cub *cub);
+
 /* pixel_utils_bonus.c */
 
 void			ft_put_pixel(t_image *img, int x, int y, int color);
@@ -140,6 +143,7 @@ int				ft_close_window(t_cub *cub);
 void			ft_rotate(t_cub *cub, double angle);
 
 /* hook_mouse_bonus.c */
+
 int				ft_mouse_hook(t_cub *cub);
 
 /* move_utils_bonus.c */
@@ -150,11 +154,9 @@ void			ft_move_up(t_cub *cub, double *tmp_x, double *tmp_y);
 void			ft_move_down(t_cub *cub, double *tmp_x, double *tmp_y);
 void			ft_update_position(t_cub *cub, double tmp_x, double tmp_y);
 
-
-
 /* ft_update_doors.c */
 
-void			ft_update_doors(t_cub * cub);
+void			ft_update_doors(t_cub *cub);
 void			ft_open_or_close_door(t_cub *cub);
 
 /* ft_render_doors.c */
@@ -168,12 +170,14 @@ void			ft_paint_internal_wall(t_cub *cub, int w);
 /* ft_paint_ray_door.c */
 
 void			ft_paint_ray_door(t_cub *cub, int w, t_door door);
-
 int				ft_render_screen(t_cub *cub);
 
 /* ft_draw_sprite.c */
 
 void			ft_draw_sprite(t_cub *cub, t_sprite sprite, int w);
 
+/* ft_manage_movements.c */
+
+void			ft_manage_movements(int keysym, t_cub *cub);
 
 #endif //CUB3D_BONUS_H
