@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:59:24 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/12 17:04:51 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/04/12 17:15:56 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,38 @@ static void	ft_check_sprite_action(t_cub *cub)
 }
 
 /**
- * @brief Handles player movement and rotation based on key input.
+ * @brief Updates temporary player position based on key input.
  *
- * Processes key inputs for movement (W, A, S, D) and rotation (Left, Right).
- * Updates the player's position if movement is allowed, ensuring the new 
- * position does not collide with walls.
+ * Moves the player’s position in the temporary `tmp` coordinates according
+ * to movement keys (WASD or arrow key equivalents).
+ * Does not update the actual position; that is done separately via validation.
  *
- * @param keysym The keycode representing the pressed key.
+ * @param keysym Key code representing the pressed movement key.
+ * @param cub Pointer to the main game structure.
+ * @param tmp Pointer to a temporary position used for movement calculation.
+ */
+void	ft_player_moves(int keysym, t_cub *cub, t_dpoint *tmp)
+{
+	if ((keysym == XK_A || keysym == XK_a))
+		ft_move_left(cub, &(*tmp).x, &(*tmp).y);
+	if ((keysym == XK_D || keysym == XK_d))
+		ft_move_right(cub, &(*tmp).x, &(*tmp).y);
+	if ((keysym == XK_W || keysym == XK_w))
+		ft_move_up(cub, &(*tmp).x, &(*tmp).y);
+	if ((keysym == XK_S || keysym == XK_s))
+		ft_move_down(cub, &(*tmp).x, &(*tmp).y);
+}
+
+/**
+ * @brief Handles all player-related inputs including movement, rotation, 
+ * interaction, and toggling mouse input.
+ *
+ * Processes key inputs for rotating the view, moving the player, performing
+ * actions like dropping breadcrumbs or interacting with doors, and toggling
+ * mouse movement. Movement is first calculated with a temporary position,
+ * and if valid, applied to the player's actual position.
+ *
+ * @param keysym Key code of the current input event.
  * @param cub Pointer to the main game structure.
  */
 void	ft_manage_movements(int keysym, t_cub *cub)
@@ -66,14 +91,7 @@ void	ft_manage_movements(int keysym, t_cub *cub)
 	if (keysym == XK_Right)
 		ft_rotate(cub, -cub->raycast->rotate_speed);
 	tmp = cub->raycast->player_pos;
-	if ((keysym == XK_A || keysym == XK_a))
-		ft_move_left(cub, &tmp.x, &tmp.y);
-	if ((keysym == XK_D || keysym == XK_d))
-		ft_move_right(cub, &tmp.x, &tmp.y);
-	if ((keysym == XK_W || keysym == XK_w))
-		ft_move_up(cub, &tmp.x, &tmp.y);
-	if ((keysym == XK_S || keysym == XK_s))
-		ft_move_down(cub, &tmp.x, &tmp.y);
+	ft_player_moves(keysym, cub, &tmp);
 	if ((keysym == XK_Control_R || keysym == XK_Control_L)
 		&& cub->amount_action < BREAD_3 + 1)
 	{
