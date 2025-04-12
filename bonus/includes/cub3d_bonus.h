@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:26:59 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/12 17:05:28 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/04/12 18:05:01 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,10 @@ void			ft_clean_game(t_cub *cub);
 void			ft_free_vector(char **vector);
 
 /* ft_handle_img_bonus.c */
+
+int				ft_handle_img(t_cub *cub);
+
+/* ft_handle_img_utils_bonus.c */
 
 int				ft_handle_img(t_cub *cub);
 

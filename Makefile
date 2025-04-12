@@ -32,6 +32,7 @@ SRCS = $(SRCS_DIR)/main.c \
 
 B_SRCS = $(BONUS_DIR)/main_bonus.c \
 	$(BONUS_DIR)/ft_handle_img_bonus.c \
+	$(BONUS_DIR)/ft_handle_img_utils_bonus.c \
 	$(BONUS_DIR)/hook_utils_bonus.c \
 	$(BONUS_DIR)/ft_manage_movements_bonus.c \
 	$(BONUS_DIR)/hook_mouse_bonus.c \

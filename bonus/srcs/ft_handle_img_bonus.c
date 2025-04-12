@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_handle_img_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 18:36:57 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/12 15:53:22 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/04/12 18:04:07 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,39 +60,6 @@ static void	ft_render_bg(t_image *img, int ceiling_color, int floor_color)
 }
 
 /**
- * @brief Handles the rendering of the game frame.
- *
- * This function updates the background, renders walls, 
- * draws the HUD (Heads-Up Display), and displays the final image in the
- * game window.
- *
- * @param cub Pointer to the main game structure.
- * @return Always returns 0.
- */
-int	ft_handle_img(t_cub *cub)
-{
-	double	normalize;
-	
-	//update brief
-	normalize = cub->frame_time;
-	ft_render_bg(cub->image, cub->map->ceiling_hex, cub->map->floor_hex);
-	ft_update_doors(cub);
-	ft_render_walls(cub);
-	ft_render_sprites(cub);
-	ft_render_source_on_hud(cub, &cub->hud->watch, 0, 0);
-	ft_render_minimap_on_hud(cub);
-	ft_render_viewmodel(cub);
-	if (normalize > 0.02)
-		normalize = 0.016;
-	cub->raycast->move_speed = normalize * MOVE_SPEED;
-	cub->raycast->rotate_speed = normalize * ROTATE_SPEED;
-	if (!cub->raycast->mouse_status)
-		ft_mouse_hook(cub);
-	mlx_put_image_to_window(cub->mlx, cub->window, cub->image->img_ptr, 0, 0);
-	return (0);
-}
-
-/**
  * @brief Retrieves the current time in milliseconds.
  * 
  * This function uses `gettimeofday` to obtain the current time and converts 
@@ -110,9 +77,18 @@ static size_t	ft_get_time(void)
 	return (milliseconds);
 }
 
+/**
+ * @brief Updates sprite actions over time (e.g. eating animation).
+ *
+ * Iterates through all sprites in the map and, if a sprite is performing 
+ * an action, increments its action timer (`eat_time`) using the frame time. 
+ * Once the action duration reaches or exceeds 4 seconds, the action is 
+ * stopped and the timer is reset.
+ *
+ * @param cub Pointer to the main game context containing map and frame data.
+ */
 void	ft_sprite_action(t_cub *cub)
 {
-	//add brief
 	int	i;
 
 	i = 0;
@@ -130,19 +106,19 @@ void	ft_sprite_action(t_cub *cub)
 }
 
 /**
- * @brief Displays the start screen of the game with changing images.
+ * @brief Manages frame timing and triggers rendering stages.
  *
- * This function controls the display of a start screen sequence by cycling 
- * through images at a regular interval (every 0.2 seconds). It updates the 
- * image shown on the screen and ensures smooth transitions between the 
- * images. Once all images have been displayed, the cycle restarts.
+ * Calculates the time elapsed since the last frame and determines which 
+ * rendering actions should be performed. If the game has not started and 
+ * sufficient time has passed, the start screen is displayed. If the game 
+ * has started and the player is not exiting, it proceeds to render the 
+ * frame, including the scene and sprite actions, based on the frame timing.
  *
- * @param cub Pointer to the main game structure.
- * @return 0 upon completion.
+ * @param cub Pointer to the main game context with timing and render data.
+ * @return Always returns 0.
  */
 int	ft_render_screen(t_cub *cub)
 {
-	//update brief
 	size_t		now;
 
 	now = ft_get_time();
