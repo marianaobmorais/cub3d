@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:32:10 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/12 16:19:59 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/04/12 18:02:39 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,18 +67,18 @@ static void	ft_init_sprites(t_cub *cub)
 }
 
 /**
- * @brief Initializes wall textures from XPM files.
+ * @brief Initializes the wall textures for the raycasting engine.
  *
- * Loads wall texture images (north, south, east, and west) using the provided
- * file paths from the map structure. Each texture is stored in the
- * corresponding raycast texture slot.
+ * Loads the textures for the four cardinal directions (north, south, east,
+ * west) as well as additional textures related to specific gameplay elements
+ * such as the inside stores textures, for use in the raycasting engine. The
+ * textures are loaded from specified file paths and associated with the
+ * corresponding texture variables.
  *
- * @param cub Pointer to the main game structure containing map data and
- *        raycasting context.
+ * @param cub Pointer to the main game structure.
  */
 static void	ft_init_wall_texture(t_cub *cub)
 {
-	//update brief
 	t_raycast	*ray;
 
 	ray = cub->raycast;
@@ -100,7 +100,7 @@ static void	ft_init_wall_texture(t_cub *cub)
  */
 static void	ft_init_image(t_cub *cub)
 {
-	cub->image = (t_image *)malloc(sizeof(t_image)); //remove later?
+	cub->image = (t_image *)malloc(sizeof(t_image));
 	if (!cub->image)
 		ft_handle_error("malloc: cub->image", cub);
 	ft_memset(cub->image, 0, sizeof(t_image));
