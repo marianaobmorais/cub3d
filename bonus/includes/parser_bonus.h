@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 20:51:46 by joneves-          #+#    #+#             */
-/*   Updated: 2025/04/10 14:53:18 by mariaoli         ###   ########.fr       */
+/*   Updated: 2025/04/12 16:21:40 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ typedef struct s_map
 
 /* ft_load_map_bonus.c */
 
+void			ft_init_map(t_cub *cub);
 bool			ft_access(char *filepath);
 bool			ft_is_ext(char *filename, char *ext);
 void			ft_clean_map(t_cub *cub, t_map *map);
@@ -70,8 +71,6 @@ void			ft_load_map(char *const filepath, t_cub *cub);
 
 /* ft_map_parser_bonus.c */
 
-//bool			is_valid_door(char *line, char *previous_line, int y);
-//bool			is_valid_door(t_cub *cub);
 void			ft_map_parser(int fd, t_cub *cub, int i);
 
 /* ft_map_parser_utils_bonus.c */

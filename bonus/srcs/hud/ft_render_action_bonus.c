@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_render_action_bonus.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 22:53:48 by joneves-          #+#    #+#             */
-/*   Updated: 2025/04/10 20:44:17 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/04/12 16:39:50 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,15 +56,18 @@ static void	ft_paint_on_image(t_cub *cub, t_image *source, t_ipoint p, double t)
 }
 
 /**
- * @brief Handles the rendering of actions in the game, such as displaying
- *        HUD elements for actions and managing sprite actions.
+ * @brief Renders the breadcrumbs action HUD and manages its display duration.
  *
- * This function updates the state of the action and sprite actions, 
- * including rendering action icons on the HUD. It also manages the 
- * duration of the action and the sprite action (e.g., eating time).
+ * If an action is currently active (`cub->action` is true), this function
+ * positions the breadcrumbs image near the bottom-left of the screen, renders
+ * the image using `ft_paint_on_image`, increments the action display timer
+ * (`duration_action`) based on `frame_time`.
+ * Once the display duration exceeds 0.5 seconds, the action flag is reset
+ * and the timer is cleared.
+ * This provides a short on-screen visual cue (e.g. breadcrumbs tossed) that
+ * automatically disappears after a brief moment.
  *
- * @param cub The game structure containing relevant data, including action 
- *            durations, sprite actions, and HUD elements.
+ * @param cub Pointer to the main game structure containing HUD and timing info.
  */
 void	ft_render_action(t_cub *cub)
 {
@@ -84,5 +87,3 @@ void	ft_render_action(t_cub *cub)
 		}
 	}
 }
-
-
