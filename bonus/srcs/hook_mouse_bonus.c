@@ -3,15 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   hook_mouse_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: mariaoli <mariaoli@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:32:10 by mariaoli          #+#    #+#             */
-/*   Updated: 2025/04/12 16:59:58 by joneves-         ###   ########.fr       */
+/*   Updated: 2025/04/12 17:17:59 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d_bonus.h"
 
+/**
+ * @brief Handles mouse-based view rotation in the game loop.
+ *
+ * Checks mouse position relative to the center of the screen and 
+ * rotates the player's view accordingly, simulating a first-person 
+ * look mechanic. Resets the mouse to the center every 0.05 seconds 
+ * to maintain continuous movement without bounds issues.
+ *
+ * @param cub Pointer to the main game structure.
+ * @return Always returns 0 (standard for hook functions).
+ */
 int	ft_mouse_hook(t_cub *cub)
 {
 	cub->raycast->mouse_time += cub->frame_time;
@@ -27,6 +38,6 @@ int	ft_mouse_hook(t_cub *cub)
 			ft_rotate(cub, -cub->raycast->move_speed);
 		cub->raycast->mouse_time = 0;
 	}
-	mlx_mouse_move(cub->mlx, cub->window, WIDTH / 2, HEIGHT / 2); //testing
+	mlx_mouse_move(cub->mlx, cub->window, WIDTH / 2, HEIGHT / 2);
 	return (0);
 }
