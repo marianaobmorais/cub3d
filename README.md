@@ -40,8 +40,8 @@ Follow screen instructions: `press enter`
 | `S` | Move Backward |
 | `A` | Move left |
 | `D` | Move right |
-| `← / →` | Rotate Camera |
-| `mouse move` | Rotate Camera |
+| `Left arrow` or `move mouse to left` | Rotate Camera to left |
+| `Right arrow` or `move mouse to right` | Rotate Camera to right |
 | `M` | Free mouse from rotating |
 | `CTRL` | Feed the pigeons |
 | `ESC` | Close window |
