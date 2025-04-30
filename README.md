@@ -14,7 +14,37 @@ SOON
 
 ## Build
 
-SOON
+Clone the repository: 
+```shell
+git clone https://github.com/marianaobmorais/cub3d.git
+```
+Enter the clonned directory:
+```shell
+cd cub3d
+```
+Run `make` to compile the program:
+```shell
+make bonus
+```
+## Usage
+Start the program – choose any valid map as argument:
+```shell
+./cub3D_bonus assets/maps/valid/subject_map_bonus.cub
+```
+Follow screen instructions: `press enter`
+
+### Controls
+| Key | Action |
+|---|---|
+| `W` | Move Forward |
+| `S` | Move Backward |
+| `A` | Move left |
+| `D` | Move right |
+| `← / →` | Rotate Camera |
+| `mouse move` | Rotate Camera |
+| `M` | Free mouse from rotating |
+| `CTRL` | Feed the pigeons |
+| `ESC` | Close window |
 
 ## The Norm
 
@@ -26,7 +56,7 @@ If you find any issues or have suggestions for improvements, please feel free to
 
 ### Message to students
 
-If you are searching resources to learn more about your own pipex, I encourage you to turn to your peers and the function manuals. Do not implement any code you do not understand and cannot code from scratch.
+If you are searching resources to learn more about your own cub3D, I encourage you to turn to your peers and the function manuals. Do not implement any code you do not understand and cannot code from scratch.
 
 
 <div align="center">
