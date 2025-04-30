@@ -18,7 +18,7 @@ Clone the repository:
 ```shell
 git clone https://github.com/marianaobmorais/cub3d.git
 ```
-Enter the clonned directory:
+Enter the cloned directory:
 ```shell
 cd cub3d
 ```
